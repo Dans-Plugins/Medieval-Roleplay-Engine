@@ -4,7 +4,6 @@ public class CharacterCard {
     private String name;
     private String race;
     private String subculture;
-    private String regionOfOrigin;
 
     void setName(String newName) {
         name = newName;
@@ -28,13 +27,5 @@ public class CharacterCard {
 
     String getSubculture() {
         return subculture;
-    }
-
-    void setRegionOfOrigin(String newRegion) {
-        regionOfOrigin = newRegion;
-    }
-
-    String getRegionOfOrigin() {
-        return regionOfOrigin;
     }
 }
