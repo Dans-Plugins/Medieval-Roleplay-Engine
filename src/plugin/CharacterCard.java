@@ -1,11 +1,12 @@
 package plugin;
 
 public class CharacterCard {
-    private String name = "";
-    private String race = "";
-    private String subculture = "";
+    private String name = "defaultName";
+    private String race = "defaultRace";
+    private String subculture = "defaultSubculture";
     private int age = 0;
-    private String gender = "";
+    private String gender = "defaultGender";
+    private String religion = "defaultReligion";
 
     void setName(String newName) {
         name = newName;
@@ -45,6 +46,14 @@ public class CharacterCard {
 
     String getGender() {
         return gender;
+    }
+
+    void setReligion(String newReligion) {
+        religion = newReligion;
+    }
+
+    String getReligion() {
+        return religion;
     }
 
 }
