@@ -5,6 +5,7 @@ public class CharacterCard {
     private String race = "";
     private String subculture = "";
     private int age = 0;
+    private String gender = "";
 
     void setName(String newName) {
         name = newName;
@@ -37,4 +38,13 @@ public class CharacterCard {
     int getAge() {
         return age;
     }
+
+    void setGender(String newGender) {
+        gender = newGender;
+    }
+
+    String getGender() {
+        return gender;
+    }
+
 }
