@@ -1,9 +1,10 @@
 package plugin;
 
 public class CharacterCard {
-    private String name;
-    private String race;
-    private String subculture;
+    private String name = "";
+    private String race = "";
+    private String subculture = "";
+    private int age = 0;
 
     void setName(String newName) {
         name = newName;
@@ -27,5 +28,13 @@ public class CharacterCard {
 
     String getSubculture() {
         return subculture;
+    }
+
+    void setAge(int newAge) {
+        age = newAge;
+    }
+
+    int getAge() {
+        return age;
     }
 }
