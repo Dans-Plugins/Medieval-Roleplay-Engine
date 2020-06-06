@@ -10,3 +10,4 @@ A minecraft plugin for players to use to roleplay more effectively.
 -  0.2 'Character Card Class' update
 -  0.3 'Saving/Loading' update
 -  0.4 'Card Command' update
+-  0.5 'Message Improvements' update
