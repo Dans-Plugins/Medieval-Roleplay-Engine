@@ -81,7 +81,7 @@ public class CharacterCard {
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("medieval-roleplay-engine/" + playerName + ".txt");
+            File saveFile = new File("./plugins/medieval-roleplay-engine/" + playerName + ".txt");
             if (saveFile.createNewFile()) {
                 System.out.println("Save file for character card belonging to " + playerName + " created.");
             } else {
