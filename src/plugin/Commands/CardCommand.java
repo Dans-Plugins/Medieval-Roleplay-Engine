@@ -19,8 +19,8 @@ public class CardCommand {
                     player.sendMessage("Race: " + card.getRace());
                     player.sendMessage("Subculture: " + card.getSubculture());
                     player.sendMessage("Age: " + card.getAge());
-                    player.sendMessage("Gender " + card.getGender());
-                    player.sendMessage("Religion " + card.getReligion());
+                    player.sendMessage("Gender: " + card.getGender());
+                    player.sendMessage("Religion: " + card.getReligion());
                 }
             }
         }
