@@ -1,4 +1,4 @@
-package plugin;
+package rpsystem;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import plugin.Commands.CardCommand;
+import rpsystem.Commands.CardCommand;
 
 import java.io.File;
 import java.io.FileNotFoundException;

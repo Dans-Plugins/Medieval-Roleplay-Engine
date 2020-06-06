@@ -1,5 +1,5 @@
 name: MedievalRoleplayEngine
-version: "0.2"
+version: "0.4"
 author: Daniel&Andrew
 main: plugin.Main
 api-version: "1.15"

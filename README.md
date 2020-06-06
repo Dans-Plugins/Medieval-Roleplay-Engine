@@ -8,3 +8,5 @@ A minecraft plugin for players to use to roleplay more effectively.
 # Versions
 -  0.1 Initial Build
 -  0.2 'Character Card Class' update
+-  0.3 'Saving/Loading' update
+-  0.4 'Card Command' update

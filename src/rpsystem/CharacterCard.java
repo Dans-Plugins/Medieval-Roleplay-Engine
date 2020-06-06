@@ -1,4 +1,4 @@
-package plugin;
+package rpsystem;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -88,7 +88,7 @@ public class CharacterCard {
                 System.out.println("Save file for character card belonging to " + playerName + " already exists. Altering.");
             }
 
-            FileWriter saveWriter = new FileWriter("./plugins/medievalfactions/" + playerName + ".txt");
+            FileWriter saveWriter = new FileWriter("./plugins/medieval-roleplay-engine/" + playerName + ".txt");
 
             // actual saving takes place here
             saveWriter.write(playerName + "\n");

@@ -1,8 +1,8 @@
-package plugin.Commands;
+package rpsystem.Commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import plugin.CharacterCard;
+import rpsystem.CharacterCard;
 
 import java.util.ArrayList;
 
