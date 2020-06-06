@@ -108,7 +108,26 @@ public class Main extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (label.equalsIgnoreCase("card")) {
-            CardCommand.showCard(sender, args, cards);
+            if (args.length == 0) {
+                CardCommand.showCard(sender, args, cards);
+            }
+            else {
+                if (args[0].equalsIgnoreCase("name")) {
+                    CardCommand.changeName(sender, args, cards);
+                }
+                if (args[0].equalsIgnoreCase("race")) {
+                    CardCommand.changeRace(sender, args, cards);
+                }
+                if (args[0].equalsIgnoreCase("religion")) {
+                    CardCommand.changeReligion(sender, args, cards);
+                }
+                if (args[0].equalsIgnoreCase("age")) {
+                    CardCommand.changeAge(sender, args, cards);
+                }
+                if (args[0].equalsIgnoreCase("gender")) {
+                    CardCommand.changeGender(sender, args, cards);
+                }
+            }
         }
 
         return false;

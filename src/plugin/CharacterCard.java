@@ -27,7 +27,7 @@ public class CharacterCard {
         return playerName;
     }
 
-    void setName(String newName) {
+    public void setName(String newName) {
         name = newName;
     }
 
@@ -35,7 +35,7 @@ public class CharacterCard {
         return name;
     }
 
-    void setRace(String newRace) {
+    public void setRace(String newRace) {
         race = newRace;
     }
 
@@ -51,7 +51,7 @@ public class CharacterCard {
         return subculture;
     }
 
-    void setAge(int newAge) {
+    public void setAge(int newAge) {
         age = newAge;
     }
 
@@ -59,7 +59,7 @@ public class CharacterCard {
         return age;
     }
 
-    void setGender(String newGender) {
+    public void setGender(String newGender) {
         gender = newGender;
     }
 
@@ -67,7 +67,7 @@ public class CharacterCard {
         return gender;
     }
 
-    void setReligion(String newReligion) {
+    public void setReligion(String newReligion) {
         religion = newReligion;
     }
 
