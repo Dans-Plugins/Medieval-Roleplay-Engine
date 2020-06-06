@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="MedievalRoleplayEngine">
-    <output-path>$PROJECT_DIR$/out/artifacts/MedievalRoleplayEngine</output-path>
-    <root id="archive" name="MedievalRoleplayEngine.jar" />
-  </artifact>
-</component>
