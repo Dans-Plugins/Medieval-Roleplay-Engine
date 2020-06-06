@@ -37,6 +37,9 @@ public class CardCommand {
                         card.setName(args[1]);
                         player.sendMessage("Name set! Type /card to see changes.");
                     }
+                    else {
+                        player.sendMessage("Usage: /card name (character-name)");
+                    }
 
                 }
             }
@@ -54,7 +57,9 @@ public class CardCommand {
                         card.setRace(args[1]);
                         player.sendMessage("Race set! Type /card to see changes.");
                     }
-
+                    else {
+                        player.sendMessage("Usage: /card race (character-race)");
+                    }
                 }
             }
         }
@@ -71,7 +76,9 @@ public class CardCommand {
                         card.setSubculture(args[1]);
                         player.sendMessage("Subculture set! Type /card to see changes.");
                     }
-
+                    else {
+                        player.sendMessage("Usage: /card subculture (character-subculture)");
+                    }
                 }
             }
         }
@@ -105,7 +112,9 @@ public class CardCommand {
                         card.setAge(Integer.parseInt(args[1]));
                         player.sendMessage("Age set! Type /card to see changes.");
                     }
-
+                    else {
+                        player.sendMessage("Usage: /card age (character-age)");
+                    }
                 }
             }
         }
@@ -122,7 +131,9 @@ public class CardCommand {
                         card.setGender(args[1]);
                         player.sendMessage("Gender set! Type /card to see changes.");
                     }
-
+                    else {
+                        player.sendMessage("Usage: /card gender (character-gender)");
+                    }
                 }
             }
         }
