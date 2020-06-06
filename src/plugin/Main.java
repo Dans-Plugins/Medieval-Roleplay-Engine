@@ -42,11 +42,11 @@ public class Main extends JavaPlugin implements Listener {
 
     public void saveFileNames() {
         try {
-            File saveFolder = new File("./plugins/medieval-roleplay-engine/cards/");
+            File saveFolder = new File("./plugins/medieval-roleplay-engine/");
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/medieval-roleplay-engine/cards/" + "card-player-names.txt");
+            File saveFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
             if (saveFile.createNewFile()) {
                 System.out.println("Save file for character card filenames created.");
             } else {
@@ -76,7 +76,7 @@ public class Main extends JavaPlugin implements Listener {
     public void loadCards() {
         try {
             System.out.println("Attempting to load character cards...");
-            File loadFile = new File("./plugins/medieval-roleplay-engine/cards/" + "card-player-names.txt");
+            File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
@@ -101,6 +101,7 @@ public class Main extends JavaPlugin implements Listener {
             System.out.println("Character cards successfully loaded.");
         } catch (FileNotFoundException e) {
             System.out.println("Error loading the character cards!");
+            e.printStackTrace();
         }
     }
 
