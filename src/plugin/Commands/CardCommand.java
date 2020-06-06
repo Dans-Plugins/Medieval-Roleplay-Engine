@@ -128,4 +128,20 @@ public class CardCommand {
         }
     }
 
+    public static void showPlayerInfo(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+        for (CharacterCard card : cards) {
+            if (args.length > 0) {
+                if (card.getPlayerName().equals(args[0])) {
+                    sender.sendMessage("Name: " + card.getName());
+                    sender.sendMessage("Race: " + card.getRace());
+                    sender.sendMessage("Subculture: " + card.getSubculture());
+                    sender.sendMessage("Age: " + card.getAge());
+                    sender.sendMessage("Gender: " + card.getGender());
+                    sender.sendMessage("Religion: " + card.getReligion());
+                    return;
+                }
+            }
+        }
+    }
+
 }
