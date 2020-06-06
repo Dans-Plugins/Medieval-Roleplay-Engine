@@ -19,7 +19,7 @@ public class CharacterCard {
         playerName = newName;
     }
 
-    String getPlayerName() {
+    public String getPlayerName() {
         return playerName;
     }
 
@@ -27,7 +27,7 @@ public class CharacterCard {
         name = newName;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -35,7 +35,7 @@ public class CharacterCard {
         race = newRace;
     }
 
-    String getRace() {
+    public String getRace() {
         return race;
     }
 
@@ -43,7 +43,7 @@ public class CharacterCard {
         subculture = newSubculture;
     }
 
-    String getSubculture() {
+    public String getSubculture() {
         return subculture;
     }
 
@@ -51,7 +51,7 @@ public class CharacterCard {
         age = newAge;
     }
 
-    int getAge() {
+    public int getAge() {
         return age;
     }
 
@@ -59,7 +59,7 @@ public class CharacterCard {
         gender = newGender;
     }
 
-    String getGender() {
+    public String getGender() {
         return gender;
     }
 
@@ -67,7 +67,7 @@ public class CharacterCard {
         religion = newReligion;
     }
 
-    String getReligion() {
+    public String getReligion() {
         return religion;
     }
 
