@@ -19,7 +19,6 @@ public class CardCommand {
                     player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                     player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                     player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
-                    player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
                     player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
                     player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
                     player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
