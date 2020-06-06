@@ -15,6 +15,10 @@ public class CharacterCard {
     private String gender = "defaultGender";
     private String religion = "defaultReligion";
 
+    public CharacterCard(String nameOfPlayer) {
+        playerName = nameOfPlayer;
+    }
+
     void setPlayerName(String newName) {
         playerName = newName;
     }
