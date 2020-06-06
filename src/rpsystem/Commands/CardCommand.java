@@ -1,5 +1,6 @@
 package rpsystem.Commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rpsystem.CharacterCard;
@@ -15,12 +16,13 @@ public class CardCommand {
 
                 if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
 
-                    player.sendMessage("Name: " + card.getName());
-                    player.sendMessage("Race: " + card.getRace());
-                    player.sendMessage("Subculture: " + card.getSubculture());
-                    player.sendMessage("Age: " + card.getAge());
-                    player.sendMessage("Gender: " + card.getGender());
-                    player.sendMessage("Religion: " + card.getReligion());
+                    player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
+                    player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
+                    player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
+                    player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
+                    player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
+                    player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
+                    player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
                 }
             }
         }
@@ -35,10 +37,10 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setName(args[1]);
-                        player.sendMessage("Name set! Type /card to see changes.");
+                        player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
                     }
                     else {
-                        player.sendMessage("Usage: /card name (character-name)");
+                        player.sendMessage(ChatColor.RED + "Usage: /card name (character-name)");
                     }
 
                 }
@@ -55,10 +57,10 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setRace(args[1]);
-                        player.sendMessage("Race set! Type /card to see changes.");
+                        player.sendMessage(ChatColor.GREEN + "Race set! Type /card to see changes.");
                     }
                     else {
-                        player.sendMessage("Usage: /card race (character-race)");
+                        player.sendMessage(ChatColor.RED + "Usage: /card race (character-race)");
                     }
                 }
             }
@@ -74,10 +76,10 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setSubculture(args[1]);
-                        player.sendMessage("Subculture set! Type /card to see changes.");
+                        player.sendMessage(ChatColor.GREEN + "Subculture set! Type /card to see changes.");
                     }
                     else {
-                        player.sendMessage("Usage: /card subculture (character-subculture)");
+                        player.sendMessage(ChatColor.RED + "Usage: /card subculture (character-subculture)");
                     }
                 }
             }
@@ -93,9 +95,11 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setReligion(args[1]);
-                        player.sendMessage("Religion set! Type /card to see changes.");
+                        player.sendMessage(ChatColor.GREEN + "Religion set! Type /card to see changes.");
                     }
-
+                    else {
+                        player.sendMessage(ChatColor.RED + "Usage: /card religion (character-religion)");
+                    }
                 }
             }
         }
@@ -110,10 +114,10 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setAge(Integer.parseInt(args[1]));
-                        player.sendMessage("Age set! Type /card to see changes.");
+                        player.sendMessage(ChatColor.GREEN + "Age set! Type /card to see changes.");
                     }
                     else {
-                        player.sendMessage("Usage: /card age (character-age)");
+                        player.sendMessage(ChatColor.RED + "Usage: /card age (character-age)");
                     }
                 }
             }
@@ -129,10 +133,10 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setGender(args[1]);
-                        player.sendMessage("Gender set! Type /card to see changes.");
+                        player.sendMessage(ChatColor.GREEN + "Gender set! Type /card to see changes.");
                     }
                     else {
-                        player.sendMessage("Usage: /card gender (character-gender)");
+                        player.sendMessage(ChatColor.RED + "Usage: /card gender (character-gender)");
                     }
                 }
             }
@@ -143,12 +147,12 @@ public class CardCommand {
         for (CharacterCard card : cards) {
             if (args.length > 0) {
                 if (card.getPlayerName().equals(args[0])) {
-                    sender.sendMessage("Name: " + card.getName());
-                    sender.sendMessage("Race: " + card.getRace());
-                    sender.sendMessage("Subculture: " + card.getSubculture());
-                    sender.sendMessage("Age: " + card.getAge());
-                    sender.sendMessage("Gender: " + card.getGender());
-                    sender.sendMessage("Religion: " + card.getReligion());
+                    sender.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
+                    sender.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
+                    sender.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
+                    sender.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
+                    sender.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
+                    sender.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
                     return;
                 }
             }
