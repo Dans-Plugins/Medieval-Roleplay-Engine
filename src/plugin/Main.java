@@ -118,6 +118,9 @@ public class Main extends JavaPlugin implements Listener {
                 if (args[0].equalsIgnoreCase("race")) {
                     CardCommand.changeRace(sender, args, cards);
                 }
+                if (args[0].equalsIgnoreCase("subculture")) {
+                    CardCommand.changeSubculture(sender, args, cards);
+                }
                 if (args[0].equalsIgnoreCase("religion")) {
                     CardCommand.changeReligion(sender, args, cards);
                 }

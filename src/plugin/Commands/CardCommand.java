@@ -35,6 +35,7 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setName(args[1]);
+                        player.sendMessage("Name set! Type /card to see changes.");
                     }
 
                 }
@@ -51,6 +52,24 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setRace(args[1]);
+                        player.sendMessage("Race set! Type /card to see changes.");
+                    }
+
+                }
+            }
+        }
+    }
+
+    public static void changeSubculture(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            for (CharacterCard card : cards) {
+
+                if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+
+                    if (args.length > 1) {
+                        card.setSubculture(args[1]);
+                        player.sendMessage("Subculture set! Type /card to see changes.");
                     }
 
                 }
@@ -67,6 +86,7 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setReligion(args[1]);
+                        player.sendMessage("Religion set! Type /card to see changes.");
                     }
 
                 }
@@ -83,6 +103,7 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setAge(Integer.parseInt(args[1]));
+                        player.sendMessage("Age set! Type /card to see changes.");
                     }
 
                 }
@@ -99,10 +120,12 @@ public class CardCommand {
 
                     if (args.length > 1) {
                         card.setGender(args[1]);
+                        player.sendMessage("Gender set! Type /card to see changes.");
                     }
 
                 }
             }
         }
     }
+
 }

@@ -43,7 +43,7 @@ public class CharacterCard {
         return race;
     }
 
-    void setSubculture(String newSubculture) {
+    public void setSubculture(String newSubculture) {
         subculture = newSubculture;
     }
 
