@@ -15,7 +15,7 @@ public class CardCommand {
             for (CharacterCard card : cards) {
 
                 if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
-
+                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
                     player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                     player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                     player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
@@ -147,6 +147,7 @@ public class CardCommand {
         for (CharacterCard card : cards) {
             if (args.length > 0) {
                 if (card.getPlayerName().equals(args[0])) {
+                    sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
                     sender.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                     sender.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                     sender.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
