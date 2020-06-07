@@ -114,6 +114,11 @@ public class Main extends JavaPlugin implements Listener {
             }
             else {
 
+                if (args[0].equalsIgnoreCase("help")) {
+                    CardCommand.showHelpMessage(sender);
+
+                }
+
                 if (args[0].equalsIgnoreCase("name")) {
                     CardCommand.changeName(sender, args, cards);
                     return true;
