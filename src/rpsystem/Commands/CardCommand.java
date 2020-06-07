@@ -22,7 +22,7 @@ public class CardCommand {
                     player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
                     player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
                     player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
-                    player.sendMessage("\n----------\n");
+                    player.sendMessage(ChatColor.AQUA + "\n----------\n");
                 }
             }
         }
@@ -38,7 +38,7 @@ public class CardCommand {
         sender.sendMessage(ChatColor.AQUA + "/card age (age) - Change your character's age.");
         sender.sendMessage(ChatColor.AQUA + "/card gender (gender) - Change your character's gender.");
         sender.sendMessage(ChatColor.AQUA + "/card religion (religion) - Change your character's religion.");
-        sender.sendMessage("\n----------\n");
+        sender.sendMessage(ChatColor.AQUA + "\n----------\n");
     }
 
     public static void changeName(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
@@ -167,7 +167,7 @@ public class CardCommand {
                     sender.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
                     sender.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
                     sender.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
-                    sender.sendMessage("\n----------\n");
+                    sender.sendMessage(ChatColor.AQUA + "\n----------\n");
                     return;
                 }
             }
