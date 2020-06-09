@@ -37,13 +37,13 @@ public class Main extends JavaPlugin implements Listener {
     public void onDisable() {
         System.out.println("Medieval Roleplay Engine plugin disabling....");
 
-        saveFileNames();
+        saveCardFileNames();
         saveCards();
 
         System.out.println("Medieval Roleplay Engine plugin disabled.");
     }
 
-    public void saveFileNames() {
+    public void saveCardFileNames() {
         try {
             File saveFolder = new File("./plugins/medieval-roleplay-engine/");
             if (!saveFolder.exists()) {
@@ -145,6 +145,19 @@ public class Main extends JavaPlugin implements Listener {
                 if (args[0].equalsIgnoreCase("gender")) {
                     CardCommand.changeGender(sender, args, cards);
                     return true;
+                }
+
+                if (args[0].equalsIgnoreCase("forcesave")) {
+                    if (!(sender instanceof Player)) {
+                        saveCardFileNames();
+                        saveCards();
+                    }
+                }
+
+                if (args[0].equalsIgnoreCase("forceload")) {
+                    if (!(sender instanceof Player)) {
+                        loadCards();
+                    }
                 }
             }
 
