@@ -21,7 +21,6 @@ import java.util.Scanner;
 public class Main extends JavaPlugin implements Listener {
 
     ArrayList<CharacterCard> cards = new ArrayList<>();
-    ArrayList<ChatRecord> chatRecords = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -116,8 +115,7 @@ public class Main extends JavaPlugin implements Listener {
             if (args.length == 0) {
                 CardCommand.showCard(sender, args, cards);
                 return true;
-            }
-            else {
+            } else {
 
                 if (args[0].equalsIgnoreCase("help")) {
                     CardCommand.showHelpMessage(sender);
@@ -152,39 +150,6 @@ public class Main extends JavaPlugin implements Listener {
 
             CardCommand.showPlayerInfo(sender, args, cards);
         }
-
-        // local command
-        if (label.equalsIgnoreCase("local")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                ChatRecord record = getChatRecordForPlayer(player.getName());
-                if (!record.inChat("local")) {
-                    record.toggleChat("local");
-                    player.sendMessage(ChatColor.GREEN + "You are now in the local chat!");
-                    return true;
-                } else {
-                    player.sendMessage(ChatColor.RED + "You are already in the local chat!");
-                    return false;
-                }
-            }
-            return false;
-        }
-
-        // global command
-        if (label.equalsIgnoreCase("global")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                ChatRecord record = getChatRecordForPlayer(player.getName());
-                if (!record.inChat("global")) {
-                    record.toggleChat("global");
-                    player.sendMessage(ChatColor.GREEN + "You are now in the global chat!");
-                    return true;
-                } else {
-                    player.sendMessage(ChatColor.RED + "You are already in the global chat!");
-                    return false;
-                }
-            }
-        }
         return false;
     }
 
@@ -193,10 +158,6 @@ public class Main extends JavaPlugin implements Listener {
         if (!hasCard(event.getPlayer().getName())) {
             CharacterCard newCard = new CharacterCard(event.getPlayer().getName());
             cards.add(newCard);
-        }
-        if (!hasChatRecord(event.getPlayer().getName())) {
-            ChatRecord newChatRecord = new ChatRecord(event.getPlayer().getName());
-            chatRecords.add(newChatRecord);
         }
     }
 
@@ -207,38 +168,6 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
         return false;
-    }
-
-    public boolean hasChatRecord(String playerName) {
-        for (ChatRecord chatRecord : chatRecords) {
-            if (chatRecord.getPlayerName().equalsIgnoreCase(playerName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ChatRecord getChatRecordForPlayer(String playerName) {
-        for (ChatRecord chatRecord : chatRecords) {
-            if (chatRecord.getPlayerName().equalsIgnoreCase(playerName)) {
-                return chatRecord;
-            }
-        }
-        return null;
-    }
-
-    @EventHandler()
-    public void onChat(AsyncPlayerChatEvent event) {
-        for (Player player : getServer().getOnlinePlayers()) {
-            if (getChatRecordForPlayer(event.getPlayer().getName()).getCurrentChat() == "local" && getChatRecordForPlayer(player.getName()).getCurrentChat() == "local") {
-                double distance = event.getPlayer().getLocation().distance(player.getLocation());
-                if (distance < 30) {
-                    player.sendMessage(ChatColor.AQUA + event.getMessage());
-                    event.setCancelled(true);
-                }
-            }
-        }
-
     }
 
 }
