@@ -133,9 +133,6 @@ public class CharacterCard {
                 setAge(Integer.parseInt(loadReader.nextLine()));
             }
             if (loadReader.hasNextLine()) {
-                setPlayerName(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
                 setGender(loadReader.nextLine());
             }
             if (loadReader.hasNextLine()) {
