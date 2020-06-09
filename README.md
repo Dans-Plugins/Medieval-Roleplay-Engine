@@ -12,3 +12,4 @@ A minecraft plugin for players to use to roleplay more effectively.
 -  0.4 'Card Command' update
 -  0.5 'Message Improvements' update
 -  0.6 'Help' update
+-  0.7 'Manual Saving/Loading' update
