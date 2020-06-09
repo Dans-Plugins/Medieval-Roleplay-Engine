@@ -17,7 +17,7 @@ public class ChatRecord {
         return chat;
     }
 
-    private void setChat(String newChat) {
+    public void setChat(String newChat) {
         chat = newChat;
     }
 }

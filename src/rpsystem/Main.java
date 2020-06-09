@@ -1,7 +1,9 @@
 package rpsystem;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -108,6 +110,7 @@ public class Main extends JavaPlugin implements Listener {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+        // card command
         if (label.equalsIgnoreCase("card")) {
             if (args.length == 0) {
                 CardCommand.showCard(sender, args, cards);
@@ -149,6 +152,38 @@ public class Main extends JavaPlugin implements Listener {
             CardCommand.showPlayerInfo(sender, args, cards);
         }
 
+        // local command
+        if (label.equalsIgnoreCase("local")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                ChatRecord record = getChatRecordForPlayer(player.getName());
+                if (record.getChat() != "local") {
+                    record.setChat("local");
+                    player.sendMessage(ChatColor.GREEN + "You are now in the local chat!");
+                    return true;
+                } else {
+                    player.sendMessage(ChatColor.RED + "You are already in the local chat!");
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        // global command
+        if (label.equalsIgnoreCase("global")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                ChatRecord record = getChatRecordForPlayer(player.getName());
+                if (record.getChat() != "global") {
+                    record.setChat("global");
+                    player.sendMessage(ChatColor.GREEN + "You are now in the global chat!");
+                    return true;
+                } else {
+                    player.sendMessage(ChatColor.RED + "You are already in the global chat!");
+                    return false;
+                }
+            }
+        }
         return false;
     }
 
@@ -180,6 +215,15 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
         return false;
+    }
+
+    public ChatRecord getChatRecordForPlayer(String playerName) {
+        for (ChatRecord chatRecord : chatRecords) {
+            if (chatRecord.getPlayerName().equalsIgnoreCase(playerName)) {
+                return chatRecord;
+            }
+        }
+        return null;
     }
 
 
