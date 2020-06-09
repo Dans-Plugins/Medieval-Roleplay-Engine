@@ -127,6 +127,9 @@ public class CharacterCard {
                 setRace(loadReader.nextLine());
             }
             if (loadReader.hasNextLine()) {
+                setSubculture(loadReader.nextLine());
+            }
+            if (loadReader.hasNextLine()) {
                 setAge(Integer.parseInt(loadReader.nextLine()));
             }
             if (loadReader.hasNextLine()) {
