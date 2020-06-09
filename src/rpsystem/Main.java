@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class Main extends JavaPlugin implements Listener {
 
     ArrayList<CharacterCard> cards = new ArrayList<>();
+    ArrayList<ChatRecord> chatRecords = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -157,6 +158,10 @@ public class Main extends JavaPlugin implements Listener {
             CharacterCard newCard = new CharacterCard(event.getPlayer().getName());
             cards.add(newCard);
         }
+        if (!hasChatRecord(event.getPlayer().getName())) {
+            ChatRecord newChatRecord = new ChatRecord(event.getPlayer().getName());
+            chatRecords.add(newChatRecord);
+        }
     }
 
     public boolean hasCard(String playerName) {
@@ -167,5 +172,15 @@ public class Main extends JavaPlugin implements Listener {
         }
         return false;
     }
+
+    public boolean hasChatRecord(String playerName) {
+        for (ChatRecord chatRecord : chatRecords) {
+            if (chatRecord.getPlayerName().equalsIgnoreCase(playerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

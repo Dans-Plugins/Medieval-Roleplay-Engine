@@ -9,11 +9,11 @@ public class ChatRecord {
         chat = "global";
     }
 
-    private String getPlayerName() {
+    public String getPlayerName() {
         return playerName;
     }
 
-    private String getChat() {
+    public String getChat() {
         return chat;
     }
 
