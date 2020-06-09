@@ -140,7 +140,7 @@ public class CharacterCard {
             }
 
             loadReader.close();
-            System.out.println("Character card belonging to" + playerName + " successfully loaded.");
+            System.out.println("Character card belonging to " + playerName + " successfully loaded.");
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred loading the file " + filename + ".");
