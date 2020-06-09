@@ -1,23 +1,42 @@
 package rpsystem;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ChatRecord {
     private String playerName  ="";
-    private String chat = "";
+    private String currentChat = "";
+    private HashMap<String, Boolean> chats;
 
     ChatRecord(String name) {
         playerName = name;
-        chat = "global";
+        chats.put("global", true);
+        chats.put("local", true);
+        currentChat = "global";
+    }
+
+    public void setCurrentChat(String newChat) {
+        currentChat = newChat;
+    }
+
+    public String getCurrentChat() {
+        return currentChat;
     }
 
     public String getPlayerName() {
         return playerName;
     }
 
-    public String getChat() {
-        return chat;
+    public boolean inChat(String chat) {
+        if (chats.get(chat) == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
-    public void setChat(String newChat) {
-        chat = newChat;
+    public void toggleChat(String chatToToggle) {
+        chats.put(chatToToggle, !chats.get(chatToToggle));
     }
 }

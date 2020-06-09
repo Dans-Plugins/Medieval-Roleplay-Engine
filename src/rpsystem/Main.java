@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import rpsystem.Commands.CardCommand;
@@ -157,8 +158,8 @@ public class Main extends JavaPlugin implements Listener {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 ChatRecord record = getChatRecordForPlayer(player.getName());
-                if (record.getChat() != "local") {
-                    record.setChat("local");
+                if (!record.inChat("local")) {
+                    record.toggleChat("local");
                     player.sendMessage(ChatColor.GREEN + "You are now in the local chat!");
                     return true;
                 } else {
@@ -174,8 +175,8 @@ public class Main extends JavaPlugin implements Listener {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 ChatRecord record = getChatRecordForPlayer(player.getName());
-                if (record.getChat() != "global") {
-                    record.setChat("global");
+                if (!record.inChat("global")) {
+                    record.toggleChat("global");
                     player.sendMessage(ChatColor.GREEN + "You are now in the global chat!");
                     return true;
                 } else {
@@ -226,5 +227,18 @@ public class Main extends JavaPlugin implements Listener {
         return null;
     }
 
+    @EventHandler()
+    public void onChat(AsyncPlayerChatEvent event) {
+        for (Player player : getServer().getOnlinePlayers()) {
+            if (getChatRecordForPlayer(event.getPlayer().getName()).getCurrentChat() == "local" && getChatRecordForPlayer(player.getName()).getCurrentChat() == "local") {
+                double distance = event.getPlayer().getLocation().distance(player.getLocation());
+                if (distance < 30) {
+                    player.sendMessage(ChatColor.AQUA + event.getMessage());
+                    event.setCancelled(true);
+                }
+            }
+        }
+
+    }
 
 }
