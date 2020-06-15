@@ -17,7 +17,7 @@ public class BirdCommand {
         Player player = (Player) sender;
 
         // zero args check
-        if (args.length == 0) {
+        if (args.length < 2) {
             player.sendMessage(ChatColor.RED + "Usage: /bird (player-name) (message)");
             return;
         }
@@ -33,7 +33,6 @@ public class BirdCommand {
         targetPlayer.sendMessage(ChatColor.BLUE + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName());
         targetPlayer.sendMessage(ChatColor.BLUE + "" + ChatColor.ITALIC + "'" + message + "'");
 
-
-
+        player.sendMessage(ChatColor.GREEN + "The bird flies off with your message.");
     }
 }
