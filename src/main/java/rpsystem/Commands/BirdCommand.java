@@ -40,6 +40,11 @@ public class BirdCommand {
 
         String message = createStringFromFirstArgOnwards(args);
 
+        if (!(player.getLocation().getWorld().getName().equalsIgnoreCase(targetPlayer.getLocation().getWorld().getName()))) {
+            player.sendMessage(ChatColor.RED + "You can't send a bird to a player in another world.");
+            return;
+        }
+
         double distance = player.getLocation().distance(targetPlayer.getLocation());
         int seconds = (int)distance/50;
 
