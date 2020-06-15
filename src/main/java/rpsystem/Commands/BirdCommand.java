@@ -40,7 +40,8 @@ public class BirdCommand {
 
         String message = createStringFromFirstArgOnwards(args);
 
-        int seconds = 5;
+        double distance = player.getLocation().distance(targetPlayer.getLocation());
+        int seconds = (int)distance/50;
 
         getServer().getScheduler().runTaskLater(main, new Runnable() {
             @Override
