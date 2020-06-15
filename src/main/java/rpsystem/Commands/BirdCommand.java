@@ -43,7 +43,7 @@ public class BirdCommand {
         getServer().getScheduler().runTaskLater(main, new Runnable() {
             @Override
             public void run() {
-                targetPlayer.sendMessage(ChatColor.BLUE + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName());
+                targetPlayer.sendMessage(ChatColor.BLUE + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:");
                 targetPlayer.sendMessage(ChatColor.BLUE + "" + ChatColor.ITALIC + "'" + message + "'");
                 player.sendMessage("Your bird has reached " + targetPlayer.getName() + "!");
             }
