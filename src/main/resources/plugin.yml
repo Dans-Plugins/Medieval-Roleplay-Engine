@@ -1,6 +1,6 @@
 name: MedievalRoleplayEngine
 version: "0.7"
-author: Daniel&Andrew
+author: DanTheTechMan
 main: rpsystem.Main
 api-version: "1.15"
 
