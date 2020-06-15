@@ -6,7 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import rpsystem.Commands.BirdCommand;
 import rpsystem.Commands.CardCommand;
 
 import java.io.File;
@@ -161,6 +163,12 @@ public class Main extends JavaPlugin implements Listener {
 
             CardCommand.showPlayerInfo(sender, args, cards);
         }
+
+        if (label.equalsIgnoreCase("bird")) {
+            BirdCommand command = new BirdCommand(this);
+            command.sendBird(sender, args);
+        }
+
         return false;
     }
 
