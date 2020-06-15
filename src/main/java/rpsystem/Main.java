@@ -21,6 +21,7 @@ import java.util.Scanner;
 public class Main extends JavaPlugin implements Listener {
 
     ArrayList<CharacterCard> cards = new ArrayList<>();
+    public ArrayList<String> playersWithBusyBirds = new ArrayList<>();
 
     @Override
     public void onEnable() {
