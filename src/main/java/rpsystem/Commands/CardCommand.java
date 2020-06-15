@@ -7,6 +7,8 @@ import rpsystem.CharacterCard;
 
 import java.util.ArrayList;
 
+import static rpsystem.UtilityFunctions.createStringFromFirstArgOnwards;
+
 public class CardCommand {
 
     public static void showCard(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
@@ -49,7 +51,7 @@ public class CardCommand {
                 if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
 
                     if (args.length > 1) {
-                        card.setName(args[1]);
+                        card.setName(createStringFromFirstArgOnwards(args));
                         player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
                     }
                     else {
