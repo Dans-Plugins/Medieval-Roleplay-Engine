@@ -3,12 +3,21 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitScheduler;
+import rpsystem.Main;
 
 import static org.bukkit.Bukkit.getServer;
 import static rpsystem.UtilityFunctions.createStringFromFirstArgOnwards;
 
 public class BirdCommand {
-    public static void sendBird(CommandSender sender, String[] args) {
+
+    Main main = null;
+
+    public BirdCommand(Main plugin) {
+        main = plugin;
+    }
+
+    public void sendBird(CommandSender sender, String[] args) {
         // player check
         if (!(sender instanceof Player)) {
             return;
@@ -30,8 +39,14 @@ public class BirdCommand {
         }
 
         String message = createStringFromFirstArgOnwards(args);
-        targetPlayer.sendMessage(ChatColor.BLUE + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName());
-        targetPlayer.sendMessage(ChatColor.BLUE + "" + ChatColor.ITALIC + "'" + message + "'");
+
+        getServer().getScheduler().runTaskLater(main, new Runnable() {
+            @Override
+            public void run() {
+                targetPlayer.sendMessage(ChatColor.BLUE + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName());
+                targetPlayer.sendMessage(ChatColor.BLUE + "" + ChatColor.ITALIC + "'" + message + "'");
+            }
+        }, 60);
 
         player.sendMessage(ChatColor.GREEN + "The bird flies off with your message.");
     }
