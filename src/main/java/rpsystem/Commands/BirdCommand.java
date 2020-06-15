@@ -40,6 +40,8 @@ public class BirdCommand {
 
         String message = createStringFromFirstArgOnwards(args);
 
+        int seconds = 5;
+
         getServer().getScheduler().runTaskLater(main, new Runnable() {
             @Override
             public void run() {
@@ -47,7 +49,7 @@ public class BirdCommand {
                 targetPlayer.sendMessage(ChatColor.BLUE + "" + ChatColor.ITALIC + "'" + message + "'");
                 player.sendMessage("Your bird has reached " + targetPlayer.getName() + "!");
             }
-        }, 60);
+        }, seconds * 20);
 
         player.sendMessage(ChatColor.GREEN + "The bird flies off with your message.");
     }
