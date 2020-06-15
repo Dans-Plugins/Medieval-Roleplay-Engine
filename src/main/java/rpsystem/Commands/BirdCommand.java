@@ -25,6 +25,11 @@ public class BirdCommand {
 
         Player player = (Player) sender;
 
+        if (main.playersWithBusyBirds.contains(player.getName())) {
+            player.sendMessage(ChatColor.RED + "Your bird is already on a mission!");
+            return;
+        }
+
         // zero args check
         if (args.length < 2) {
             player.sendMessage(ChatColor.RED + "Usage: /bird (player-name) (message)");
@@ -55,9 +60,12 @@ public class BirdCommand {
                 targetPlayer.sendMessage(ChatColor.GREEN + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:");
                 targetPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "'" + message + "'");
                 player.sendMessage(ChatColor.GREEN + "Your bird has reached " + targetPlayer.getName() + "!");
+                main.playersWithBusyBirds.remove(player.getName());
+
             }
         }, seconds * 20);
 
         player.sendMessage(ChatColor.GREEN + "The bird flies off with your message.");
+        main.playersWithBusyBirds.add(player.getName());
     }
 }
