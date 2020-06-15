@@ -46,7 +46,8 @@ public class BirdCommand {
         }
 
         double distance = player.getLocation().distance(targetPlayer.getLocation());
-        int seconds = (int)distance/50;
+        int blocksPerSecond = 20;
+        int seconds = (int)distance/blocksPerSecond;
 
         getServer().getScheduler().runTaskLater(main, new Runnable() {
             @Override
