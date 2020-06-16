@@ -11,4 +11,25 @@ public class UtilityFunctions {
         }
         return name.toString();
     }
+
+    public void sendMessageToPlayersWithinDistance(Player player, String message, int distance) {
+        Location playerLocation = player.getLocation();
+
+        // for every online player
+        for (Player potentialPlayer : getServer().getOnlinePlayers()) {
+
+            // if in world
+            if (potentialPlayer.getLocation().getWorld().getName() == playerLocation.getWorld().getName()) {
+
+                // if within 30 blocks
+                if (potentialPlayer.getLocation().distance(playerLocation) < 30) {
+                    potentialPlayer.sendMessage(player.getName() + ": " + message);
+                }
+            }
+        }
+
+        // send player their own message
+        player.sendMessage(player.getName() + ": " + message);
+    }
+
 }
