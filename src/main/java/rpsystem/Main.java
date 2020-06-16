@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static rpsystem.UtilityFunctions.createStringFromFirstArgOnwards;
+import static rpsystem.UtilityFunctions.sendMessageToPlayersWithinDistance;
+
 public class Main extends JavaPlugin implements Listener {
 
     ArrayList<CharacterCard> cards = new ArrayList<>();
@@ -168,6 +171,15 @@ public class Main extends JavaPlugin implements Listener {
         if (label.equalsIgnoreCase("bird")) {
             BirdCommand command = new BirdCommand(this);
             command.sendBird(sender, args);
+        }
+
+        if (label.equalsIgnoreCase("local")) {
+            if (args.length > 1) {
+                if (sender instanceof Player) {
+                    String message = createStringFromFirstArgOnwards(args);
+                    sendMessageToPlayersWithinDistance((Player) sender, message, 30);
+                }
+            }
         }
 
         return false;

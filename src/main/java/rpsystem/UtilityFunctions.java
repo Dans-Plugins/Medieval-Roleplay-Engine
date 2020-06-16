@@ -17,7 +17,7 @@ public class UtilityFunctions {
         return name.toString();
     }
 
-    public void sendMessageToPlayersWithinDistance(Player player, String message, int distance) {
+    public static void sendMessageToPlayersWithinDistance(Player player, String message, int distance) {
         Location playerLocation = player.getLocation();
 
         // for every online player
