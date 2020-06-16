@@ -1,5 +1,10 @@
 package rpsystem;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
+import static org.bukkit.Bukkit.getServer;
+
 public class UtilityFunctions {
     public static String createStringFromFirstArgOnwards(String[] args) {
         StringBuilder name = new StringBuilder();
