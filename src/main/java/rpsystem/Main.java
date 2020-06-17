@@ -189,7 +189,7 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
 
-        if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("me")) {
+        if (label.equalsIgnoreCase("global")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (playersSpeakingInLocalChat.contains(player.getName())) {
@@ -202,7 +202,7 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
 
-        if (label.equalsIgnoreCase("emote")) {
+        if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("me")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
 
