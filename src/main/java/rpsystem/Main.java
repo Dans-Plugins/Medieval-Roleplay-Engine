@@ -234,7 +234,14 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
         if (playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
-            sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName(), event.getMessage(), 25);
+            if (event.getMessage().substring(0,1).equalsIgnoreCase("*")) {
+                sendMessageToPlayersWithinDistance(event.getPlayer(), ChatColor.GRAY + "" + getCard(event.getPlayer().getName()).getName()
+                        + "" + ChatColor.ITALIC + "* " + event.getMessage(), 25);
+            }
+            else {
+                sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName()
+                        + ChatColor.BLUE + "" + "" + ": " + event.getMessage(), 25);
+            }
             event.setCancelled(true);
         }
     }
