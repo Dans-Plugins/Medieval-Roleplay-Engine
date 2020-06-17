@@ -29,7 +29,7 @@ public class UtilityFunctions {
 
                 // if within 30 blocks
                 if (potentialPlayer.getLocation().distance(playerLocation) < 30) {
-                    potentialPlayer.sendMessage(characterName + ChatColor.GRAY + "" + ChatColor.ITALIC + "" + ": " + message);
+                    potentialPlayer.sendMessage(characterName + ChatColor.BLUE + "" + ChatColor.ITALIC + "" + ": " + message);
                 }
             }
         }
