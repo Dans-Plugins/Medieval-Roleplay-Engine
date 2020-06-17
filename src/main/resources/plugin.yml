@@ -10,3 +10,4 @@ commands:
   local:
   global:
   emote:
+  me:
