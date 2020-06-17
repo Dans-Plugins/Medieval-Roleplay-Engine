@@ -202,6 +202,20 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
 
+        if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("*")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+
+                if (args.length > 0) {
+                    String message = createStringFromFirstArgOnwards(args, 0);
+
+                    if (playersSpeakingInLocalChat.contains(player.getName())) {
+                        sendMessageToPlayersWithinDistance(player, getCard(ChatColor.GRAY + "" + ChatColor.ITALIC + player.getName()).getName() + " " + message, 25);
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
@@ -234,14 +248,7 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
         if (playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
-            if (event.getMessage().substring(0,1).equalsIgnoreCase("*")) {
-                sendMessageToPlayersWithinDistance(event.getPlayer(), ChatColor.GRAY + "" + getCard(event.getPlayer().getName()).getName()
-                        + "" + ChatColor.ITALIC + "* " + event.getMessage(), 25);
-            }
-            else {
-                sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName()
-                        + ChatColor.BLUE + "" + "" + ": " + event.getMessage(), 25);
-            }
+            sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName() + ": " + ChatColor.BLUE + event.getMessage(), 25);
             event.setCancelled(true);
         }
     }
