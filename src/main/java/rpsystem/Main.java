@@ -1,10 +1,12 @@
 package rpsystem;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,10 +20,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static rpsystem.UtilityFunctions.createStringFromFirstArgOnwards;
+import static rpsystem.UtilityFunctions.sendMessageToPlayersWithinDistance;
+
 public class Main extends JavaPlugin implements Listener {
 
     ArrayList<CharacterCard> cards = new ArrayList<>();
     public ArrayList<String> playersWithBusyBirds = new ArrayList<>();
+    public ArrayList<String> playersSpeakingInLocalChat = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -170,6 +176,32 @@ public class Main extends JavaPlugin implements Listener {
             command.sendBird(sender, args);
         }
 
+        if (label.equalsIgnoreCase("local")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                if (!playersSpeakingInLocalChat.contains(player.getName())) {
+                    playersSpeakingInLocalChat.add(player.getName());
+                    player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
+                }
+                else {
+                    player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
+                }
+            }
+        }
+
+        if (label.equalsIgnoreCase("global")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                if (playersSpeakingInLocalChat.contains(player.getName())) {
+                    playersSpeakingInLocalChat.remove(player.getName());
+                    player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
+                }
+                else {
+                    player.sendMessage(ChatColor.RED + "You're already talking in global chat!");
+                }
+            }
+        }
+
         return false;
     }
 
@@ -188,6 +220,23 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
         return false;
+    }
+
+    public CharacterCard getCard(String playerName) {
+        for (CharacterCard card : cards) {
+            if (card.getPlayerName().equalsIgnoreCase(playerName)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
+    @EventHandler()
+    public void onChat(AsyncPlayerChatEvent event) {
+        if (playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
+            sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName(), event.getMessage(), 25);
+            event.setCancelled(true);
+        }
     }
 
 }

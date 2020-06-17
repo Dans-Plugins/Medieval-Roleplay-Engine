@@ -51,7 +51,7 @@ public class CardCommand {
                 if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
 
                     if (args.length > 1) {
-                        card.setName(createStringFromFirstArgOnwards(args));
+                        card.setName(createStringFromFirstArgOnwards(args, 1));
                         player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
                     }
                     else {

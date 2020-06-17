@@ -43,7 +43,7 @@ public class BirdCommand {
             return;
         }
 
-        String message = createStringFromFirstArgOnwards(args);
+        String message = createStringFromFirstArgOnwards(args, 1);
 
         if (!(player.getLocation().getWorld().getName().equalsIgnoreCase(targetPlayer.getLocation().getWorld().getName()))) {
             player.sendMessage(ChatColor.RED + "You can't send a bird to a player in another world.");

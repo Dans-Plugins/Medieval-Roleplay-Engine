@@ -1,14 +1,15 @@
 package rpsystem;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import static org.bukkit.Bukkit.getServer;
 
 public class UtilityFunctions {
-    public static String createStringFromFirstArgOnwards(String[] args) {
+    public static String createStringFromFirstArgOnwards(String[] args, int startingArg) {
         StringBuilder name = new StringBuilder();
-        for (int i = 1; i < args.length; i++) {
+        for (int i = startingArg; i < args.length; i++) {
             name.append(args[i]);
             if (!(i == args.length - 1)) {
                 name.append(" ");
@@ -17,7 +18,7 @@ public class UtilityFunctions {
         return name.toString();
     }
 
-    public void sendMessageToPlayersWithinDistance(Player player, String message, int distance) {
+    public static void sendMessageToPlayersWithinDistance(Player player, String characterName, String message, int distance) {
         Location playerLocation = player.getLocation();
 
         // for every online player
@@ -28,13 +29,10 @@ public class UtilityFunctions {
 
                 // if within 30 blocks
                 if (potentialPlayer.getLocation().distance(playerLocation) < 30) {
-                    potentialPlayer.sendMessage(player.getName() + ": " + message);
+                    potentialPlayer.sendMessage(characterName + ChatColor.BLUE + "" + ChatColor.ITALIC + "" + ": " + message);
                 }
             }
         }
-
-        // send player their own message
-        player.sendMessage(player.getName() + ": " + message);
     }
 
 }
