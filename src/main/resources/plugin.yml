@@ -8,6 +8,8 @@ commands:
   card:
   bird:
   local:
+  rp:
   global:
+  ooc:
   emote:
   me:
