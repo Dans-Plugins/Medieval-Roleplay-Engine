@@ -202,7 +202,7 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
 
-        if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("*")) {
+        if (label.equalsIgnoreCase("emote")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
 
