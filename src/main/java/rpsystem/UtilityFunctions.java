@@ -18,7 +18,7 @@ public class UtilityFunctions {
         return name.toString();
     }
 
-    public static void sendMessageToPlayersWithinDistance(Player player, String characterName, String message, int distance) {
+    public static void sendMessageToPlayersWithinDistance(Player player, String message, int distance) {
         Location playerLocation = player.getLocation();
 
         // for every online player
@@ -29,7 +29,7 @@ public class UtilityFunctions {
 
                 // if within 30 blocks
                 if (potentialPlayer.getLocation().distance(playerLocation) < 30) {
-                    potentialPlayer.sendMessage(characterName + ChatColor.BLUE + "" + ChatColor.ITALIC + "" + ": " + message);
+                    potentialPlayer.sendMessage(message);
                 }
             }
         }

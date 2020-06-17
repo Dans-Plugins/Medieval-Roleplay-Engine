@@ -1,5 +1,5 @@
 name: MedievalRoleplayEngine
-version: "0.9"
+version: "1.0"
 author: DanTheTechMan
 main: rpsystem.Main
 api-version: "1.15"
@@ -9,3 +9,5 @@ commands:
   bird:
   local:
   global:
+  emote:
+  me:
