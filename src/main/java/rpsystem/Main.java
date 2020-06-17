@@ -208,10 +208,9 @@ public class Main extends JavaPlugin implements Listener {
 
                 if (args.length > 0) {
                     String message = createStringFromFirstArgOnwards(args, 0);
+                    String characterName = getCard(player.getName()).getName();
 
-                    if (playersSpeakingInLocalChat.contains(player.getName())) {
-                        sendMessageToPlayersWithinDistance(player, getCard(ChatColor.GRAY + "" + ChatColor.ITALIC + player.getName()).getName() + " " + message, 25);
-                    }
+                    sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
                 }
             }
         }
