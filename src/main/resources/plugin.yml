@@ -8,3 +8,4 @@ commands:
   card:
   bird:
   local:
+  global:
