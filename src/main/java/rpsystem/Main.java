@@ -1,5 +1,6 @@
 package rpsystem;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -176,8 +177,8 @@ public class Main extends JavaPlugin implements Listener {
         if (label.equalsIgnoreCase("local")) {
             if (args.length > 1) {
                 if (sender instanceof Player) {
-                    String message = createStringFromFirstArgOnwards(args);
-                    sendMessageToPlayersWithinDistance((Player) sender, message, 30);
+                    String message = createStringFromFirstArgOnwards(args, 0);
+                    sendMessageToPlayersWithinDistance((Player) sender, ChatColor.YELLOW + "" + message, 30);
                 }
             }
         }

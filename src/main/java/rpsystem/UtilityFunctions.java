@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 import static org.bukkit.Bukkit.getServer;
 
 public class UtilityFunctions {
-    public static String createStringFromFirstArgOnwards(String[] args) {
+    public static String createStringFromFirstArgOnwards(String[] args, int startingArg) {
         StringBuilder name = new StringBuilder();
-        for (int i = 1; i < args.length; i++) {
+        for (int i = startingArg; i < args.length; i++) {
             name.append(args[i]);
             if (!(i == args.length - 1)) {
                 name.append(" ");
@@ -32,9 +32,6 @@ public class UtilityFunctions {
                 }
             }
         }
-
-        // send player their own message
-        player.sendMessage(player.getName() + ": " + message);
     }
 
 }

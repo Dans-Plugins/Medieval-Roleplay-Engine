@@ -6,7 +6,7 @@
 
   <groupId>KingdomProgrammers</groupId>
   <artifactId>Medieval-Roleplay-Engine</artifactId>
-  <version>v0.8</version>
+  <version>v0.9</version>
   <packaging>jar</packaging>
 
   <name>Medieval Roleplay Engine</name>
