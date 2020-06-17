@@ -184,7 +184,7 @@ public class Main extends JavaPlugin implements Listener {
                     player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
                 }
                 else {
-                    player.sendMessage(ChatColor.GREEN + "You're already talking in local chat!");
+                    player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
                 }
             }
         }
@@ -197,7 +197,7 @@ public class Main extends JavaPlugin implements Listener {
                     player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
                 }
                 else {
-                    player.sendMessage(ChatColor.GREEN + "You're already talking in global chat!");
+                    player.sendMessage(ChatColor.RED + "You're already talking in global chat!");
                 }
             }
         }
