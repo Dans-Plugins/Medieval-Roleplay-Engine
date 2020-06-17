@@ -176,7 +176,7 @@ public class Main extends JavaPlugin implements Listener {
             command.sendBird(sender, args);
         }
 
-        if (label.equalsIgnoreCase("local")) {
+        if (label.equalsIgnoreCase("local") || label.equalsIgnoreCase("rp")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (!playersSpeakingInLocalChat.contains(player.getName())) {
@@ -189,7 +189,7 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
 
-        if (label.equalsIgnoreCase("global")) {
+        if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("ooc")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (playersSpeakingInLocalChat.contains(player.getName())) {
@@ -247,7 +247,7 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
         if (playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
-            sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName() + ": " + ChatColor.BLUE + event.getMessage(), 25);
+            sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName() + ": " + ChatColor.LIGHT_PURPLE + event.getMessage(), 25);
             event.setCancelled(true);
         }
     }
