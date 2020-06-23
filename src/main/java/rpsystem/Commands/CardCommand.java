@@ -4,12 +4,20 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rpsystem.CharacterCard;
+import rpsystem.Main;
 
 import java.util.ArrayList;
 
+import static org.bukkit.Bukkit.getServer;
 import static rpsystem.UtilityFunctions.createStringFromFirstArgOnwards;
 
 public class CardCommand {
+
+    Main main = null;
+
+    public CardCommand(Main plugin) {
+        main = plugin;
+    }
 
     public static void showCard(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
@@ -43,21 +51,37 @@ public class CardCommand {
         sender.sendMessage(ChatColor.AQUA + "\n----------\n");
     }
 
-    public static void changeName(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeName(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             for (CharacterCard card : cards) {
 
-                if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+                if (!main.playersOnNameChangeCooldown.contains(player.getName())) {
+                    if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
 
-                    if (args.length > 1) {
-                        card.setName(createStringFromFirstArgOnwards(args, 1));
-                        player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
-                    }
-                    else {
-                        player.sendMessage(ChatColor.RED + "Usage: /card name (character-name)");
-                    }
+                        if (args.length > 1) {
+                            card.setName(createStringFromFirstArgOnwards(args, 1));
+                            player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
+                            // cooldown
+                            main.playersOnNameChangeCooldown.add(player.getName());
+
+                            int seconds = 300;
+                            getServer().getScheduler().runTaskLater(main, new Runnable() {
+                                @Override
+                                public void run() {
+                                    main.playersOnNameChangeCooldown.remove(player.getName());
+                                }
+                            }, seconds * 20);
+                        }
+                        else {
+                            player.sendMessage(ChatColor.RED + "Usage: /card name (character-name)");
+                        }
+
+                    }
+                }
+                else {
+                    player.sendMessage(ChatColor.RED + "You must wait before changing your name again!");
                 }
             }
         }

@@ -28,6 +28,7 @@ public class Main extends JavaPlugin implements Listener {
     ArrayList<CharacterCard> cards = new ArrayList<>();
     public ArrayList<String> playersWithBusyBirds = new ArrayList<>();
     public ArrayList<String> playersSpeakingInLocalChat = new ArrayList<>();
+    public ArrayList<String> playersOnNameChangeCooldown = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -130,7 +131,8 @@ public class Main extends JavaPlugin implements Listener {
                 }
 
                 if (args[0].equalsIgnoreCase("name")) {
-                    CardCommand.changeName(sender, args, cards);
+                    CardCommand command = new CardCommand(this);
+                    command.changeName(sender, args, cards);
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("race")) {
