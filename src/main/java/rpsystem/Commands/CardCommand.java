@@ -71,6 +71,7 @@ public class CardCommand {
                                 @Override
                                 public void run() {
                                     main.playersOnNameChangeCooldown.remove(player.getName());
+                                    player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
                                 }
                             }, seconds * 20);
                         }
