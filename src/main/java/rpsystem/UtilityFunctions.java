@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.Random;
+
 import static org.bukkit.Bukkit.getServer;
 
 public class UtilityFunctions {
@@ -33,6 +35,10 @@ public class UtilityFunctions {
                 }
             }
         }
+    }
+
+    public static int rollDice(int max) {
+        return (int)(Math.random() * max + 1);
     }
 
 }
