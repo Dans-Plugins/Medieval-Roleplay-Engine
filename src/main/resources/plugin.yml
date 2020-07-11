@@ -1,5 +1,5 @@
 name: MedievalRoleplayEngine
-version: "1.1"
+version: "1.2"
 author: DanTheTechMan
 main: rpsystem.Main
 api-version: "1.15"
@@ -13,3 +13,4 @@ commands:
   ooc:
   emote:
   me:
+  roll:

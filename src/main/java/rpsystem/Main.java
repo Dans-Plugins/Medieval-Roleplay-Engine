@@ -22,8 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static rpsystem.UtilityFunctions.createStringFromFirstArgOnwards;
-import static rpsystem.UtilityFunctions.sendMessageToPlayersWithinDistance;
+import static rpsystem.UtilityFunctions.*;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -215,6 +214,22 @@ public class Main extends JavaPlugin implements Listener {
                     String characterName = getCard(player.getName()).getName();
 
                     sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
+                }
+            }
+        }
+
+        if (label.equalsIgnoreCase("roll")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+
+                if (args.length > 0) {
+                    try {
+                        int max = Integer.parseInt(args[0]);
+                        sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max), 25);
+                    }
+                    catch(Exception ignored) {
+
+                    }
                 }
             }
         }
