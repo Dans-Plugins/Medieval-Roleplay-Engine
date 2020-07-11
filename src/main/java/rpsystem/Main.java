@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -251,6 +253,26 @@ public class Main extends JavaPlugin implements Listener {
         if (playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
             sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName() + ": " + ChatColor.LIGHT_PURPLE + event.getMessage(), 25);
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler()
+    public void onRightClick(PlayerInteractAtEntityEvent event) {
+        if (event.getRightClicked() instanceof Player) {
+
+            Player target = (Player) event.getRightClicked();
+            CharacterCard card = getCard(target.getName());
+
+            Player player = event.getPlayer();
+
+            player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
+            player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
+            player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
+            player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
+            player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
+            player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
+            player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
+            player.sendMessage(ChatColor.AQUA + "\n----------\n");
         }
     }
 

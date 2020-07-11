@@ -16,3 +16,4 @@ A minecraft plugin for players to use to roleplay more effectively.
 -  0.8 'Messenger Birds' update
 -  0.9 'Chat System' update
 -  1.0 'Emotes' update
+-  1.1 'Right Click To View' update
