@@ -218,14 +218,14 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
 
-        if (label.equalsIgnoreCase("roll")) {
+        if (label.equalsIgnoreCase("roll") || label.equalsIgnoreCase("dice")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
 
                 if (args.length > 0) {
                     try {
                         int max = Integer.parseInt(args[0]);
-                        sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max), 25);
+                        sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
                     }
                     catch(Exception ignored) {
 
