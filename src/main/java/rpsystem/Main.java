@@ -26,10 +26,14 @@ import static rpsystem.UtilityFunctions.*;
 
 public class Main extends JavaPlugin implements Listener {
 
+    // saved
     ArrayList<CharacterCard> cards = new ArrayList<>();
+
+    // temporary
     public ArrayList<String> playersWithBusyBirds = new ArrayList<>();
     public ArrayList<String> playersSpeakingInLocalChat = new ArrayList<>();
     public ArrayList<String> playersOnNameChangeCooldown = new ArrayList<>();
+    public ArrayList<String> playersWithRightClickCooldown = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -266,7 +270,7 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
         if (playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
-            sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName() + ": " + ChatColor.LIGHT_PURPLE + event.getMessage(), 25);
+            sendMessageToPlayersWithinDistance(event.getPlayer(), getCard(event.getPlayer().getName()).getName() + ": \"" +  + event.getMessage() + "\"", 25);
             event.setCancelled(true);
         }
     }
@@ -280,6 +284,8 @@ public class Main extends JavaPlugin implements Listener {
 
             Player player = event.getPlayer();
 
+            playersWithRightClickCooldown.add(player.getName());
+
             player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
             player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
             player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
@@ -288,6 +294,15 @@ public class Main extends JavaPlugin implements Listener {
             player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
             player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
             player.sendMessage(ChatColor.AQUA + "\n----------\n");
+
+            int seconds = 1;
+            getServer().getScheduler().runTaskLater(main, new Runnable() {
+                @Override
+                public void run() {
+                    playersWithRightClickCooldown.remove(player.getName());
+
+                }
+            }, seconds * 20);
         }
     }
 
