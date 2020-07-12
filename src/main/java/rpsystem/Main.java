@@ -288,14 +288,13 @@ public class Main extends JavaPlugin implements Listener {
                 playersWithRightClickCooldown.add(player.getName());
 
 
-                player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
+                player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + card.getPlayerName() + " == ");
                 player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                 player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                 player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
                 player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
                 player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
                 player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
-                player.sendMessage(ChatColor.AQUA + "\n----------\n");
 
                 int seconds = 2;
                 getServer().getScheduler().runTaskLater(this, new Runnable() {
