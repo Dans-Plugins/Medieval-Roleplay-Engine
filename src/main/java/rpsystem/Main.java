@@ -296,7 +296,7 @@ public class Main extends JavaPlugin implements Listener {
             player.sendMessage(ChatColor.AQUA + "\n----------\n");
 
             int seconds = 1;
-            getServer().getScheduler().runTaskLater(main, new Runnable() {
+            getServer().getScheduler().runTaskLater(this, new Runnable() {
                 @Override
                 public void run() {
                     playersWithRightClickCooldown.remove(player.getName());
