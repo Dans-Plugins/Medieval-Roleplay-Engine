@@ -18,3 +18,4 @@ A minecraft plugin for players to use to roleplay more effectively.
 -  1.0 'Emotes' update
 -  1.1 'Right Click To View' update
 -  1.2 'Dice Roll' update
+-  1.3 'Permissions' update
