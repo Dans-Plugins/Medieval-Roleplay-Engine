@@ -46,7 +46,7 @@ public class CardCommand {
     }
 
     public static void showHelpMessage(CommandSender sender) {
-        if (sender instanceof player) {
+        if (sender instanceof Player) {
 
             Player player = (Player) sender;
 
