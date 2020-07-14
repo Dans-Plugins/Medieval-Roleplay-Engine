@@ -162,16 +162,32 @@ public class Main extends JavaPlugin implements Listener {
                 }
 
                 if (args[0].equalsIgnoreCase("forcesave")) {
-                    if (!(sender instanceof Player)) {
-                        saveCardFileNames();
-                        saveCards();
+                    if (sender instanceof Player) {
+                        Player player = (Player) sender;
+
+                        if (player.hasPermission("rp.forcesave") || player.hasPermission("rp.admin")) {
+                            saveCardFileNames();
+                            saveCards();
+                        }
+                        else {
+                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.forcesave'");
+                            return false;
+                        }
+
                     }
                 }
 
                 if (args[0].equalsIgnoreCase("forceload")) {
-                    if (!(sender instanceof Player)) {
-                        loadCards();
+                    if (player.hasPermission("rp.forceload") || player.hasPermission("rp.admin")) {
+                        if (!(sender instanceof Player)) {
+                            loadCards();
+                        }
                     }
+                    else {
+                        player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.forceload'");
+                        return false;
+                    }
+
                 }
             }
 
