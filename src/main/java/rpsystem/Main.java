@@ -162,20 +162,36 @@ public class Main extends JavaPlugin implements Listener {
                 }
 
                 if (args[0].equalsIgnoreCase("forcesave")) {
-                    if (!(sender instanceof Player)) {
-                        saveCardFileNames();
-                        saveCards();
+                    if (sender instanceof Player) {
+                        Player player = (Player) sender;
+
+                        if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
+                            saveCardFileNames();
+                            saveCards();
+                        }
+                        else {
+                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forcesave'");
+                            return false;
+                        }
+
                     }
                 }
 
                 if (args[0].equalsIgnoreCase("forceload")) {
-                    if (!(sender instanceof Player)) {
-                        loadCards();
+                    if (sender instanceof Player) {
+                        Player player = (Player) sender;
+
+                        if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
+                            loadCards();
+                        }
+                        else {
+                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forceload'");
+                            return false;
+                        }
                     }
+
                 }
             }
-
-            CardCommand.showPlayerInfo(sender, args, cards);
         }
 
         if (label.equalsIgnoreCase("bird")) {
@@ -186,55 +202,77 @@ public class Main extends JavaPlugin implements Listener {
         if (label.equalsIgnoreCase("local") || label.equalsIgnoreCase("rp")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (!playersSpeakingInLocalChat.contains(player.getName())) {
-                    playersSpeakingInLocalChat.add(player.getName());
-                    player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
+                if (player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default")) {
+                    if (!playersSpeakingInLocalChat.contains(player.getName())) {
+                        playersSpeakingInLocalChat.add(player.getName());
+                        player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
+                    }
+                    else {
+                        player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
+                    }
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
                 }
+
             }
         }
 
         if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("ooc")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (playersSpeakingInLocalChat.contains(player.getName())) {
-                    playersSpeakingInLocalChat.remove(player.getName());
-                    player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
+                if (player.hasPermission("rp.global") || player.hasPermission("rp.ooc") || player.hasPermission("rp.default")) {
+                    if (playersSpeakingInLocalChat.contains(player.getName())) {
+                        playersSpeakingInLocalChat.remove(player.getName());
+                        player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
+                    }
+                    else {
+                        player.sendMessage(ChatColor.RED + "You're already talking in global chat!");
+                    }
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "You're already talking in global chat!");
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.global', 'rp.ooc'");
                 }
+
             }
         }
 
         if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("me")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
+                if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
+                    if (args.length > 0) {
+                        String message = createStringFromFirstArgOnwards(args, 0);
+                        String characterName = getCard(player.getName()).getName();
 
-                if (args.length > 0) {
-                    String message = createStringFromFirstArgOnwards(args, 0);
-                    String characterName = getCard(player.getName()).getName();
-
-                    sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
+                        sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
+                    }
                 }
+                else {
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.emote', 'rp.me'");
+                }
+
             }
         }
 
         if (label.equalsIgnoreCase("roll") || label.equalsIgnoreCase("dice")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
+                if (player.hasPermission("rp.roll") || player.hasPermission("rp.dice") || player.hasPermission("rp.default")) {
+                    if (args.length > 0) {
+                        try {
+                            int max = Integer.parseInt(args[0]);
+                            sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
+                        }
+                        catch(Exception ignored) {
 
-                if (args.length > 0) {
-                    try {
-                        int max = Integer.parseInt(args[0]);
-                        sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
-                    }
-                    catch(Exception ignored) {
-
+                        }
                     }
                 }
+                else {
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
+                }
+
             }
         }
 
