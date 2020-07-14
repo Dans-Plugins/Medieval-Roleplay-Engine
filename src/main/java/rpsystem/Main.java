@@ -325,23 +325,28 @@ public class Main extends JavaPlugin implements Listener {
             if (!playersWithRightClickCooldown.contains(player.getName())) {
                 playersWithRightClickCooldown.add(player.getName());
 
+                if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
+                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + card.getPlayerName() + " == ");
+                    player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
+                    player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
+                    player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
+                    player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
+                    player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
+                    player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
 
-                player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + card.getPlayerName() + " == ");
-                player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
-                player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
-                player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
-                player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
-                player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
-                player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
+                    int seconds = 2;
+                    getServer().getScheduler().runTaskLater(this, new Runnable() {
+                        @Override
+                        public void run() {
+                            playersWithRightClickCooldown.remove(player.getName());
 
-                int seconds = 2;
-                getServer().getScheduler().runTaskLater(this, new Runnable() {
-                    @Override
-                    public void run() {
-                        playersWithRightClickCooldown.remove(player.getName());
+                        }
+                    }, seconds * 20);
+                }
+                else {
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.show.others");
+                }
 
-                    }
-                }, seconds * 20);
             }
 
         }
