@@ -22,19 +22,26 @@ public class CardCommand {
     public static void showCard(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            for (CharacterCard card : cards) {
 
-                if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
-                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
-                    player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
-                    player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
-                    player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
-                    player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
-                    player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
-                    player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
-                    player.sendMessage(ChatColor.AQUA + "\n----------\n");
+            if (player.hasPermission("rp.card.show") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
+                for (CharacterCard card : cards) {
+
+                    if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+                        player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
+                        player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
+                        player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
+                        player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
+                        player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
+                        player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
+                        player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
+                        player.sendMessage(ChatColor.AQUA + "\n----------\n");
+                    }
                 }
             }
+            else {
+                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.show'");
+            }
+
         }
     }
 
