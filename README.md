@@ -11,7 +11,7 @@ A minecraft plugin for players to use to roleplay more effectively.
 -  0.3 'Saving/Loading' update
 -  0.4 'Card Command' update
 -  0.5 'Message Improvements' update
--  0.6 'Help' update
+-  0.6 'Card Help' update
 -  0.7 'Manual Saving/Loading' update
 -  0.8 'Messenger Birds' update
 -  0.9 'Chat System' update
