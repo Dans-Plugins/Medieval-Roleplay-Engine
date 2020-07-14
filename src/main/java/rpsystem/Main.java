@@ -343,9 +343,6 @@ public class Main extends JavaPlugin implements Listener {
                         }
                     }, seconds * 20);
                 }
-                else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.show.others");
-                }
 
             }
 
