@@ -6,7 +6,7 @@
 
   <groupId>KingdomProgrammers</groupId>
   <artifactId>Medieval-Roleplay-Engine</artifactId>
-  <version>v1.3</version>
+  <version>v1.3.1</version>
   <packaging>jar</packaging>
 
   <name>Medieval Roleplay Engine</name>
@@ -54,5 +54,5 @@
 
   <repositories><repository><id>spigotmc-repo</id><url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url></repository><repository><id>sonatype</id><url>https://oss.sonatype.org/content/groups/public/</url></repository></repositories>
 
-  <dependencies><dependency><groupId>org.spigotmc</groupId><artifactId>spigot-api</artifactId><version>1.15.2-R0.1-SNAPSHOT</version><scope>provided</scope></dependency></dependencies>
+  <dependencies><dependency><groupId>org.spigotmc</groupId><artifactId>spigot-api</artifactId><version>1.13.1-R0.1-SNAPSHOT</version><scope>provided</scope></dependency></dependencies>
 </project>
