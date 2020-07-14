@@ -165,12 +165,12 @@ public class Main extends JavaPlugin implements Listener {
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
 
-                        if (player.hasPermission("rp.forcesave") || player.hasPermission("rp.admin")) {
+                        if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
                             saveCardFileNames();
                             saveCards();
                         }
                         else {
-                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.forcesave'");
+                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forcesave'");
                             return false;
                         }
 
@@ -181,21 +181,17 @@ public class Main extends JavaPlugin implements Listener {
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
 
-                        if (player.hasPermission("rp.forceload") || player.hasPermission("rp.admin")) {
-                            if (!(sender instanceof Player)) {
-                                loadCards();
-                            }
+                        if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
+                            loadCards();
                         }
                         else {
-                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.forceload'");
+                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forceload'");
                             return false;
                         }
                     }
 
                 }
             }
-
-            CardCommand.showPlayerInfo(sender, args, cards);
         }
 
         if (label.equalsIgnoreCase("bird")) {
