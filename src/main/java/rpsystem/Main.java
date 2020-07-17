@@ -14,6 +14,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import rpsystem.Commands.BirdCommand;
 import rpsystem.Commands.CardCommand;
+import rpsystem.Commands.TitleCommand;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -274,6 +275,11 @@ public class Main extends JavaPlugin implements Listener {
                 }
 
             }
+        }
+
+        if (label.equalsIgnoreCase("title")) {
+            TitleCommand command = new TitleCommand(this);
+            command.titleBook(sender, args);
         }
 
         return false;
