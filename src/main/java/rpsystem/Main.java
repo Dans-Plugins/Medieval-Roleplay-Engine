@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -314,7 +315,7 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
         if (playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
-            sendMessageToPlayersWithinDistance(event.getPlayer(), String.format("%s: \"%s\"", getCard(event.getPlayer().getName()).getName(), event.getMessage()), 25);
+            sendMessageToPlayersWithinDistance(event.getPlayer(), String.format("%s: \"%s\"", getCard(event.getPlayer().getName()).getName(), ChatColor.GRAY + event.getMessage()), 25);
             event.setCancelled(true);
         }
     }
