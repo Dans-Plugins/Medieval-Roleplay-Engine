@@ -24,7 +24,7 @@ public class TitleCommand {
             if (player.hasPermission("rp.title") || player.hasPermission("rp.default")) {
 
                 // check if they're holding a book
-                if (player.getInventory().getItemInMainHand().getType() == Material.BOOK) {
+                if (player.getInventory().getItemInMainHand().getType() == Material.WRITABLE_BOOK) {
 
                     // args check
                     if (args.length > 0) {
@@ -49,7 +49,7 @@ public class TitleCommand {
 
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "You have to be holding a book to use this command!");
+                    player.sendMessage(ChatColor.RED + "You have to be holding a book and quill to use this command!");
                 }
 
             }
