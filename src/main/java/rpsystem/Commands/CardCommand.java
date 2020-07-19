@@ -34,7 +34,6 @@ public class CardCommand {
                         player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
                         player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
                         player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
-                        player.sendMessage(ChatColor.AQUA + "\n----------\n");
                     }
                 }
             }
@@ -259,7 +258,6 @@ public class CardCommand {
                             sender.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
                             sender.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
                             sender.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
-                            sender.sendMessage(ChatColor.AQUA + "\n----------\n");
                             return;
                         }
                     }
