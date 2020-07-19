@@ -75,34 +75,35 @@ public class CardCommand {
             if (player.hasPermission("rp.card.name") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
 
-                    if (!main.playersOnNameChangeCooldown.contains(player.getName())) {
                         if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
 
-                            if (args.length > 1) {
-                                card.setName(createStringFromFirstArgOnwards(args, 1));
-                                player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
+                            if (!main.playersOnNameChangeCooldown.contains(player.getName())) {
 
-                                // cooldown
-                                main.playersOnNameChangeCooldown.add(player.getName());
+                                if (args.length > 1) {
+                                    card.setName(createStringFromFirstArgOnwards(args, 1));
+                                    player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
-                                int seconds = 300;
-                                getServer().getScheduler().runTaskLater(main, new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        main.playersOnNameChangeCooldown.remove(player.getName());
-                                        player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
-                                    }
-                                }, seconds * 20);
+                                    // cooldown
+                                    main.playersOnNameChangeCooldown.add(player.getName());
+
+                                    int seconds = 300;
+                                    getServer().getScheduler().runTaskLater(main, new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            main.playersOnNameChangeCooldown.remove(player.getName());
+                                            player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
+                                        }
+                                    }, seconds * 20);
+                                }
+                                else {
+                                    player.sendMessage(ChatColor.RED + "Usage: /card name (character-name)");
+                                }
                             }
                             else {
-                                player.sendMessage(ChatColor.RED + "Usage: /card name (character-name)");
+                                player.sendMessage(ChatColor.RED + "You must wait before changing your name again!");
                             }
-
                         }
-                    }
-                    else {
-                        player.sendMessage(ChatColor.RED + "You must wait before changing your name again!");
-                    }
+
                 }
             }
             else {
