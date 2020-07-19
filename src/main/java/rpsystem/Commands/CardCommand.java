@@ -264,6 +264,9 @@ public class CardCommand {
                         }
                     }
                 }
+
+                player.sendMessage(ChatColor.RED + "That player wasn't found!");
+
             }
             else {
                 player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.show.others'");

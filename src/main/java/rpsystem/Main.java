@@ -193,6 +193,8 @@ public class Main extends JavaPlugin implements Listener {
                     }
 
                 }
+
+                CardCommand.showPlayerInfo(sender, args, cards);
             }
         }
 
