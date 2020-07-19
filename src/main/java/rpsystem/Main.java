@@ -134,7 +134,7 @@ public class Main extends JavaPlugin implements Listener {
 
                 if (args[0].equalsIgnoreCase("help")) {
                     CardCommand.showHelpMessage(sender);
-
+                    return true;
                 }
 
                 if (args[0].equalsIgnoreCase("name")) {
@@ -170,6 +170,7 @@ public class Main extends JavaPlugin implements Listener {
                         if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
                             saveCardFileNames();
                             saveCards();
+                            return true;
                         }
                         else {
                             player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forcesave'");
@@ -185,6 +186,7 @@ public class Main extends JavaPlugin implements Listener {
 
                         if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
                             loadCards();
+                            return true;
                         }
                         else {
                             player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forceload'");
@@ -195,12 +197,14 @@ public class Main extends JavaPlugin implements Listener {
                 }
 
                 CardCommand.showPlayerInfo(sender, args, cards);
+                return true;
             }
         }
 
         if (label.equalsIgnoreCase("bird")) {
             BirdCommand command = new BirdCommand(this);
             command.sendBird(sender, args);
+            return true;
         }
 
         if (label.equalsIgnoreCase("local") || label.equalsIgnoreCase("rp")) {
@@ -210,13 +214,16 @@ public class Main extends JavaPlugin implements Listener {
                     if (!playersSpeakingInLocalChat.contains(player.getName())) {
                         playersSpeakingInLocalChat.add(player.getName());
                         player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
+                        return true;
                     }
                     else {
                         player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
+                        return false;
                     }
                 }
                 else {
                     player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
+                    return false;
                 }
 
             }
