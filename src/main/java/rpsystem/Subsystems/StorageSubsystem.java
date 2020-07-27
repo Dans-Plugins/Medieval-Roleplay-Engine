@@ -1,6 +1,6 @@
 package rpsystem.Subsystems;
 
-import rpsystem.CharacterCard;
+import rpsystem.Objects.CharacterCard;
 import rpsystem.Main;
 
 import java.io.File;

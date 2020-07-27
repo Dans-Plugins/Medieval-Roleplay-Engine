@@ -1,4 +1,4 @@
-package rpsystem;
+package rpsystem.Objects;
 
 import java.io.File;
 import java.io.FileNotFoundException;

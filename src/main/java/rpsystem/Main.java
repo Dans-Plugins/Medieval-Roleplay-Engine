@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import rpsystem.EventHandlers.AsyncPlayerChatEventHandler;
 import rpsystem.EventHandlers.PlayerInteractAtEntityEventHandler;
 import rpsystem.EventHandlers.PlayerJoinEventHandler;
+import rpsystem.Objects.CharacterCard;
 import rpsystem.Subsystems.CommandSubsystem;
 import rpsystem.Subsystems.StorageSubsystem;
 import rpsystem.Subsystems.UtilitySubsystem;

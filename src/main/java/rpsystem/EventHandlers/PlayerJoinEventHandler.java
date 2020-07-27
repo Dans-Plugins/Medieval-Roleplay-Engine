@@ -1,7 +1,7 @@
 package rpsystem.EventHandlers;
 
 import org.bukkit.event.player.PlayerJoinEvent;
-import rpsystem.CharacterCard;
+import rpsystem.Objects.CharacterCard;
 import rpsystem.Main;
 
 public class PlayerJoinEventHandler {

@@ -3,7 +3,7 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.CharacterCard;
+import rpsystem.Objects.CharacterCard;
 import rpsystem.Main;
 
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package rpsystem.EventHandlers;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import rpsystem.CharacterCard;
+import rpsystem.Objects.CharacterCard;
 import rpsystem.Main;
 
 public class PlayerInteractAtEntityEventHandler {

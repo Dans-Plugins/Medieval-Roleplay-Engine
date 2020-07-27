@@ -2,7 +2,7 @@ package rpsystem.Subsystems;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import rpsystem.CharacterCard;
+import rpsystem.Objects.CharacterCard;
 import rpsystem.Main;
 
 import static org.bukkit.Bukkit.getServer;
