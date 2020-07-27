@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import rpsystem.Subsystems.CommandSubsystem;
 import rpsystem.Subsystems.StorageSubsystem;
+import rpsystem.Subsystems.UtilitySubsystem;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,8 @@ public class Main extends JavaPlugin implements Listener {
 
     // subsystems
     public StorageSubsystem storage = new StorageSubsystem(this);
-    CommandSubsystem commands = new CommandSubsystem(this);
+    public CommandSubsystem commands = new CommandSubsystem(this);
+    public UtilitySubsystem utilities = new UtilitySubsystem(this);
 
     // saved
     public ArrayList<CharacterCard> cards = new ArrayList<>();
@@ -57,34 +59,16 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
-        if (!hasCard(event.getPlayer().getName())) {
+        if (!utilities.hasCard(event.getPlayer().getName())) {
             CharacterCard newCard = new CharacterCard(event.getPlayer().getName());
             cards.add(newCard);
         }
     }
 
-    public boolean hasCard(String playerName) {
-        for (CharacterCard card : cards) {
-            if (card.getPlayerName().equalsIgnoreCase(playerName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public CharacterCard getCard(String playerName) {
-        for (CharacterCard card : cards) {
-            if (card.getPlayerName().equalsIgnoreCase(playerName)) {
-                return card;
-            }
-        }
-        return null;
-    }
-
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
         if (playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
-            sendMessageToPlayersWithinDistance(event.getPlayer(), ChatColor.GRAY + "" + String.format("%s: \"%s\"", getCard(event.getPlayer().getName()).getName(), event.getMessage()), 25);
+            sendMessageToPlayersWithinDistance(event.getPlayer(), ChatColor.GRAY + "" + String.format("%s: \"%s\"", utilities.getCard(event.getPlayer().getName()).getName(), event.getMessage()), 25);
             event.setCancelled(true);
         }
     }
@@ -94,7 +78,7 @@ public class Main extends JavaPlugin implements Listener {
         if (event.getRightClicked() instanceof Player) {
 
             Player target = (Player) event.getRightClicked();
-            CharacterCard card = getCard(target.getName());
+            CharacterCard card = utilities.getCard(target.getName());
 
             Player player = event.getPlayer();
 

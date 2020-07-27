@@ -149,7 +149,7 @@ public class CommandSubsystem {
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
                         String message = createStringFromFirstArgOnwards(args, 0);
-                        String characterName = main.getCard(player.getName()).getName();
+                        String characterName = main.utilities.getCard(player.getName()).getName();
 
                         sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
                     }
