@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import rpsystem.Main;
 
-import static rpsystem.UtilityFunctions.sendMessageToPlayersWithinDistance;
+import static rpsystem.Subsystems.UtilitySubsystem.sendMessageToPlayersWithinDistance;
 
 public class AsyncPlayerChatEventHandler {
 

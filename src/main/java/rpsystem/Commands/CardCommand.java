@@ -9,7 +9,7 @@ import rpsystem.Main;
 import java.util.ArrayList;
 
 import static org.bukkit.Bukkit.getServer;
-import static rpsystem.UtilityFunctions.createStringFromFirstArgOnwards;
+import static rpsystem.Subsystems.UtilitySubsystem.createStringFromFirstArgOnwards;
 
 public class CardCommand {
 

@@ -3,11 +3,10 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitScheduler;
 import rpsystem.Main;
 
 import static org.bukkit.Bukkit.getServer;
-import static rpsystem.UtilityFunctions.createStringFromFirstArgOnwards;
+import static rpsystem.Subsystems.UtilitySubsystem.createStringFromFirstArgOnwards;
 
 public class BirdCommand {
 

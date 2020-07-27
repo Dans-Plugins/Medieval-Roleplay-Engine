@@ -8,7 +8,7 @@ import rpsystem.Commands.CardCommand;
 import rpsystem.Commands.TitleCommand;
 import rpsystem.Main;
 
-import static rpsystem.UtilityFunctions.*;
+import static rpsystem.Subsystems.UtilitySubsystem.*;
 
 public class CommandSubsystem {
 
