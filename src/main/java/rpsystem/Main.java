@@ -6,30 +6,26 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import rpsystem.Commands.BirdCommand;
 import rpsystem.Commands.CardCommand;
 import rpsystem.Commands.TitleCommand;
+import rpsystem.Subsystems.StorageSubsystem;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static rpsystem.UtilityFunctions.*;
 
 public class Main extends JavaPlugin implements Listener {
 
+    // subsystems
+    public StorageSubsystem storage = new StorageSubsystem(this);
+
     // saved
-    ArrayList<CharacterCard> cards = new ArrayList<>();
+    public ArrayList<CharacterCard> cards = new ArrayList<>();
 
     // temporary
     public ArrayList<String> playersWithBusyBirds = new ArrayList<>();
@@ -40,87 +36,17 @@ public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         System.out.println("Medieval Roleplay Engine plugin enabling....");
-
         this.getServer().getPluginManager().registerEvents(this, this);
-
-        loadCards();
-
+        storage.loadCards();
         System.out.println("Medieval Roleplay Engine plugin enabled.");
     }
 
     @Override
     public void onDisable() {
         System.out.println("Medieval Roleplay Engine plugin disabling....");
-
-        saveCardFileNames();
-        saveCards();
-
+        storage.saveCardFileNames();
+        storage.saveCards();
         System.out.println("Medieval Roleplay Engine plugin disabled.");
-    }
-
-    public void saveCardFileNames() {
-        try {
-            File saveFolder = new File("./plugins/medieval-roleplay-engine/");
-            if (!saveFolder.exists()) {
-                saveFolder.mkdir();
-            }
-            File saveFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
-            if (saveFile.createNewFile()) {
-                System.out.println("Save file for character card filenames created.");
-            } else {
-                System.out.println("Save file for character card filenames already exists. Overwriting.");
-            }
-
-            FileWriter saveWriter = new FileWriter(saveFile);
-
-            // actual saving takes place here
-            for (CharacterCard card : cards) {
-                saveWriter.write(card.getPlayerName() + "\n");
-            }
-
-            saveWriter.close();
-
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving character card filenames.");
-        }
-    }
-
-    public void saveCards() {
-        for (CharacterCard card : cards) {
-            card.save();
-        }
-    }
-
-    public void loadCards() {
-        try {
-            System.out.println("Attempting to load character cards...");
-            File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
-            Scanner loadReader = new Scanner(loadFile);
-
-            // actual loading
-            while (loadReader.hasNextLine()) {
-                String nextName = loadReader.nextLine();
-                CharacterCard temp = new CharacterCard(nextName);
-                temp.load(nextName + ".txt"); // provides owner field among other things
-
-                // existence check
-                boolean exists = false;
-                for (int i = 0; i < cards.size(); i++) {
-                    if (cards.get(i).getName().equalsIgnoreCase(temp.getName())) {
-                        cards.remove(i);
-                    }
-                }
-
-                cards.add(temp);
-
-            }
-
-            loadReader.close();
-            System.out.println("Character cards successfully loaded.");
-        } catch (FileNotFoundException e) {
-            System.out.println("Error loading the character cards!");
-            e.printStackTrace();
-        }
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -168,8 +94,8 @@ public class Main extends JavaPlugin implements Listener {
                         Player player = (Player) sender;
 
                         if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
-                            saveCardFileNames();
-                            saveCards();
+                            storage.saveCardFileNames();
+                            storage.saveCards();
                             return true;
                         }
                         else {
@@ -185,7 +111,7 @@ public class Main extends JavaPlugin implements Listener {
                         Player player = (Player) sender;
 
                         if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
-                            loadCards();
+                            storage.loadCards();
                             return true;
                         }
                         else {

@@ -75,7 +75,7 @@ public class CharacterCard {
         return religion;
     }
 
-    boolean save() {
+    public boolean save() {
         try {
             File saveFolder = new File("./plugins/medieval-roleplay-engine/");
             if (!saveFolder.exists()) {
@@ -111,7 +111,7 @@ public class CharacterCard {
         }
     }
 
-    boolean load(String filename) {
+    public boolean load(String filename) {
         try {
             File loadFile = new File("./plugins/medieval-roleplay-engine/" + filename);
             Scanner loadReader = new Scanner(loadFile);
