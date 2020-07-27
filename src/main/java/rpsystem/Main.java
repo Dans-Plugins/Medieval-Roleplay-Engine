@@ -1,9 +1,7 @@
 package rpsystem;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -18,8 +16,6 @@ import rpsystem.Subsystems.StorageSubsystem;
 import rpsystem.Subsystems.UtilitySubsystem;
 
 import java.util.ArrayList;
-
-import static rpsystem.UtilityFunctions.*;
 
 public class Main extends JavaPlugin implements Listener {
 
