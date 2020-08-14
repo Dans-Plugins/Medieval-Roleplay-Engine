@@ -18,15 +18,15 @@ public class PlayerInteractAtEntityEventHandler {
         if (event.getRightClicked() instanceof Player) {
 
             Player target = (Player) event.getRightClicked();
-            CharacterCard card = main.utilities.getCard(target.getName());
+            CharacterCard card = main.utilities.getCard(target.getUniqueId());
 
             Player player = event.getPlayer();
 
-            if (!main.playersWithRightClickCooldown.contains(player.getName())) {
-                main.playersWithRightClickCooldown.add(player.getName());
+            if (!main.playersWithRightClickCooldown.contains(player.getUniqueId())) {
+                main.playersWithRightClickCooldown.add(player.getUniqueId());
 
                 if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + card.getPlayerName() + " == ");
+                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + card.getPlayerUUID() + " == ");
                     player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                     player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                     player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
@@ -38,7 +38,7 @@ public class PlayerInteractAtEntityEventHandler {
                     main.getServer().getScheduler().runTaskLater(main, new Runnable() {
                         @Override
                         public void run() {
-                            main.playersWithRightClickCooldown.remove(player.getName());
+                            main.playersWithRightClickCooldown.remove(player.getUniqueId());
 
                         }
                     }, seconds * 20);

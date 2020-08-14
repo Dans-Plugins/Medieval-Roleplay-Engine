@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.UUID;
+
+import static rpsystem.Subsystems.UtilitySubsystem.findUUIDBasedOnPlayerName;
 
 public class StorageSubsystem {
 
@@ -34,7 +37,7 @@ public class StorageSubsystem {
 
             // actual saving takes place here
             for (CharacterCard card : main.cards) {
-                saveWriter.write(card.getPlayerName() + "\n");
+                saveWriter.write(card.getPlayerUUID().toString() + "\n");
             }
 
             saveWriter.close();
@@ -59,8 +62,40 @@ public class StorageSubsystem {
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextName = loadReader.nextLine();
-                CharacterCard temp = new CharacterCard(nextName);
-                temp.load(nextName + ".txt"); // provides owner field among other things
+                CharacterCard temp = new CharacterCard(UUID.fromString(nextName));
+                temp.load(nextName + ".txt");
+
+                // existence check
+                boolean exists = false;
+                for (int i = 0; i < main.cards.size(); i++) {
+                    if (main.cards.get(i).getName().equalsIgnoreCase(temp.getName())) {
+                        main.cards.remove(i);
+                    }
+                }
+
+                main.cards.add(temp);
+
+            }
+
+            loadReader.close();
+            System.out.println("Character cards successfully loaded.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading the character cards!");
+            e.printStackTrace();
+        }
+    }
+
+    public void legacyLoadCards() {
+        try {
+            System.out.println("Attempting to load character cards...");
+            File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
+            Scanner loadReader = new Scanner(loadFile);
+
+            // actual loading
+            while (loadReader.hasNextLine()) {
+                String nextName = loadReader.nextLine();
+                CharacterCard temp = new CharacterCard(findUUIDBasedOnPlayerName(nextName));
+                temp.legacyLoad(nextName + ".txt"); // provides owner field among other things
 
                 // existence check
                 boolean exists = false;
