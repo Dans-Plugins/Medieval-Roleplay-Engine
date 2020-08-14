@@ -116,6 +116,9 @@ public class StorageSubsystem {
 
             deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
 
+            saveCardFileNames();
+            saveCards();
+
             System.out.println("Character cards successfully loaded.");
         } catch (FileNotFoundException e) {
             System.out.println("Error loading the character cards!");
