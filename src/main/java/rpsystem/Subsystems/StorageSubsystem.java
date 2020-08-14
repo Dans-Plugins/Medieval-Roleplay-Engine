@@ -66,11 +66,14 @@ public class StorageSubsystem {
                 temp.load(nextName + ".txt");
 
                 // existence check
-                boolean exists = false;
+                int index = -1;
                 for (int i = 0; i < main.cards.size(); i++) {
-                    if (main.cards.get(i).getName().equalsIgnoreCase(temp.getName())) {
-                        main.cards.remove(i);
+                    if (main.cards.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
+                        index = i;
                     }
+                }
+                if (index != -1) {
+                    main.cards.remove(index);
                 }
 
                 main.cards.add(temp);
@@ -96,17 +99,6 @@ public class StorageSubsystem {
                 String nextName = loadReader.nextLine();
                 CharacterCard temp = new CharacterCard(findUUIDBasedOnPlayerName(nextName));
                 temp.legacyLoad(nextName + ".txt");
-
-                // existence check
-                int index = -1;
-                for (int i = 0; i < main.cards.size(); i++) {
-                    if (main.cards.get(i).getName().equalsIgnoreCase(temp.getName())) {
-                        index = i;
-                    }
-                }
-                if (index != -1) {
-                    main.cards.remove(index);
-                }
 
                 main.cards.add(temp);
 
