@@ -113,6 +113,9 @@ public class StorageSubsystem {
             }
 
             loadReader.close();
+
+            deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
+
             System.out.println("Character cards successfully loaded.");
         } catch (FileNotFoundException e) {
             System.out.println("Error loading the character cards!");
@@ -123,6 +126,20 @@ public class StorageSubsystem {
     public boolean oldSaveFolderPresent() {
         File saveFolder = new File("./plugins/medieval-roleplay-engine/");
         return saveFolder.exists();
+    }
+
+    // Recursive file delete from https://www.baeldung.com/java-delete-directory
+    boolean deleteLegacyFiles(File directoryToBeDeleted) {
+        File[] allContents = directoryToBeDeleted.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteLegacyFiles(file);
+            }
+        }
+        if (directoryToBeDeleted.getAbsolutePath().contains("config.yml")){
+            return true;
+        }
+        return directoryToBeDeleted.delete();
     }
 
 }
