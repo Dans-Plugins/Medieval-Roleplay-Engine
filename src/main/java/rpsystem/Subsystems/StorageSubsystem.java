@@ -126,11 +126,6 @@ public class StorageSubsystem {
         }
     }
 
-    public boolean oldSaveFolderPresent() {
-        File saveFolder = new File("./plugins/medieval-roleplay-engine/");
-        return saveFolder.exists();
-    }
-
     // Recursive file delete from https://www.baeldung.com/java-delete-directory
     boolean deleteLegacyFiles(File directoryToBeDeleted) {
         File[] allContents = directoryToBeDeleted.listFiles();
@@ -143,6 +138,11 @@ public class StorageSubsystem {
             return true;
         }
         return directoryToBeDeleted.delete();
+    }
+
+    public boolean oldSaveFolderPresent() {
+        File saveFolder = new File("./plugins/medieval-roleplay-engine/");
+        return saveFolder.exists();
     }
 
 }
