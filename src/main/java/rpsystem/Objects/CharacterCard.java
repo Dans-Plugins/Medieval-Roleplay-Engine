@@ -5,9 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class CharacterCard {
-    private String playerName = "defaultPlayerName";
+    private UUID playerUUID = null;
     private String name = "defaultName";
     private String race = "defaultRace";
     private String subculture = "defaultSubculture";
@@ -15,20 +16,20 @@ public class CharacterCard {
     private String gender = "defaultGender";
     private String religion = "defaultReligion";
 
-    public CharacterCard(String nameOfPlayer) {
-        playerName = nameOfPlayer;
+    public CharacterCard(UUID nameOfPlayer) {
+        playerUUID = nameOfPlayer;
     }
 
-    void setPlayerName(String newName) {
-        playerName = newName;
+    void setPlayerUUID(UUID newUUID) {
+        playerUUID = newUUID;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public UUID getPlayerUUID() {
+        return playerUUID;
     }
 
-    public void setName(String newName) {
-        name = newName;
+    public void setName(String newUUID) {
+        name = newUUID;
     }
 
     public String getName() {
