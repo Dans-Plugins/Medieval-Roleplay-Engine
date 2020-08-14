@@ -22,11 +22,11 @@ public class StorageSubsystem {
 
     public void saveCardFileNames() {
         try {
-            File saveFolder = new File("./plugins/medieval-roleplay-engine/");
+            File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
+            File saveFile = new File("./plugins/MedievalRoleplayEngine/" + "card-player-names.txt");
             if (saveFile.createNewFile()) {
                 System.out.println("Save file for character card filenames created.");
             } else {
@@ -56,7 +56,7 @@ public class StorageSubsystem {
     public void loadCards() {
         try {
             System.out.println("Attempting to load character cards...");
-            File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
+            File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "card-player-names.txt");
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading

@@ -80,18 +80,18 @@ public class CharacterCard {
 
     public boolean save() {
         try {
-            File saveFolder = new File("./plugins/medieval-roleplay-engine/");
+            File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/medieval-roleplay-engine/" + playerUUID + ".txt");
+            File saveFile = new File("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
             if (saveFile.createNewFile()) {
                 System.out.println("Save file for character card belonging to " + playerUUID + " created.");
             } else {
                 System.out.println("Save file for character card belonging to " + playerUUID + " already exists. Altering.");
             }
 
-            FileWriter saveWriter = new FileWriter("./plugins/medieval-roleplay-engine/" + playerUUID + ".txt");
+            FileWriter saveWriter = new FileWriter("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
 
             // actual saving takes place here
             saveWriter.write(playerUUID.toString() + "\n");
@@ -116,7 +116,7 @@ public class CharacterCard {
 
     public boolean load(String filename) {
         try {
-            File loadFile = new File("./plugins/medieval-roleplay-engine/" + filename);
+            File loadFile = new File("./plugins/MedievalRoleplayEngine/" + filename);
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
