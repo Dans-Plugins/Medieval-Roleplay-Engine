@@ -82,17 +82,17 @@ public class CharacterCard {
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/medieval-roleplay-engine/" + playerName + ".txt");
+            File saveFile = new File("./plugins/medieval-roleplay-engine/" + playerUUID + ".txt");
             if (saveFile.createNewFile()) {
-                System.out.println("Save file for character card belonging to " + playerName + " created.");
+                System.out.println("Save file for character card belonging to " + playerUUID + " created.");
             } else {
-                System.out.println("Save file for character card belonging to " + playerName + " already exists. Altering.");
+                System.out.println("Save file for character card belonging to " + playerUUID + " already exists. Altering.");
             }
 
-            FileWriter saveWriter = new FileWriter("./plugins/medieval-roleplay-engine/" + playerName + ".txt");
+            FileWriter saveWriter = new FileWriter("./plugins/medieval-roleplay-engine/" + playerUUID + ".txt");
 
             // actual saving takes place here
-            saveWriter.write(playerName + "\n");
+            saveWriter.write(playerUUID + "\n");
             saveWriter.write(name + "\n");
             saveWriter.write(race + "\n");
             saveWriter.write(subculture + "\n");
@@ -102,11 +102,11 @@ public class CharacterCard {
 
             saveWriter.close();
 
-            System.out.println("Successfully saved character card belonging to " + playerName + ".");
+            System.out.println("Successfully saved character card belonging to " + playerUUID + ".");
             return true;
 
         } catch (IOException e) {
-            System.out.println("An error occurred saving character card belonging to " + playerName);
+            System.out.println("An error occurred saving character card belonging to " + playerUUID);
             e.printStackTrace();
             return false;
         }
@@ -119,7 +119,7 @@ public class CharacterCard {
 
             // actual loading
             if (loadReader.hasNextLine()) {
-                setPlayerName(loadReader.nextLine());
+                setPlayerUUID(loadReader.nextLine());
             }
             if (loadReader.hasNextLine()) {
                 setName(loadReader.nextLine());
@@ -141,7 +141,7 @@ public class CharacterCard {
             }
 
             loadReader.close();
-            System.out.println("Character card belonging to" + playerName + " successfully loaded.");
+            System.out.println("Character card belonging to" + playerUUID + " successfully loaded.");
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred loading the file " + filename + ".");
