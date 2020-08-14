@@ -42,7 +42,14 @@ public class Main extends JavaPlugin implements Listener {
     public void onEnable() {
         System.out.println("Medieval Roleplay Engine plugin enabling....");
         this.getServer().getPluginManager().registerEvents(this, this);
-        storage.loadCards();
+
+        if (storage.oldSaveFolderPresent()) {
+            storage.legacyLoadCards();
+        }
+        else {
+            storage.loadCards();
+        }
+
         System.out.println("Medieval Roleplay Engine plugin enabled.");
     }
 
