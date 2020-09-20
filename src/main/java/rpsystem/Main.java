@@ -53,6 +53,7 @@ public class Main extends JavaPlugin implements Listener {
         System.out.println("Medieval Roleplay Engine plugin disabled.");
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         return commands.interpretCommand(sender, label, args);
     }
