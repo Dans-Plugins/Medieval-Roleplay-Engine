@@ -5,9 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.UUID;
+
+import static rpsystem.Subsystems.UtilitySubsystem.findUUIDBasedOnPlayerName;
 
 public class CharacterCard {
-    private String playerName = "defaultPlayerName";
+    private UUID playerUUID = null;
     private String name = "defaultName";
     private String race = "defaultRace";
     private String subculture = "defaultSubculture";
@@ -15,20 +18,20 @@ public class CharacterCard {
     private String gender = "defaultGender";
     private String religion = "defaultReligion";
 
-    public CharacterCard(String nameOfPlayer) {
-        playerName = nameOfPlayer;
+    public CharacterCard(UUID uuid) {
+        playerUUID = uuid;
     }
 
-    void setPlayerName(String newName) {
-        playerName = newName;
+    void setPlayerUUID(UUID newUUID) {
+        playerUUID = newUUID;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public UUID getPlayerUUID() {
+        return playerUUID;
     }
 
-    public void setName(String newName) {
-        name = newName;
+    public void setName(String newUUID) {
+        name = newUUID;
     }
 
     public String getName() {
@@ -77,21 +80,21 @@ public class CharacterCard {
 
     public boolean save() {
         try {
-            File saveFolder = new File("./plugins/medieval-roleplay-engine/");
+            File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/medieval-roleplay-engine/" + playerName + ".txt");
+            File saveFile = new File("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
             if (saveFile.createNewFile()) {
-                System.out.println("Save file for character card belonging to " + playerName + " created.");
+                System.out.println("Save file for character card belonging to " + playerUUID + " created.");
             } else {
-                System.out.println("Save file for character card belonging to " + playerName + " already exists. Altering.");
+                System.out.println("Save file for character card belonging to " + playerUUID + " already exists. Altering.");
             }
 
-            FileWriter saveWriter = new FileWriter("./plugins/medieval-roleplay-engine/" + playerName + ".txt");
+            FileWriter saveWriter = new FileWriter("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
 
             // actual saving takes place here
-            saveWriter.write(playerName + "\n");
+            saveWriter.write(playerUUID.toString() + "\n");
             saveWriter.write(name + "\n");
             saveWriter.write(race + "\n");
             saveWriter.write(subculture + "\n");
@@ -101,11 +104,11 @@ public class CharacterCard {
 
             saveWriter.close();
 
-            System.out.println("Successfully saved character card belonging to " + playerName + ".");
+            System.out.println("Successfully saved character card belonging to " + playerUUID + ".");
             return true;
 
         } catch (IOException e) {
-            System.out.println("An error occurred saving character card belonging to " + playerName);
+            System.out.println("An error occurred saving character card belonging to " + playerUUID);
             e.printStackTrace();
             return false;
         }
@@ -113,12 +116,12 @@ public class CharacterCard {
 
     public boolean load(String filename) {
         try {
-            File loadFile = new File("./plugins/medieval-roleplay-engine/" + filename);
+            File loadFile = new File("./plugins/MedievalRoleplayEngine/" + filename);
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
             if (loadReader.hasNextLine()) {
-                setPlayerName(loadReader.nextLine());
+                setPlayerUUID(UUID.fromString(loadReader.nextLine()));
             }
             if (loadReader.hasNextLine()) {
                 setName(loadReader.nextLine());
@@ -140,7 +143,45 @@ public class CharacterCard {
             }
 
             loadReader.close();
-            System.out.println("Character card belonging to" + playerName + " successfully loaded.");
+            System.out.println("Character card belonging to" + playerUUID + " successfully loaded.");
+            return true;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred loading the file " + filename + ".");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean legacyLoad(String filename) {
+        try {
+            File loadFile = new File("./plugins/medieval-roleplay-engine/" + filename);
+            Scanner loadReader = new Scanner(loadFile);
+
+            // actual loading
+            if (loadReader.hasNextLine()) {
+                setPlayerUUID(findUUIDBasedOnPlayerName(loadReader.nextLine()));
+            }
+            if (loadReader.hasNextLine()) {
+                setName(loadReader.nextLine());
+            }
+            if (loadReader.hasNextLine()) {
+                setRace(loadReader.nextLine());
+            }
+            if (loadReader.hasNextLine()) {
+                setSubculture(loadReader.nextLine());
+            }
+            if (loadReader.hasNextLine()) {
+                setAge(Integer.parseInt(loadReader.nextLine()));
+            }
+            if (loadReader.hasNextLine()) {
+                setGender(loadReader.nextLine());
+            }
+            if (loadReader.hasNextLine()) {
+                setReligion(loadReader.nextLine());
+            }
+
+            loadReader.close();
+            System.out.println("Character card belonging to" + playerUUID + " successfully loaded.");
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred loading the file " + filename + ".");

@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.UUID;
+
+import static rpsystem.Subsystems.UtilitySubsystem.findUUIDBasedOnPlayerName;
 
 public class StorageSubsystem {
 
@@ -19,11 +22,11 @@ public class StorageSubsystem {
 
     public void saveCardFileNames() {
         try {
-            File saveFolder = new File("./plugins/medieval-roleplay-engine/");
+            File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
+            File saveFile = new File("./plugins/MedievalRoleplayEngine/" + "card-player-names.txt");
             if (saveFile.createNewFile()) {
                 System.out.println("Save file for character card filenames created.");
             } else {
@@ -34,7 +37,7 @@ public class StorageSubsystem {
 
             // actual saving takes place here
             for (CharacterCard card : main.cards) {
-                saveWriter.write(card.getPlayerName() + "\n");
+                saveWriter.write(card.getPlayerUUID().toString() + "\n");
             }
 
             saveWriter.close();
@@ -53,21 +56,24 @@ public class StorageSubsystem {
     public void loadCards() {
         try {
             System.out.println("Attempting to load character cards...");
-            File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
+            File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "card-player-names.txt");
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextName = loadReader.nextLine();
-                CharacterCard temp = new CharacterCard(nextName);
-                temp.load(nextName + ".txt"); // provides owner field among other things
+                CharacterCard temp = new CharacterCard(UUID.fromString(nextName));
+                temp.load(nextName + ".txt");
 
                 // existence check
-                boolean exists = false;
+                int index = -1;
                 for (int i = 0; i < main.cards.size(); i++) {
-                    if (main.cards.get(i).getName().equalsIgnoreCase(temp.getName())) {
-                        main.cards.remove(i);
+                    if (main.cards.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
+                        index = i;
                     }
+                }
+                if (index != -1) {
+                    main.cards.remove(index);
                 }
 
                 main.cards.add(temp);
@@ -80,6 +86,55 @@ public class StorageSubsystem {
             System.out.println("Error loading the character cards!");
             e.printStackTrace();
         }
+    }
+
+    public void legacyLoadCards() {
+        try {
+            System.out.println("Attempting to load character cards...");
+            File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
+            Scanner loadReader = new Scanner(loadFile);
+
+            // actual loading
+            while (loadReader.hasNextLine()) {
+                String nextName = loadReader.nextLine();
+                CharacterCard temp = new CharacterCard(findUUIDBasedOnPlayerName(nextName));
+                temp.legacyLoad(nextName + ".txt");
+
+                main.cards.add(temp);
+
+            }
+
+            loadReader.close();
+
+            deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
+
+            saveCardFileNames();
+            saveCards();
+
+            System.out.println("Character cards successfully loaded.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading the character cards!");
+            e.printStackTrace();
+        }
+    }
+
+    // Recursive file delete from https://www.baeldung.com/java-delete-directory
+    boolean deleteLegacyFiles(File directoryToBeDeleted) {
+        File[] allContents = directoryToBeDeleted.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteLegacyFiles(file);
+            }
+        }
+        if (directoryToBeDeleted.getAbsolutePath().contains("config.yml")){
+            return true;
+        }
+        return directoryToBeDeleted.delete();
+    }
+
+    public boolean oldSaveFolderPresent() {
+        File saveFolder = new File("./plugins/medieval-roleplay-engine/");
+        return saveFolder.exists();
     }
 
 }
