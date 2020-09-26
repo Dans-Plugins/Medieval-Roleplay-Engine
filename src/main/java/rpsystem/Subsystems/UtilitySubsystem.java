@@ -64,10 +64,6 @@ public class UtilitySubsystem {
         }
     }
 
-    public static int rollDice(int max) {
-        return (int)(Math.random() * max + 1);
-    }
-
     // Pasarus wrote this
     public static UUID findUUIDBasedOnPlayerName(String playerName){
         // Check online

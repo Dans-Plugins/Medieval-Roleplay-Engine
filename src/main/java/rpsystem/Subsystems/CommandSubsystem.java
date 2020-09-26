@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rpsystem.Commands.BirdCommand;
 import rpsystem.Commands.CardCommand;
+import rpsystem.Commands.RollCommand;
 import rpsystem.Commands.TitleCommand;
 import rpsystem.Main;
 
@@ -166,13 +167,8 @@ public class CommandSubsystem {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.roll") || player.hasPermission("rp.dice") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
-                        try {
-                            int max = Integer.parseInt(args[0]);
-                            sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
-                        }
-                        catch(Exception ignored) {
-
-                        }
+                        RollCommand.rollDice(sender, args);
+                        return true;
                     }
                 }
                 else {
