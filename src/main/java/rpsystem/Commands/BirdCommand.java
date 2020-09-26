@@ -25,7 +25,7 @@ public class BirdCommand {
         Player player = (Player) sender;
 
         if (player.hasPermission("rp.bird") || player.hasPermission("rp.default")) {
-            if (main.playersWithBusyBirds.contains(player.getName())) {
+            if (main.playersWithBusyBirds.contains(player.getUniqueId())) {
                 player.sendMessage(ChatColor.RED + "Your bird is already on a mission!");
                 return;
             }
@@ -60,13 +60,13 @@ public class BirdCommand {
                     targetPlayer.sendMessage(ChatColor.GREEN + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:");
                     targetPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "'" + message + "'");
                     player.sendMessage(ChatColor.GREEN + "Your bird has reached " + targetPlayer.getName() + "!");
-                    main.playersWithBusyBirds.remove(player.getName());
+                    main.playersWithBusyBirds.remove(player.getUniqueId());
 
                 }
             }, seconds * 20);
 
             player.sendMessage(ChatColor.GREEN + "The bird flies off with your message.");
-            main.playersWithBusyBirds.add(player.getName());
+            main.playersWithBusyBirds.add(player.getUniqueId());
         }
         else {
             player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.bird'");

@@ -15,8 +15,8 @@ public class AsyncPlayerChatEventHandler {
     }
 
     public void handle(AsyncPlayerChatEvent event) {
-        if (main.playersSpeakingInLocalChat.contains(event.getPlayer().getName())) {
-            sendMessageToPlayersWithinDistance(event.getPlayer(), ChatColor.GRAY + "" + String.format("%s: \"%s\"", main.utilities.getCard(event.getPlayer().getName()).getName(), event.getMessage()), 25);
+        if (main.playersSpeakingInLocalChat.contains(event.getPlayer().getUniqueId())) {
+            sendMessageToPlayersWithinDistance(event.getPlayer(), ChatColor.GRAY + "" + String.format("%s: \"%s\"", main.utilities.getCard(event.getPlayer().getUniqueId()).getName(), event.getMessage()), 25);
             event.setCancelled(true);
         }
     }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import static org.bukkit.Bukkit.getServer;
 import static rpsystem.Subsystems.UtilitySubsystem.createStringFromFirstArgOnwards;
+import static rpsystem.Subsystems.UtilitySubsystem.findUUIDBasedOnPlayerName;
 
 public class CardCommand {
 
@@ -26,8 +27,8 @@ public class CardCommand {
             if (player.hasPermission("rp.card.show") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
 
-                    if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
-                        player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
+                    if (card.getPlayerUUID().equals(player.getUniqueId())) {
+                        player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerUUID() + "\n----------\n");
                         player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                         player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                         player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
@@ -74,22 +75,22 @@ public class CardCommand {
             if (player.hasPermission("rp.card.name") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
 
-                        if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+                        if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
-                            if (!main.playersOnNameChangeCooldown.contains(player.getName())) {
+                            if (!main.playersOnNameChangeCooldown.contains(player.getUniqueId())) {
 
                                 if (args.length > 1) {
                                     card.setName(createStringFromFirstArgOnwards(args, 1));
                                     player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
                                     // cooldown
-                                    main.playersOnNameChangeCooldown.add(player.getName());
+                                    main.playersOnNameChangeCooldown.add(player.getUniqueId());
 
                                     int seconds = 300;
                                     getServer().getScheduler().runTaskLater(main, new Runnable() {
                                         @Override
                                         public void run() {
-                                            main.playersOnNameChangeCooldown.remove(player.getName());
+                                            main.playersOnNameChangeCooldown.remove(player.getUniqueId());
                                             player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
                                         }
                                     }, seconds * 20);
@@ -119,7 +120,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.race") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
 
-                    if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+                    if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
                             card.setRace(args[1]);
@@ -145,7 +146,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.subculture") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
 
-                    if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+                    if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
                             card.setSubculture(args[1]);
@@ -171,7 +172,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.religion") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
 
-                    if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+                    if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
                             card.setReligion(args[1]);
@@ -197,7 +198,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.age") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
 
-                    if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+                    if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
                             card.setAge(Integer.parseInt(args[1]));
@@ -223,7 +224,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.gender") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
 
-                    if (card.getPlayerName().equalsIgnoreCase(player.getName())) {
+                    if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
                             card.setGender(args[1]);
@@ -250,8 +251,8 @@ public class CardCommand {
             if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
                     if (args.length > 0) {
-                        if (card.getPlayerName().equals(args[0])) {
-                            sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerName() + "\n----------\n");
+                        if (card.getPlayerUUID().equals(findUUIDBasedOnPlayerName(args[0]))) {
+                            sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerUUID() + "\n----------\n");
                             sender.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                             sender.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                             sender.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());

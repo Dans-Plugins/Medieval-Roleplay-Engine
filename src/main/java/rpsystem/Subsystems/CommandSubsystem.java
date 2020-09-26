@@ -107,7 +107,7 @@ public class CommandSubsystem {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default")) {
                     if (!main.playersSpeakingInLocalChat.contains(player.getName())) {
-                        main.playersSpeakingInLocalChat.add(player.getName());
+                        main.playersSpeakingInLocalChat.add(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
                         return true;
                     }
@@ -149,7 +149,7 @@ public class CommandSubsystem {
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
                         String message = createStringFromFirstArgOnwards(args, 0);
-                        String characterName = main.utilities.getCard(player.getName()).getName();
+                        String characterName = main.utilities.getCard(player.getUniqueId()).getName();
 
                         sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
                     }

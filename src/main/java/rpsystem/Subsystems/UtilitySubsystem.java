@@ -1,11 +1,14 @@
 package rpsystem.Subsystems;
 
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import rpsystem.Objects.CharacterCard;
 import rpsystem.Main;
 
-import static org.bukkit.Bukkit.getServer;
+import java.util.UUID;
+
+import static org.bukkit.Bukkit.*;
 
 public class UtilitySubsystem {
 
@@ -15,18 +18,18 @@ public class UtilitySubsystem {
         main = plugin;
     }
 
-    public boolean hasCard(String playerName) {
+    public boolean hasCard(UUID uuid) {
         for (CharacterCard card : main.cards) {
-            if (card.getPlayerName().equalsIgnoreCase(playerName)) {
+            if (card.getPlayerUUID().equals(uuid)) {
                 return true;
             }
         }
         return false;
     }
 
-    public CharacterCard getCard(String playerName) {
+    public CharacterCard getCard(UUID uuid) {
         for (CharacterCard card : main.cards) {
-            if (card.getPlayerName().equalsIgnoreCase(playerName)) {
+            if (card.getPlayerUUID().equals(uuid)) {
                 return card;
             }
         }
@@ -63,6 +66,30 @@ public class UtilitySubsystem {
 
     public static int rollDice(int max) {
         return (int)(Math.random() * max + 1);
+    }
+
+    // Pasarus wrote this
+    public static UUID findUUIDBasedOnPlayerName(String playerName){
+        // Check online
+        for (Player player : getOnlinePlayers()){
+            if (player.getName().equals(playerName)){
+                return player.getUniqueId();
+            }
+        }
+
+        // Check offline
+        for (OfflinePlayer player : getOfflinePlayers()){
+            try {
+                if (player.getName().equals(playerName)){
+                    return player.getUniqueId();
+                }
+            } catch (NullPointerException e) {
+                // Fail silently as quit possibly common.
+            }
+
+        }
+
+        return null;
     }
 
 }

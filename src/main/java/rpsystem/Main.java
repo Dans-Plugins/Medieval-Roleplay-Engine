@@ -17,6 +17,7 @@ import rpsystem.Subsystems.StorageSubsystem;
 import rpsystem.Subsystems.UtilitySubsystem;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -32,16 +33,23 @@ public class Main extends JavaPlugin implements Listener {
     public ArrayList<CharacterCard> cards = new ArrayList<>();
 
     // temporary
-    public ArrayList<String> playersWithBusyBirds = new ArrayList<>();
-    public ArrayList<String> playersSpeakingInLocalChat = new ArrayList<>();
-    public ArrayList<String> playersOnNameChangeCooldown = new ArrayList<>();
-    public ArrayList<String> playersWithRightClickCooldown = new ArrayList<>();
+    public ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
+    public ArrayList<UUID> playersSpeakingInLocalChat = new ArrayList<>();
+    public ArrayList<UUID> playersOnNameChangeCooldown = new ArrayList<>();
+    public ArrayList<UUID> playersWithRightClickCooldown = new ArrayList<>();
 
     @Override
     public void onEnable() {
         System.out.println("Medieval Roleplay Engine plugin enabling....");
         this.getServer().getPluginManager().registerEvents(this, this);
-        storage.loadCards();
+
+        if (storage.oldSaveFolderPresent()) {
+            storage.legacyLoadCards();
+        }
+        else {
+            storage.loadCards();
+        }
+
         System.out.println("Medieval Roleplay Engine plugin enabled.");
     }
 
