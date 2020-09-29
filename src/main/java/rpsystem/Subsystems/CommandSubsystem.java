@@ -18,6 +18,13 @@ public class CommandSubsystem {
 
     public boolean interpretCommand(CommandSender sender, String label, String[] args) {
 
+        // help command
+        if (label.equalsIgnoreCase("rphelp")) {
+            HelpCommand command = new HelpCommand(main);
+            command.showListOfCommands(sender);
+            return true;
+        }
+
         // card command
         if (label.equalsIgnoreCase("card")) {
             if (args.length == 0) {
@@ -154,6 +161,7 @@ public class CommandSubsystem {
                 }
                 else {
                     player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.emote', 'rp.me'");
+                    return false;
                 }
 
             }
@@ -170,6 +178,7 @@ public class CommandSubsystem {
                 }
                 else {
                     player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
+                    return false;
                 }
 
             }
@@ -178,16 +187,19 @@ public class CommandSubsystem {
         if (label.equalsIgnoreCase("title")) {
             TitleCommand command = new TitleCommand(main);
             command.titleBook(sender, args);
+            return true;
         }
 
         if (label.equalsIgnoreCase("yell")) {
             YellCommand command = new YellCommand(main);
             command.sendLoudMessage(sender, args);
+            return true;
         }
 
         if (label.equalsIgnoreCase("whisper")) {
             WhisperCommand command = new WhisperCommand(main);
             command.sendQuietMessage(sender, args);
+            return true;
         }
 
         return false;
