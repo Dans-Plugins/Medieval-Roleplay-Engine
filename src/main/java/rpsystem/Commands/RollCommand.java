@@ -51,7 +51,7 @@ public class RollCommand {
             }
 
             final RollHistory rolls = parser.parse(args[0], roller);
-            player.sendMessage(String.format(successMsg, rolls.getRollResults(), rolls.getTotalRoll()));
+            player.sendMessage(String.format(successMsg, rolls.getRollResults().toString(), rolls.getTotalRoll().toString()));
 
         } else {
             player.sendMessage(noPermMsg);
