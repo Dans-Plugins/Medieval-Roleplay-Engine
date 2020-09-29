@@ -27,7 +27,7 @@ public class YellCommand {
         if (player.hasPermission("rp.yell") || player.hasPermission("rp.default")) {
 
             if (args.length > 0) {
-                String message = ChatColor.RED + "" + String.format("%s: \"%s\"", main.utilities.getCard(player.getUniqueId()).getName(), main.utilities.createStringFromArgs(args));
+                String message = ChatColor.RED + "" + String.format("%s yells: \"%s\"", main.utilities.getCard(player.getUniqueId()).getName(), main.utilities.createStringFromArgs(args));
 
                 sendMessageToPlayersWithinDistance(player, message, 50);
             }

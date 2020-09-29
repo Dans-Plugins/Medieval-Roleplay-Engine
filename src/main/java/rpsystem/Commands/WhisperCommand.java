@@ -27,7 +27,7 @@ public class WhisperCommand {
         if (player.hasPermission("rp.whisper") || player.hasPermission("rp.default")) {
 
             if (args.length > 0) {
-                String message = ChatColor.RED + "" + String.format("%s: \"%s\"", main.utilities.getCard(player.getUniqueId()).getName(), main.utilities.createStringFromArgs(args));
+                String message = ChatColor.BLUE + "" + String.format("%s whispers: \"%s\"", main.utilities.getCard(player.getUniqueId()).getName(), main.utilities.createStringFromArgs(args));
 
                 sendMessageToPlayersWithinDistance(player, message, 2);
             }
