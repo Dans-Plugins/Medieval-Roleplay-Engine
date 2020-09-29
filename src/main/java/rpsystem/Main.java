@@ -15,6 +15,7 @@ import rpsystem.Objects.CharacterCard;
 import rpsystem.Subsystems.CommandSubsystem;
 import rpsystem.Subsystems.StorageSubsystem;
 import rpsystem.Subsystems.UtilitySubsystem;
+import rpsystem.bStats.Metrics;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -49,6 +50,10 @@ public class Main extends JavaPlugin implements Listener {
         else {
             storage.loadCards();
         }
+
+        int pluginId = 8996;
+
+        Metrics metrics = new Metrics(this, pluginId);
 
         System.out.println("Medieval Roleplay Engine plugin enabled.");
     }

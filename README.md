@@ -20,4 +20,4 @@ A minecraft plugin for players to use to roleplay more effectively.
 -  1.2 'Dice Roll' update
 -  1.3 'Permissions' update
 -  1.4 'Title Command' update
--  1.5
+-  1.5 'Dice Improvement, bStats'  update
