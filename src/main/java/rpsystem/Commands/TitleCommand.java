@@ -29,7 +29,7 @@ public class TitleCommand {
                     // args check
                     if (args.length > 0) {
 
-                        String newTitle = createStringFromArgs(args);
+                        String newTitle = main.utilities.createStringFromArgs(args);
 
                         ItemStack book = player.getInventory().getItemInMainHand();
 
@@ -58,13 +58,5 @@ public class TitleCommand {
             }
         }
 
-    }
-
-    public String createStringFromArgs(String[] args) {
-        String toReturn = args[0];
-        for (int i = 1; i < args.length; i++) {
-            toReturn = toReturn + " " + args[i];
-        }
-        return toReturn;
     }
 }
