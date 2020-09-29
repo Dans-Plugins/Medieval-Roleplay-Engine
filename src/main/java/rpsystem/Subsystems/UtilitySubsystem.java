@@ -57,7 +57,7 @@ public class UtilitySubsystem {
             if (potentialPlayer.getLocation().getWorld().getName() == playerLocation.getWorld().getName()) {
 
                 // if within 30 blocks
-                if (potentialPlayer.getLocation().distance(playerLocation) < 30) {
+                if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
                     potentialPlayer.sendMessage(message);
                 }
             }
@@ -86,6 +86,14 @@ public class UtilitySubsystem {
         }
 
         return null;
+    }
+
+    public String createStringFromArgs(String[] args) {
+        String toReturn = args[0];
+        for (int i = 1; i < args.length; i++) {
+            toReturn = toReturn + " " + args[i];
+        }
+        return toReturn;
     }
 
 }

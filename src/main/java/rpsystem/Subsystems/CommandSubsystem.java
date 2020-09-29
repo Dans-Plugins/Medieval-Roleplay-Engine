@@ -3,10 +3,7 @@ package rpsystem.Subsystems;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.Commands.BirdCommand;
-import rpsystem.Commands.CardCommand;
-import rpsystem.Commands.RollCommand;
-import rpsystem.Commands.TitleCommand;
+import rpsystem.Commands.*;
 import rpsystem.Main;
 
 import static rpsystem.Subsystems.UtilitySubsystem.*;
@@ -181,6 +178,16 @@ public class CommandSubsystem {
         if (label.equalsIgnoreCase("title")) {
             TitleCommand command = new TitleCommand(main);
             command.titleBook(sender, args);
+        }
+
+        if (label.equalsIgnoreCase("yell")) {
+            YellCommand command = new YellCommand(main);
+            command.sendLoudMessage(sender, args);
+        }
+
+        if (label.equalsIgnoreCase("whisper")) {
+            WhisperCommand command = new WhisperCommand(main);
+            command.sendQuietMessage(sender, args);
         }
 
         return false;
