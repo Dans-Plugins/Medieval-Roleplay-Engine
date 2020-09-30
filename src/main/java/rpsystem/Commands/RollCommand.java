@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rpsystem.Main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class RollCommand {
@@ -20,7 +22,6 @@ public class RollCommand {
     static final DiceInterpreter<RollHistory> roller = new DiceRoller();
 
     static final String usageMsg = ChatColor.RED + "Usage: /roll (dice-count)d(side-count)+(modifier)";
-    static final String successMsg = ChatColor.GREEN + "You rolled a %s with a total value of %d";
     public static final String invalidSyntaxMsg = ChatColor.RED + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
     public static final String noPermMsg = ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
 
@@ -50,11 +51,30 @@ public class RollCommand {
                 return;
             }
 
-            final RollHistory rolls = parser.parse(args[0], roller);
-            player.sendMessage(String.format(successMsg, rolls.getRollResults(), rolls.getTotalRoll()));
-
+            player.sendMessage(processRolls(parser.parse(args[0], roller)));
         } else {
             player.sendMessage(noPermMsg);
         }
+    }
+
+    private static String processRolls(RollHistory rolls) {
+        StringBuilder messageBuilder = new StringBuilder(ChatColor.GREEN + "You rolled a ");
+
+        rolls.getRollResults().forEach(rollResult -> {
+
+            List<String> results = new ArrayList<>();
+
+            rollResult.getAllRolls().forEach(roll -> results.add(String.valueOf(roll)));
+
+            messageBuilder.append(String.join(", ", results));
+
+            if (results.size() > 1) {
+                messageBuilder.append(", with a total value of ").append(rollResult.getTotalRoll());
+            }
+
+            messageBuilder.append(".");
+        });
+
+        return messageBuilder.toString();
     }
 }
