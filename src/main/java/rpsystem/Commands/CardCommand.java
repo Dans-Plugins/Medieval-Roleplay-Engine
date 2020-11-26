@@ -1,5 +1,6 @@
 package rpsystem.Commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -8,6 +9,7 @@ import rpsystem.Main;
 
 import java.util.ArrayList;
 
+import static org.bukkit.Bukkit.getPlayer;
 import static org.bukkit.Bukkit.getServer;
 import static rpsystem.Subsystems.UtilitySubsystem.createStringFromFirstArgOnwards;
 import static rpsystem.Subsystems.UtilitySubsystem.findUUIDBasedOnPlayerName;
@@ -28,7 +30,7 @@ public class CardCommand {
                 for (CharacterCard card : cards) {
 
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
-                        player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerUUID() + "\n----------\n");
+                        player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
                         player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                         player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                         player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
@@ -252,7 +254,7 @@ public class CardCommand {
                 for (CharacterCard card : cards) {
                     if (args.length > 0) {
                         if (card.getPlayerUUID().equals(findUUIDBasedOnPlayerName(args[0]))) {
-                            sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + card.getPlayerUUID() + "\n----------\n");
+                            sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
                             sender.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                             sender.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                             sender.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
