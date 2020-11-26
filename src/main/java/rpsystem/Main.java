@@ -17,6 +17,7 @@ import rpsystem.Subsystems.StorageSubsystem;
 import rpsystem.Subsystems.UtilitySubsystem;
 import rpsystem.bStats.Metrics;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -46,6 +47,9 @@ public class Main extends JavaPlugin implements Listener {
 
         if (storage.oldSaveFolderPresent()) {
             storage.legacyLoadCards();
+            storage.deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
+            storage.saveCardFileNames();
+            storage.saveCards();
         }
         else {
             storage.loadCards();
