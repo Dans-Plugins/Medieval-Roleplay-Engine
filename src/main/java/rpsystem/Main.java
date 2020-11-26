@@ -24,7 +24,7 @@ import java.util.UUID;
 public class Main extends JavaPlugin implements Listener {
 
     // version
-    public String version = "v1.5";
+    public String version = "v1.5-beta";
 
     // subsystems
     public StorageSubsystem storage = new StorageSubsystem(this);
