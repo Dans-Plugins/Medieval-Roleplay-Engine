@@ -172,13 +172,17 @@ public class CommandSubsystem {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.roll") || player.hasPermission("rp.dice") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
-                        RollCommand.rollDice(sender, args);
-                        return true;
+                        try {
+                            int max = Integer.parseInt(args[0]);
+                            sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + UtilitySubsystem.rollDice(max) + " out of " + max + ".", 25);
+                        }
+                        catch(Exception ignored) {
+
+                        }
                     }
                 }
                 else {
                     player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
-                    return false;
                 }
 
             }
