@@ -104,7 +104,6 @@ public class CharacterCard {
 
             saveWriter.close();
 
-            System.out.println("Successfully saved character card belonging to " + playerUUID + ".");
             return true;
 
         } catch (IOException e) {
@@ -143,7 +142,6 @@ public class CharacterCard {
             }
 
             loadReader.close();
-            System.out.println("Character card belonging to" + playerUUID + " successfully loaded.");
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred loading the file " + filename + ".");
@@ -181,7 +179,6 @@ public class CharacterCard {
             }
 
             loadReader.close();
-            System.out.println("Character card belonging to" + playerUUID + " successfully loaded.");
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred loading the file " + filename + ".");
