@@ -22,6 +22,11 @@ public class CharacterCard {
         playerUUID = uuid;
     }
 
+    // storage constructor
+    public CharacterCard() {
+
+    }
+
     void setPlayerUUID(UUID newUUID) {
         playerUUID = newUUID;
     }

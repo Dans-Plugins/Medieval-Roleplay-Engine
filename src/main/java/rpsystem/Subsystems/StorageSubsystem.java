@@ -37,7 +37,8 @@ public class StorageSubsystem {
 
             // actual saving takes place here
             for (CharacterCard card : main.cards) {
-                saveWriter.write(card.getPlayerUUID().toString() + "\n");
+                System.out.println("[DEBUG] Saving card with UUID: " + card.getPlayerUUID());
+                saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
             }
 
             saveWriter.close();
@@ -61,9 +62,9 @@ public class StorageSubsystem {
 
             // actual loading
             while (loadReader.hasNextLine()) {
-                String nextName = loadReader.nextLine();
-                CharacterCard temp = new CharacterCard(UUID.fromString(nextName));
-                temp.load(nextName + ".txt");
+                String nextFilename = loadReader.nextLine();
+                CharacterCard temp = new CharacterCard();
+                temp.load(nextFilename);
 
                 // existence check
                 int index = -1;
@@ -97,7 +98,7 @@ public class StorageSubsystem {
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextName = loadReader.nextLine();
-                CharacterCard temp = new CharacterCard(findUUIDBasedOnPlayerName(nextName));
+                CharacterCard temp = new CharacterCard();
                 temp.legacyLoad(nextName + ".txt");
 
                 main.cards.add(temp);
