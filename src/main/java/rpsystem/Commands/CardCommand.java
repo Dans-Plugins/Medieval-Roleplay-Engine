@@ -28,15 +28,17 @@ public class CardCommand {
 
             if (player.hasPermission("rp.card.show") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
-
-                    if (card.getPlayerUUID().equals(player.getUniqueId())) {
-                        player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
-                        player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
-                        player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
-                        player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
-                        player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
-                        player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
-                        player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
+                    if (card.getPlayerUUID() != null) {
+                        if (card.getPlayerUUID().equals(player.getUniqueId())) {
+                            player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
+                            player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
+                            player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
+                            player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
+                            player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
+                            player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
+                            player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
+                            return;
+                        }
                     }
                 }
             }

@@ -111,7 +111,7 @@ public class CommandSubsystem {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default")) {
-                    if (!main.playersSpeakingInLocalChat.contains(player.getName())) {
+                    if (!main.playersSpeakingInLocalChat.contains(player.getUniqueId())) {
                         main.playersSpeakingInLocalChat.add(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
                         return true;
@@ -133,8 +133,8 @@ public class CommandSubsystem {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.global") || player.hasPermission("rp.ooc") || player.hasPermission("rp.default")) {
-                    if (main.playersSpeakingInLocalChat.contains(player.getName())) {
-                        main.playersSpeakingInLocalChat.remove(player.getName());
+                    if (main.playersSpeakingInLocalChat.contains(player.getUniqueId())) {
+                        main.playersSpeakingInLocalChat.remove(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
                     }
                     else {
