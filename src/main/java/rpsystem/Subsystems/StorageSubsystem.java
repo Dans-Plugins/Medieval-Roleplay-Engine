@@ -37,8 +37,10 @@ public class StorageSubsystem {
 
             // actual saving takes place here
             for (CharacterCard card : main.cards) {
-                System.out.println("[DEBUG] Saving card with UUID: " + card.getPlayerUUID());
-                saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
+//                System.out.println("[DEBUG] Saving card with UUID: " + card.getPlayerUUID());
+                if (card.getPlayerUUID() != null) {
+                    saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
+                }
             }
 
             saveWriter.close();
