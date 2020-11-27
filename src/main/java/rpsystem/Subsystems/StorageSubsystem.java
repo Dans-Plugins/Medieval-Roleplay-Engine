@@ -52,7 +52,9 @@ public class StorageSubsystem {
 
     public void saveCards() {
         for (CharacterCard card : main.cards) {
-            card.save();
+            if (card.getPlayerUUID() != null) {
+                card.save();
+            }
         }
     }
 
