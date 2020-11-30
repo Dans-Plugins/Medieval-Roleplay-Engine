@@ -1,10 +1,13 @@
 package rpsystem.EventHandlers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import rpsystem.Objects.CharacterCard;
 import rpsystem.Main;
+
+import static org.bukkit.Bukkit.getPlayer;
 
 public class PlayerInteractAtEntityEventHandler {
 
@@ -26,7 +29,7 @@ public class PlayerInteractAtEntityEventHandler {
                 main.playersWithRightClickCooldown.add(player.getUniqueId());
 
                 if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + card.getPlayerUUID() + " == ");
+                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + " == ");
                     player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                     player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                     player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
