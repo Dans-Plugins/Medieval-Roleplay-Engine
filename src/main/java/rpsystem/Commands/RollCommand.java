@@ -8,7 +8,7 @@ import com.bernardomg.tabletop.dice.parser.DiceParser;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.Main;
+import rpsystem.MedievalRoleplayEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class RollCommand {
 
-    Main main = null;
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
     static final DiceParser parser = new DefaultDiceParser();
     static final DiceInterpreter<RollHistory> roller = new DiceRoller();
@@ -25,8 +25,8 @@ public class RollCommand {
     public static final String invalidSyntaxMsg = ChatColor.RED + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
     public static final String noPermMsg = ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
 
-    public RollCommand(Main plugin) {
-        main = plugin;
+    public RollCommand(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public static void rollDice(CommandSender sender, String[] args) {

@@ -2,21 +2,21 @@ package rpsystem.EventHandlers;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import rpsystem.Main;
+import rpsystem.MedievalRoleplayEngine;
 
-import static rpsystem.Subsystems.UtilitySubsystem.sendMessageToPlayersWithinDistance;
+import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
 
 public class AsyncPlayerChatEventHandler {
 
-    Main main = null;
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
-    public AsyncPlayerChatEventHandler(Main plugin) {
-        main = plugin;
+    public AsyncPlayerChatEventHandler(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public void handle(AsyncPlayerChatEvent event) {
-        if (main.playersSpeakingInLocalChat.contains(event.getPlayer().getUniqueId())) {
-            sendMessageToPlayersWithinDistance(event.getPlayer(), ChatColor.GRAY + "" + String.format("%s: \"%s\"", main.utilities.getCard(event.getPlayer().getUniqueId()).getName(), event.getMessage()), 25);
+        if (medievalRoleplayEngine.playersSpeakingInLocalChat.contains(event.getPlayer().getUniqueId())) {
+            sendMessageToPlayersWithinDistance(event.getPlayer(), ChatColor.GRAY + "" + String.format("%s: \"%s\"", medievalRoleplayEngine.utilities.getCard(event.getPlayer().getUniqueId()).getName(), event.getMessage()), 25);
             event.setCancelled(true);
         }
     }

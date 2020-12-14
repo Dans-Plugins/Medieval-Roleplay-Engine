@@ -3,17 +3,17 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.Main;
+import rpsystem.MedievalRoleplayEngine;
 
 import static org.bukkit.Bukkit.getServer;
-import static rpsystem.Subsystems.UtilitySubsystem.createStringFromFirstArgOnwards;
+import static rpsystem.Utilities.createStringFromFirstArgOnwards;
 
 public class BirdCommand {
 
-    Main main = null;
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
-    public BirdCommand(Main plugin) {
-        main = plugin;
+    public BirdCommand(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public void sendBird(CommandSender sender, String[] args) {
@@ -25,7 +25,7 @@ public class BirdCommand {
         Player player = (Player) sender;
 
         if (player.hasPermission("rp.bird") || player.hasPermission("rp.default")) {
-            if (main.playersWithBusyBirds.contains(player.getUniqueId())) {
+            if (medievalRoleplayEngine.playersWithBusyBirds.contains(player.getUniqueId())) {
                 player.sendMessage(ChatColor.RED + "Your bird is already on a mission!");
                 return;
             }
@@ -54,19 +54,19 @@ public class BirdCommand {
             int blocksPerSecond = 20;
             int seconds = (int)distance/blocksPerSecond;
 
-            getServer().getScheduler().runTaskLater(main, new Runnable() {
+            getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
                 @Override
                 public void run() {
                     targetPlayer.sendMessage(ChatColor.GREEN + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:");
                     targetPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "'" + message + "'");
                     player.sendMessage(ChatColor.GREEN + "Your bird has reached " + targetPlayer.getName() + "!");
-                    main.playersWithBusyBirds.remove(player.getUniqueId());
+                    medievalRoleplayEngine.playersWithBusyBirds.remove(player.getUniqueId());
 
                 }
             }, seconds * 20);
 
             player.sendMessage(ChatColor.GREEN + "The bird flies off with your message.");
-            main.playersWithBusyBirds.add(player.getUniqueId());
+            medievalRoleplayEngine.playersWithBusyBirds.add(player.getUniqueId());
         }
         else {
             player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.bird'");

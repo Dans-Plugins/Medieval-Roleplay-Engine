@@ -12,24 +12,21 @@ import rpsystem.EventHandlers.AsyncPlayerChatEventHandler;
 import rpsystem.EventHandlers.PlayerInteractAtEntityEventHandler;
 import rpsystem.EventHandlers.PlayerJoinEventHandler;
 import rpsystem.Objects.CharacterCard;
-import rpsystem.Subsystems.CommandSubsystem;
-import rpsystem.Subsystems.StorageSubsystem;
-import rpsystem.Subsystems.UtilitySubsystem;
 import rpsystem.bStats.Metrics;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Main extends JavaPlugin implements Listener {
+public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
 
     // version
     public String version = "v1.5.0.1";
 
     // subsystems
-    public StorageSubsystem storage = new StorageSubsystem(this);
-    public CommandSubsystem commands = new CommandSubsystem(this);
-    public UtilitySubsystem utilities = new UtilitySubsystem(this);
+    public StorageManager storage = new StorageManager(this);
+    public CommandInterpreter commands = new CommandInterpreter(this);
+    public Utilities utilities = new Utilities(this);
 
     // saved
     public ArrayList<CharacterCard> cards = new ArrayList<>();

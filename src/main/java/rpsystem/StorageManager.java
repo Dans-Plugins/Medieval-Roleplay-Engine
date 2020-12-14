@@ -1,23 +1,20 @@
-package rpsystem.Subsystems;
+package rpsystem;
 
 import rpsystem.Objects.CharacterCard;
-import rpsystem.Main;
+import rpsystem.MedievalRoleplayEngine;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.UUID;
 
-import static rpsystem.Subsystems.UtilitySubsystem.findUUIDBasedOnPlayerName;
+public class StorageManager {
 
-public class StorageSubsystem {
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
-    Main main = null;
-
-    public StorageSubsystem(Main plugin) {
-        main = plugin;
+    public StorageManager(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public void saveCardFileNames() {
@@ -36,7 +33,7 @@ public class StorageSubsystem {
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
-            for (CharacterCard card : main.cards) {
+            for (CharacterCard card : medievalRoleplayEngine.cards) {
 //                System.out.println("[DEBUG] Saving card with UUID: " + card.getPlayerUUID());
                 if (card.getPlayerUUID() != null) {
                     saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
@@ -51,7 +48,7 @@ public class StorageSubsystem {
     }
 
     public void saveCards() {
-        for (CharacterCard card : main.cards) {
+        for (CharacterCard card : medievalRoleplayEngine.cards) {
             if (card.getPlayerUUID() != null) {
                 card.save();
             }
@@ -72,16 +69,16 @@ public class StorageSubsystem {
 
                 // existence check
                 int index = -1;
-                for (int i = 0; i < main.cards.size(); i++) {
-                    if (main.cards.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
+                for (int i = 0; i < medievalRoleplayEngine.cards.size(); i++) {
+                    if (medievalRoleplayEngine.cards.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
                         index = i;
                     }
                 }
                 if (index != -1) {
-                    main.cards.remove(index);
+                    medievalRoleplayEngine.cards.remove(index);
                 }
 
-                main.cards.add(temp);
+                medievalRoleplayEngine.cards.add(temp);
 
             }
 
@@ -105,7 +102,7 @@ public class StorageSubsystem {
                 CharacterCard temp = new CharacterCard();
                 temp.legacyLoad(nextName + ".txt");
 
-                main.cards.add(temp);
+                medievalRoleplayEngine.cards.add(temp);
 
             }
 

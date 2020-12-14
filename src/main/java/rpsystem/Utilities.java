@@ -1,25 +1,25 @@
-package rpsystem.Subsystems;
+package rpsystem;
 
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import rpsystem.Objects.CharacterCard;
-import rpsystem.Main;
+import rpsystem.MedievalRoleplayEngine;
 
 import java.util.UUID;
 
 import static org.bukkit.Bukkit.*;
 
-public class UtilitySubsystem {
+public class Utilities {
 
-    Main main = null;
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
-    public UtilitySubsystem(Main plugin) {
-        main = plugin;
+    public Utilities(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public boolean hasCard(UUID uuid) {
-        for (CharacterCard card : main.cards) {
+        for (CharacterCard card : medievalRoleplayEngine.cards) {
             if (card.getPlayerUUID().equals(uuid)) {
                 return true;
             }
@@ -28,7 +28,7 @@ public class UtilitySubsystem {
     }
 
     public CharacterCard getCard(UUID uuid) {
-        for (CharacterCard card : main.cards) {
+        for (CharacterCard card : medievalRoleplayEngine.cards) {
             if (card.getPlayerUUID().equals(uuid)) {
                 return card;
             }
