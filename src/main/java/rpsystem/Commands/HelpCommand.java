@@ -3,17 +3,14 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.Main;
-import rpsystem.Subsystems.UtilitySubsystem;
-
-import static rpsystem.Subsystems.UtilitySubsystem.sendMessageToPlayersWithinDistance;
+import rpsystem.MedievalRoleplayEngine;
 
 public class HelpCommand {
 
-    Main main = null;
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
-    public HelpCommand(Main plugin) {
-        main = plugin;
+    public HelpCommand(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public void showListOfCommands(CommandSender sender) {
@@ -27,7 +24,7 @@ public class HelpCommand {
 
         if (player.hasPermission("rp.rphelp") || player.hasPermission("rp.default")) {
 
-            player.sendMessage(ChatColor.AQUA + " == Medieval Roleplay Engine " + main.version + " Commands == ");
+            player.sendMessage(ChatColor.AQUA + " == Medieval Roleplay Engine " + medievalRoleplayEngine.version + " Commands == ");
             player.sendMessage(ChatColor.AQUA + "/rphelp - Show a list of useful commands for the plugin.");
             player.sendMessage(ChatColor.AQUA + "/card help - Show a list of commands useful for managing character cards.");
             player.sendMessage(ChatColor.AQUA + "/bird - Send a bird to another player.");

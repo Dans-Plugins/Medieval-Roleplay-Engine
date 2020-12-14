@@ -6,13 +6,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import rpsystem.Main;
+import rpsystem.MedievalRoleplayEngine;
 
 public class TitleCommand {
-    Main main = null;
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
-    public TitleCommand(Main plugin) {
-        main = plugin;
+    public TitleCommand(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public void titleBook(CommandSender sender, String[] args) {
@@ -29,7 +29,7 @@ public class TitleCommand {
                     // args check
                     if (args.length > 0) {
 
-                        String newTitle = main.utilities.createStringFromArgs(args);
+                        String newTitle = medievalRoleplayEngine.utilities.createStringFromArgs(args);
 
                         ItemStack book = player.getInventory().getItemInMainHand();
 

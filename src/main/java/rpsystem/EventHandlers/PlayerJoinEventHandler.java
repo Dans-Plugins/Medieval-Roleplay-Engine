@@ -2,20 +2,20 @@ package rpsystem.EventHandlers;
 
 import org.bukkit.event.player.PlayerJoinEvent;
 import rpsystem.Objects.CharacterCard;
-import rpsystem.Main;
+import rpsystem.MedievalRoleplayEngine;
 
 public class PlayerJoinEventHandler {
 
-    Main main = null;
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
-    public PlayerJoinEventHandler(Main plugin) {
-        main = plugin;
+    public PlayerJoinEventHandler(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public void handle(PlayerJoinEvent event) {
-        if (!main.utilities.hasCard(event.getPlayer().getUniqueId())) {
+        if (!medievalRoleplayEngine.utilities.hasCard(event.getPlayer().getUniqueId())) {
             CharacterCard newCard = new CharacterCard(event.getPlayer().getUniqueId());
-            main.cards.add(newCard);
+            medievalRoleplayEngine.cards.add(newCard);
         }
     }
 

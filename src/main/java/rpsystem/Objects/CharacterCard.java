@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
-import static rpsystem.Subsystems.UtilitySubsystem.findUUIDBasedOnPlayerName;
+import static rpsystem.Utilities.findUUIDBasedOnPlayerName;
 
 public class CharacterCard {
     private UUID playerUUID = null;

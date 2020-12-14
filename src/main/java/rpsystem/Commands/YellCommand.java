@@ -3,17 +3,16 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.Main;
-import rpsystem.Subsystems.UtilitySubsystem;
+import rpsystem.MedievalRoleplayEngine;
 
-import static rpsystem.Subsystems.UtilitySubsystem.sendMessageToPlayersWithinDistance;
+import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
 
 public class YellCommand {
 
-    Main main = null;
+    MedievalRoleplayEngine medievalRoleplayEngine = null;
 
-    public YellCommand(Main plugin) {
-        main = plugin;
+    public YellCommand(MedievalRoleplayEngine plugin) {
+        medievalRoleplayEngine = plugin;
     }
 
     public void sendLoudMessage(CommandSender sender, String[] args) {
@@ -27,7 +26,7 @@ public class YellCommand {
         if (player.hasPermission("rp.yell") || player.hasPermission("rp.default")) {
 
             if (args.length > 0) {
-                String message = ChatColor.RED + "" + String.format("%s yells: \"%s\"", main.utilities.getCard(player.getUniqueId()).getName(), main.utilities.createStringFromArgs(args));
+                String message = ChatColor.RED + "" + String.format("%s yells: \"%s\"", medievalRoleplayEngine.utilities.getCard(player.getUniqueId()).getName(), medievalRoleplayEngine.utilities.createStringFromArgs(args));
 
                 sendMessageToPlayersWithinDistance(player, message, 50);
             }
