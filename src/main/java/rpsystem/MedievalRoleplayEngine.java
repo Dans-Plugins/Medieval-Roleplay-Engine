@@ -21,7 +21,7 @@ import java.util.UUID;
 public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
 
     // version
-    public String version = "v1.5.0.1";
+    public String version = "v1.5.0.2-beta";
 
     // subsystems
     public StorageManager storage = new StorageManager(this);
