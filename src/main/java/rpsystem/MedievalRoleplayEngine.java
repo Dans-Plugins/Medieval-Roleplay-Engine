@@ -23,7 +23,7 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
     private static MedievalRoleplayEngine instance;
 
     // version
-    public String version = "v1.5.0.2-beta-2";
+    private String version = "v1.5.0.2-beta-2";
 
     // saved
     public ArrayList<CharacterCard> cards = new ArrayList<>();
@@ -92,6 +92,10 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
     public void onRightClick(PlayerInteractAtEntityEvent event) {
         PlayerInteractAtEntityEventHandler handler = new PlayerInteractAtEntityEventHandler();
         handler.handle(event);
+    }
+
+    public String getVersion() {
+        return version;
     }
 
 }

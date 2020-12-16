@@ -18,7 +18,7 @@ public class HelpCommand {
 
         if (player.hasPermission("rp.rphelp") || player.hasPermission("rp.default")) {
 
-            player.sendMessage(ChatColor.AQUA + " == Medieval Roleplay Engine " + MedievalRoleplayEngine.getInstance().version + " Commands == ");
+            player.sendMessage(ChatColor.AQUA + " == Medieval Roleplay Engine " + MedievalRoleplayEngine.getInstance().getVersion() + " Commands == ");
             player.sendMessage(ChatColor.AQUA + "/rphelp - Show a list of useful commands for the plugin.");
             player.sendMessage(ChatColor.AQUA + "/card help - Show a list of commands useful for managing character cards.");
             player.sendMessage(ChatColor.AQUA + "/bird - Send a bird to another player.");
