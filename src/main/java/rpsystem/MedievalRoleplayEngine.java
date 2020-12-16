@@ -24,8 +24,7 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
 
     // version
     public String version = "v1.5.0.2-beta-2";
-    
-    public CommandInterpreter commands = new CommandInterpreter();
+
     public Utilities utilities = new Utilities();
 
     // saved
@@ -76,7 +75,7 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        return commands.interpretCommand(sender, label, args);
+        return CommandInterpreter.getInstance().interpretCommand(sender, label, args);
     }
 
     @EventHandler()
