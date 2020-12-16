@@ -25,9 +25,6 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     // version
     private String version = "v1.5.0.2-beta-2";
 
-    // saved
-    public ArrayList<CharacterCard> cards = new ArrayList<>();
-
     // temporary
     public ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
     public ArrayList<UUID> playersSpeakingInLocalChat = new ArrayList<>();

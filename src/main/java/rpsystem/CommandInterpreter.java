@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rpsystem.Commands.*;
+import rpsystem.data.PersistentData;
 
 import static rpsystem.Utilities.createStringFromFirstArgOnwards;
 import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
@@ -35,7 +36,7 @@ public class CommandInterpreter {
         // card command
         if (label.equalsIgnoreCase("card")) {
             if (args.length == 0) {
-                CardCommand.showCard(sender, args, MedievalRoleplayEngine.getInstance().cards);
+                CardCommand.showCard(sender, args, PersistentData.getInstance().getCards());
                 return true;
             } else {
 
@@ -46,27 +47,27 @@ public class CommandInterpreter {
 
                 if (args[0].equalsIgnoreCase("name")) {
                     CardCommand command = new CardCommand();
-                    command.changeName(sender, args, MedievalRoleplayEngine.getInstance().cards);
+                    command.changeName(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("race")) {
-                    CardCommand.changeRace(sender, args, MedievalRoleplayEngine.getInstance().cards);
+                    CardCommand.changeRace(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("subculture")) {
-                    CardCommand.changeSubculture(sender, args, MedievalRoleplayEngine.getInstance().cards);
+                    CardCommand.changeSubculture(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("religion")) {
-                    CardCommand.changeReligion(sender, args, MedievalRoleplayEngine.getInstance().cards);
+                    CardCommand.changeReligion(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("age")) {
-                    CardCommand.changeAge(sender, args, MedievalRoleplayEngine.getInstance().cards);
+                    CardCommand.changeAge(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("gender")) {
-                    CardCommand.changeGender(sender, args, MedievalRoleplayEngine.getInstance().cards);
+                    CardCommand.changeGender(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
 
@@ -103,7 +104,7 @@ public class CommandInterpreter {
 
                 }
 
-                CardCommand.showPlayerInfo(sender, args, MedievalRoleplayEngine.getInstance().cards);
+                CardCommand.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
                 return true;
             }
         }

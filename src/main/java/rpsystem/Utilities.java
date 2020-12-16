@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import rpsystem.Objects.CharacterCard;
+import rpsystem.data.PersistentData;
 
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ public class Utilities {
     }
 
     public boolean hasCard(UUID uuid) {
-        for (CharacterCard card : MedievalRoleplayEngine.getInstance().cards) {
+        for (CharacterCard card : PersistentData.getInstance().getCards()) {
             if (card.getPlayerUUID().equals(uuid)) {
                 return true;
             }
@@ -34,7 +35,7 @@ public class Utilities {
     }
 
     public CharacterCard getCard(UUID uuid) {
-        for (CharacterCard card : MedievalRoleplayEngine.getInstance().cards) {
+        for (CharacterCard card : PersistentData.getInstance().getCards()) {
             if (card.getPlayerUUID().equals(uuid)) {
                 return card;
             }
