@@ -160,7 +160,7 @@ public class CommandInterpreter {
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
                         String message = createStringFromFirstArgOnwards(args, 0);
-                        String characterName = MedievalRoleplayEngine.getInstance().utilities.getCard(player.getUniqueId()).getName();
+                        String characterName = Utilities.getInstance().getCard(player.getUniqueId()).getName();
 
                         sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
                     }

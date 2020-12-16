@@ -11,6 +11,19 @@ import static org.bukkit.Bukkit.*;
 
 public class Utilities {
 
+    private static Utilities instance;
+
+    private Utilities() {
+
+    }
+
+    public static Utilities getInstance() {
+        if (instance == null) {
+            instance = new Utilities();
+        }
+        return instance;
+    }
+
     public boolean hasCard(UUID uuid) {
         for (CharacterCard card : MedievalRoleplayEngine.getInstance().cards) {
             if (card.getPlayerUUID().equals(uuid)) {

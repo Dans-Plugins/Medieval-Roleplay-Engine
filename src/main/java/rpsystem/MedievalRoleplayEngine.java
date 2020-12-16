@@ -25,8 +25,6 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
     // version
     public String version = "v1.5.0.2-beta-2";
 
-    public Utilities utilities = new Utilities();
-
     // saved
     public ArrayList<CharacterCard> cards = new ArrayList<>();
 

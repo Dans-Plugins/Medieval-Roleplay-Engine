@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import rpsystem.MedievalRoleplayEngine;
 import rpsystem.Objects.CharacterCard;
+import rpsystem.Utilities;
 
 public class PlayerInteractAtEntityEventHandler {
 
@@ -13,7 +14,7 @@ public class PlayerInteractAtEntityEventHandler {
         if (event.getRightClicked() instanceof Player) {
 
             Player target = (Player) event.getRightClicked();
-            CharacterCard card = MedievalRoleplayEngine.getInstance().utilities.getCard(target.getUniqueId());
+            CharacterCard card = Utilities.getInstance().getCard(target.getUniqueId());
 
             Player player = event.getPlayer();
 
