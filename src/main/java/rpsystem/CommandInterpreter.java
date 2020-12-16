@@ -61,8 +61,8 @@ public class CommandInterpreter {
                         Player player = (Player) sender;
 
                         if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
-                            MedievalRoleplayEngine.getInstance().storage.saveCardFileNames();
-                            MedievalRoleplayEngine.getInstance().storage.saveCards();
+                            StorageManager.getInstance().saveCardFileNames();
+                            StorageManager.getInstance().saveCards();
                             return true;
                         }
                         else {
@@ -78,7 +78,7 @@ public class CommandInterpreter {
                         Player player = (Player) sender;
 
                         if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
-                            MedievalRoleplayEngine.getInstance().storage.loadCards();
+                            StorageManager.getInstance().loadCards();
                             return true;
                         }
                         else {

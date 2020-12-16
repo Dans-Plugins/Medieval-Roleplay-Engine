@@ -24,9 +24,7 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
 
     // version
     public String version = "v1.5.0.2-beta-2";
-
-    // subsystems
-    public StorageManager storage = new StorageManager();
+    
     public CommandInterpreter commands = new CommandInterpreter();
     public Utilities utilities = new Utilities();
 
@@ -51,14 +49,14 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
 
         this.getServer().getPluginManager().registerEvents(this, this);
 
-        if (storage.oldSaveFolderPresent()) {
-            storage.legacyLoadCards();
-            storage.deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
-            storage.saveCardFileNames();
-            storage.saveCards();
+        if (StorageManager.getInstance().oldSaveFolderPresent()) {
+            StorageManager.getInstance().legacyLoadCards();
+            StorageManager.getInstance().deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
+            StorageManager.getInstance().saveCardFileNames();
+            StorageManager.getInstance().saveCards();
         }
         else {
-            storage.loadCards();
+            StorageManager.getInstance().loadCards();
         }
 
         int pluginId = 8996;
@@ -71,8 +69,8 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         System.out.println("Medieval Roleplay Engine plugin disabling....");
-        storage.saveCardFileNames();
-        storage.saveCards();
+        StorageManager.getInstance().saveCardFileNames();
+        StorageManager.getInstance().saveCards();
         System.out.println("Medieval Roleplay Engine plugin disabled.");
     }
 
