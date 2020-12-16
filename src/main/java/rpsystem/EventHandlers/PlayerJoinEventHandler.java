@@ -6,6 +6,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import rpsystem.MedievalRoleplayEngine;
 import rpsystem.Objects.CharacterCard;
 import rpsystem.Utilities;
+import rpsystem.data.PersistentData;
 
 public class PlayerJoinEventHandler implements Listener {
 
@@ -13,7 +14,7 @@ public class PlayerJoinEventHandler implements Listener {
     public void handle(PlayerJoinEvent event) {
         if (!Utilities.getInstance().hasCard(event.getPlayer().getUniqueId())) {
             CharacterCard newCard = new CharacterCard(event.getPlayer().getUniqueId());
-            MedievalRoleplayEngine.getInstance().cards.add(newCard);
+            PersistentData.getInstance().getCards().add(newCard);
         }
     }
 

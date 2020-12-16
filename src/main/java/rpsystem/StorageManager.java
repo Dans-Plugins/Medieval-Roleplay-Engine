@@ -1,6 +1,7 @@
 package rpsystem;
 
 import rpsystem.Objects.CharacterCard;
+import rpsystem.data.PersistentData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +40,7 @@ public class StorageManager {
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
-            for (CharacterCard card : MedievalRoleplayEngine.getInstance().cards) {
+            for (CharacterCard card : PersistentData.getInstance().getCards()) {
 //                System.out.println("[DEBUG] Saving card with UUID: " + card.getPlayerUUID());
                 if (card.getPlayerUUID() != null) {
                     saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
@@ -54,7 +55,7 @@ public class StorageManager {
     }
 
     public void saveCards() {
-        for (CharacterCard card : MedievalRoleplayEngine.getInstance().cards) {
+        for (CharacterCard card : PersistentData.getInstance().getCards()) {
             if (card.getPlayerUUID() != null) {
                 card.save();
             }
@@ -75,16 +76,16 @@ public class StorageManager {
 
                 // existence check
                 int index = -1;
-                for (int i = 0; i < MedievalRoleplayEngine.getInstance().cards.size(); i++) {
-                    if (MedievalRoleplayEngine.getInstance().cards.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
+                for (int i = 0; i < PersistentData.getInstance().getCards().size(); i++) {
+                    if (PersistentData.getInstance().getCards().get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
                         index = i;
                     }
                 }
                 if (index != -1) {
-                    MedievalRoleplayEngine.getInstance().cards.remove(index);
+                    PersistentData.getInstance().getCards().remove(index);
                 }
 
-                MedievalRoleplayEngine.getInstance().cards.add(temp);
+                PersistentData.getInstance().getCards().add(temp);
 
             }
 
@@ -108,7 +109,7 @@ public class StorageManager {
                 CharacterCard temp = new CharacterCard();
                 temp.legacyLoad(nextName + ".txt");
 
-                MedievalRoleplayEngine.getInstance().cards.add(temp);
+                PersistentData.getInstance().getCards().add(temp);
 
             }
 
