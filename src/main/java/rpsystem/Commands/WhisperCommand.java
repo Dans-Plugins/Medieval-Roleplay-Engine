@@ -28,7 +28,9 @@ public class WhisperCommand {
             if (args.length > 0) {
                 String message = ChatColor.BLUE + "" + String.format("%s whispers: \"%s\"", medievalRoleplayEngine.utilities.getCard(player.getUniqueId()).getName(), medievalRoleplayEngine.utilities.createStringFromArgs(args));
 
-                sendMessageToPlayersWithinDistance(player, message, 2);
+                int numPlayersWhoHeard = sendMessageToPlayersWithinDistance(player, message, 2);
+
+                player.sendMessage(ChatColor.AQUA + "" + numPlayersWhoHeard + " players heard your whisper.");
             }
             else {
                 player.sendMessage(ChatColor.RED + "Usage: /whisper (message)");
