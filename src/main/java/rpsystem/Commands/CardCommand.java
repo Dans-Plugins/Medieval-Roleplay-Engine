@@ -4,23 +4,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.Objects.CharacterCard;
 import rpsystem.MedievalRoleplayEngine;
+import rpsystem.Objects.CharacterCard;
 
 import java.util.ArrayList;
 
-import static org.bukkit.Bukkit.getPlayer;
 import static org.bukkit.Bukkit.getServer;
 import static rpsystem.Utilities.createStringFromFirstArgOnwards;
 import static rpsystem.Utilities.findUUIDBasedOnPlayerName;
 
 public class CardCommand {
-
-    MedievalRoleplayEngine medievalRoleplayEngine = null;
-
-    public CardCommand(MedievalRoleplayEngine plugin) {
-        medievalRoleplayEngine = plugin;
-    }
 
     public static void showCard(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
@@ -81,20 +74,20 @@ public class CardCommand {
 
                         if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
-                            if (!medievalRoleplayEngine.playersOnNameChangeCooldown.contains(player.getUniqueId())) {
+                            if (!MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.contains(player.getUniqueId())) {
 
                                 if (args.length > 1) {
                                     card.setName(createStringFromFirstArgOnwards(args, 1));
                                     player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
                                     // cooldown
-                                    medievalRoleplayEngine.playersOnNameChangeCooldown.add(player.getUniqueId());
+                                    MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.add(player.getUniqueId());
 
                                     int seconds = 300;
-                                    getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
+                                    getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
                                         @Override
                                         public void run() {
-                                            medievalRoleplayEngine.playersOnNameChangeCooldown.remove(player.getUniqueId());
+                                            MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.remove(player.getUniqueId());
                                             player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
                                         }
                                     }, seconds * 20);

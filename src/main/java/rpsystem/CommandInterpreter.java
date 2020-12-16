@@ -5,21 +5,29 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rpsystem.Commands.*;
 
-import static rpsystem.Utilities.*;
+import static rpsystem.Utilities.createStringFromFirstArgOnwards;
+import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
 
 public class CommandInterpreter {
 
-    MedievalRoleplayEngine medievalRoleplayEngine = null;
+    private static CommandInterpreter instance;
 
-    public CommandInterpreter(MedievalRoleplayEngine plugin) {
-        medievalRoleplayEngine = plugin;
+    private CommandInterpreter() {
+
+    }
+
+    public static CommandInterpreter getInstance() {
+        if (instance == null) {
+            instance = new CommandInterpreter();
+        }
+        return instance;
     }
 
     public boolean interpretCommand(CommandSender sender, String label, String[] args) {
 
         // help command
         if (label.equalsIgnoreCase("rphelp")) {
-            HelpCommand command = new HelpCommand(medievalRoleplayEngine);
+            HelpCommand command = new HelpCommand();
             command.showListOfCommands(sender);
             return true;
         }
@@ -27,7 +35,7 @@ public class CommandInterpreter {
         // card command
         if (label.equalsIgnoreCase("card")) {
             if (args.length == 0) {
-                CardCommand.showCard(sender, args, medievalRoleplayEngine.cards);
+                CardCommand.showCard(sender, args, MedievalRoleplayEngine.getInstance().cards);
                 return true;
             } else {
 
@@ -37,28 +45,28 @@ public class CommandInterpreter {
                 }
 
                 if (args[0].equalsIgnoreCase("name")) {
-                    CardCommand command = new CardCommand(medievalRoleplayEngine);
-                    command.changeName(sender, args, medievalRoleplayEngine.cards);
+                    CardCommand command = new CardCommand();
+                    command.changeName(sender, args, MedievalRoleplayEngine.getInstance().cards);
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("race")) {
-                    CardCommand.changeRace(sender, args, medievalRoleplayEngine.cards);
+                    CardCommand.changeRace(sender, args, MedievalRoleplayEngine.getInstance().cards);
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("subculture")) {
-                    CardCommand.changeSubculture(sender, args, medievalRoleplayEngine.cards);
+                    CardCommand.changeSubculture(sender, args, MedievalRoleplayEngine.getInstance().cards);
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("religion")) {
-                    CardCommand.changeReligion(sender, args, medievalRoleplayEngine.cards);
+                    CardCommand.changeReligion(sender, args, MedievalRoleplayEngine.getInstance().cards);
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("age")) {
-                    CardCommand.changeAge(sender, args, medievalRoleplayEngine.cards);
+                    CardCommand.changeAge(sender, args, MedievalRoleplayEngine.getInstance().cards);
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("gender")) {
-                    CardCommand.changeGender(sender, args, medievalRoleplayEngine.cards);
+                    CardCommand.changeGender(sender, args, MedievalRoleplayEngine.getInstance().cards);
                     return true;
                 }
 
@@ -67,8 +75,8 @@ public class CommandInterpreter {
                         Player player = (Player) sender;
 
                         if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
-                            medievalRoleplayEngine.storage.saveCardFileNames();
-                            medievalRoleplayEngine.storage.saveCards();
+                            StorageManager.getInstance().saveCardFileNames();
+                            StorageManager.getInstance().saveCards();
                             return true;
                         }
                         else {
@@ -84,7 +92,7 @@ public class CommandInterpreter {
                         Player player = (Player) sender;
 
                         if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
-                            medievalRoleplayEngine.storage.loadCards();
+                            StorageManager.getInstance().loadCards();
                             return true;
                         }
                         else {
@@ -95,13 +103,13 @@ public class CommandInterpreter {
 
                 }
 
-                CardCommand.showPlayerInfo(sender, args, medievalRoleplayEngine.cards);
+                CardCommand.showPlayerInfo(sender, args, MedievalRoleplayEngine.getInstance().cards);
                 return true;
             }
         }
 
         if (label.equalsIgnoreCase("bird")) {
-            BirdCommand command = new BirdCommand(medievalRoleplayEngine);
+            BirdCommand command = new BirdCommand();
             command.sendBird(sender, args);
             return true;
         }
@@ -110,8 +118,8 @@ public class CommandInterpreter {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default")) {
-                    if (!medievalRoleplayEngine.playersSpeakingInLocalChat.contains(player.getUniqueId())) {
-                        medievalRoleplayEngine.playersSpeakingInLocalChat.add(player.getUniqueId());
+                    if (!MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.contains(player.getUniqueId())) {
+                        MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.add(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
                         return true;
                     }
@@ -132,8 +140,8 @@ public class CommandInterpreter {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.global") || player.hasPermission("rp.ooc") || player.hasPermission("rp.default")) {
-                    if (medievalRoleplayEngine.playersSpeakingInLocalChat.contains(player.getUniqueId())) {
-                        medievalRoleplayEngine.playersSpeakingInLocalChat.remove(player.getUniqueId());
+                    if (MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.contains(player.getUniqueId())) {
+                        MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.remove(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
                     }
                     else {
@@ -153,7 +161,7 @@ public class CommandInterpreter {
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
                         String message = createStringFromFirstArgOnwards(args, 0);
-                        String characterName = medievalRoleplayEngine.utilities.getCard(player.getUniqueId()).getName();
+                        String characterName = Utilities.getInstance().getCard(player.getUniqueId()).getName();
 
                         sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
                     }
@@ -188,19 +196,19 @@ public class CommandInterpreter {
         }
 
         if (label.equalsIgnoreCase("title")) {
-            TitleCommand command = new TitleCommand(medievalRoleplayEngine);
+            TitleCommand command = new TitleCommand();
             command.titleBook(sender, args);
             return true;
         }
 
         if (label.equalsIgnoreCase("yell")) {
-            YellCommand command = new YellCommand(medievalRoleplayEngine);
+            YellCommand command = new YellCommand();
             command.sendLoudMessage(sender, args);
             return true;
         }
 
         if (label.equalsIgnoreCase("whisper")) {
-            WhisperCommand command = new WhisperCommand(medievalRoleplayEngine);
+            WhisperCommand command = new WhisperCommand();
             command.sendQuietMessage(sender, args);
             return true;
         }

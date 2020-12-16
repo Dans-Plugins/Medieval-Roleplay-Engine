@@ -20,13 +20,10 @@ import java.util.UUID;
 
 public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
 
-    // version
-    public String version = "v1.5.0.2-beta";
+    private static MedievalRoleplayEngine instance;
 
-    // subsystems
-    public StorageManager storage = new StorageManager(this);
-    public CommandInterpreter commands = new CommandInterpreter(this);
-    public Utilities utilities = new Utilities(this);
+    // version
+    private String version = "v1.5.0.2-beta-2";
 
     // saved
     public ArrayList<CharacterCard> cards = new ArrayList<>();
@@ -37,19 +34,26 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
     public ArrayList<UUID> playersOnNameChangeCooldown = new ArrayList<>();
     public ArrayList<UUID> playersWithRightClickCooldown = new ArrayList<>();
 
+    public static MedievalRoleplayEngine getInstance() {
+        return instance;
+    }
+
     @Override
     public void onEnable() {
         System.out.println("Medieval Roleplay Engine plugin enabling....");
+
+        instance = this;
+
         this.getServer().getPluginManager().registerEvents(this, this);
 
-        if (storage.oldSaveFolderPresent()) {
-            storage.legacyLoadCards();
-            storage.deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
-            storage.saveCardFileNames();
-            storage.saveCards();
+        if (StorageManager.getInstance().oldSaveFolderPresent()) {
+            StorageManager.getInstance().legacyLoadCards();
+            StorageManager.getInstance().deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
+            StorageManager.getInstance().saveCardFileNames();
+            StorageManager.getInstance().saveCards();
         }
         else {
-            storage.loadCards();
+            StorageManager.getInstance().loadCards();
         }
 
         int pluginId = 8996;
@@ -62,32 +66,36 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         System.out.println("Medieval Roleplay Engine plugin disabling....");
-        storage.saveCardFileNames();
-        storage.saveCards();
+        StorageManager.getInstance().saveCardFileNames();
+        StorageManager.getInstance().saveCards();
         System.out.println("Medieval Roleplay Engine plugin disabled.");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        return commands.interpretCommand(sender, label, args);
+        return CommandInterpreter.getInstance().interpretCommand(sender, label, args);
     }
 
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
-        PlayerJoinEventHandler handler = new PlayerJoinEventHandler(this);
+        PlayerJoinEventHandler handler = new PlayerJoinEventHandler();
         handler.handle(event);
     }
 
     @EventHandler()
     public void onChat(AsyncPlayerChatEvent event) {
-        AsyncPlayerChatEventHandler handler = new AsyncPlayerChatEventHandler(this);
+        AsyncPlayerChatEventHandler handler = new AsyncPlayerChatEventHandler();
         handler.handle(event);
     }
 
     @EventHandler()
     public void onRightClick(PlayerInteractAtEntityEvent event) {
-        PlayerInteractAtEntityEventHandler handler = new PlayerInteractAtEntityEventHandler(this);
+        PlayerInteractAtEntityEventHandler handler = new PlayerInteractAtEntityEventHandler();
         handler.handle(event);
+    }
+
+    public String getVersion() {
+        return version;
     }
 
 }

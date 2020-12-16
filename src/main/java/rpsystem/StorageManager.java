@@ -1,7 +1,6 @@
 package rpsystem;
 
 import rpsystem.Objects.CharacterCard;
-import rpsystem.MedievalRoleplayEngine;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,19 +10,26 @@ import java.util.Scanner;
 
 public class StorageManager {
 
-    MedievalRoleplayEngine medievalRoleplayEngine = null;
+    private static StorageManager instance;
 
-    public StorageManager(MedievalRoleplayEngine plugin) {
-        medievalRoleplayEngine = plugin;
+    private StorageManager() {
+
+    }
+
+    public static StorageManager getInstance() {
+        if (instance == null) {
+            instance = new StorageManager();
+        }
+        return instance;
     }
 
     public void saveCardFileNames() {
         try {
-            File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
+            File saveFolder = new File("./plugins/MedievalRoleplayEngine.getInstance()/");
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
+            File saveFile = new File("./plugins/MedievalRoleplayEngine.getInstance()/" + "cards.txt");
             if (saveFile.createNewFile()) {
                 System.out.println("Save file for character card filenames created.");
             } else {
@@ -33,7 +39,7 @@ public class StorageManager {
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
-            for (CharacterCard card : medievalRoleplayEngine.cards) {
+            for (CharacterCard card : MedievalRoleplayEngine.getInstance().cards) {
 //                System.out.println("[DEBUG] Saving card with UUID: " + card.getPlayerUUID());
                 if (card.getPlayerUUID() != null) {
                     saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
@@ -48,7 +54,7 @@ public class StorageManager {
     }
 
     public void saveCards() {
-        for (CharacterCard card : medievalRoleplayEngine.cards) {
+        for (CharacterCard card : MedievalRoleplayEngine.getInstance().cards) {
             if (card.getPlayerUUID() != null) {
                 card.save();
             }
@@ -58,7 +64,7 @@ public class StorageManager {
     public void loadCards() {
         try {
             System.out.println("Attempting to load character cards...");
-            File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
+            File loadFile = new File("./plugins/MedievalRoleplayEngine.getInstance()/" + "cards.txt");
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
@@ -69,16 +75,16 @@ public class StorageManager {
 
                 // existence check
                 int index = -1;
-                for (int i = 0; i < medievalRoleplayEngine.cards.size(); i++) {
-                    if (medievalRoleplayEngine.cards.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
+                for (int i = 0; i < MedievalRoleplayEngine.getInstance().cards.size(); i++) {
+                    if (MedievalRoleplayEngine.getInstance().cards.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
                         index = i;
                     }
                 }
                 if (index != -1) {
-                    medievalRoleplayEngine.cards.remove(index);
+                    MedievalRoleplayEngine.getInstance().cards.remove(index);
                 }
 
-                medievalRoleplayEngine.cards.add(temp);
+                MedievalRoleplayEngine.getInstance().cards.add(temp);
 
             }
 
@@ -102,7 +108,7 @@ public class StorageManager {
                 CharacterCard temp = new CharacterCard();
                 temp.legacyLoad(nextName + ".txt");
 
-                medievalRoleplayEngine.cards.add(temp);
+                MedievalRoleplayEngine.getInstance().cards.add(temp);
 
             }
 
