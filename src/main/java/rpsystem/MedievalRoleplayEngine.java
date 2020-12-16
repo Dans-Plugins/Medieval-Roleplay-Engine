@@ -18,7 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
+public class MedievalRoleplayEngine extends JavaPlugin {
 
     private static MedievalRoleplayEngine instance;
 
@@ -44,7 +44,7 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
 
         instance = this;
 
-        this.getServer().getPluginManager().registerEvents(this, this);
+        EventRegistry.getInstance().registerEvents();
 
         if (StorageManager.getInstance().oldSaveFolderPresent()) {
             StorageManager.getInstance().legacyLoadCards();
@@ -74,24 +74,6 @@ public class MedievalRoleplayEngine extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         return CommandInterpreter.getInstance().interpretCommand(sender, label, args);
-    }
-
-    @EventHandler()
-    public void onJoin(PlayerJoinEvent event) {
-        PlayerJoinEventHandler handler = new PlayerJoinEventHandler();
-        handler.handle(event);
-    }
-
-    @EventHandler()
-    public void onChat(AsyncPlayerChatEvent event) {
-        AsyncPlayerChatEventHandler handler = new AsyncPlayerChatEventHandler();
-        handler.handle(event);
-    }
-
-    @EventHandler()
-    public void onRightClick(PlayerInteractAtEntityEvent event) {
-        PlayerInteractAtEntityEventHandler handler = new PlayerInteractAtEntityEventHandler();
-        handler.handle(event);
     }
 
     public String getVersion() {

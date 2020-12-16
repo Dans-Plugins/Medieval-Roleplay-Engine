@@ -3,13 +3,16 @@ package rpsystem.EventHandlers;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import rpsystem.MedievalRoleplayEngine;
 import rpsystem.Objects.CharacterCard;
 import rpsystem.Utilities;
 
-public class PlayerInteractAtEntityEventHandler {
+public class PlayerInteractAtEntityEventHandler implements Listener {
 
+    @EventHandler()
     public void handle(PlayerInteractAtEntityEvent event) {
         if (event.getRightClicked() instanceof Player) {
 
