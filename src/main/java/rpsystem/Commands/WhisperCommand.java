@@ -3,18 +3,11 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.MedievalRoleplayEngine;
 import rpsystem.Utilities;
 
 import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
 
 public class WhisperCommand {
-
-    MedievalRoleplayEngine medievalRoleplayEngine = null;
-
-    public WhisperCommand(MedievalRoleplayEngine plugin) {
-        medievalRoleplayEngine = plugin;
-    }
 
     public void sendQuietMessage(CommandSender sender, String[] args) {
         // player check

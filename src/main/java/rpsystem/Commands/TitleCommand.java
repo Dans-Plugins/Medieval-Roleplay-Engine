@@ -6,15 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import rpsystem.MedievalRoleplayEngine;
 import rpsystem.Utilities;
 
 public class TitleCommand {
-    MedievalRoleplayEngine medievalRoleplayEngine = null;
-
-    public TitleCommand(MedievalRoleplayEngine plugin) {
-        medievalRoleplayEngine = plugin;
-    }
 
     public void titleBook(CommandSender sender, String[] args) {
 

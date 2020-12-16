@@ -26,7 +26,7 @@ public class CommandInterpreter {
 
         // help command
         if (label.equalsIgnoreCase("rphelp")) {
-            HelpCommand command = new HelpCommand(MedievalRoleplayEngine.getInstance());
+            HelpCommand command = new HelpCommand();
             command.showListOfCommands(sender);
             return true;
         }
@@ -44,7 +44,7 @@ public class CommandInterpreter {
                 }
 
                 if (args[0].equalsIgnoreCase("name")) {
-                    CardCommand command = new CardCommand(MedievalRoleplayEngine.getInstance());
+                    CardCommand command = new CardCommand();
                     command.changeName(sender, args, MedievalRoleplayEngine.getInstance().cards);
                     return true;
                 }
@@ -108,7 +108,7 @@ public class CommandInterpreter {
         }
 
         if (label.equalsIgnoreCase("bird")) {
-            BirdCommand command = new BirdCommand(MedievalRoleplayEngine.getInstance());
+            BirdCommand command = new BirdCommand();
             command.sendBird(sender, args);
             return true;
         }
@@ -195,19 +195,19 @@ public class CommandInterpreter {
         }
 
         if (label.equalsIgnoreCase("title")) {
-            TitleCommand command = new TitleCommand(MedievalRoleplayEngine.getInstance());
+            TitleCommand command = new TitleCommand();
             command.titleBook(sender, args);
             return true;
         }
 
         if (label.equalsIgnoreCase("yell")) {
-            YellCommand command = new YellCommand(MedievalRoleplayEngine.getInstance());
+            YellCommand command = new YellCommand();
             command.sendLoudMessage(sender, args);
             return true;
         }
 
         if (label.equalsIgnoreCase("whisper")) {
-            WhisperCommand command = new WhisperCommand(MedievalRoleplayEngine.getInstance());
+            WhisperCommand command = new WhisperCommand();
             command.sendQuietMessage(sender, args);
             return true;
         }

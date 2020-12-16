@@ -10,12 +10,6 @@ import static rpsystem.Utilities.createStringFromFirstArgOnwards;
 
 public class BirdCommand {
 
-    MedievalRoleplayEngine medievalRoleplayEngine = null;
-
-    public BirdCommand(MedievalRoleplayEngine plugin) {
-        medievalRoleplayEngine = plugin;
-    }
-
     public void sendBird(CommandSender sender, String[] args) {
         // player check
         if (!(sender instanceof Player)) {
@@ -25,7 +19,7 @@ public class BirdCommand {
         Player player = (Player) sender;
 
         if (player.hasPermission("rp.bird") || player.hasPermission("rp.default")) {
-            if (medievalRoleplayEngine.playersWithBusyBirds.contains(player.getUniqueId())) {
+            if (MedievalRoleplayEngine.getInstance().playersWithBusyBirds.contains(player.getUniqueId())) {
                 player.sendMessage(ChatColor.RED + "Your bird is already on a mission!");
                 return;
             }
@@ -54,19 +48,19 @@ public class BirdCommand {
             int blocksPerSecond = 20;
             int seconds = (int)distance/blocksPerSecond;
 
-            getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
+            getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
                 @Override
                 public void run() {
                     targetPlayer.sendMessage(ChatColor.GREEN + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:");
                     targetPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "'" + message + "'");
                     player.sendMessage(ChatColor.GREEN + "Your bird has reached " + targetPlayer.getName() + "!");
-                    medievalRoleplayEngine.playersWithBusyBirds.remove(player.getUniqueId());
+                    MedievalRoleplayEngine.getInstance().playersWithBusyBirds.remove(player.getUniqueId());
 
                 }
             }, seconds * 20);
 
             player.sendMessage(ChatColor.GREEN + "The bird flies off with your message.");
-            medievalRoleplayEngine.playersWithBusyBirds.add(player.getUniqueId());
+            MedievalRoleplayEngine.getInstance().playersWithBusyBirds.add(player.getUniqueId());
         }
         else {
             player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.bird'");
