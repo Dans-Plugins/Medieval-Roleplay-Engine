@@ -9,7 +9,6 @@ import rpsystem.Objects.CharacterCard;
 
 import java.util.ArrayList;
 
-import static org.bukkit.Bukkit.getPlayer;
 import static org.bukkit.Bukkit.getServer;
 import static rpsystem.Utilities.createStringFromFirstArgOnwards;
 import static rpsystem.Utilities.findUUIDBasedOnPlayerName;

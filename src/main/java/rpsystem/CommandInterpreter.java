@@ -5,7 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rpsystem.Commands.*;
 
-import static rpsystem.Utilities.*;
+import static rpsystem.Utilities.createStringFromFirstArgOnwards;
+import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
 
 public class CommandInterpreter {
 
