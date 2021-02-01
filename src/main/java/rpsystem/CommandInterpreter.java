@@ -214,6 +214,12 @@ public class CommandInterpreter {
             return true;
         }
 
+        if (label.equalsIgnoreCase("rpconfig")) {
+            ConfigCommand command = new ConfigCommand();
+            command.handleConfigAccess(sender, args);
+            return true;
+        }
+
         return false;
     }
 
