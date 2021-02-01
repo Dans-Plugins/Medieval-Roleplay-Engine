@@ -29,6 +29,7 @@ public class HelpCommand {
             player.sendMessage(ChatColor.AQUA + "/title - Rename an unwritten book.");
             player.sendMessage(ChatColor.AQUA + "/yell - Send a single messages to far away players.");
             player.sendMessage(ChatColor.AQUA + "/whisper - Send a single message to very close players.");
+            player.sendMessage(ChatColor.AQUA + "/rpconfig - View and change config options.");
 
         }
         else {
