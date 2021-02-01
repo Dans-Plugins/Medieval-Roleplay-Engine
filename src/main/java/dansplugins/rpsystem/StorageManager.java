@@ -1,7 +1,7 @@
 package dansplugins.rpsystem;
 
-import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.data.PersistentData;
 
 import java.io.File;
 import java.io.FileNotFoundException;

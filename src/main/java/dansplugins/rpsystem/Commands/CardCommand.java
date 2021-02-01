@@ -1,12 +1,12 @@
 package dansplugins.rpsystem.Commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.Objects.CharacterCard;
 import dansplugins.rpsystem.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import dansplugins.rpsystem.Objects.CharacterCard;
 
 import java.util.ArrayList;
 
