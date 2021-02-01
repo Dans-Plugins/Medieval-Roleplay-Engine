@@ -24,7 +24,23 @@ commands:
 permissions:
   rp.bird:
     default: true
-  rp.card:
+  rp.card.show:
+    default: true
+  rp.card.show.others:
+    default: true
+  rp.card.help:
+    default: true
+  rp.card.name:
+    default: true
+  rp.card.race:
+    default: true
+  rp.card.subculture:
+    default: true
+  rp.card.religion:
+    default: true
+  rp.card.age:
+    default: true
+  rp.card.gender:
     default: true
   rp.local:
     default: true
@@ -50,5 +66,9 @@ permissions:
     default: true
   rp.help:
     default: true
+  rp.card.forcesave:
+    default: op
+  rp.card.forceload:
+    default: op
   rp.config:
     default: op
