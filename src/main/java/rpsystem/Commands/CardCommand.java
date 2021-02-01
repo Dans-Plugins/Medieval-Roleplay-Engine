@@ -86,16 +86,16 @@ public class CardCommand {
                                     if (changeNameCooldown != 0) {
                                         // cooldown
                                         MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.add(player.getUniqueId());
-                                    }
 
-                                    int seconds = changeNameCooldown;
-                                    getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.remove(player.getUniqueId());
-                                            player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
-                                        }
-                                    }, seconds * 20);
+                                        int seconds = changeNameCooldown;
+                                        getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.remove(player.getUniqueId());
+                                                player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
+                                            }
+                                        }, seconds * 20);
+                                    }
                                 }
                                 else {
                                     player.sendMessage(ChatColor.RED + "Usage: /card name (character-name)");
