@@ -23,7 +23,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     private static MedievalRoleplayEngine instance;
 
     // version
-    private String version = "v1.5.0.2-beta-2";
+    private String version = "v1.6-alpha-1";
 
     // temporary
     public ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
