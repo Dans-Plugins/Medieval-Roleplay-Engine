@@ -3,6 +3,8 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import rpsystem.ColorChecker;
+import rpsystem.MedievalRoleplayEngine;
 import rpsystem.Utilities;
 
 import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
@@ -10,6 +12,10 @@ import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
 public class YellCommand {
 
     public void sendLoudMessage(CommandSender sender, String[] args) {
+
+        int yellChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius");
+        String yellChatColor =MedievalRoleplayEngine.getInstance().getConfig().getString("yellChatColor");
+
         // player check
         if (!(sender instanceof Player)) {
             return;
@@ -20,9 +26,9 @@ public class YellCommand {
         if (player.hasPermission("rp.yell") || player.hasPermission("rp.default")) {
 
             if (args.length > 0) {
-                String message = ChatColor.RED + "" + String.format("%s yells: \"%s\"", Utilities.getInstance().getCard(player.getUniqueId()).getName(), Utilities.getInstance().createStringFromArgs(args));
+                String message = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", Utilities.getInstance().getCard(player.getUniqueId()).getName(), Utilities.getInstance().createStringFromArgs(args));
 
-                sendMessageToPlayersWithinDistance(player, message, 50);
+                sendMessageToPlayersWithinDistance(player, message, yellChatRadius);
             }
             else {
                 player.sendMessage(ChatColor.RED + "Usage: /yell (message)");
