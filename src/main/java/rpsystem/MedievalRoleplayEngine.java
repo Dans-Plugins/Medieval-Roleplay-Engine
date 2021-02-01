@@ -41,6 +41,18 @@ public class MedievalRoleplayEngine extends JavaPlugin {
 
         instance = this;
 
+        // create/load config
+        if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
+            ConfigManager.getInstance().saveConfigDefaults();
+        }
+        else {
+            // pre load compatibility checks
+            if (isVersionMismatched()) {
+                ConfigManager.getInstance().handleVersionMismatch();
+            }
+            reloadConfig();
+        }
+
         EventRegistry.getInstance().registerEvents();
 
         if (StorageManager.getInstance().oldSaveFolderPresent()) {
@@ -65,6 +77,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         System.out.println("Medieval Roleplay Engine plugin disabling....");
         StorageManager.getInstance().saveCardFileNames();
         StorageManager.getInstance().saveCards();
+        saveConfig();
         System.out.println("Medieval Roleplay Engine plugin disabled.");
     }
 
@@ -75,6 +88,10 @@ public class MedievalRoleplayEngine extends JavaPlugin {
 
     public String getVersion() {
         return version;
+    }
+
+    public boolean isVersionMismatched() {
+        return !getConfig().getString("version").equalsIgnoreCase(getVersion());
     }
 
 }
