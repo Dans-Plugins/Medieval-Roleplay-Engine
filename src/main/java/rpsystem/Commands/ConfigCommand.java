@@ -21,24 +21,24 @@ public class ConfigCommand {
             return false;
         }
 
-        if (args.length < 2) {
+        if (args.length < 1) {
             player.sendMessage(ChatColor.RED + "Valid subcommands: show, set");
             return false;
         }
 
-        if (args[1].equalsIgnoreCase("show")) {
+        if (args[0].equalsIgnoreCase("show")) {
             // no further arguments needed, list config
             ConfigManager.getInstance().sendPlayerConfigList(player);
             return true;
         }
 
-        if (args[1].equalsIgnoreCase("set")) {
+        if (args[0].equalsIgnoreCase("set")) {
 
             // two more arguments needed
-            if (args.length > 3) {
+            if (args.length > 2) {
 
-                String option = args[2];
-                String value = args[3];
+                String option = args[1];
+                String value = args[2];
 
                 ConfigManager.setConfigOption(option, value, player);
                 return true;
