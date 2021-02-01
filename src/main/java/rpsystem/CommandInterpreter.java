@@ -157,6 +157,10 @@ public class CommandInterpreter {
         }
 
         if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("me")) {
+
+            int emoteRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("emoteRadius");
+            String emoteColor = MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor");
+
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
@@ -164,7 +168,7 @@ public class CommandInterpreter {
                         String message = createStringFromFirstArgOnwards(args, 0);
                         String characterName = Utilities.getInstance().getCard(player.getUniqueId()).getName();
 
-                        sendMessageToPlayersWithinDistance(player,ChatColor.GRAY + "" + ChatColor.ITALIC + characterName + " " + message, 25);
+                        sendMessageToPlayersWithinDistance(player,ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
                     }
                 }
                 else {

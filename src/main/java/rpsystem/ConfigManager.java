@@ -40,8 +40,28 @@ public class ConfigManager {
             MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatRadius", 50);
         }
 
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("emoteRadius")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteRadius", 25);
+        }
+
         if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("changeNameCooldown")) {
             MedievalRoleplayEngine.getInstance().getConfig().addDefault("changeNameCooldown", 300);
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("localChatColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatColor", "gray");
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("whisperChatColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatColor", "blue");
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("yellChatColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatColor", "red");
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("emoteColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteColor", "gray");
         }
 
         deleteOldConfigOptionsIfPresent();
@@ -69,7 +89,8 @@ public class ConfigManager {
             else if (option.equalsIgnoreCase("localChatRadius") ||
                     option.equalsIgnoreCase("whisperChatRadius") ||
                     option.equalsIgnoreCase("yellChatRadius") ||
-                    option.equalsIgnoreCase("changeNameCooldown")) {
+                    option.equalsIgnoreCase("changeNameCooldown") ||
+                    option.equalsIgnoreCase("emoteRadius")) {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, Integer.parseInt(value));
                 player.sendMessage(ChatColor.GREEN + "Integer set!");
             }
@@ -100,7 +121,12 @@ public class ConfigManager {
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatRadius", 25);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatRadius", 2);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatRadius", 50);
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteRadius", 25);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("changeNameCooldown", 300);
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatColor", "gray");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatColor", "blue");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatColor", "red");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteColor", "gray");
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
@@ -110,7 +136,12 @@ public class ConfigManager {
                 + ", localChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius")
                 + ", whisperChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius")
                 + ", yellChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius")
-                + ", changeNameCooldown: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("changeNameCooldown"));
+                + ", emoteRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("emoteRadius")
+                + ", changeNameCooldown: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("changeNameCooldown")
+                + ", localChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor")
+                + ", whisperChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("whisperChatColor")
+                + ", yellChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("yellChatColor")
+                + ", emoteColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor"));
     }
 
 }

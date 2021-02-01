@@ -3,6 +3,7 @@ package rpsystem.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import rpsystem.ColorChecker;
 import rpsystem.MedievalRoleplayEngine;
 import rpsystem.Utilities;
 
@@ -13,6 +14,7 @@ public class WhisperCommand {
     public void sendQuietMessage(CommandSender sender, String[] args) {
 
         int whisperChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius");
+        String whisperChatColor =MedievalRoleplayEngine.getInstance().getConfig().getString("whisperChatColor");
 
         // player check
         if (!(sender instanceof Player)) {
@@ -24,7 +26,7 @@ public class WhisperCommand {
         if (player.hasPermission("rp.whisper") || player.hasPermission("rp.default")) {
 
             if (args.length > 0) {
-                String message = ChatColor.BLUE + "" + String.format("%s whispers: \"%s\"", Utilities.getInstance().getCard(player.getUniqueId()).getName(), Utilities.getInstance().createStringFromArgs(args));
+                String message = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", Utilities.getInstance().getCard(player.getUniqueId()).getName(), Utilities.getInstance().createStringFromArgs(args));
 
                 int numPlayersWhoHeard = sendMessageToPlayersWithinDistance(player, message, whisperChatRadius);
 
