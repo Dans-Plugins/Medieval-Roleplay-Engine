@@ -1,13 +1,11 @@
-package rpsystem;
+package dansplugins.rpsystem;
 
+import dansplugins.rpsystem.Commands.*;
+import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import rpsystem.Commands.*;
-import rpsystem.data.PersistentData;
-
-import static rpsystem.Utilities.createStringFromFirstArgOnwards;
-import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
 
 public class CommandInterpreter {
 
@@ -165,10 +163,10 @@ public class CommandInterpreter {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
-                        String message = createStringFromFirstArgOnwards(args, 0);
+                        String message = Utilities.createStringFromFirstArgOnwards(args, 0);
                         String characterName = Utilities.getInstance().getCard(player.getUniqueId()).getName();
 
-                        sendMessageToPlayersWithinDistance(player,ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
+                        Utilities.sendMessageToPlayersWithinDistance(player,ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
                     }
                 }
                 else {
@@ -186,7 +184,7 @@ public class CommandInterpreter {
                     if (args.length > 0) {
                         try {
                             int max = Integer.parseInt(args[0]);
-                            sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + Utilities.rollDice(max) + " out of " + max + ".", 25);
+                            Utilities.sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + Utilities.rollDice(max) + " out of " + max + ".", 25);
                         }
                         catch(Exception ignored) {
 

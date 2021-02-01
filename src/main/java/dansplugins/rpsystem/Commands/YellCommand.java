@@ -1,13 +1,11 @@
-package rpsystem.Commands;
+package dansplugins.rpsystem.Commands;
 
+import dansplugins.rpsystem.ColorChecker;
+import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.Utilities;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.ColorChecker;
-import rpsystem.MedievalRoleplayEngine;
-import rpsystem.Utilities;
-
-import static rpsystem.Utilities.sendMessageToPlayersWithinDistance;
 
 public class YellCommand {
 
@@ -28,7 +26,7 @@ public class YellCommand {
             if (args.length > 0) {
                 String message = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", Utilities.getInstance().getCard(player.getUniqueId()).getName(), Utilities.getInstance().createStringFromArgs(args));
 
-                sendMessageToPlayersWithinDistance(player, message, yellChatRadius);
+                Utilities.sendMessageToPlayersWithinDistance(player, message, yellChatRadius);
             }
             else {
                 player.sendMessage(ChatColor.RED + "Usage: /yell (message)");

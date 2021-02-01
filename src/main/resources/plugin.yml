@@ -1,7 +1,7 @@
 name: MedievalRoleplayEngine
-version: "1.5.0.2-beta-2"
+version: "1.6-beta-1"
 author: DanTheTechMan
-main: rpsystem.MedievalRoleplayEngine
+main: dansplugins.rpsystem.MedievalRoleplayEngine
 api-version: "1.13"
 
 commands:
