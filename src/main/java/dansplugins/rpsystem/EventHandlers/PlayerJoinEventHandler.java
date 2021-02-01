@@ -1,12 +1,11 @@
-package rpsystem.EventHandlers;
+package dansplugins.rpsystem.EventHandlers;
 
+import dansplugins.rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import rpsystem.MedievalRoleplayEngine;
-import rpsystem.Objects.CharacterCard;
-import rpsystem.Utilities;
-import rpsystem.data.PersistentData;
 
 public class PlayerJoinEventHandler implements Listener {
 

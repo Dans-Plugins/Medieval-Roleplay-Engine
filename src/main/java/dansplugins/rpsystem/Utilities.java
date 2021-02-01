@@ -1,10 +1,10 @@
-package rpsystem;
+package dansplugins.rpsystem;
 
+import dansplugins.rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import rpsystem.Objects.CharacterCard;
-import rpsystem.data.PersistentData;
 
 import java.util.UUID;
 

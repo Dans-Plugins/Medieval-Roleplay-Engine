@@ -1,7 +1,7 @@
 name: MedievalRoleplayEngine
-version: 1.6-alpha-1
+version: "1.6-beta-1"
 author: DanTheTechMan
-main: rpsystem.MedievalRoleplayEngine
+main: dansplugins.rpsystem.MedievalRoleplayEngine
 api-version: "1.13"
 
 commands:
@@ -20,3 +20,35 @@ commands:
   whisper:
   rphelp:
   rpconfig:
+
+permissions:
+  rp.bird:
+    default: true
+  rp.card:
+    default: true
+  rp.local:
+    default: true
+  rp.rp:
+    default: true
+  rp.global:
+    default: true
+  rp.ooc:
+    default: true
+  rp.emote:
+    default: true
+  rp.me:
+    default: true
+  rp.roll:
+    default: true
+  rp.dice:
+    default: true
+  rp.title:
+    default: true
+  rp.yell:
+    default: true
+  rp.whisper:
+    default: true
+  rp.help:
+    default: true
+  rp.config:
+    default: op

@@ -1,4 +1,4 @@
-package rpsystem;
+package dansplugins.rpsystem;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

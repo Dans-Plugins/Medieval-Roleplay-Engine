@@ -1,6 +1,6 @@
-package rpsystem.data;
+package dansplugins.rpsystem.data;
 
-import rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.Objects.CharacterCard;
 
 import java.util.ArrayList;
 

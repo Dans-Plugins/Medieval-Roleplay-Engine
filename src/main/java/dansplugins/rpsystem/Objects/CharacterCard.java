@@ -1,4 +1,6 @@
-package rpsystem.Objects;
+package dansplugins.rpsystem.Objects;
+
+import dansplugins.rpsystem.Utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,8 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
-
-import static rpsystem.Utilities.findUUIDBasedOnPlayerName;
 
 public class CharacterCard {
     private UUID playerUUID = null;
@@ -162,7 +162,7 @@ public class CharacterCard {
 
             // actual loading
             if (loadReader.hasNextLine()) {
-                setPlayerUUID(findUUIDBasedOnPlayerName(loadReader.nextLine()));
+                setPlayerUUID(Utilities.findUUIDBasedOnPlayerName(loadReader.nextLine()));
             }
             if (loadReader.hasNextLine()) {
                 setName(loadReader.nextLine());

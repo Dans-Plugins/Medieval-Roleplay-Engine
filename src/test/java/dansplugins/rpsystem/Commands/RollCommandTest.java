@@ -1,4 +1,4 @@
-package rpsystem.Commands;
+package dansplugins.rpsystem.Commands;
 
 import org.bukkit.entity.Player;
 import org.junit.Test;
@@ -6,7 +6,7 @@ import org.mockito.Mock;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static rpsystem.Commands.RollCommand.*;
+import static dansplugins.rpsystem.Commands.RollCommand.*;
 
 public class RollCommandTest {
 

@@ -1,18 +1,9 @@
-package rpsystem;
+package dansplugins.rpsystem;
 
+import dansplugins.rpsystem.bStats.Metrics;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import rpsystem.EventHandlers.AsyncPlayerChatEventHandler;
-import rpsystem.EventHandlers.PlayerInteractAtEntityEventHandler;
-import rpsystem.EventHandlers.PlayerJoinEventHandler;
-import rpsystem.Objects.CharacterCard;
-import rpsystem.bStats.Metrics;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,7 +14,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     private static MedievalRoleplayEngine instance;
 
     // version
-    private String version = "v1.6-alpha-1";
+    private String version = "v1.6-beta-1";
 
     // temporary
     public ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();

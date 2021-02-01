@@ -1,17 +1,16 @@
-package rpsystem.Commands;
+package dansplugins.rpsystem.Commands;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import rpsystem.MedievalRoleplayEngine;
-import rpsystem.Objects.CharacterCard;
 
 import java.util.ArrayList;
 
 import static org.bukkit.Bukkit.getServer;
-import static rpsystem.Utilities.createStringFromFirstArgOnwards;
-import static rpsystem.Utilities.findUUIDBasedOnPlayerName;
 
 public class CardCommand {
 
@@ -80,7 +79,7 @@ public class CardCommand {
                             if (!MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.contains(player.getUniqueId())) {
 
                                 if (args.length > 1) {
-                                    card.setName(createStringFromFirstArgOnwards(args, 1));
+                                    card.setName(Utilities.createStringFromFirstArgOnwards(args, 1));
                                     player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
                                     if (changeNameCooldown != 0) {
@@ -253,7 +252,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
                     if (args.length > 0) {
-                        if (card.getPlayerUUID().equals(findUUIDBasedOnPlayerName(args[0]))) {
+                        if (card.getPlayerUUID().equals(Utilities.findUUIDBasedOnPlayerName(args[0]))) {
                             sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
                             sender.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                             sender.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
