@@ -32,6 +32,14 @@ public class ConfigManager {
             MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatRadius", 25);
         }
 
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("whisperChatRadius")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatRadius", 2);
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("yellChatRadius")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatRadius", 50);
+        }
+
         deleteOldConfigOptionsIfPresent();
 
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
@@ -54,7 +62,9 @@ public class ConfigManager {
                 player.sendMessage(ChatColor.RED + "Cannot set version!");
                 return;
             }
-            else if (option.equalsIgnoreCase("localChatRadius")) {
+            else if (option.equalsIgnoreCase("localChatRadius") ||
+                    option.equalsIgnoreCase("whisperChatRadius") ||
+                    option.equalsIgnoreCase("yellChatRadius")) {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, Integer.parseInt(value));
                 player.sendMessage(ChatColor.GREEN + "Integer set!");
             }
@@ -83,13 +93,17 @@ public class ConfigManager {
     public void saveConfigDefaults() {
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("version", MedievalRoleplayEngine.getInstance().getVersion());
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatRadius", 25);
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatRadius", 2);
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatRadius", 50);
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
 
     public void sendPlayerConfigList(Player player) {
         player.sendMessage(ChatColor.AQUA + "version: " + MedievalRoleplayEngine.getInstance().getConfig().getString("version")
-                + ", localChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius"));
+                + ", localChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius")
+                + ", whisperChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius")
+                + ", yellChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius"));
     }
 
 }
