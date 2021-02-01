@@ -66,6 +66,9 @@ public class CardCommand {
     }
 
     public void changeName(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+
+        int changeNameCooldown = MedievalRoleplayEngine.getInstance().getConfig().getInt("changeNameCooldown");
+
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
@@ -80,10 +83,12 @@ public class CardCommand {
                                     card.setName(createStringFromFirstArgOnwards(args, 1));
                                     player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
-                                    // cooldown
-                                    MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.add(player.getUniqueId());
+                                    if (changeNameCooldown != 0) {
+                                        // cooldown
+                                        MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.add(player.getUniqueId());
+                                    }
 
-                                    int seconds = 300;
+                                    int seconds = changeNameCooldown;
                                     getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
                                         @Override
                                         public void run() {

@@ -40,6 +40,10 @@ public class ConfigManager {
             MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatRadius", 50);
         }
 
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("changeNameCooldown")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("changeNameCooldown", 300);
+        }
+
         deleteOldConfigOptionsIfPresent();
 
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
@@ -64,7 +68,8 @@ public class ConfigManager {
             }
             else if (option.equalsIgnoreCase("localChatRadius") ||
                     option.equalsIgnoreCase("whisperChatRadius") ||
-                    option.equalsIgnoreCase("yellChatRadius")) {
+                    option.equalsIgnoreCase("yellChatRadius") ||
+                    option.equalsIgnoreCase("changeNameCooldown")) {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, Integer.parseInt(value));
                 player.sendMessage(ChatColor.GREEN + "Integer set!");
             }
@@ -95,6 +100,7 @@ public class ConfigManager {
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatRadius", 25);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatRadius", 2);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatRadius", 50);
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("changeNameCooldown", 300);
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
@@ -103,7 +109,8 @@ public class ConfigManager {
         player.sendMessage(ChatColor.AQUA + "version: " + MedievalRoleplayEngine.getInstance().getConfig().getString("version")
                 + ", localChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius")
                 + ", whisperChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius")
-                + ", yellChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius"));
+                + ", yellChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius")
+                + ", changeNameCooldown: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("changeNameCooldown"));
     }
 
 }
