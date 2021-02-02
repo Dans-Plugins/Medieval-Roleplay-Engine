@@ -14,7 +14,7 @@ public class AsyncPlayerChatEventHandler implements Listener {
         int localChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius");
         String localChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor");
         if (MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.contains(event.getPlayer().getUniqueId())) {
-            Utilities.sendMessageToPlayersWithinDistance(event.getPlayer(), ColorChecker.getInstance().getColorByName(localChatColor) + "" + String.format("%s: \"%s\"", Utilities.getInstance().getCard(event.getPlayer().getUniqueId()).getName(), event.getMessage()), localChatRadius);
+            Utilities.getInstance().sendMessageToPlayersWithinDistance(event.getPlayer(), ColorChecker.getInstance().getColorByName(localChatColor) + "" + String.format("%s: \"%s\"", Utilities.getInstance().getCard(event.getPlayer().getUniqueId()).getName(), event.getMessage()), localChatRadius);
             event.setCancelled(true);
         }
     }

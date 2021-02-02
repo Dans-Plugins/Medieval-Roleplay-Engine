@@ -55,7 +55,7 @@ public class BirdCommand {
                     targetPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "'" + message + "'");
                     player.sendMessage(ChatColor.GREEN + "Your bird has reached " + targetPlayer.getName() + "!");
                     MedievalRoleplayEngine.getInstance().playersWithBusyBirds.remove(player.getUniqueId());
-
+                    Utilities.getInstance().sendMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, ChatColor.AQUA + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
                 }
             }, seconds * 20);
 
