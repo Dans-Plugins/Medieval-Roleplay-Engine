@@ -1,7 +1,6 @@
-package dansplugins.rpsystem.EventHandlers;
+package dansplugins.rpsystem.eventhandlers;
 
-import dansplugins.rpsystem.Objects.CharacterCard;
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

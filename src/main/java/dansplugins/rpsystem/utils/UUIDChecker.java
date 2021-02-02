@@ -1,4 +1,4 @@
-package dansplugins.rpsystem;
+package dansplugins.rpsystem.utils;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

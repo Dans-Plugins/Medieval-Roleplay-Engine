@@ -1,6 +1,6 @@
 package dansplugins.rpsystem.data;
 
-import dansplugins.rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.objects.CharacterCard;
 
 import java.util.ArrayList;
 import java.util.UUID;

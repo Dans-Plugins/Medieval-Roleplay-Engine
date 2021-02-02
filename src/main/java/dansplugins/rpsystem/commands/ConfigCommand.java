@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.Commands;
+package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.ConfigManager;
 import org.bukkit.ChatColor;

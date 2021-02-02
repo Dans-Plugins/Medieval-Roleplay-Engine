@@ -1,26 +1,16 @@
-package dansplugins.rpsystem;
+package dansplugins.rpsystem.utils;
 
-import dansplugins.rpsystem.Objects.CharacterCard;
-import dansplugins.rpsystem.data.PersistentData;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
+public class ArgumentParser {
 
-import java.util.UUID;
+    private static ArgumentParser instance;
 
-import static org.bukkit.Bukkit.*;
-
-public class Utilities {
-
-    private static Utilities instance;
-
-    private Utilities() {
+    private ArgumentParser() {
 
     }
 
-    public static Utilities getInstance() {
+    public static ArgumentParser getInstance() {
         if (instance == null) {
-            instance = new Utilities();
+            instance = new ArgumentParser();
         }
         return instance;
     }

@@ -1,9 +1,9 @@
-package dansplugins.rpsystem.Commands;
+package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.Objects.CharacterCard;
-import dansplugins.rpsystem.UUIDChecker;
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.objects.CharacterCard;
+import dansplugins.rpsystem.utils.UUIDChecker;
+import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -81,7 +81,7 @@ public class CardCommand {
                             if (!EphemeralData.getInstance().getPlayersOnNameChangeCooldown().contains(player.getUniqueId())) {
 
                                 if (args.length > 1) {
-                                    card.setName(Utilities.createStringFromFirstArgOnwards(args, 1));
+                                    card.setName(ArgumentParser.createStringFromFirstArgOnwards(args, 1));
                                     player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
                                     if (changeNameCooldown != 0) {

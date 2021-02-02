@@ -1,8 +1,7 @@
-package dansplugins.rpsystem.EventHandlers;
+package dansplugins.rpsystem.eventhandlers;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.Objects.CharacterCard;
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.Bukkit;

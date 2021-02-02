@@ -1,8 +1,10 @@
 package dansplugins.rpsystem;
 
-import dansplugins.rpsystem.Commands.*;
+import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.utils.ArgumentParser;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -163,10 +165,10 @@ public class CommandInterpreter {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
-                        String message = Utilities.createStringFromFirstArgOnwards(args, 0);
+                        String message = ArgumentParser.createStringFromFirstArgOnwards(args, 0);
                         String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
 
-                        Messenger.getInstance().sendMessageToPlayersWithinDistance(player,ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
+                        Messenger.getInstance().sendMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
                     }
                 }
                 else {

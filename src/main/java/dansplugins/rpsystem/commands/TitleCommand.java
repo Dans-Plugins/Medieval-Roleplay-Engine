@@ -1,6 +1,6 @@
-package dansplugins.rpsystem.Commands;
+package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.utils.ArgumentParser;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -24,7 +24,7 @@ public class TitleCommand {
                     // args check
                     if (args.length > 0) {
 
-                        String newTitle = Utilities.getInstance().createStringFromArgs(args);
+                        String newTitle = ArgumentParser.getInstance().createStringFromArgs(args);
 
                         ItemStack book = player.getInventory().getItemInMainHand();
 
