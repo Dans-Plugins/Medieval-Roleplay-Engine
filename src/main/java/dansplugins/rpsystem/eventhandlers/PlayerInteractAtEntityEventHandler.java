@@ -1,9 +1,9 @@
 package dansplugins.rpsystem.eventhandlers;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.objects.CharacterCard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

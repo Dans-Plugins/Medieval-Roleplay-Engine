@@ -1,10 +1,10 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.objects.CharacterCard;
-import dansplugins.rpsystem.utils.UUIDChecker;
-import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.objects.CharacterCard;
+import dansplugins.rpsystem.utils.ArgumentParser;
+import dansplugins.rpsystem.utils.UUIDChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
