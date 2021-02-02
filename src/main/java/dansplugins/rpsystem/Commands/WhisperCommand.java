@@ -2,6 +2,7 @@ package dansplugins.rpsystem.Commands;
 
 import dansplugins.rpsystem.ColorChecker;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.Utilities;
 import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.ChatColor;
@@ -27,7 +28,7 @@ public class WhisperCommand {
             if (args.length > 0) {
                 String message = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), Utilities.getInstance().createStringFromArgs(args));
 
-                int numPlayersWhoHeard = Utilities.getInstance().sendMessageToPlayersWithinDistance(player, message, whisperChatRadius);
+                int numPlayersWhoHeard = Messenger.getInstance().sendMessageToPlayersWithinDistance(player, message, whisperChatRadius);
 
                 player.sendMessage(ChatColor.AQUA + "" + numPlayersWhoHeard + " players heard your whisper.");
             }

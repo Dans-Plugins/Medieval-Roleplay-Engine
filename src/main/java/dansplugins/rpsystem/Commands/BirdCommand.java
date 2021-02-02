@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.Commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.Utilities;
 import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.ChatColor;
@@ -56,7 +57,7 @@ public class BirdCommand {
                     targetPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "'" + message + "'");
                     player.sendMessage(ChatColor.GREEN + "Your bird has reached " + targetPlayer.getName() + "!");
                     EphemeralData.getInstance().getPlayersWithBusyBirds().remove(player.getUniqueId());
-                    Utilities.getInstance().sendMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, ChatColor.AQUA + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
+                    Messenger.getInstance().sendMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, ChatColor.AQUA + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
                 }
             }, seconds * 20);
 

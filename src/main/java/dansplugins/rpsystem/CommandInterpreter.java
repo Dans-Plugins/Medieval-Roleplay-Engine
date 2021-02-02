@@ -166,7 +166,7 @@ public class CommandInterpreter {
                         String message = Utilities.createStringFromFirstArgOnwards(args, 0);
                         String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
 
-                        Utilities.getInstance().sendMessageToPlayersWithinDistance(player,ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
+                        Messenger.getInstance().sendMessageToPlayersWithinDistance(player,ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
                     }
                 }
                 else {
@@ -184,7 +184,7 @@ public class CommandInterpreter {
                     if (args.length > 0) {
                         try {
                             int max = Integer.parseInt(args[0]);
-                            Utilities.getInstance().sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + Utilities.rollDice(max) + " out of " + max + ".", 25);
+                            Messenger.getInstance().sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + Utilities.rollDice(max) + " out of " + max + ".", 25);
                         }
                         catch(Exception ignored) {
 

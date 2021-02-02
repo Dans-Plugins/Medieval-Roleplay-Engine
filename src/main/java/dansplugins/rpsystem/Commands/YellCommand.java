@@ -2,6 +2,7 @@ package dansplugins.rpsystem.Commands;
 
 import dansplugins.rpsystem.ColorChecker;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.Utilities;
 import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.ChatColor;
@@ -27,7 +28,7 @@ public class YellCommand {
             if (args.length > 0) {
                 String message = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), Utilities.getInstance().createStringFromArgs(args));
 
-                Utilities.getInstance().sendMessageToPlayersWithinDistance(player, message, yellChatRadius);
+                Messenger.getInstance().sendMessageToPlayersWithinDistance(player, message, yellChatRadius);
             }
             else {
                 player.sendMessage(ChatColor.RED + "Usage: /yell (message)");
