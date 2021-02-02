@@ -81,7 +81,7 @@ public class CardCommand {
                             if (!EphemeralData.getInstance().getPlayersOnNameChangeCooldown().contains(player.getUniqueId())) {
 
                                 if (args.length > 1) {
-                                    card.setName(ArgumentParser.createStringFromFirstArgOnwards(args, 1));
+                                    card.setName(ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 1));
                                     player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
                                     if (changeNameCooldown != 0) {
