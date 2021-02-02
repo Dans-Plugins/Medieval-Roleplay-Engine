@@ -3,6 +3,7 @@ package dansplugins.rpsystem.Commands;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Objects.CharacterCard;
 import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -76,7 +77,7 @@ public class CardCommand {
 
                         if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
-                            if (!MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.contains(player.getUniqueId())) {
+                            if (!EphemeralData.getInstance().getPlayersOnNameChangeCooldown().contains(player.getUniqueId())) {
 
                                 if (args.length > 1) {
                                     card.setName(Utilities.createStringFromFirstArgOnwards(args, 1));
@@ -84,13 +85,13 @@ public class CardCommand {
 
                                     if (changeNameCooldown != 0) {
                                         // cooldown
-                                        MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.add(player.getUniqueId());
+                                        EphemeralData.getInstance().getPlayersOnNameChangeCooldown().add(player.getUniqueId());
 
                                         int seconds = changeNameCooldown;
                                         getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
                                             @Override
                                             public void run() {
-                                                MedievalRoleplayEngine.getInstance().playersOnNameChangeCooldown.remove(player.getUniqueId());
+                                                EphemeralData.getInstance().getPlayersOnNameChangeCooldown().remove(player.getUniqueId());
                                                 player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
                                             }
                                         }, seconds * 20);

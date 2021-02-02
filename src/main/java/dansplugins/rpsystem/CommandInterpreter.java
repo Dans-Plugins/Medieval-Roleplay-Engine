@@ -1,6 +1,7 @@
 package dansplugins.rpsystem;
 
 import dansplugins.rpsystem.Commands.*;
+import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -116,8 +117,8 @@ public class CommandInterpreter {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default")) {
-                    if (!MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.contains(player.getUniqueId())) {
-                        MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.add(player.getUniqueId());
+                    if (!EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
+                        EphemeralData.getInstance().getPlayersSpeakingInLocalChat().add(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
                         return true;
                     }
@@ -138,8 +139,8 @@ public class CommandInterpreter {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.global") || player.hasPermission("rp.ooc") || player.hasPermission("rp.default")) {
-                    if (MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.contains(player.getUniqueId())) {
-                        MedievalRoleplayEngine.getInstance().playersSpeakingInLocalChat.remove(player.getUniqueId());
+                    if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
+                        EphemeralData.getInstance().getPlayersSpeakingInLocalChat().remove(player.getUniqueId());
                         player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
                     }
                     else {
