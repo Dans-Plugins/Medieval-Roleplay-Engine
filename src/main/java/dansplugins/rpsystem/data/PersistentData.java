@@ -1,8 +1,9 @@
 package dansplugins.rpsystem.data;
 
-import dansplugins.rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.objects.CharacterCard;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class PersistentData {
 
@@ -23,6 +24,24 @@ public class PersistentData {
 
     public ArrayList<CharacterCard> getCards() {
         return cards;
+    }
+
+    public CharacterCard getCard(UUID uuid) {
+        for (CharacterCard card : PersistentData.getInstance().getCards()) {
+            if (card.getPlayerUUID().equals(uuid)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
+    public boolean hasCard(UUID uuid) {
+        for (CharacterCard card : PersistentData.getInstance().getCards()) {
+            if (card.getPlayerUUID().equals(uuid)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

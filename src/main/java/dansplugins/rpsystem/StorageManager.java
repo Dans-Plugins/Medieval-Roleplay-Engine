@@ -1,6 +1,6 @@
 package dansplugins.rpsystem;
 
-import dansplugins.rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.data.PersistentData;
 
 import java.io.File;

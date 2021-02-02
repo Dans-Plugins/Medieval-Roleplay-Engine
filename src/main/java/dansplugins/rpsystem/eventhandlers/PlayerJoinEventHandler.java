@@ -1,7 +1,6 @@
-package dansplugins.rpsystem.EventHandlers;
+package dansplugins.rpsystem.eventhandlers;
 
-import dansplugins.rpsystem.Objects.CharacterCard;
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,7 +10,7 @@ public class PlayerJoinEventHandler implements Listener {
 
     @EventHandler()
     public void handle(PlayerJoinEvent event) {
-        if (!Utilities.getInstance().hasCard(event.getPlayer().getUniqueId())) {
+        if (!PersistentData.getInstance().hasCard(event.getPlayer().getUniqueId())) {
             CharacterCard newCard = new CharacterCard(event.getPlayer().getUniqueId());
             PersistentData.getInstance().getCards().add(newCard);
         }

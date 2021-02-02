@@ -1,8 +1,10 @@
 package dansplugins.rpsystem;
 
-import dansplugins.rpsystem.Commands.*;
+import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.utils.ArgumentParser;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -163,10 +165,10 @@ public class CommandInterpreter {
                 Player player = (Player) sender;
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
-                        String message = Utilities.createStringFromFirstArgOnwards(args, 0);
-                        String characterName = Utilities.getInstance().getCard(player.getUniqueId()).getName();
+                        String message = ArgumentParser.createStringFromFirstArgOnwards(args, 0);
+                        String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
 
-                        Utilities.getInstance().sendMessageToPlayersWithinDistance(player,ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
+                        Messenger.getInstance().sendMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
                     }
                 }
                 else {
@@ -184,7 +186,7 @@ public class CommandInterpreter {
                     if (args.length > 0) {
                         try {
                             int max = Integer.parseInt(args[0]);
-                            Utilities.getInstance().sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + Utilities.rollDice(max) + " out of " + max + ".", 25);
+                            Messenger.getInstance().sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
                         }
                         catch(Exception ignored) {
 
@@ -225,5 +227,8 @@ public class CommandInterpreter {
         return false;
     }
 
+    private static int rollDice(int max) {
+        return (int)(Math.random() * max + 1);
+    }
 
 }

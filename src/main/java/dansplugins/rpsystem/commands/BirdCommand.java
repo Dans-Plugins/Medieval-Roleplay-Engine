@@ -1,7 +1,8 @@
-package dansplugins.rpsystem.Commands;
+package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.Messenger;
+import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -38,7 +39,7 @@ public class BirdCommand {
                 return;
             }
 
-            String message = Utilities.createStringFromFirstArgOnwards(args, 1);
+            String message = ArgumentParser.createStringFromFirstArgOnwards(args, 1);
 
             if (!(player.getLocation().getWorld().getName().equalsIgnoreCase(targetPlayer.getLocation().getWorld().getName()))) {
                 player.sendMessage(ChatColor.RED + "You can't send a bird to a player in another world.");
@@ -56,7 +57,7 @@ public class BirdCommand {
                     targetPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "'" + message + "'");
                     player.sendMessage(ChatColor.GREEN + "Your bird has reached " + targetPlayer.getName() + "!");
                     EphemeralData.getInstance().getPlayersWithBusyBirds().remove(player.getUniqueId());
-                    Utilities.getInstance().sendMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, ChatColor.AQUA + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
+                    Messenger.getInstance().sendMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, ChatColor.AQUA + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
                 }
             }, seconds * 20);
 

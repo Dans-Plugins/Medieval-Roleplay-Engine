@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.bStats;
+package dansplugins.rpsystem.bstats;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.Commands;
+package dansplugins.rpsystem.commands;
 
 import com.bernardomg.tabletop.dice.history.RollHistory;
 import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;

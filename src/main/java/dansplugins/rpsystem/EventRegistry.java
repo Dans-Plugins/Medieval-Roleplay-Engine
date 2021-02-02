@@ -1,8 +1,8 @@
 package dansplugins.rpsystem;
 
-import dansplugins.rpsystem.EventHandlers.AsyncPlayerChatEventHandler;
-import dansplugins.rpsystem.EventHandlers.PlayerInteractAtEntityEventHandler;
-import dansplugins.rpsystem.EventHandlers.PlayerJoinEventHandler;
+import dansplugins.rpsystem.eventhandlers.AsyncPlayerChatEventHandler;
+import dansplugins.rpsystem.eventhandlers.PlayerInteractAtEntityEventHandler;
+import dansplugins.rpsystem.eventhandlers.PlayerJoinEventHandler;
 import org.bukkit.plugin.PluginManager;
 
 public class EventRegistry {

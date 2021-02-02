@@ -1,8 +1,9 @@
-package dansplugins.rpsystem.Commands;
+package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.Objects.CharacterCard;
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.objects.CharacterCard;
+import dansplugins.rpsystem.utils.UUIDChecker;
+import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -80,7 +81,7 @@ public class CardCommand {
                             if (!EphemeralData.getInstance().getPlayersOnNameChangeCooldown().contains(player.getUniqueId())) {
 
                                 if (args.length > 1) {
-                                    card.setName(Utilities.createStringFromFirstArgOnwards(args, 1));
+                                    card.setName(ArgumentParser.createStringFromFirstArgOnwards(args, 1));
                                     player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
 
                                     if (changeNameCooldown != 0) {
@@ -253,7 +254,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
                     if (args.length > 0) {
-                        if (card.getPlayerUUID().equals(Utilities.findUUIDBasedOnPlayerName(args[0]))) {
+                        if (card.getPlayerUUID().equals(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]))) {
                             sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
                             sender.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                             sender.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());

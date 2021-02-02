@@ -1,8 +1,10 @@
-package dansplugins.rpsystem.Commands;
+package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.ColorChecker;
+import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.Messenger;
+import dansplugins.rpsystem.utils.ArgumentParser;
+import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,9 +26,9 @@ public class WhisperCommand {
         if (player.hasPermission("rp.whisper") || player.hasPermission("rp.default")) {
 
             if (args.length > 0) {
-                String message = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", Utilities.getInstance().getCard(player.getUniqueId()).getName(), Utilities.getInstance().createStringFromArgs(args));
+                String message = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
 
-                int numPlayersWhoHeard = Utilities.getInstance().sendMessageToPlayersWithinDistance(player, message, whisperChatRadius);
+                int numPlayersWhoHeard = Messenger.getInstance().sendMessageToPlayersWithinDistance(player, message, whisperChatRadius);
 
                 player.sendMessage(ChatColor.AQUA + "" + numPlayersWhoHeard + " players heard your whisper.");
             }

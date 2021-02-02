@@ -1,6 +1,6 @@
-package dansplugins.rpsystem.Objects;
+package dansplugins.rpsystem.objects;
 
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.utils.UUIDChecker;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -162,7 +162,7 @@ public class CharacterCard {
 
             // actual loading
             if (loadReader.hasNextLine()) {
-                setPlayerUUID(Utilities.findUUIDBasedOnPlayerName(loadReader.nextLine()));
+                setPlayerUUID(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(loadReader.nextLine()));
             }
             if (loadReader.hasNextLine()) {
                 setName(loadReader.nextLine());

@@ -1,9 +1,9 @@
-package dansplugins.rpsystem.EventHandlers;
+package dansplugins.rpsystem.eventhandlers;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.Objects.CharacterCard;
-import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ public class PlayerInteractAtEntityEventHandler implements Listener {
         if (event.getRightClicked() instanceof Player) {
 
             Player target = (Player) event.getRightClicked();
-            CharacterCard card = Utilities.getInstance().getCard(target.getUniqueId());
+            CharacterCard card = PersistentData.getInstance().getCard(target.getUniqueId());
 
             Player player = event.getPlayer();
 

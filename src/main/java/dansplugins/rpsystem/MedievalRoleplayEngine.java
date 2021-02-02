@@ -1,13 +1,11 @@
 package dansplugins.rpsystem;
 
-import dansplugins.rpsystem.bStats.Metrics;
+import dansplugins.rpsystem.bstats.Metrics;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class MedievalRoleplayEngine extends JavaPlugin {
 
