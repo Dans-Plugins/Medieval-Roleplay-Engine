@@ -15,7 +15,7 @@ public class ArgumentParser {
         return instance;
     }
 
-    public static String createStringFromFirstArgOnwards(String[] args, int startingArg) {
+    public String createStringFromFirstArgOnwards(String[] args, int startingArg) {
         StringBuilder name = new StringBuilder();
         for (int i = startingArg; i < args.length; i++) {
             name.append(args[i]);
