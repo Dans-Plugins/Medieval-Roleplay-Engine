@@ -21,10 +21,15 @@ public class PlayerInteractAtEntityEventHandler implements Listener {
 
             Player player = event.getPlayer();
 
+            if (!MedievalRoleplayEngine.getInstance().getConfig().getBoolean("rightClickToViewCard")) {
+                return;
+            }
+
             if (!MedievalRoleplayEngine.getInstance().playersWithRightClickCooldown.contains(player.getUniqueId())) {
                 MedievalRoleplayEngine.getInstance().playersWithRightClickCooldown.add(player.getUniqueId());
 
                 if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
+
                     player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + " == ");
                     player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                     player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
