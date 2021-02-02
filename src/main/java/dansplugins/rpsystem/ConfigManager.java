@@ -64,6 +64,10 @@ public class ConfigManager {
             MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteColor", "gray");
         }
 
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isBoolean("rightClickToViewCard")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("rightClickToViewCard", true);
+        }
+
         deleteOldConfigOptionsIfPresent();
 
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
@@ -94,7 +98,7 @@ public class ConfigManager {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, Integer.parseInt(value));
                 player.sendMessage(ChatColor.GREEN + "Integer set!");
             }
-            else if (option.equalsIgnoreCase("booleantest")) {
+            else if (option.equalsIgnoreCase("rightClickToViewCard")) {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, Boolean.parseBoolean(value));
                 player.sendMessage(ChatColor.GREEN + "Boolean set!");
             }
@@ -127,6 +131,7 @@ public class ConfigManager {
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatColor", "blue");
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatColor", "red");
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteColor", "gray");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("rightClickToViewCard", true);
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
@@ -141,7 +146,8 @@ public class ConfigManager {
                 + ", localChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor")
                 + ", whisperChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("whisperChatColor")
                 + ", yellChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("yellChatColor")
-                + ", emoteColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor"));
+                + ", emoteColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor")
+                + ", rightClickToViewCard: " + MedievalRoleplayEngine.getInstance().getConfig().getBoolean("rightClickToViewCard"));
     }
 
 }
