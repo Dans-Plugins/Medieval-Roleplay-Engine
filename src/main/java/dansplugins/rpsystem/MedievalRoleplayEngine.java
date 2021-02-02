@@ -16,12 +16,6 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     // version
     private String version = "v1.6-beta-2";
 
-    // temporary
-    public ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
-    public ArrayList<UUID> playersSpeakingInLocalChat = new ArrayList<>();
-    public ArrayList<UUID> playersOnNameChangeCooldown = new ArrayList<>();
-    public ArrayList<UUID> playersWithRightClickCooldown = new ArrayList<>();
-
     public static MedievalRoleplayEngine getInstance() {
         return instance;
     }

@@ -3,6 +3,7 @@ package dansplugins.rpsystem.EventHandlers;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Objects.CharacterCard;
 import dansplugins.rpsystem.Utilities;
+import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -25,8 +26,8 @@ public class PlayerInteractAtEntityEventHandler implements Listener {
                 return;
             }
 
-            if (!MedievalRoleplayEngine.getInstance().playersWithRightClickCooldown.contains(player.getUniqueId())) {
-                MedievalRoleplayEngine.getInstance().playersWithRightClickCooldown.add(player.getUniqueId());
+            if (!EphemeralData.getInstance().getPlayersWithRightClickCooldown().contains(player.getUniqueId())) {
+                EphemeralData.getInstance().getPlayersWithRightClickCooldown().add(player.getUniqueId());
 
                 if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
 
@@ -42,7 +43,7 @@ public class PlayerInteractAtEntityEventHandler implements Listener {
                     MedievalRoleplayEngine.getInstance().getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
                         @Override
                         public void run() {
-                            MedievalRoleplayEngine.getInstance().playersWithRightClickCooldown.remove(player.getUniqueId());
+                            EphemeralData.getInstance().getPlayersWithRightClickCooldown().remove(player.getUniqueId());
 
                         }
                     }, seconds * 20);
