@@ -62,7 +62,9 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         System.out.println("Medieval Roleplay Engine plugin disabling....");
         StorageManager.getInstance().saveCardFileNames();
         StorageManager.getInstance().saveCards();
-        saveConfig();
+        if (ConfigManager.getInstance().hasBeenAltered()) {
+            saveConfig();
+        }
         System.out.println("Medieval Roleplay Engine plugin disabled.");
     }
 
