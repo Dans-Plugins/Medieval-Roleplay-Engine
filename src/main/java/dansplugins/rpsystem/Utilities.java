@@ -44,8 +44,4 @@ public class Utilities {
         return toReturn;
     }
 
-    public static int rollDice(int max) {
-        return (int)(Math.random() * max + 1);
-    }
-
 }
