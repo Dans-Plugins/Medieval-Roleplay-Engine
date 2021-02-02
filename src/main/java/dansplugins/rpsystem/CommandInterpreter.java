@@ -164,7 +164,7 @@ public class CommandInterpreter {
                 if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
                     if (args.length > 0) {
                         String message = Utilities.createStringFromFirstArgOnwards(args, 0);
-                        String characterName = Utilities.getInstance().getCard(player.getUniqueId()).getName();
+                        String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
 
                         Utilities.getInstance().sendMessageToPlayersWithinDistance(player,ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
                     }

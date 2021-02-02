@@ -25,24 +25,6 @@ public class Utilities {
         return instance;
     }
 
-    public boolean hasCard(UUID uuid) {
-        for (CharacterCard card : PersistentData.getInstance().getCards()) {
-            if (card.getPlayerUUID().equals(uuid)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public CharacterCard getCard(UUID uuid) {
-        for (CharacterCard card : PersistentData.getInstance().getCards()) {
-            if (card.getPlayerUUID().equals(uuid)) {
-                return card;
-            }
-        }
-        return null;
-    }
-
     public static String createStringFromFirstArgOnwards(String[] args, int startingArg) {
         StringBuilder name = new StringBuilder();
         for (int i = startingArg; i < args.length; i++) {

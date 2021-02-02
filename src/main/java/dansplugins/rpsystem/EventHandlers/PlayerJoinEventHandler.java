@@ -11,7 +11,7 @@ public class PlayerJoinEventHandler implements Listener {
 
     @EventHandler()
     public void handle(PlayerJoinEvent event) {
-        if (!Utilities.getInstance().hasCard(event.getPlayer().getUniqueId())) {
+        if (!PersistentData.getInstance().hasCard(event.getPlayer().getUniqueId())) {
             CharacterCard newCard = new CharacterCard(event.getPlayer().getUniqueId());
             PersistentData.getInstance().getCards().add(newCard);
         }
