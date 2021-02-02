@@ -7,6 +7,8 @@ public class ConfigManager {
 
     private static ConfigManager instance;
 
+    private boolean altered = false;
+
     private ConfigManager() {
 
     }
@@ -82,7 +84,7 @@ public class ConfigManager {
 
     }
 
-    public static void setConfigOption(String option, String value, Player player) {
+    public void setConfigOption(String option, String value, Player player) {
 
         if (MedievalRoleplayEngine.getInstance().getConfig().isSet(option)) {
 
@@ -113,6 +115,7 @@ public class ConfigManager {
 
             // save
             MedievalRoleplayEngine.getInstance().saveConfig();
+            altered = true;
         }
         else {
             player.sendMessage(ChatColor.RED + String.format("The option '%s' wasn't found.", option));
@@ -148,6 +151,10 @@ public class ConfigManager {
                 + ", yellChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("yellChatColor")
                 + ", emoteColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor")
                 + ", rightClickToViewCard: " + MedievalRoleplayEngine.getInstance().getConfig().getBoolean("rightClickToViewCard"));
+    }
+
+    public boolean hasBeenAltered() {
+        return altered;
     }
 
 }
