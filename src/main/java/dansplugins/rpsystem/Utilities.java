@@ -100,30 +100,6 @@ public class Utilities {
         return numPlayersWhoHeard;
     }
 
-    // Pasarus wrote this
-    public static UUID findUUIDBasedOnPlayerName(String playerName){
-        // Check online
-        for (Player player : getOnlinePlayers()){
-            if (player.getName().equals(playerName)){
-                return player.getUniqueId();
-            }
-        }
-
-        // Check offline
-        for (OfflinePlayer player : getOfflinePlayers()){
-            try {
-                if (player.getName().equals(playerName)){
-                    return player.getUniqueId();
-                }
-            } catch (NullPointerException e) {
-                // Fail silently as quit possibly common.
-            }
-
-        }
-
-        return null;
-    }
-
     public String createStringFromArgs(String[] args) {
         String toReturn = args[0];
         for (int i = 1; i < args.length; i++) {

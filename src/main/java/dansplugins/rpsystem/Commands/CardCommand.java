@@ -2,6 +2,7 @@ package dansplugins.rpsystem.Commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Objects.CharacterCard;
+import dansplugins.rpsystem.UUIDChecker;
 import dansplugins.rpsystem.Utilities;
 import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.Bukkit;
@@ -253,7 +254,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 for (CharacterCard card : cards) {
                     if (args.length > 0) {
-                        if (card.getPlayerUUID().equals(Utilities.findUUIDBasedOnPlayerName(args[0]))) {
+                        if (card.getPlayerUUID().equals(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]))) {
                             sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
                             sender.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                             sender.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());

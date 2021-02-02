@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.Objects;
 
+import dansplugins.rpsystem.UUIDChecker;
 import dansplugins.rpsystem.Utilities;
 
 import java.io.File;
@@ -162,7 +163,7 @@ public class CharacterCard {
 
             // actual loading
             if (loadReader.hasNextLine()) {
-                setPlayerUUID(Utilities.findUUIDBasedOnPlayerName(loadReader.nextLine()));
+                setPlayerUUID(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(loadReader.nextLine()));
             }
             if (loadReader.hasNextLine()) {
                 setName(loadReader.nextLine());
