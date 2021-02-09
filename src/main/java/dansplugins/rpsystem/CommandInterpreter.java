@@ -35,76 +35,51 @@ public class CommandInterpreter {
 
         // card command
         if (label.equalsIgnoreCase("card")) {
+            CardCommand command = new CardCommand();
             if (args.length == 0) {
-                CardCommand.showCard(sender, args, PersistentData.getInstance().getCards());
+                command.showCard(sender, args, PersistentData.getInstance().getCards());
                 return true;
             } else {
 
                 if (args[0].equalsIgnoreCase("help")) {
-                    CardCommand.showHelpMessage(sender);
+                    command.showHelpMessage(sender);
                     return true;
                 }
 
                 if (args[0].equalsIgnoreCase("name")) {
-                    CardCommand command = new CardCommand();
                     command.changeName(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("race")) {
-                    CardCommand.changeRace(sender, args, PersistentData.getInstance().getCards());
+                    command.changeRace(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("subculture")) {
-                    CardCommand.changeSubculture(sender, args, PersistentData.getInstance().getCards());
+                    command.changeSubculture(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("religion")) {
-                    CardCommand.changeReligion(sender, args, PersistentData.getInstance().getCards());
+                    command.changeReligion(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("age")) {
-                    CardCommand.changeAge(sender, args, PersistentData.getInstance().getCards());
+                    command.changeAge(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("gender")) {
-                    CardCommand.changeGender(sender, args, PersistentData.getInstance().getCards());
+                    command.changeGender(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
 
                 if (args[0].equalsIgnoreCase("forcesave")) {
-                    if (sender instanceof Player) {
-                        Player player = (Player) sender;
-
-                        if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
-                            StorageManager.getInstance().saveCardFileNames();
-                            StorageManager.getInstance().saveCards();
-                            return true;
-                        }
-                        else {
-                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forcesave'");
-                            return false;
-                        }
-
-                    }
+                    command.forceSave(sender);
                 }
 
                 if (args[0].equalsIgnoreCase("forceload")) {
-                    if (sender instanceof Player) {
-                        Player player = (Player) sender;
-
-                        if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
-                            StorageManager.getInstance().loadCards();
-                            return true;
-                        }
-                        else {
-                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forceload'");
-                            return false;
-                        }
-                    }
-
+                    command.forceLoad(sender);
                 }
 
-                CardCommand.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
+                command.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
                 return true;
             }
         }
