@@ -1,5 +1,6 @@
 package dansplugins.rpsystem;
 
+import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -29,8 +30,13 @@ public class Messenger {
 
                 // if within 30 blocks
                 if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
-                    numPlayersWhoHeard++;
-                    potentialPlayer.sendMessage(message);
+
+                    // if player has not left local chat
+                    if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
+                        numPlayersWhoHeard++;
+                        potentialPlayer.sendMessage(message);
+                    }
+
                 }
             }
         }
@@ -52,8 +58,13 @@ public class Messenger {
                 if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
 
                     if (!potentialPlayer.getName().equalsIgnoreCase(player.getName())) {
-                        numPlayersWhoHeard++;
-                        potentialPlayer.sendMessage(message);
+
+                        // if player has not left local chat
+                        if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
+                            numPlayersWhoHeard++;
+                            potentialPlayer.sendMessage(message);
+                        }
+
                     }
 
                 }

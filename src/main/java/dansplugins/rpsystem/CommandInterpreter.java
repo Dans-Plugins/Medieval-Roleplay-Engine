@@ -92,7 +92,7 @@ public class CommandInterpreter {
 
         if (label.equalsIgnoreCase("local") || label.equalsIgnoreCase("rp")) {
             LocalChatCommand command = new LocalChatCommand();
-            return command.startChattingInLocalChat(sender);
+            return command.startChattingInLocalChat(sender, args);
         }
 
         if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("ooc")) {

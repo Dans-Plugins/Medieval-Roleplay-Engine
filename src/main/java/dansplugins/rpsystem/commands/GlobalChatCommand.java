@@ -21,16 +21,15 @@ public class GlobalChatCommand {
         }
 
         if (args.length != 0) {
-            if (args[0].equalsIgnoreCase("leave")) {
-                addToPlayersWhoHaveLeftGlobalChat(player);
+            if (args[0].equalsIgnoreCase("hide")) {
+                addToPlayersWhoHaveHiddenGlobalChat(player);
                 return true;
             }
-            if (args[0].equalsIgnoreCase("join")) {
-                removeFromPlayersWhoHaveLeftGlobalChat(player);
+            if (args[0].equalsIgnoreCase("show")) {
+                removeFromPlayersWhoHaveHiddenGlobalChat(player);
                 return true;
             }
         }
-
 
         removePlayerFromLocalChat(player);
         return true;
@@ -46,23 +45,23 @@ public class GlobalChatCommand {
         }
     }
 
-    private void addToPlayersWhoHaveLeftGlobalChat(Player player) {
-        if (!EphemeralData.getInstance().getPlayersWhoHaveLeftGlobalChat().contains(player.getUniqueId())) {
-            EphemeralData.getInstance().getPlayersWhoHaveLeftGlobalChat().add(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "You have left global chat!");
+    private void addToPlayersWhoHaveHiddenGlobalChat(Player player) {
+        if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(player.getUniqueId())) {
+            EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().add(player.getUniqueId());
+            player.sendMessage(ChatColor.GREEN + "Global chat is now hidden!");
         }
         else {
-            player.sendMessage(ChatColor.RED + "You have already left global chat!");
+            player.sendMessage(ChatColor.RED + "Global chat is already hidden!");
         }
     }
 
-    private void removeFromPlayersWhoHaveLeftGlobalChat(Player player) {
-        if (EphemeralData.getInstance().getPlayersWhoHaveLeftGlobalChat().contains(player.getUniqueId())) {
-            EphemeralData.getInstance().getPlayersWhoHaveLeftGlobalChat().remove(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "You have rejoined global chat!");
+    private void removeFromPlayersWhoHaveHiddenGlobalChat(Player player) {
+        if (EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(player.getUniqueId())) {
+            EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().remove(player.getUniqueId());
+            player.sendMessage(ChatColor.GREEN + "Global chat is now visible!");
         }
         else {
-            player.sendMessage(ChatColor.RED + "You are already receiving messages from the global chat!");
+            player.sendMessage(ChatColor.RED + "Global chat is already visible!");
         }
     }
 

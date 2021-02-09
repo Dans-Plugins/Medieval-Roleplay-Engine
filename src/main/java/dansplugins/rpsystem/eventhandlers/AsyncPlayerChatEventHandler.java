@@ -26,7 +26,7 @@ public class AsyncPlayerChatEventHandler implements Listener {
         }
 
         // global chat
-        ArrayList<UUID> playersWhoHaveLeftGlobalChat = EphemeralData.getInstance().getPlayersWhoHaveLeftGlobalChat();
+        ArrayList<UUID> playersWhoHaveLeftGlobalChat = EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat();
         if (playersWhoHaveLeftGlobalChat.size() != 0) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 if (!playersWhoHaveLeftGlobalChat.contains(onlinePlayer.getUniqueId())) {

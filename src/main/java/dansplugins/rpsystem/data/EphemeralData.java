@@ -11,7 +11,8 @@ public class EphemeralData {
     private ArrayList<UUID> playersSpeakingInLocalChat = new ArrayList<>();
     private ArrayList<UUID> playersOnNameChangeCooldown = new ArrayList<>();
     private ArrayList<UUID> playersWithRightClickCooldown = new ArrayList<>();
-    private ArrayList<UUID> playersWhoHaveLeftGlobalChat = new ArrayList<>();
+    private ArrayList<UUID> playersWhoHaveHiddenGlobalChat = new ArrayList<>();
+    private ArrayList<UUID> playersWhoHaveHiddenLocalChat = new ArrayList<>();
 
     private EphemeralData() {
 
@@ -40,8 +41,12 @@ public class EphemeralData {
         return playersWithRightClickCooldown;
     }
 
-    public ArrayList<UUID> getPlayersWhoHaveLeftGlobalChat() {
-        return playersWhoHaveLeftGlobalChat;
+    public ArrayList<UUID> getPlayersWhoHaveHiddenGlobalChat() {
+        return playersWhoHaveHiddenGlobalChat;
+    }
+
+    public ArrayList<UUID> getPlayersWhoHaveHiddenLocalChat() {
+        return playersWhoHaveHiddenLocalChat;
     }
 
 }
