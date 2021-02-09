@@ -134,6 +134,12 @@ public class CommandInterpreter {
             return true;
         }
 
+        if (label.equalsIgnoreCase("lo")) {
+            LocalOOCChatCommand command = new LocalOOCChatCommand();
+            command.sendLocalOOCMessage(sender, args);
+            return true;
+        }
+
         return false;
     }
 

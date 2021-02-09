@@ -20,6 +20,7 @@ commands:
   whisper:
   rphelp:
   rpconfig:
+  lo:
 
 permissions:
   rp.bird:
@@ -65,6 +66,8 @@ permissions:
   rp.whisper:
     default: true
   rp.help:
+    default: true
+  rp.localOOC:
     default: true
   rp.card.forcesave:
     default: op
