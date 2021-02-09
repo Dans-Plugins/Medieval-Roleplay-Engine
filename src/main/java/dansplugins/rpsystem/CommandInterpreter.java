@@ -72,11 +72,11 @@ public class CommandInterpreter {
                 }
 
                 if (args[0].equalsIgnoreCase("forcesave")) {
-                    command.forceSave(sender);
+                    return command.forceSave(sender);
                 }
 
                 if (args[0].equalsIgnoreCase("forceload")) {
-                    command.forceLoad(sender);
+                    return command.forceLoad(sender);
                 }
 
                 command.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
@@ -91,44 +91,13 @@ public class CommandInterpreter {
         }
 
         if (label.equalsIgnoreCase("local") || label.equalsIgnoreCase("rp")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default")) {
-                    if (!EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
-                        EphemeralData.getInstance().getPlayersSpeakingInLocalChat().add(player.getUniqueId());
-                        player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
-                        return true;
-                    }
-                    else {
-                        player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
-                        return false;
-                    }
-                }
-                else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
-                    return false;
-                }
-
-            }
+            LocalChatCommand command = new LocalChatCommand();
+            return command.startChattingInLocalChat(sender);
         }
 
         if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("ooc")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("rp.global") || player.hasPermission("rp.ooc") || player.hasPermission("rp.default")) {
-                    if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
-                        EphemeralData.getInstance().getPlayersSpeakingInLocalChat().remove(player.getUniqueId());
-                        player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
-                    }
-                    else {
-                        player.sendMessage(ChatColor.RED + "You're already talking in global chat!");
-                    }
-                }
-                else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.global', 'rp.ooc'");
-                }
-
-            }
+            GlobalChatCommand command = new GlobalChatCommand();
+            return command.startChattingInGlobalChat(sender);
         }
 
         if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("me")) {
