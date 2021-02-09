@@ -35,76 +35,51 @@ public class CommandInterpreter {
 
         // card command
         if (label.equalsIgnoreCase("card")) {
+            CardCommand command = new CardCommand();
             if (args.length == 0) {
-                CardCommand.showCard(sender, args, PersistentData.getInstance().getCards());
+                command.showCard(sender, args, PersistentData.getInstance().getCards());
                 return true;
             } else {
 
                 if (args[0].equalsIgnoreCase("help")) {
-                    CardCommand.showHelpMessage(sender);
+                    command.showHelpMessage(sender);
                     return true;
                 }
 
                 if (args[0].equalsIgnoreCase("name")) {
-                    CardCommand command = new CardCommand();
                     command.changeName(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("race")) {
-                    CardCommand.changeRace(sender, args, PersistentData.getInstance().getCards());
+                    command.changeRace(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("subculture")) {
-                    CardCommand.changeSubculture(sender, args, PersistentData.getInstance().getCards());
+                    command.changeSubculture(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("religion")) {
-                    CardCommand.changeReligion(sender, args, PersistentData.getInstance().getCards());
+                    command.changeReligion(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("age")) {
-                    CardCommand.changeAge(sender, args, PersistentData.getInstance().getCards());
+                    command.changeAge(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("gender")) {
-                    CardCommand.changeGender(sender, args, PersistentData.getInstance().getCards());
+                    command.changeGender(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
 
                 if (args[0].equalsIgnoreCase("forcesave")) {
-                    if (sender instanceof Player) {
-                        Player player = (Player) sender;
-
-                        if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
-                            StorageManager.getInstance().saveCardFileNames();
-                            StorageManager.getInstance().saveCards();
-                            return true;
-                        }
-                        else {
-                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forcesave'");
-                            return false;
-                        }
-
-                    }
+                    return command.forceSave(sender);
                 }
 
                 if (args[0].equalsIgnoreCase("forceload")) {
-                    if (sender instanceof Player) {
-                        Player player = (Player) sender;
-
-                        if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
-                            StorageManager.getInstance().loadCards();
-                            return true;
-                        }
-                        else {
-                            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forceload'");
-                            return false;
-                        }
-                    }
-
+                    return command.forceLoad(sender);
                 }
 
-                CardCommand.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
+                command.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
                 return true;
             }
         }
@@ -116,88 +91,23 @@ public class CommandInterpreter {
         }
 
         if (label.equalsIgnoreCase("local") || label.equalsIgnoreCase("rp")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default")) {
-                    if (!EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
-                        EphemeralData.getInstance().getPlayersSpeakingInLocalChat().add(player.getUniqueId());
-                        player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
-                        return true;
-                    }
-                    else {
-                        player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
-                        return false;
-                    }
-                }
-                else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
-                    return false;
-                }
-
-            }
+            LocalChatCommand command = new LocalChatCommand();
+            return command.startChattingInLocalChat(sender);
         }
 
         if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("ooc")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("rp.global") || player.hasPermission("rp.ooc") || player.hasPermission("rp.default")) {
-                    if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
-                        EphemeralData.getInstance().getPlayersSpeakingInLocalChat().remove(player.getUniqueId());
-                        player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
-                    }
-                    else {
-                        player.sendMessage(ChatColor.RED + "You're already talking in global chat!");
-                    }
-                }
-                else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.global', 'rp.ooc'");
-                }
-
-            }
+            GlobalChatCommand command = new GlobalChatCommand();
+            return command.startChattingInGlobalChat(sender);
         }
 
         if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("me")) {
-
-            int emoteRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("emoteRadius");
-            String emoteColor = MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor");
-
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("rp.emote") || player.hasPermission("rp.me") || player.hasPermission("rp.default")) {
-                    if (args.length > 0) {
-                        String message = ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 0);
-                        String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
-
-                        Messenger.getInstance().sendMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
-                    }
-                }
-                else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.emote', 'rp.me'");
-                    return false;
-                }
-
-            }
+            EmoteCommand command = new EmoteCommand();
+            return command.emoteAction(sender, args);
         }
 
         if (label.equalsIgnoreCase("roll") || label.equalsIgnoreCase("dice")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("rp.roll") || player.hasPermission("rp.dice") || player.hasPermission("rp.default")) {
-                    if (args.length > 0) {
-                        try {
-                            int max = Integer.parseInt(args[0]);
-                            Messenger.getInstance().sendMessageToPlayersWithinDistance(player,ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
-                        }
-                        catch(Exception ignored) {
-
-                        }
-                    }
-                }
-                else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
-                }
-
-            }
+            RollCommand command = new RollCommand();
+            return command.rollDice(sender, args);
         }
 
         if (label.equalsIgnoreCase("title")) {
@@ -225,10 +135,6 @@ public class CommandInterpreter {
         }
 
         return false;
-    }
-
-    private static int rollDice(int max) {
-        return (int)(Math.random() * max + 1);
     }
 
 }

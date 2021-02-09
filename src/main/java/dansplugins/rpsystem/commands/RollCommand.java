@@ -1,73 +1,37 @@
 package dansplugins.rpsystem.commands;
 
-import com.bernardomg.tabletop.dice.history.RollHistory;
-import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
-import com.bernardomg.tabletop.dice.interpreter.DiceRoller;
-import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
-import com.bernardomg.tabletop.dice.parser.DiceParser;
+import dansplugins.rpsystem.Messenger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 public class RollCommand {
 
-    static final DiceParser parser = new DefaultDiceParser();
-    static final DiceInterpreter<RollHistory> roller = new DiceRoller();
+    public boolean rollDice(CommandSender sender, String[] args) {
 
-    static final String usageMsg = ChatColor.RED + "Usage: /roll (dice-count)d(side-count)+(modifier)";
-    public static final String invalidSyntaxMsg = ChatColor.RED + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
-    public static final String noPermMsg = ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            if (player.hasPermission("rp.roll") || player.hasPermission("rp.dice") || player.hasPermission("rp.default")) {
+                if (args.length > 0) {
+                    try {
+                        int max = Integer.parseInt(args[0]);
+                        Messenger.getInstance().sendMessageToPlayersWithinDistance(player, ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
+                    }
+                    catch(Exception ignored) {
 
-    public static void rollDice(CommandSender sender, String[] args) {
-        // player check
-        if (!(sender instanceof Player)) {
-            return;
-        }
-
-        Player player = (Player) sender;
-
-        if (player.hasPermission("rp.roll") || player.hasPermission("rp.default")) {
-
-            // zero args check
-            if (args.length < 1) {
-                player.sendMessage(usageMsg);
-                return;
+                    }
+                }
+            }
+            else {
+                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
             }
 
-            // Invalid syntax check
-            if (!Pattern.matches("^(\\d+)?d(\\d+)([+-]\\d+)?$", args[0])) {
-                player.sendMessage(invalidSyntaxMsg);
-                return;
-            }
-
-            player.sendMessage(processRolls(parser.parse(args[0], roller)));
-        } else {
-            player.sendMessage(noPermMsg);
         }
+        return false;
     }
 
-    private static String processRolls(RollHistory rolls) {
-        StringBuilder messageBuilder = new StringBuilder(ChatColor.GREEN + "You rolled a ");
-
-        rolls.getRollResults().forEach(rollResult -> {
-
-            List<String> results = new ArrayList<>();
-
-            rollResult.getAllRolls().forEach(roll -> results.add(String.valueOf(roll)));
-
-            messageBuilder.append(String.join(", ", results));
-
-            if (results.size() > 1) {
-                messageBuilder.append(", with a total value of ").append(rollResult.getTotalRoll());
-            }
-
-            messageBuilder.append(".");
-        });
-
-        return messageBuilder.toString();
+    private int rollDice(int max) {
+        return (int)(Math.random() * max + 1);
     }
+
 }

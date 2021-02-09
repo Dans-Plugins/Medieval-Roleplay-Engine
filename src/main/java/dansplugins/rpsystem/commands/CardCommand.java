@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.StorageManager;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.utils.ArgumentParser;
@@ -16,7 +17,7 @@ import static org.bukkit.Bukkit.getServer;
 
 public class CardCommand {
 
-    public static void showCard(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void showCard(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
@@ -43,7 +44,7 @@ public class CardCommand {
         }
     }
 
-    public static void showHelpMessage(CommandSender sender) {
+    public void showHelpMessage(CommandSender sender) {
         if (sender instanceof Player) {
 
             Player player = (Player) sender;
@@ -116,7 +117,7 @@ public class CardCommand {
         }
     }
 
-    public static void changeRace(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeRace(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
@@ -142,7 +143,7 @@ public class CardCommand {
         }
     }
 
-    public static void changeSubculture(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeSubculture(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
@@ -168,7 +169,7 @@ public class CardCommand {
         }
     }
 
-    public static void changeReligion(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeReligion(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
@@ -194,7 +195,7 @@ public class CardCommand {
         }
     }
 
-    public static void changeAge(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeAge(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
@@ -220,7 +221,7 @@ public class CardCommand {
         }
     }
 
-    public static void changeGender(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeGender(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
@@ -246,7 +247,7 @@ public class CardCommand {
         }
     }
 
-    public static void showPlayerInfo(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void showPlayerInfo(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
         if (sender instanceof Player) {
 
             Player player = (Player) sender;
@@ -276,5 +277,39 @@ public class CardCommand {
 
         }
 
+    }
+
+    public boolean forceSave(CommandSender sender) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+
+            if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
+                StorageManager.getInstance().saveCardFileNames();
+                StorageManager.getInstance().saveCards();
+                return true;
+            }
+            else {
+                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forcesave'");
+                return false;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean forceLoad(CommandSender sender) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+
+            if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
+                StorageManager.getInstance().loadCards();
+                return true;
+            }
+            else {
+                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forceload'");
+                return false;
+            }
+        }
+        return false;
     }
 }
