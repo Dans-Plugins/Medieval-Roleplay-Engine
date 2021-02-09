@@ -97,7 +97,7 @@ public class CommandInterpreter {
 
         if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("ooc")) {
             GlobalChatCommand command = new GlobalChatCommand();
-            return command.startChattingInGlobalChat(sender);
+            return command.startChattingInGlobalChat(sender, args);
         }
 
         if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("me")) {

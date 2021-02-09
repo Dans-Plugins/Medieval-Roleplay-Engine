@@ -7,10 +7,11 @@ public class EphemeralData {
 
     private static EphemeralData instance;
 
-    public ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
-    public ArrayList<UUID> playersSpeakingInLocalChat = new ArrayList<>();
-    public ArrayList<UUID> playersOnNameChangeCooldown = new ArrayList<>();
-    public ArrayList<UUID> playersWithRightClickCooldown = new ArrayList<>();
+    private ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
+    private ArrayList<UUID> playersSpeakingInLocalChat = new ArrayList<>();
+    private ArrayList<UUID> playersOnNameChangeCooldown = new ArrayList<>();
+    private ArrayList<UUID> playersWithRightClickCooldown = new ArrayList<>();
+    private ArrayList<UUID> playersWhoHaveLeftGlobalChat = new ArrayList<>();
 
     private EphemeralData() {
 
@@ -37,6 +38,10 @@ public class EphemeralData {
 
     public ArrayList<UUID> getPlayersWithRightClickCooldown() {
         return playersWithRightClickCooldown;
+    }
+
+    public ArrayList<UUID> getPlayersWhoHaveLeftGlobalChat() {
+        return playersWhoHaveLeftGlobalChat;
     }
 
 }
