@@ -15,7 +15,7 @@ public class RollCommand {
                 if (args.length > 0) {
                     try {
                         int max = Integer.parseInt(args[0]);
-                        Messenger.getInstance().sendMessageToPlayersWithinDistance(player, ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
+                        Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
                     }
                     catch(Exception ignored) {
 

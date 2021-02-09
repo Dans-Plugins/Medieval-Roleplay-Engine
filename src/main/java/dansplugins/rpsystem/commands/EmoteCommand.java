@@ -23,7 +23,7 @@ public class EmoteCommand {
                     String message = ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 0);
                     String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
 
-                    Messenger.getInstance().sendMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
+                    Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
                 }
             }
             else {

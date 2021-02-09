@@ -28,7 +28,7 @@ public class WhisperCommand {
             if (args.length > 0) {
                 String message = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
 
-                int numPlayersWhoHeard = Messenger.getInstance().sendMessageToPlayersWithinDistance(player, message, whisperChatRadius);
+                int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
 
                 player.sendMessage(ChatColor.AQUA + "" + numPlayersWhoHeard + " players heard your whisper.");
             }

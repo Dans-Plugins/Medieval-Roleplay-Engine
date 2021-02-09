@@ -36,8 +36,6 @@ public class MedievalRoleplayEngine extends JavaPlugin {
             reloadConfig();
         }
 
-        EventRegistry.getInstance().registerEvents();
-
         if (StorageManager.getInstance().oldSaveFolderPresent()) {
             StorageManager.getInstance().legacyLoadCards();
             StorageManager.getInstance().deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
@@ -47,6 +45,8 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         else {
             StorageManager.getInstance().loadCards();
         }
+
+        EventRegistry.getInstance().registerEvents();
 
         int pluginId = 8996;
 

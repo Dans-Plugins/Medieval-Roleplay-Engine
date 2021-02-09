@@ -28,7 +28,7 @@ public class YellCommand {
             if (args.length > 0) {
                 String message = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
 
-                Messenger.getInstance().sendMessageToPlayersWithinDistance(player, message, yellChatRadius);
+                Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, yellChatRadius);
             }
             else {
                 player.sendMessage(ChatColor.RED + "Usage: /yell (message)");
