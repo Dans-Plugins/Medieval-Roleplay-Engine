@@ -17,6 +17,7 @@ public class GlobalChatCommand {
 
         if (!(player.hasPermission("rp.global") || player.hasPermission("rp.ooc") || player.hasPermission("rp.default"))) {
             player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.global', 'rp.ooc'");
+            return false;
         }
 
         if (args.length != 0 && args[0].equalsIgnoreCase("leave")) {
