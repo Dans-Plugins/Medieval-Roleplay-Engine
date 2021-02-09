@@ -20,10 +20,17 @@ public class GlobalChatCommand {
             return false;
         }
 
-        if (args.length != 0 && args[0].equalsIgnoreCase("leave")) {
-            addToPlayersWhoHaveLeftGlobalChat(player);
-            return true;
+        if (args.length != 0) {
+            if (args[0].equalsIgnoreCase("leave")) {
+                addToPlayersWhoHaveLeftGlobalChat(player);
+                return true;
+            }
+            if (args[0].equalsIgnoreCase("join")) {
+                removeFromPlayersWhoHaveLeftGlobalChat(player);
+                return true;
+            }
         }
+
 
         removePlayerFromLocalChat(player);
         return true;
@@ -46,6 +53,16 @@ public class GlobalChatCommand {
         }
         else {
             player.sendMessage(ChatColor.RED + "You have already left global chat!");
+        }
+    }
+
+    private void removeFromPlayersWhoHaveLeftGlobalChat(Player player) {
+        if (EphemeralData.getInstance().getPlayersWhoHaveLeftGlobalChat().contains(player.getUniqueId())) {
+            EphemeralData.getInstance().getPlayersWhoHaveLeftGlobalChat().remove(player.getUniqueId());
+            player.sendMessage(ChatColor.GREEN + "You have rejoined global chat!");
+        }
+        else {
+            player.sendMessage(ChatColor.RED + "You are already receiving messages from the global chat!");
         }
     }
 
