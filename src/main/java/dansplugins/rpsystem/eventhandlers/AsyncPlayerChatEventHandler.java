@@ -23,6 +23,7 @@ public class AsyncPlayerChatEventHandler implements Listener {
         if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
             Messenger.getInstance().sendMessageToPlayersWithinDistance(event.getPlayer(), ColorChecker.getInstance().getColorByName(localChatColor) + "" + String.format("%s: \"%s\"", PersistentData.getInstance().getCard(event.getPlayer().getUniqueId()).getName(), event.getMessage()), localChatRadius);
             event.setCancelled(true);
+            return;
         }
 
         // global chat
@@ -34,6 +35,7 @@ public class AsyncPlayerChatEventHandler implements Listener {
                 }
             }
             event.setCancelled(true);
+            return;
         }
 
     }
