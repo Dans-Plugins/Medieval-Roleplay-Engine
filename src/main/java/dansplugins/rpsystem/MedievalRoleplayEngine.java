@@ -12,7 +12,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     private static MedievalRoleplayEngine instance;
 
     // version
-    private String version = "v1.6-beta-2";
+    private String version = "v1.6";
 
     public static MedievalRoleplayEngine getInstance() {
         return instance;
