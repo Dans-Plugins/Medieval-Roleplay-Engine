@@ -93,7 +93,6 @@ public class StorageManager {
             System.out.println("Character cards successfully loaded.");
         } catch (FileNotFoundException e) {
             System.out.println("Error loading the character cards!");
-            e.printStackTrace();
         }
     }
 
@@ -118,7 +117,6 @@ public class StorageManager {
             System.out.println("Character cards successfully loaded.");
         } catch (FileNotFoundException e) {
             System.out.println("Error loading the character cards!");
-            e.printStackTrace();
         }
     }
 
