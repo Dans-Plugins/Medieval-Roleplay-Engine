@@ -9,7 +9,7 @@ public class LocalChatCommand {
 
     public boolean startChattingInLocalChat(CommandSender sender, String[] args) {
 
-        if (sender instanceof Player) {
+        if (!(sender instanceof Player)) {
             return false;
         }
 
