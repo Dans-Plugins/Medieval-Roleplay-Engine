@@ -27,8 +27,9 @@ public class HelpCommand {
             player.sendMessage(ChatColor.AQUA + "/emote or /me - Send an emote to nearby players.");
             player.sendMessage(ChatColor.AQUA + "/roll or /dice - Roll a dice.");
             player.sendMessage(ChatColor.AQUA + "/title - Rename an unwritten book.");
-            player.sendMessage(ChatColor.AQUA + "/yell - Send a single messages to far away players.");
-            player.sendMessage(ChatColor.AQUA + "/whisper - Send a single message to very close players.");
+            player.sendMessage(ChatColor.AQUA + "/yell (message)- Send a single messages to far away players.");
+            player.sendMessage(ChatColor.AQUA + "/whisper (message) - Send a single message to very close players.");
+            player.sendMessage(ChatColor.AQUA + "/lo (message) - Send an single OOC message to nearby players.");
             player.sendMessage(ChatColor.AQUA + "/rpconfig - View and change config options.");
 
         }
