@@ -31,7 +31,7 @@ public class AsyncPlayerChatEventHandler implements Listener {
         if (playersWhoHaveLeftGlobalChat.size() != 0) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 if (!playersWhoHaveLeftGlobalChat.contains(onlinePlayer.getUniqueId())) {
-                    onlinePlayer.sendMessage(event.getMessage());
+                    onlinePlayer.sendMessage(String.format(event.getFormat()) + event.getMessage());
                 }
             }
             event.setCancelled(true);
