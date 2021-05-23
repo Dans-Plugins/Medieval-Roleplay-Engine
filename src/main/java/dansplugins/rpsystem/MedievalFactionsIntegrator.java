@@ -1,7 +1,6 @@
 package dansplugins.rpsystem;
 
 import dansplugins.factionsystem.MedievalFactions;
-
 import dansplugins.factionsystem.MedievalFactionsAPI;
 import org.bukkit.plugin.PluginManager;
 
