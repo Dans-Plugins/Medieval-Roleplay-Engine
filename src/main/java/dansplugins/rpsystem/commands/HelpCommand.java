@@ -22,8 +22,8 @@ public class HelpCommand {
             player.sendMessage(ChatColor.AQUA + "/rphelp - Show a list of useful commands for the plugin.");
             player.sendMessage(ChatColor.AQUA + "/card help - Show a list of commands useful for managing character cards.");
             player.sendMessage(ChatColor.AQUA + "/bird - Send a bird to another player.");
-            player.sendMessage(ChatColor.AQUA + "/local or /rp - Enter local chat.");
-            player.sendMessage(ChatColor.AQUA + "/global or /ooc - Enter global chat.");
+            player.sendMessage(ChatColor.AQUA + "/rp - Enter local (RP) chat.");
+            player.sendMessage(ChatColor.AQUA + "/ooc - Enter global (OOC) chat.");
             player.sendMessage(ChatColor.AQUA + "/emote or /me - Send an emote to nearby players.");
             player.sendMessage(ChatColor.AQUA + "/roll or /dice - Roll a dice.");
             player.sendMessage(ChatColor.AQUA + "/title - Rename an unwritten book.");
