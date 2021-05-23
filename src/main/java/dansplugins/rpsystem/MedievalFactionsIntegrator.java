@@ -2,9 +2,6 @@ package dansplugins.rpsystem;
 
 import dansplugins.factionsystem.MedievalFactions;
 import dansplugins.factionsystem.MedievalFactionsAPI;
-import org.bukkit.plugin.PluginManager;
-
-import static org.bukkit.Bukkit.getServer;
 
 public class MedievalFactionsIntegrator {
 
@@ -27,8 +24,6 @@ public class MedievalFactionsIntegrator {
     }
 
     private MedievalFactionsIntegrator() {
-        PluginManager pluginManager = getServer().getPluginManager();
-
         // get instance of Medieval Factions
         mf_instance = MedievalFactions.getInstance();
 
