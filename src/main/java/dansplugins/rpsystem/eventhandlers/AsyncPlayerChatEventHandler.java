@@ -1,18 +1,13 @@
 package dansplugins.rpsystem.eventhandlers;
 
-import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class AsyncPlayerChatEventHandler implements Listener {
 
