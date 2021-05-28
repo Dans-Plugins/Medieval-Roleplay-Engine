@@ -20,20 +20,25 @@ public class AsyncPlayerChatEventHandler implements Listener {
     @EventHandler()
     public void handle(AsyncPlayerChatEvent event) {
         int localChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius");
-        String localChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor");
+        String localChatColorString = MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor");
         if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
             // get color and character name
-            ChatColor color = ColorChecker.getInstance().getColorByName(localChatColor);
+            ChatColor localChatColor = ColorChecker.getInstance().getColorByName(localChatColorString);
             String characterName = PersistentData.getInstance().getCard(event.getPlayer().getUniqueId()).getName();
 
             // prepare message to send
             String messageToSend;
             if (!event.getMessage().contains("*")) {
-                messageToSend = color + "" + String.format("%s: \"%s\"", characterName, event.getMessage());
+                messageToSend = localChatColor + "" + String.format("%s: \"%s\"", characterName, event.getMessage());
             }
             else {
-                // TODO: implement emote-while-chatting feature
-                messageToSend = "";
+                String messageWithoutEmote = removeStringContainedBetweenAstericks(event.getMessage());
+
+                String emoteMessage = getStringContainedBetweenAstericks(event.getMessage());
+                String emoteColorString = MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor");
+                ChatColor emoteColor = ColorChecker.getInstance().getColorByName(emoteColorString);
+
+                messageToSend = localChatColor + "" + String.format("%s: \"%s\"", characterName, messageWithoutEmote) + emoteColor + "" + String.format("*%s*", emoteMessage);
             }
 
             Messenger.getInstance().sendRPMessageToPlayersWithinDistance(event.getPlayer(), messageToSend, localChatRadius);
@@ -56,6 +61,22 @@ public class AsyncPlayerChatEventHandler implements Listener {
         }
         */
 
+    }
+
+    private String getStringContainedBetweenAstericks(String string) {
+        String toReturn = "";
+
+        // TODO: implement
+
+        return toReturn;
+    }
+
+    private String removeStringContainedBetweenAstericks(String string) {
+        String toReturn = "";
+
+        // TODO: implement
+
+        return toReturn;
     }
 
 }
