@@ -1,19 +1,14 @@
 package dansplugins.rpsystem.eventhandlers;
 
-import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
-import org.bukkit.Bukkit;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class AsyncPlayerChatEventHandler implements Listener {
 
@@ -66,7 +61,23 @@ public class AsyncPlayerChatEventHandler implements Listener {
     private String getStringContainedBetweenAstericks(String string) {
         String toReturn = "";
 
-        // TODO: implement
+        int firstAsterickIndex = -1;
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) == '*') {
+                firstAsterickIndex = i;
+                break;
+            }
+        }
+
+        int secondAsterickIndex = -1;
+        for (int i = firstAsterickIndex; i < string.length(); i++) {
+            if (string.charAt(i) == '*') {
+                secondAsterickIndex = i;
+                break;
+            }
+        }
+
+        toReturn = string.substring(firstAsterickIndex, secondAsterickIndex);
 
         return toReturn;
     }
@@ -74,7 +85,9 @@ public class AsyncPlayerChatEventHandler implements Listener {
     private String removeStringContainedBetweenAstericks(String string) {
         String toReturn = "";
 
-        // TODO: implement
+        String stringToRemove = getStringContainedBetweenAstericks(string);
+
+        toReturn = string.replace(stringToRemove, "");
 
         return toReturn;
     }
