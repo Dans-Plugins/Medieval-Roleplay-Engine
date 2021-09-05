@@ -3,7 +3,7 @@ version: "1.7"
 author: DanTheTechMan
 main: dansplugins.rpsystem.MedievalRoleplayEngine
 api-version: "1.13"
-softdepend: [PlaceholderAPI]
+softdepend: [PlaceholderAPI, MedievalFactions]
 
 commands:
   card:

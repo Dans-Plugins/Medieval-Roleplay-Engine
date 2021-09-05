@@ -1,9 +1,9 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.utils.ArgumentParser;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

@@ -47,6 +47,13 @@
       <version>3.5.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>dansplugins</groupId>
+      <artifactId>Medieval-Factions</artifactId>
+      <version>v4.2.2-alpha-2</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/Medieval-Factions-v4.2.2-alpha-2.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>

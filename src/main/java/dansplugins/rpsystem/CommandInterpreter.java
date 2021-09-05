@@ -1,13 +1,8 @@
 package dansplugins.rpsystem;
 
 import dansplugins.rpsystem.commands.*;
-import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.utils.ArgumentParser;
-import dansplugins.rpsystem.utils.ColorChecker;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class CommandInterpreter {
 

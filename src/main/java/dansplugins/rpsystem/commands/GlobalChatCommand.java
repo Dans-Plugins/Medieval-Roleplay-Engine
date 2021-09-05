@@ -31,7 +31,9 @@ public class GlobalChatCommand {
             }
         }
 
+        // remove player from local chat
         removePlayerFromLocalChat(player);
+
         return true;
     }
 
