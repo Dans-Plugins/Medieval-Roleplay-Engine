@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.eventhandlers;
 
 import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
+import dansplugins.rpsystem.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
@@ -19,9 +20,8 @@ public class AsyncPlayerChatEventHandler implements Listener {
     public void handle(AsyncPlayerChatEvent event) {
         int localChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius");
 
-        MedievalFactionsAPI mf_api = new MedievalFactionsAPI();
-        if (mf_api != null) {
-            if (mf_api.isPlayerInFactionChat(event.getPlayer())) {
+        if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()) {
+            if (MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(event.getPlayer())) {
                 return;
             }
         }

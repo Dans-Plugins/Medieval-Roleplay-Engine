@@ -13,6 +13,8 @@ public class StorageManager {
 
     private static StorageManager instance;
 
+    private final boolean debug = false;
+
     private StorageManager() {
 
     }
@@ -32,9 +34,9 @@ public class StorageManager {
             }
             File saveFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
             if (saveFile.createNewFile()) {
-                System.out.println("Save file for character card filenames created.");
+                if (debug) { System.out.println("Save file for character card filenames created."); }
             } else {
-                System.out.println("Save file for character card filenames already exists. Overwriting.");
+                if (debug) { System.out.println("Save file for character card filenames already exists. Overwriting."); }
             }
 
             FileWriter saveWriter = new FileWriter(saveFile);
@@ -50,7 +52,7 @@ public class StorageManager {
             saveWriter.close();
 
         } catch (IOException e) {
-            System.out.println("An error occurred while saving character card filenames.");
+            if (debug) { System.out.println("An error occurred while saving character card filenames."); }
         }
     }
 
@@ -64,7 +66,7 @@ public class StorageManager {
 
     public void loadCards() {
         try {
-            System.out.println("Attempting to load character cards...");
+            if (debug) { System.out.println("Attempting to load character cards..."); }
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
             Scanner loadReader = new Scanner(loadFile);
 
@@ -90,15 +92,15 @@ public class StorageManager {
             }
 
             loadReader.close();
-            System.out.println("Character cards successfully loaded.");
+            if (debug) { System.out.println("Character cards successfully loaded."); }
         } catch (FileNotFoundException e) {
-            System.out.println("Error loading the character cards!");
+            if (debug) { System.out.println("Error loading the character cards!"); }
         }
     }
 
     public void legacyLoadCards() {
         try {
-            System.out.println("Attempting to load character cards...");
+            if (debug) { System.out.println("Attempting to load character cards..."); }
             File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
             Scanner loadReader = new Scanner(loadFile);
 
@@ -114,9 +116,9 @@ public class StorageManager {
 
             loadReader.close();
 
-            System.out.println("Character cards successfully loaded.");
+            if (debug) { System.out.println("Character cards successfully loaded."); }
         } catch (FileNotFoundException e) {
-            System.out.println("Error loading the character cards!");
+            if (debug) { System.out.println("Error loading the character cards!"); }
         }
     }
 

@@ -1,7 +1,8 @@
 package dansplugins.rpsystem;
 
 import dansplugins.factionsystem.MedievalFactions;
-import dansplugins.factionsystem.MedievalFactionsAPI;
+import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
+import org.bukkit.Bukkit;
 
 public class MedievalFactionsIntegrator {
 
@@ -9,8 +10,21 @@ public class MedievalFactionsIntegrator {
 
     private boolean debug = true;
 
-    private MedievalFactions mf_instance = null;
     private MedievalFactionsAPI mf_api = null;
+
+    private MedievalFactionsIntegrator() {
+        if (isMedievalFactionsPresent()) {
+            if (debug) {
+                System.out.println("[DEBUG] Medieval Factions was found successfully!");
+            }
+            mf_api = new MedievalFactionsAPI();
+        }
+        else {
+            if (debug) {
+                System.out.println("[DEBUG] Medieval Factions was not found!");
+            }
+        }
+    }
 
     public static MedievalFactionsIntegrator getInstance() {
         if (instance == null) {
@@ -19,30 +33,12 @@ public class MedievalFactionsIntegrator {
         return instance;
     }
 
+    public boolean isMedievalFactionsPresent() {
+        return (Bukkit.getServer().getPluginManager().getPlugin("MedievalFactions") != null);
+    }
+
     public MedievalFactionsAPI getAPI() {
         return mf_api;
-    }
-
-    private MedievalFactionsIntegrator() {
-        // get instance of Medieval Factions
-        mf_instance = MedievalFactions.getInstance();
-
-        if (isMedievalFactionsPresent()) {
-            if (debug) {
-                System.out.println("[DEBUG] Medieval Factions was found successfully!");
-            }
-            mf_api = mf_instance.getAPI();
-        }
-        else {
-            if (debug) {
-                System.out.println("[DEBUG] Medieval Factions was not found!");
-            }
-        }
-
-    }
-
-    private boolean isMedievalFactionsPresent() {
-        return mf_instance != null;
     }
 
 }
