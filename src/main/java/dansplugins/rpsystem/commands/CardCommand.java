@@ -27,13 +27,13 @@ public class CardCommand {
                 for (CharacterCard card : cards) {
                     if (card.getPlayerUUID() != null) {
                         if (card.getPlayerUUID().equals(player.getUniqueId())) {
-                            player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
-                            player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
-                            player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
-                            player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
-                            player.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
-                            player.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
-                            player.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
+                            player.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Name: " + card.getName());
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Race: " + card.getRace());
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Subculture: " + card.getSubculture());
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Age: " + card.getAge());
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Gender: " + card.getGender());
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Religion: " + card.getReligion());
                             return;
                         }
                     }
@@ -52,15 +52,15 @@ public class CardCommand {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.help") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + " == " + "Character Card Commands" + " == ");
-                sender.sendMessage(ChatColor.AQUA + "/card - View your character card.");
-                sender.sendMessage(ChatColor.AQUA + "/card (player) - View the character card of a specific player.");
-                sender.sendMessage(ChatColor.AQUA + "/card name (name) - Change your character's name.");
-                sender.sendMessage(ChatColor.AQUA + "/card race (race) - Change your character's race.");
-                sender.sendMessage(ChatColor.AQUA + "/card subculture (subculture) - Change your character's subculture.");
-                sender.sendMessage(ChatColor.AQUA + "/card age (age) - Change your character's age.");
-                sender.sendMessage(ChatColor.AQUA + "/card gender (gender) - Change your character's gender.");
-                sender.sendMessage(ChatColor.AQUA + "/card religion (religion) - Change your character's religion.");
+                sender.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + " == " + "Character Card Commands" + " == ");
+                sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card - View your character card.");
+                sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card (player) - View the character card of a specific player.");
+                sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card name (name) - Change your character's name.");
+                sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card race (race) - Change your character's race.");
+                sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card subculture (subculture) - Change your character's subculture.");
+                sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card age (age) - Change your character's age.");
+                sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card gender (gender) - Change your character's gender.");
+                sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card religion (religion) - Change your character's religion.");
             }
             else {
                 player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.help'");
@@ -258,13 +258,13 @@ public class CardCommand {
                 for (CharacterCard card : cards) {
                     if (args.length > 0) {
                         if (card.getPlayerUUID().equals(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]))) {
-                            sender.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
-                            sender.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
-                            sender.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
-                            sender.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
-                            sender.sendMessage(ChatColor.AQUA + "Age: " + card.getAge());
-                            sender.sendMessage(ChatColor.AQUA + "Gender: " + card.getGender());
-                            sender.sendMessage(ChatColor.AQUA + "Religion: " + card.getReligion());
+                            sender.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
+                            sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Name: " + card.getName());
+                            sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Race: " + card.getRace());
+                            sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Subculture: " + card.getSubculture());
+                            sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Age: " + card.getAge());
+                            sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Gender: " + card.getGender());
+                            sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "Religion: " + card.getReligion());
                             return;
                         }
                     }

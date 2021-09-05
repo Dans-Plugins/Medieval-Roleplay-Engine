@@ -59,7 +59,7 @@ public class BirdCommand {
                     targetPlayer.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "" + ChatColor.ITALIC + "'" + message + "'");
                     player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Your bird has reached " + targetPlayer.getName() + "!");
                     EphemeralData.getInstance().getPlayersWithBusyBirds().remove(player.getUniqueId());
-                    Messenger.getInstance().sendRPMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, ChatColor.AQUA + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
+                    Messenger.getInstance().sendRPMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
                 }
             }, seconds * 20);
 

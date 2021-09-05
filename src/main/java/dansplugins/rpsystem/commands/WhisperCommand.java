@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.PersistentData;
@@ -30,7 +31,7 @@ public class WhisperCommand {
 
                 int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
 
-                player.sendMessage(ChatColor.AQUA + "" + numPlayersWhoHeard + " players heard your whisper.");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "" + numPlayersWhoHeard + " players heard your whisper.");
             }
             else {
                 player.sendMessage(ChatColor.RED + "Usage: /whisper (message)");

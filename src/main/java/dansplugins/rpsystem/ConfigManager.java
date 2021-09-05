@@ -168,7 +168,7 @@ public class ConfigManager {
     }
 
     public void sendPlayerConfigList(Player player) {
-        player.sendMessage(ChatColor.AQUA + "version: " + MedievalRoleplayEngine.getInstance().getConfig().getString("version")
+        player.sendMessage(ColorChecker.getInstance().getColorByName(getString("neutralAlertColor")) + "version: " + MedievalRoleplayEngine.getInstance().getConfig().getString("version")
                 + ", localChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius")
                 + ", whisperChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius")
                 + ", yellChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius")
