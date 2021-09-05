@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.PersistentData;
@@ -30,15 +31,15 @@ public class WhisperCommand {
 
                 int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
 
-                player.sendMessage(ChatColor.AQUA + "" + numPlayersWhoHeard + " players heard your whisper.");
+                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
             }
             else {
-                player.sendMessage(ChatColor.RED + "Usage: /whisper (message)");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /whisper (message)");
             }
 
         }
         else {
-            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.whisper'");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.whisper'");
         }
 
     }

@@ -1,6 +1,8 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.Messenger;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,7 +17,7 @@ public class RollCommand {
                 if (args.length > 0) {
                     try {
                         int max = Integer.parseInt(args[0]);
-                        Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ChatColor.AQUA + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
+                        Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getNeutralAlertColor() + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + rollDice(max) + " out of " + max + ".", 25);
                     }
                     catch(Exception ignored) {
 
@@ -23,7 +25,7 @@ public class RollCommand {
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
             }
 
         }

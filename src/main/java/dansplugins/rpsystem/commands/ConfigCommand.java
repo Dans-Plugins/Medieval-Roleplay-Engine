@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.ConfigManager;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,12 +18,12 @@ public class ConfigCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.config") || player.hasPermission("rp.admin"))) {
-            player.sendMessage(ChatColor.RED + "You don't have permission to configure Medieval Roleplay Engine!");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You don't have permission to configure Medieval Roleplay Engine!");
             return false;
         }
 
         if (args.length < 1) {
-            player.sendMessage(ChatColor.RED + "Valid subcommands: show, set");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
             return false;
         }
 
@@ -44,13 +45,13 @@ public class ConfigCommand {
                 return true;
             }
             else {
-                player.sendMessage(ChatColor.RED + "Usage: /rpconfig set (option) (value)");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /rpconfig set (option) (value)");
                 return false;
             }
 
         }
 
-        player.sendMessage(ChatColor.RED + "Valid subcommands: show, set");
+        player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
 
         return false;
     }

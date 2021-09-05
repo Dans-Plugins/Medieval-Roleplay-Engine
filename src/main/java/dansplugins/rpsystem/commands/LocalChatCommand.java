@@ -1,6 +1,8 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,7 +18,7 @@ public class LocalChatCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default"))) {
-            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
             return false;
         }
 
@@ -40,30 +42,30 @@ public class LocalChatCommand {
     private void addPlayerToLocalChat(Player player) {
         if (!EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersSpeakingInLocalChat().add(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
+            player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You are now talking in local chat.");
         }
         else {
-            player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You're already talking in local chat!");
         }
     }
 
     private void addToPlayersWhoHaveHiddenLocalChat(Player player) {
         if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().add(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "Local chat is now hidden!");
+            player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "Local chat is now hidden!");
         }
         else {
-            player.sendMessage(ChatColor.RED + "Local chat is already hidden!");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Local chat is already hidden!");
         }
     }
 
     private void removeFromPlayersWhoHaveHiddenLocalChat(Player player) {
         if (EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().remove(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "Local chat is now visible!");
+            player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "Local chat is now visible!");
         }
         else {
-            player.sendMessage(ChatColor.RED + "Local chat is already visible!");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Local chat is already visible!");
         }
     }
 
