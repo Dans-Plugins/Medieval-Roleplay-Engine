@@ -1,25 +1,44 @@
-# What is this?
-A minecraft plugin for players to use to roleplay more effectively.
+# Medieval Roleplay Engine
 
-# Notes
-- Java 16 is used to build the project.
-- This project uses the IntelliJ plugin Minecraft Development and Maven to compile its code.
-- Testing can be done by running a local spigot server with the compiled JAR in the plugins folder and checking the console.
+## Description
+Medieval Roleplay Engine is an open source minecraft plugin that allows players to tame any entity in the game so long as their configuration is enabled.
 
-# Versions
-- 0.1 Initial Build
-- 0.2 'Character Card Class' update
-- 0.3 'Saving/Loading' update
-- 0.4 'Card Command' update
-- 0.5 'Message Improvements' update
-- 0.6 'Card Help' update
-- 0.7 'Manual Saving/Loading' update
-- 0.8 'Messenger Birds' update
-- 0.9 'Chat System' update
-- 1.0 'Emotes' update
-- 1.1 'Right Click To View' update
-- 1.2 'Dice Roll' update
-- 1.3 'Permissions' update
-- 1.4 'Title Command' update
-- 1.5 'Dice Improvement, bStats, Yell, Whisper, Help'  update
-- 1.6 'Config.yml, Default Permissions, Local OOC Command, Hide/Show ability' update
+## Installation
+1) You can download the plugin from [this page](https://www.spigotmc.org/resources/medieval-roleplay-engine.79993/).
+
+2) Once downloaded, place the jar in the plugins folder of your server files.
+
+3) Restart your server.
+
+## Usage
+- [User Guide](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Guide)
+- [List of Commands](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Commands)
+- [FAQ](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/FAQ)
+
+## Support
+You can find the support discord server [here](https://discord.gg/xXtuAQ2).
+
+### Experiencing a bug?
+Please fill out a bug report [here](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
+
+## Roadmap
+- [Known Bugs](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
+- [Planned Features](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/issues?q=is%3Aopen+is%3Aissue+label%3AEpic)
+- [Planned Improvements](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/issues?q=is%3Aopen+is%3Aissue+label%3Aimprovement)
+
+## Contributing
+- [Notes for Developers (coming soon)](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Developer-Notes)
+
+## Authors and acknowledgement
+Name | Main Contributions
+------------ | -------------
+DanTheTechMan | Creator
+
+## License
+GPL3
+
+## Project Status
+This project is in active development.
+
+### bStats
+You can view the bStats page for the plugin [here](https://bstats.org/plugin/bukkit/Medieval%20Roleplay%20Engine/8996).
