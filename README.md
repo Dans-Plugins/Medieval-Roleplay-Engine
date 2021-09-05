@@ -1,7 +1,7 @@
 # Medieval Roleplay Engine
 
 ## Description
-Medieval Roleplay Engine is an open source minecraft plugin that allows players to tame any entity in the game so long as their configuration is enabled.
+Medieval Roleplay Engine is a minecraft plugin for players to use to roleplay more effectively. It currently supports Character Cards, Birds, Emotes, Dice, and different types of chats including local, global, whisper, and yell.
 
 ## Installation
 1) You can download the plugin from [this page](https://www.spigotmc.org/resources/medieval-roleplay-engine.79993/).
