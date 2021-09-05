@@ -3,13 +3,14 @@ package dansplugins.rpsystem.placeholders;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 public class PlaceholderAPI extends PlaceholderExpansion {
 
     @Override
-    public @NotNull String getIdentifier() {
+    public @NotNull
+    String getIdentifier() {
         return MedievalRoleplayEngine.getInstance().getName();
     }
 

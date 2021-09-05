@@ -18,7 +18,6 @@ public class AsyncPlayerChatEventHandler implements Listener {
     @EventHandler()
     public void handle(AsyncPlayerChatEvent event) {
         int localChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius");
-        String localChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor");
 
         MedievalFactionsAPI mf_api = new MedievalFactionsAPI();
         if (mf_api != null) {
