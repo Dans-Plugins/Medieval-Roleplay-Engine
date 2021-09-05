@@ -1,7 +1,7 @@
 package dansplugins.rpsystem;
 
 import dansplugins.factionsystem.MedievalFactions;
-import dansplugins.factionsystem.MedievalFactionsAPI;
+import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
 
 public class MedievalFactionsIntegrator {
 
@@ -31,7 +31,7 @@ public class MedievalFactionsIntegrator {
             if (debug) {
                 System.out.println("[DEBUG] Medieval Factions was found successfully!");
             }
-            mf_api = mf_instance.getAPI();
+            mf_api = new MedievalFactionsAPI();
         }
         else {
             if (debug) {

@@ -1,6 +1,8 @@
 package dansplugins.rpsystem;
 
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class ConfigManager {
@@ -78,6 +80,18 @@ public class ConfigManager {
             MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatColor", "gray");
         }
 
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("positiveAlertColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("positiveAlertColor", "green");
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("neurtalAlertColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("neutralAlertColor", "aqua");
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("negativeAlertColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("negativeAlertColor", "red");
+        }
+
         deleteOldConfigOptionsIfPresent();
 
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
@@ -107,19 +121,19 @@ public class ConfigManager {
                     option.equalsIgnoreCase("emoteRadius") ||
                     option.equalsIgnoreCase("localOOCChatRadius")) {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, Integer.parseInt(value));
-                player.sendMessage(ChatColor.GREEN + "Integer set!");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "Integer set!");
             }
             else if (option.equalsIgnoreCase("rightClickToViewCard")) {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, Boolean.parseBoolean(value));
-                player.sendMessage(ChatColor.GREEN + "Boolean set!");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }
             else if (option.equalsIgnoreCase("doubletest")) {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, Double.parseDouble(value));
-                player.sendMessage(ChatColor.GREEN + "Double set!");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "Double set!");
             }
             else {
                 MedievalRoleplayEngine.getInstance().getConfig().set(option, value);
-                player.sendMessage(ChatColor.GREEN + "String set!");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "String set!");
             }
 
             // save
@@ -146,12 +160,15 @@ public class ConfigManager {
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("rightClickToViewCard", true);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatRadius", 25);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatColor", "gray");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("positiveAlertColor", "green");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("neutralAlertColor", "aqua");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("negativeAlertColor", "red");
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
 
     public void sendPlayerConfigList(Player player) {
-        player.sendMessage(ChatColor.AQUA + "version: " + MedievalRoleplayEngine.getInstance().getConfig().getString("version")
+        player.sendMessage(ColorChecker.getInstance().getColorByName(getString("neutralAlertColor")) + "version: " + MedievalRoleplayEngine.getInstance().getConfig().getString("version")
                 + ", localChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius")
                 + ", whisperChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius")
                 + ", yellChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius")
@@ -163,11 +180,34 @@ public class ConfigManager {
                 + ", emoteColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor")
                 + ", rightClickToViewCard: " + MedievalRoleplayEngine.getInstance().getConfig().getBoolean("rightClickToViewCard")
                 + ", localOOCChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localOOCChatRadius")
-                + ", localOOCChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("localOOCChatColor"));
+                + ", localOOCChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("localOOCChatColor")
+                + ", positiveAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("positiveAlertColor")
+                + ", neutralAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("neutralAlertColor")
+                + ", negativeAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("negativeAlertColor"));
     }
 
     public boolean hasBeenAltered() {
         return altered;
+    }
+
+    public FileConfiguration getConfig() {
+        return MedievalRoleplayEngine.getInstance().getConfig();
+    }
+
+    public int getInt(String option) {
+        return getConfig().getInt(option);
+    }
+
+    public boolean getBoolean(String option) {
+        return getConfig().getBoolean(option);
+    }
+
+    public double getDouble(String option) {
+        return getConfig().getDouble(option);
+    }
+
+    public String getString(String option) {
+        return getConfig().getString(option);
     }
 
 }

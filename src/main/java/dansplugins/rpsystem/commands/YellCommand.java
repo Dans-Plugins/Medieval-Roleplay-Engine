@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.PersistentData;
@@ -31,12 +32,12 @@ public class YellCommand {
                 Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, yellChatRadius);
             }
             else {
-                player.sendMessage(ChatColor.RED + "Usage: /yell (message)");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /yell (message)");
             }
 
         }
         else {
-            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
         }
 
     }

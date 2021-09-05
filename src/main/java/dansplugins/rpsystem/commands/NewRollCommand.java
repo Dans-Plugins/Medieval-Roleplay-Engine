@@ -5,6 +5,8 @@ import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
 import com.bernardomg.tabletop.dice.interpreter.DiceRoller;
 import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
+import dansplugins.rpsystem.ConfigManager;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,9 +20,9 @@ public class NewRollCommand {
     static final DiceParser parser = new DefaultDiceParser();
     static final DiceInterpreter<RollHistory> roller = new DiceRoller();
 
-    static final String usageMsg = ChatColor.RED + "Usage: /roll (dice-count)d(side-count)+(modifier)";
-    public static final String invalidSyntaxMsg = ChatColor.RED + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
-    public static final String noPermMsg = ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
+    static final String usageMsg = ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /roll (dice-count)d(side-count)+(modifier)";
+    public static final String invalidSyntaxMsg = ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
+    public static final String noPermMsg = ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
 
     public static void rollDice(CommandSender sender, String[] args) {
         // player check
@@ -51,7 +53,7 @@ public class NewRollCommand {
     }
 
     private static String processRolls(RollHistory rolls) {
-        StringBuilder messageBuilder = new StringBuilder(ChatColor.GREEN + "You rolled a ");
+        StringBuilder messageBuilder = new StringBuilder(ColorChecker.getInstance().getPositiveAlertColor() + "You rolled a ");
 
         rolls.getRollResults().forEach(rollResult -> {
 

@@ -1,6 +1,8 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.utils.ArgumentParser;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -36,20 +38,20 @@ public class TitleCommand {
 
                         player.getInventory().setItemInMainHand(book);
 
-                        player.sendMessage(ChatColor.GREEN + "Title added to book!");
+                        player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "Title added to book!");
                     }
                     else {
-                        player.sendMessage(ChatColor.RED + "Usage: /title (new title)");
+                        player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /title (new title)");
                     }
 
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "You have to be holding a book and quill to use this command!");
+                    player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have to be holding a book and quill to use this command!");
                 }
 
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.title'");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.title'");
             }
         }
 
