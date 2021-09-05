@@ -41,17 +41,17 @@ public class TitleCommand {
                         player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Title added to book!");
                     }
                     else {
-                        player.sendMessage(ChatColor.RED + "Usage: /title (new title)");
+                        player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /title (new title)");
                     }
 
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "You have to be holding a book and quill to use this command!");
+                    player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "You have to be holding a book and quill to use this command!");
                 }
 
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.title'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.title'");
             }
         }
 

@@ -26,12 +26,12 @@ public class LocalOOCChatCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.localOOC") || player.hasPermission("rp.default"))) {
-            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
             return;
         }
 
         if (args.length == 0) {
-            player.sendMessage(ChatColor.RED + "Usage: /lo (message)");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /lo (message)");
             return;
         }
         
@@ -53,7 +53,7 @@ public class LocalOOCChatCommand {
             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Local OOC Chat is now hidden!");
         }
         else {
-            player.sendMessage(ChatColor.RED + "Local OOC Chat is already hidden!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Local OOC Chat is already hidden!");
         }
     }
 
@@ -63,7 +63,7 @@ public class LocalOOCChatCommand {
             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Local OOC Chat is now visible!");
         }
         else {
-            player.sendMessage(ChatColor.RED + "Local OOC Chat is already visible!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Local OOC Chat is already visible!");
         }
     }
 

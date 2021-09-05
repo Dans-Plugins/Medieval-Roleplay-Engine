@@ -36,7 +36,7 @@ public class HelpCommand {
 
         }
         else {
-            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.rphelp'");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.rphelp'");
         }
 
     }

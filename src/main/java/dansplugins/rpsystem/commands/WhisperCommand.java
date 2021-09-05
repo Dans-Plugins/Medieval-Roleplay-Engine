@@ -34,12 +34,12 @@ public class WhisperCommand {
                 player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "" + numPlayersWhoHeard + " players heard your whisper.");
             }
             else {
-                player.sendMessage(ChatColor.RED + "Usage: /whisper (message)");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /whisper (message)");
             }
 
         }
         else {
-            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.whisper'");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.whisper'");
         }
 
     }

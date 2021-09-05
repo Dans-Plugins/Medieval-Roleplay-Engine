@@ -25,7 +25,7 @@ public class RollCommand {
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need one the following permissions: 'rp.roll', 'rp.dice'");
             }
 
         }

@@ -18,7 +18,7 @@ public class LocalChatCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default"))) {
-            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
             return false;
         }
 
@@ -45,7 +45,7 @@ public class LocalChatCommand {
             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "You are now talking in local chat.");
         }
         else {
-            player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "You're already talking in local chat!");
         }
     }
 
@@ -55,7 +55,7 @@ public class LocalChatCommand {
             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Local chat is now hidden!");
         }
         else {
-            player.sendMessage(ChatColor.RED + "Local chat is already hidden!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Local chat is already hidden!");
         }
     }
 
@@ -65,7 +65,7 @@ public class LocalChatCommand {
             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Local chat is now visible!");
         }
         else {
-            player.sendMessage(ChatColor.RED + "Local chat is already visible!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Local chat is already visible!");
         }
     }
 

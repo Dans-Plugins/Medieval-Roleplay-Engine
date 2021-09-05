@@ -20,9 +20,9 @@ public class NewRollCommand {
     static final DiceParser parser = new DefaultDiceParser();
     static final DiceInterpreter<RollHistory> roller = new DiceRoller();
 
-    static final String usageMsg = ChatColor.RED + "Usage: /roll (dice-count)d(side-count)+(modifier)";
-    public static final String invalidSyntaxMsg = ChatColor.RED + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
-    public static final String noPermMsg = ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
+    static final String usageMsg = ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /roll (dice-count)d(side-count)+(modifier)";
+    public static final String invalidSyntaxMsg = ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
+    public static final String noPermMsg = ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
 
     public static void rollDice(CommandSender sender, String[] args) {
         // player check

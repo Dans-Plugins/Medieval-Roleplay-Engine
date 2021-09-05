@@ -40,7 +40,7 @@ public class CardCommand {
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.show'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.show'");
             }
 
         }
@@ -63,7 +63,7 @@ public class CardCommand {
                 sender.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "/card religion (religion) - Change your character's religion.");
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.help'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.help'");
             }
         }
 
@@ -102,18 +102,18 @@ public class CardCommand {
                                     }
                                 }
                                 else {
-                                    player.sendMessage(ChatColor.RED + "Usage: /card name (character-name)");
+                                    player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /card name (character-name)");
                                 }
                             }
                             else {
-                                player.sendMessage(ChatColor.RED + "You must wait before changing your name again!");
+                                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "You must wait before changing your name again!");
                             }
                         }
 
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.name'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.name'");
             }
 
         }
@@ -133,13 +133,13 @@ public class CardCommand {
                             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Race set! Type /card to see changes.");
                         }
                         else {
-                            player.sendMessage(ChatColor.RED + "Usage: /card race (character-race)");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /card race (character-race)");
                         }
                     }
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.race'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.race'");
             }
 
         }
@@ -159,13 +159,13 @@ public class CardCommand {
                             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Subculture set! Type /card to see changes.");
                         }
                         else {
-                            player.sendMessage(ChatColor.RED + "Usage: /card subculture (character-subculture)");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /card subculture (character-subculture)");
                         }
                     }
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.subculture'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.subculture'");
             }
 
         }
@@ -185,13 +185,13 @@ public class CardCommand {
                             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Religion set! Type /card to see changes.");
                         }
                         else {
-                            player.sendMessage(ChatColor.RED + "Usage: /card religion (character-religion)");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /card religion (character-religion)");
                         }
                     }
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.religion'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.religion'");
             }
 
         }
@@ -211,13 +211,13 @@ public class CardCommand {
                             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Age set! Type /card to see changes.");
                         }
                         else {
-                            player.sendMessage(ChatColor.RED + "Usage: /card age (character-age)");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /card age (character-age)");
                         }
                     }
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.age'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.age'");
             }
 
         }
@@ -237,13 +237,13 @@ public class CardCommand {
                             player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Gender set! Type /card to see changes.");
                         }
                         else {
-                            player.sendMessage(ChatColor.RED + "Usage: /card gender (character-gender)");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /card gender (character-gender)");
                         }
                     }
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.gender'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.gender'");
             }
 
         }
@@ -270,11 +270,11 @@ public class CardCommand {
                     }
                 }
 
-                player.sendMessage(ChatColor.RED + "That player wasn't found!");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "That player wasn't found!");
 
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.show.others'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.show.others'");
             }
 
         }
@@ -291,7 +291,7 @@ public class CardCommand {
                 return true;
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forcesave'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.forcesave'");
                 return false;
             }
 
@@ -308,7 +308,7 @@ public class CardCommand {
                 return true;
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.card.forceload'");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.card.forceload'");
                 return false;
             }
         }

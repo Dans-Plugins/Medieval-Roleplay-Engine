@@ -24,27 +24,27 @@ public class BirdCommand {
 
         if (player.hasPermission("rp.bird") || player.hasPermission("rp.default")) {
             if (EphemeralData.getInstance().getPlayersWithBusyBirds().contains(player.getUniqueId())) {
-                player.sendMessage(ChatColor.RED + "Your bird is already on a mission!");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Your bird is already on a mission!");
                 return;
             }
 
             // zero args check
             if (args.length < 2) {
-                player.sendMessage(ChatColor.RED + "Usage: /bird (player-name) (message)");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /bird (player-name) (message)");
                 return;
             }
 
             Player targetPlayer = getServer().getPlayer(args[0]);
 
             if (targetPlayer == null) {
-                player.sendMessage(ChatColor.RED + "That player isn't online!");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "That player isn't online!");
                 return;
             }
 
             String message = ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 1);
 
             if (!(player.getLocation().getWorld().getName().equalsIgnoreCase(targetPlayer.getLocation().getWorld().getName()))) {
-                player.sendMessage(ChatColor.RED + "You can't send a bird to a player in another world.");
+                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "You can't send a bird to a player in another world.");
                 return;
             }
 
@@ -67,7 +67,7 @@ public class BirdCommand {
             EphemeralData.getInstance().getPlayersWithBusyBirds().add(player.getUniqueId());
         }
         else {
-            player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.bird'");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.bird'");
         }
 
     }
