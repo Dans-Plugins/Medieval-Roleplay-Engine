@@ -85,21 +85,6 @@ public class CommandInterpreter {
             return true;
         }
 
-        if (label.equalsIgnoreCase("local") || label.equalsIgnoreCase("rp")) {
-            LocalChatCommand command = new LocalChatCommand();
-            return command.startChattingInLocalChat(sender, args);
-        }
-
-        if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("ooc")) {
-            GlobalChatCommand command = new GlobalChatCommand();
-            return command.startChattingInGlobalChat(sender, args);
-        }
-
-        if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("me")) {
-            EmoteCommand command = new EmoteCommand();
-            return command.emoteAction(sender, args);
-        }
-
         if (label.equalsIgnoreCase("roll") || label.equalsIgnoreCase("dice")) {
             RollCommand command = new RollCommand();
             return command.rollDice(sender, args);
@@ -111,28 +96,45 @@ public class CommandInterpreter {
             return true;
         }
 
-        if (label.equalsIgnoreCase("yell")) {
-            YellCommand command = new YellCommand();
-            command.sendLoudMessage(sender, args);
-            return true;
-        }
-
-        if (label.equalsIgnoreCase("whisper")) {
-            WhisperCommand command = new WhisperCommand();
-            command.sendQuietMessage(sender, args);
-            return true;
-        }
-
         if (label.equalsIgnoreCase("rpconfig")) {
             ConfigCommand command = new ConfigCommand();
             command.handleConfigAccess(sender, args);
             return true;
         }
 
-        if (label.equalsIgnoreCase("lo")) {
-            LocalOOCChatCommand command = new LocalOOCChatCommand();
-            command.sendLocalOOCMessage(sender, args);
-            return true;
+        if (ConfigManager.getInstance().getBoolean("chatFeaturesEnabled")) {
+            if (label.equalsIgnoreCase("local") || label.equalsIgnoreCase("rp")) {
+                LocalChatCommand command = new LocalChatCommand();
+                return command.startChattingInLocalChat(sender, args);
+            }
+
+            if (label.equalsIgnoreCase("global") || label.equalsIgnoreCase("ooc")) {
+                GlobalChatCommand command = new GlobalChatCommand();
+                return command.startChattingInGlobalChat(sender, args);
+            }
+
+            if (label.equalsIgnoreCase("emote") || label.equalsIgnoreCase("me")) {
+                EmoteCommand command = new EmoteCommand();
+                return command.emoteAction(sender, args);
+            }
+
+            if (label.equalsIgnoreCase("yell")) {
+                YellCommand command = new YellCommand();
+                command.sendLoudMessage(sender, args);
+                return true;
+            }
+
+            if (label.equalsIgnoreCase("whisper")) {
+                WhisperCommand command = new WhisperCommand();
+                command.sendQuietMessage(sender, args);
+                return true;
+            }
+
+            if (label.equalsIgnoreCase("lo")) {
+                LocalOOCChatCommand command = new LocalOOCChatCommand();
+                command.sendLocalOOCMessage(sender, args);
+                return true;
+            }
         }
 
         return false;
