@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.eventhandlers;
 
+import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
@@ -15,6 +16,14 @@ public class AsyncPlayerChatEventHandler implements Listener {
     public void handle(AsyncPlayerChatEvent event) {
         int localChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius");
         String localChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor");
+
+        MedievalFactionsAPI mf_api = new MedievalFactionsAPI();
+        if (mf_api != null) {
+            if (mf_api.isPlayerInFactionChat(event.getPlayer())) {
+                return;
+            }
+        }
+
         if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
             Messenger.getInstance().sendRPMessageToPlayersWithinDistance(event.getPlayer(), ColorChecker.getInstance().getColorByName(localChatColor) + "" + String.format("%s: \"%s\"", PersistentData.getInstance().getCard(event.getPlayer().getUniqueId()).getName(), event.getMessage()), localChatRadius);
             event.setCancelled(true);

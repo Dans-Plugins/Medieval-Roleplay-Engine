@@ -1,13 +1,9 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.factionsystem.MedievalFactionsAPI;
-import dansplugins.rpsystem.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.data.EphemeralData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.UUID;
 
 public class GlobalChatCommand {
 
@@ -37,9 +33,6 @@ public class GlobalChatCommand {
 
         // remove player from local chat
         removePlayerFromLocalChat(player);
-
-        // remove player from faction chat if medieval factions is installed
-        removePlayerFromFactionChatIfMedievalFactionsIsInstalled(player.getUniqueId());
 
         return true;
     }
@@ -71,13 +64,6 @@ public class GlobalChatCommand {
         }
         else {
             player.sendMessage(ChatColor.RED + "Global chat is already visible!");
-        }
-    }
-
-    private void removePlayerFromFactionChatIfMedievalFactionsIsInstalled(UUID uuid) {
-        MedievalFactionsAPI mf_api = MedievalFactionsIntegrator.getInstance().getAPI();
-        if (mf_api != null) {
-            mf_api.forcePlayerToLeaveFactionChat(uuid);
         }
     }
 
