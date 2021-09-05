@@ -6,6 +6,7 @@ import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.CharacterCard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +23,10 @@ public class PlayerInteractAtEntityEventHandler implements Listener {
 
             Player player = event.getPlayer();
 
+            if (card == null) {
+                return;
+            }
+
             if (!MedievalRoleplayEngine.getInstance().getConfig().getBoolean("rightClickToViewCard")) {
                 return;
             }
@@ -30,8 +35,7 @@ public class PlayerInteractAtEntityEventHandler implements Listener {
                 EphemeralData.getInstance().getPlayersWithRightClickCooldown().add(player.getUniqueId());
 
                 if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-
-                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + " == ");
+                    player.sendMessage(ChatColor.BOLD + "" + ChatColor.AQUA + "\n == " + "Character Card of " + target.getName() + " == ");
                     player.sendMessage(ChatColor.AQUA + "Name: " + card.getName());
                     player.sendMessage(ChatColor.AQUA + "Race: " + card.getRace());
                     player.sendMessage(ChatColor.AQUA + "Subculture: " + card.getSubculture());
