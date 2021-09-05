@@ -1,6 +1,8 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.utils.ArgumentParser;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -36,7 +38,7 @@ public class TitleCommand {
 
                         player.getInventory().setItemInMainHand(book);
 
-                        player.sendMessage(ChatColor.GREEN + "Title added to book!");
+                        player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Title added to book!");
                     }
                     else {
                         player.sendMessage(ChatColor.RED + "Usage: /title (new title)");

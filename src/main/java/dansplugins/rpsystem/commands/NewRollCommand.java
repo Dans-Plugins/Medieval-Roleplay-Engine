@@ -5,6 +5,8 @@ import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
 import com.bernardomg.tabletop.dice.interpreter.DiceRoller;
 import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
+import dansplugins.rpsystem.ConfigManager;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -51,7 +53,7 @@ public class NewRollCommand {
     }
 
     private static String processRolls(RollHistory rolls) {
-        StringBuilder messageBuilder = new StringBuilder(ChatColor.GREEN + "You rolled a ");
+        StringBuilder messageBuilder = new StringBuilder(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "You rolled a ");
 
         rolls.getRollResults().forEach(rollResult -> {
 

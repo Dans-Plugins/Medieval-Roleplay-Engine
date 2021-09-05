@@ -1,10 +1,12 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.StorageManager;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.utils.ArgumentParser;
+import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.UUIDChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -83,7 +85,7 @@ public class CardCommand {
 
                                 if (args.length > 1) {
                                     card.setName(ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 1));
-                                    player.sendMessage(ChatColor.GREEN + "Name set! Type /card to see changes.");
+                                    player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Name set! Type /card to see changes.");
 
                                     if (changeNameCooldown != 0) {
                                         // cooldown
@@ -94,7 +96,7 @@ public class CardCommand {
                                             @Override
                                             public void run() {
                                                 EphemeralData.getInstance().getPlayersOnNameChangeCooldown().remove(player.getUniqueId());
-                                                player.sendMessage(ChatColor.GREEN + "You can now change your character's name again.");
+                                                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "You can now change your character's name again.");
                                             }
                                         }, seconds * 20);
                                     }
@@ -128,7 +130,7 @@ public class CardCommand {
 
                         if (args.length > 1) {
                             card.setRace(args[1]);
-                            player.sendMessage(ChatColor.GREEN + "Race set! Type /card to see changes.");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Race set! Type /card to see changes.");
                         }
                         else {
                             player.sendMessage(ChatColor.RED + "Usage: /card race (character-race)");
@@ -154,7 +156,7 @@ public class CardCommand {
 
                         if (args.length > 1) {
                             card.setSubculture(args[1]);
-                            player.sendMessage(ChatColor.GREEN + "Subculture set! Type /card to see changes.");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Subculture set! Type /card to see changes.");
                         }
                         else {
                             player.sendMessage(ChatColor.RED + "Usage: /card subculture (character-subculture)");
@@ -180,7 +182,7 @@ public class CardCommand {
 
                         if (args.length > 1) {
                             card.setReligion(args[1]);
-                            player.sendMessage(ChatColor.GREEN + "Religion set! Type /card to see changes.");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Religion set! Type /card to see changes.");
                         }
                         else {
                             player.sendMessage(ChatColor.RED + "Usage: /card religion (character-religion)");
@@ -206,7 +208,7 @@ public class CardCommand {
 
                         if (args.length > 1) {
                             card.setAge(Integer.parseInt(args[1]));
-                            player.sendMessage(ChatColor.GREEN + "Age set! Type /card to see changes.");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Age set! Type /card to see changes.");
                         }
                         else {
                             player.sendMessage(ChatColor.RED + "Usage: /card age (character-age)");
@@ -232,7 +234,7 @@ public class CardCommand {
 
                         if (args.length > 1) {
                             card.setGender(args[1]);
-                            player.sendMessage(ChatColor.GREEN + "Gender set! Type /card to see changes.");
+                            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Gender set! Type /card to see changes.");
                         }
                         else {
                             player.sendMessage(ChatColor.RED + "Usage: /card gender (character-gender)");

@@ -1,9 +1,11 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.utils.ArgumentParser;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -53,15 +55,15 @@ public class BirdCommand {
             getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
                 @Override
                 public void run() {
-                    targetPlayer.sendMessage(ChatColor.GREEN + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:");
-                    targetPlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "'" + message + "'");
-                    player.sendMessage(ChatColor.GREEN + "Your bird has reached " + targetPlayer.getName() + "!");
+                    targetPlayer.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:");
+                    targetPlayer.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "" + ChatColor.ITALIC + "'" + message + "'");
+                    player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Your bird has reached " + targetPlayer.getName() + "!");
                     EphemeralData.getInstance().getPlayersWithBusyBirds().remove(player.getUniqueId());
                     Messenger.getInstance().sendRPMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, ChatColor.AQUA + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
                 }
             }, seconds * 20);
 
-            player.sendMessage(ChatColor.GREEN + "The bird flies off with your message.");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "The bird flies off with your message.");
             EphemeralData.getInstance().getPlayersWithBusyBirds().add(player.getUniqueId());
         }
         else {

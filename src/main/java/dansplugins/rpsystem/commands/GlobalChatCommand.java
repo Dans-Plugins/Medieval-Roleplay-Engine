@@ -1,6 +1,8 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -40,7 +42,7 @@ public class GlobalChatCommand {
     private void removePlayerFromLocalChat(Player player) {
         if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersSpeakingInLocalChat().remove(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "You are now talking in global chat.");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "You are now talking in global chat.");
         }
         else {
             player.sendMessage(ChatColor.RED + "You're already talking in global chat!");
@@ -50,7 +52,7 @@ public class GlobalChatCommand {
     private void addToPlayersWhoHaveHiddenGlobalChat(Player player) {
         if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().add(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "Global chat is now hidden!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Global chat is now hidden!");
         }
         else {
             player.sendMessage(ChatColor.RED + "Global chat is already hidden!");
@@ -60,7 +62,7 @@ public class GlobalChatCommand {
     private void removeFromPlayersWhoHaveHiddenGlobalChat(Player player) {
         if (EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().remove(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "Global chat is now visible!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Global chat is now visible!");
         }
         else {
             player.sendMessage(ChatColor.RED + "Global chat is already visible!");

@@ -1,6 +1,8 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -40,7 +42,7 @@ public class LocalChatCommand {
     private void addPlayerToLocalChat(Player player) {
         if (!EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersSpeakingInLocalChat().add(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "You are now talking in local chat.");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "You are now talking in local chat.");
         }
         else {
             player.sendMessage(ChatColor.RED + "You're already talking in local chat!");
@@ -50,7 +52,7 @@ public class LocalChatCommand {
     private void addToPlayersWhoHaveHiddenLocalChat(Player player) {
         if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().add(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "Local chat is now hidden!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Local chat is now hidden!");
         }
         else {
             player.sendMessage(ChatColor.RED + "Local chat is already hidden!");
@@ -60,7 +62,7 @@ public class LocalChatCommand {
     private void removeFromPlayersWhoHaveHiddenLocalChat(Player player) {
         if (EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().remove(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "Local chat is now visible!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Local chat is now visible!");
         }
         else {
             player.sendMessage(ChatColor.RED + "Local chat is already visible!");

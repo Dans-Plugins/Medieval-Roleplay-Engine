@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
@@ -49,7 +50,7 @@ public class LocalOOCChatCommand {
     private void addToPlayersWhoHaveHiddenLocalOOCChat(Player player) {
         if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalOOCChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalOOCChat().add(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "Local OOC Chat is now hidden!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Local OOC Chat is now hidden!");
         }
         else {
             player.sendMessage(ChatColor.RED + "Local OOC Chat is already hidden!");
@@ -59,7 +60,7 @@ public class LocalOOCChatCommand {
     private void removeFromPlayersWhoHaveHiddenLocalOOCChat(Player player) {
         if (EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalOOCChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalOOCChat().remove(player.getUniqueId());
-            player.sendMessage(ChatColor.GREEN + "Local OOC Chat is now visible!");
+            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("positiveAlertColor")) + "Local OOC Chat is now visible!");
         }
         else {
             player.sendMessage(ChatColor.RED + "Local OOC Chat is already visible!");
