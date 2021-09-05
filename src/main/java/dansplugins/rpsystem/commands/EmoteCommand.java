@@ -28,7 +28,7 @@ public class EmoteCommand {
                 }
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need one the following permissions: 'rp.emote', 'rp.me'");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need one the following permissions: 'rp.emote', 'rp.me'");
                 return false;
             }
 

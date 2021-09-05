@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.utils;
 
+import dansplugins.rpsystem.ConfigManager;
 import org.bukkit.ChatColor;
 
 public class ColorChecker {
@@ -69,6 +70,18 @@ public class ColorChecker {
             default:
                 return ChatColor.WHITE;
         }
+    }
+
+    public ChatColor getPositiveAlertColor() {
+        return getColorByName(ConfigManager.getInstance().getString("positiveAlertColor"));
+    }
+
+    public ChatColor getNeutralAlertColor() {
+        return getColorByName(ConfigManager.getInstance().getString("neutralAlertColor"));
+    }
+
+    public ChatColor getNegativeAlertColor() {
+        return getColorByName(ConfigManager.getInstance().getString("negativeAlertColor"));
     }
 
 }

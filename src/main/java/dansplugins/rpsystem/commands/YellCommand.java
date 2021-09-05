@@ -32,12 +32,12 @@ public class YellCommand {
                 Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, yellChatRadius);
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /yell (message)");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /yell (message)");
             }
 
         }
         else {
-            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
         }
 
     }

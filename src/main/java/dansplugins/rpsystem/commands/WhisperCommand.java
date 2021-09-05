@@ -31,15 +31,15 @@ public class WhisperCommand {
 
                 int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
 
-                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("neutralAlertColor")) + "" + numPlayersWhoHeard + " players heard your whisper.");
+                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /whisper (message)");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /whisper (message)");
             }
 
         }
         else {
-            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Sorry! In order to use this command, you need the following permission: 'rp.whisper'");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.whisper'");
         }
 
     }

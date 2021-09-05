@@ -18,12 +18,12 @@ public class ConfigCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.config") || player.hasPermission("rp.admin"))) {
-            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "You don't have permission to configure Medieval Roleplay Engine!");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You don't have permission to configure Medieval Roleplay Engine!");
             return false;
         }
 
         if (args.length < 1) {
-            player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Valid subcommands: show, set");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
             return false;
         }
 
@@ -45,13 +45,13 @@ public class ConfigCommand {
                 return true;
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Usage: /rpconfig set (option) (value)");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /rpconfig set (option) (value)");
                 return false;
             }
 
         }
 
-        player.sendMessage(ColorChecker.getInstance().getColorByName(ConfigManager.getInstance().getString("negativeAlertColor")) + "Valid subcommands: show, set");
+        player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
 
         return false;
     }
