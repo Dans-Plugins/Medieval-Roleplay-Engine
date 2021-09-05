@@ -78,6 +78,18 @@ public class ConfigManager {
             MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatColor", "gray");
         }
 
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("positiveAlertColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("positiveAlertColor", "green");
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("neurtalAlertColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("neutralAlertColor", "aqua");
+        }
+
+        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("negativeAlertColor")) {
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("negativeAlertColor", "red");
+        }
+
         deleteOldConfigOptionsIfPresent();
 
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
@@ -146,6 +158,9 @@ public class ConfigManager {
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("rightClickToViewCard", true);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatRadius", 25);
         MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatColor", "gray");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("positiveAlertColor", "green");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("neutralAlertColor", "aqua");
+        MedievalRoleplayEngine.getInstance().getConfig().addDefault("negativeAlertColor", "red");
         MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
@@ -163,7 +178,10 @@ public class ConfigManager {
                 + ", emoteColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor")
                 + ", rightClickToViewCard: " + MedievalRoleplayEngine.getInstance().getConfig().getBoolean("rightClickToViewCard")
                 + ", localOOCChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localOOCChatRadius")
-                + ", localOOCChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("localOOCChatColor"));
+                + ", localOOCChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("localOOCChatColor")
+                + ", positiveAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("positiveAlertColor")
+                + ", neutralAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("neutralAlertColor")
+                + ", negativeAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("negativeAlertColor"));
     }
 
     public boolean hasBeenAltered() {
