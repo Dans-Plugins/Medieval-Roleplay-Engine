@@ -26,10 +26,12 @@ public class LocalOOCChatCommand {
 
         if (!(player.hasPermission("rp.localOOC") || player.hasPermission("rp.default"))) {
             player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
+            return;
         }
 
         if (args.length == 0) {
             player.sendMessage(ChatColor.RED + "Usage: /lo (message)");
+            return;
         }
         
         if (args[0].equalsIgnoreCase("hide")) {
