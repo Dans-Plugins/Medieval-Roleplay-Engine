@@ -8,7 +8,7 @@ public class MedievalFactionsIntegrator {
 
     private static MedievalFactionsIntegrator instance;
 
-    private boolean debug = true;
+    private boolean debug = false;
 
     private MedievalFactionsAPI mf_api = null;
 
