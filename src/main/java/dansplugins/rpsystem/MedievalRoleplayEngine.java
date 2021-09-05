@@ -1,10 +1,11 @@
 package dansplugins.rpsystem;
 
+import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import dansplugins.rpsystem.bstats.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.File;
 
 public class MedievalRoleplayEngine extends JavaPlugin {
@@ -12,7 +13,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     private static MedievalRoleplayEngine instance;
 
     // version
-    private String version = "v1.6.1-beta-1";
+    private String version = "v1.7";
 
     public static MedievalRoleplayEngine getInstance() {
         return instance;
@@ -51,6 +52,12 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         int pluginId = 8996;
 
         Metrics metrics = new Metrics(this, pluginId);
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PlaceholderAPI().register();
+        } else {
+            System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available.");
+        }
 
         System.out.println("Medieval Roleplay Engine plugin enabled.");
     }

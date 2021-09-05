@@ -63,7 +63,7 @@ public class ConfigManager {
         }
 
         if (!MedievalRoleplayEngine.getInstance().getConfig().isString("emoteColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteColor", "gray");
+            MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteColor", "yellow");
         }
 
         if (!MedievalRoleplayEngine.getInstance().getConfig().isBoolean("rightClickToViewCard")) {
