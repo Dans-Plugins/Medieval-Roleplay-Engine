@@ -27,7 +27,7 @@ Please fill out a bug report [here](https://github.com/dmccoystephenson/Medieval
 - [Planned Improvements](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/issues?q=is%3Aopen+is%3Aissue+label%3Aimprovement)
 
 ## Contributing
-- [Notes for Developers (coming soon)](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Developer-Notes)
+- [Notes for Developers](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Developer-Notes)
 
 ## Authors and acknowledgement
 Name | Main Contributions
