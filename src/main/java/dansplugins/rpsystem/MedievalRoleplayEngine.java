@@ -21,8 +21,6 @@ public class MedievalRoleplayEngine extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.out.println("Medieval Roleplay Engine plugin enabling....");
-
         instance = this;
 
         // create/load config
@@ -58,19 +56,15 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         } else {
             System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available.");
         }
-
-        System.out.println("Medieval Roleplay Engine plugin enabled.");
     }
 
     @Override
     public void onDisable() {
-        System.out.println("Medieval Roleplay Engine plugin disabling....");
         StorageManager.getInstance().saveCardFileNames();
         StorageManager.getInstance().saveCards();
         if (ConfigManager.getInstance().hasBeenAltered()) {
             saveConfig();
         }
-        System.out.println("Medieval Roleplay Engine plugin disabled.");
     }
 
     @Override

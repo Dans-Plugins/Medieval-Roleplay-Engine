@@ -2,6 +2,7 @@ package dansplugins.rpsystem;
 
 import dansplugins.factionsystem.MedievalFactions;
 import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
+import org.bukkit.Bukkit;
 
 public class MedievalFactionsIntegrator {
 
@@ -9,24 +10,9 @@ public class MedievalFactionsIntegrator {
 
     private boolean debug = true;
 
-    private MedievalFactions mf_instance = null;
     private MedievalFactionsAPI mf_api = null;
 
-    public static MedievalFactionsIntegrator getInstance() {
-        if (instance == null) {
-            instance = new MedievalFactionsIntegrator();
-        }
-        return instance;
-    }
-
-    public MedievalFactionsAPI getAPI() {
-        return mf_api;
-    }
-
     private MedievalFactionsIntegrator() {
-        // get instance of Medieval Factions
-        mf_instance = MedievalFactions.getInstance();
-
         if (isMedievalFactionsPresent()) {
             if (debug) {
                 System.out.println("[DEBUG] Medieval Factions was found successfully!");
@@ -38,11 +24,21 @@ public class MedievalFactionsIntegrator {
                 System.out.println("[DEBUG] Medieval Factions was not found!");
             }
         }
-
     }
 
-    private boolean isMedievalFactionsPresent() {
-        return mf_instance != null;
+    public static MedievalFactionsIntegrator getInstance() {
+        if (instance == null) {
+            instance = new MedievalFactionsIntegrator();
+        }
+        return instance;
+    }
+
+    public boolean isMedievalFactionsPresent() {
+        return (Bukkit.getServer().getPluginManager().getPlugin("MedievalFactions") != null);
+    }
+
+    public MedievalFactionsAPI getAPI() {
+        return mf_api;
     }
 
 }
