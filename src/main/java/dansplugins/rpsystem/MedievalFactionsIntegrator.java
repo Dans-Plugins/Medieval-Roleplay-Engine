@@ -7,21 +7,15 @@ public class MedievalFactionsIntegrator {
 
     private static MedievalFactionsIntegrator instance;
 
-    private boolean debug = false;
-
     private MedievalFactionsAPI mf_api = null;
 
     private MedievalFactionsIntegrator() {
         if (isMedievalFactionsPresent()) {
-            if (debug) {
-                System.out.println("[DEBUG] Medieval Factions was found successfully!");
-            }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was found successfully!"); }
             mf_api = new MedievalFactionsAPI();
         }
         else {
-            if (debug) {
-                System.out.println("[DEBUG] Medieval Factions was not found!");
-            }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was not found!"); }
         }
     }
 

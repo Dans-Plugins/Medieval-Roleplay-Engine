@@ -1,6 +1,6 @@
 package dansplugins.rpsystem.utils;
 
-import dansplugins.rpsystem.ConfigManager;
+import dansplugins.rpsystem.managers.ConfigManager;
 import org.bukkit.ChatColor;
 
 public class ColorChecker {

@@ -57,7 +57,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderAPI().register();
         } else {
-            System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available.");
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
         }
     }
 
@@ -77,6 +77,10 @@ public class MedievalRoleplayEngine extends JavaPlugin {
 
     public String getVersion() {
         return version;
+    }
+
+    public boolean isDebugEnabled() {
+        return getConfig().getBoolean("debugMode");
     }
 
     public boolean isVersionMismatched() {

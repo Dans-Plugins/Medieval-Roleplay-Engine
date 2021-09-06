@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.objects;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.utils.UUIDChecker;
 
 import java.io.File;
@@ -91,9 +92,9 @@ public class CharacterCard {
             }
             File saveFile = new File("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
             if (saveFile.createNewFile()) {
-                System.out.println("Save file for character card belonging to " + playerUUID + " created.");
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Save file for character card belonging to " + playerUUID + " created."); }
             } else {
-                System.out.println("Save file for character card belonging to " + playerUUID + " already exists. Altering.");
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Save file for character card belonging to " + playerUUID + " already exists. Altering."); }
             }
 
             FileWriter saveWriter = new FileWriter("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
@@ -112,7 +113,7 @@ public class CharacterCard {
             return true;
 
         } catch (IOException e) {
-            System.out.println("An error occurred saving character card belonging to " + playerUUID);
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred saving character card belonging to " + playerUUID); }
             e.printStackTrace();
             return false;
         }
@@ -149,7 +150,7 @@ public class CharacterCard {
             loadReader.close();
             return true;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred loading the file " + filename + ".");
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred loading the file " + filename + "."); }
             e.printStackTrace();
             return false;
         }
@@ -186,7 +187,7 @@ public class CharacterCard {
             loadReader.close();
             return true;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred loading the file " + filename + ".");
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred loading the file " + filename + "."); }
             e.printStackTrace();
             return false;
         }
