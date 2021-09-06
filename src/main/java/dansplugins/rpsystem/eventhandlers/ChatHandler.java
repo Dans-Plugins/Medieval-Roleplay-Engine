@@ -85,24 +85,30 @@ public class ChatHandler implements Listener {
                             && MedievalFactionsIntegrator.getInstance().getAPI().isPrefixesFeatureEnabled()
                             && MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer()) != null) {
 
+                        if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message with prefix from Medieval Factions"); }
+
                         MF_Faction playersFaction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer());
 
-                        // add prefix
+                        // prefix format
                         String prefix = playersFaction.getPrefix();
                         String prefixColor = (String) playersFaction.getFlag("prefixColor");
+                        event.setFormat(ColorChecker.getInstance().getColorByName(prefixColor) + "" + "[" + prefix + "]" + "" + ChatColor.WHITE + "" + " <%s> %s");
 
-                        event.setFormat(MedievalFactionsIntegrator.getInstance().getAPI().getPrefixColor() + "" + "[" + prefix + "]" + "" + ChatColor.WHITE + "" + " <%s> %s");
+                        // send message
+                        onlinePlayer.sendMessage(ColorChecker.getInstance().getColorByName(prefixColor) + "" + "[" + prefix + "] " + ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + ChatColor.WHITE + event.getMessage());
 
                     }
                     else {
 
+                        if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message with regular format"); }
+
                         // regular format
                         event.setFormat(ChatColor.WHITE + "" + " <%s> %s");
 
-                    }
+                        // send message
+                        onlinePlayer.sendMessage(ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + event.getMessage());
 
-                    // send message
-                    onlinePlayer.sendMessage(ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + event.getMessage());
+                    }
 
                 }
                 else {
