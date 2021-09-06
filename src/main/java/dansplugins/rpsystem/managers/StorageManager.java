@@ -1,4 +1,4 @@
-package dansplugins.rpsystem;
+package dansplugins.rpsystem.managers;
 
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.CharacterCard;

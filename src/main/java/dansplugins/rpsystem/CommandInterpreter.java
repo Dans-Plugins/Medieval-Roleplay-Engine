@@ -2,6 +2,7 @@ package dansplugins.rpsystem;
 
 import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.managers.ConfigManager;
 import org.bukkit.command.CommandSender;
 
 public class CommandInterpreter {

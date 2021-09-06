@@ -1,5 +1,7 @@
 package dansplugins.rpsystem;
 
+import dansplugins.rpsystem.managers.ConfigManager;
+import dansplugins.rpsystem.managers.StorageManager;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import dansplugins.rpsystem.bstats.Metrics;
 import org.bukkit.Bukkit;

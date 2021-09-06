@@ -1,5 +1,6 @@
-package dansplugins.rpsystem;
+package dansplugins.rpsystem.managers;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
