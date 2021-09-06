@@ -25,80 +25,83 @@ public class ConfigManager {
 
     public void handleVersionMismatch() {
         // set version
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("version")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("version", MedievalRoleplayEngine.getInstance().getVersion());
+        if (!getConfig().isString("version")) {
+            getConfig().addDefault("version", MedievalRoleplayEngine.getInstance().getVersion());
         }
         else {
-            MedievalRoleplayEngine.getInstance().getConfig().set("version", MedievalRoleplayEngine.getInstance().getVersion());
+            getConfig().set("version", MedievalRoleplayEngine.getInstance().getVersion());
         }
 
         // add defaults if they don't exist
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("localChatRadius")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatRadius", 25);
+        if (!getConfig().isInt("localChatRadius")) {
+            getConfig().addDefault("localChatRadius", 25);
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("whisperChatRadius")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatRadius", 2);
+        if (!getConfig().isInt("whisperChatRadius")) {
+            getConfig().addDefault("whisperChatRadius", 2);
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("yellChatRadius")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatRadius", 50);
+        if (!getConfig().isInt("yellChatRadius")) {
+            getConfig().addDefault("yellChatRadius", 50);
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("emoteRadius")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteRadius", 25);
+        if (!getConfig().isInt("emoteRadius")) {
+            getConfig().addDefault("emoteRadius", 25);
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("changeNameCooldown")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("changeNameCooldown", 300);
+        if (!getConfig().isInt("changeNameCooldown")) {
+            getConfig().addDefault("changeNameCooldown", 300);
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("localChatColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatColor", "gray");
+        if (!getConfig().isString("localChatColor")) {
+            getConfig().addDefault("localChatColor", "gray");
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("whisperChatColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatColor", "blue");
+        if (!getConfig().isString("whisperChatColor")) {
+            getConfig().addDefault("whisperChatColor", "blue");
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("yellChatColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatColor", "red");
+        if (!getConfig().isString("yellChatColor")) {
+            getConfig().addDefault("yellChatColor", "red");
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("emoteColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteColor", "yellow");
+        if (!getConfig().isString("emoteColor")) {
+            getConfig().addDefault("emoteColor", "yellow");
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isBoolean("rightClickToViewCard")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("rightClickToViewCard", true);
+        if (!getConfig().isBoolean("rightClickToViewCard")) {
+            getConfig().addDefault("rightClickToViewCard", true);
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isInt("localOOCChatRadius")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatRadius", 25);
+        if (!getConfig().isInt("localOOCChatRadius")) {
+            getConfig().addDefault("localOOCChatRadius", 25);
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("localOOCChatColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatColor", "gray");
+        if (!getConfig().isString("localOOCChatColor")) {
+            getConfig().addDefault("localOOCChatColor", "gray");
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("positiveAlertColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("positiveAlertColor", "green");
+        if (!getConfig().isString("positiveAlertColor")) {
+            getConfig().addDefault("positiveAlertColor", "green");
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("neurtalAlertColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("neutralAlertColor", "aqua");
+        if (!getConfig().isString("neurtalAlertColor")) {
+            getConfig().addDefault("neutralAlertColor", "aqua");
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("negativeAlertColor")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("negativeAlertColor", "red");
+        if (!getConfig().isString("negativeAlertColor")) {
+            getConfig().addDefault("negativeAlertColor", "red");
         }
-        if (!MedievalRoleplayEngine.getInstance().getConfig().isString("chatFeaturesEnabled")) {
-            MedievalRoleplayEngine.getInstance().getConfig().addDefault("chatFeaturesEnabled", true);
+        if (!getConfig().isString("chatFeaturesEnabled")) {
+            getConfig().addDefault("chatFeaturesEnabled", true);
+        }
+        if (!getConfig().isBoolean("debugMode")) {
+            getConfig().addDefault("debugMode", false);
         }
 
         deleteOldConfigOptionsIfPresent();
 
-        MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
+        getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
 
     private void deleteOldConfigOptionsIfPresent() {
 
-        if (MedievalRoleplayEngine.getInstance().getConfig().isInt("test")) {
-            MedievalRoleplayEngine.getInstance().getConfig().set("test", null);
+        if (getConfig().isInt("test")) {
+            getConfig().set("test", null);
         }
 
     }
 
     public void setConfigOption(String option, String value, Player player) {
 
-        if (MedievalRoleplayEngine.getInstance().getConfig().isSet(option)) {
+        if (getConfig().isSet(option)) {
 
             if (option.equalsIgnoreCase("version")) {
                 player.sendMessage(ChatColor.RED + "Cannot set version!");
@@ -110,20 +113,21 @@ public class ConfigManager {
                     || option.equalsIgnoreCase("changeNameCooldown")
                     || option.equalsIgnoreCase("emoteRadius")
                     || option.equalsIgnoreCase("localOOCChatRadius")) {
-                MedievalRoleplayEngine.getInstance().getConfig().set(option, Integer.parseInt(value));
+                getConfig().set(option, Integer.parseInt(value));
                 player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "Integer set!");
             }
             else if (option.equalsIgnoreCase("rightClickToViewCard")
-                    || option.equalsIgnoreCase("chatFeaturesEnabled")) {
-                MedievalRoleplayEngine.getInstance().getConfig().set(option, Boolean.parseBoolean(value));
+                    || option.equalsIgnoreCase("chatFeaturesEnabled")
+                    || option.equalsIgnoreCase("debugMode")) {
+                getConfig().set(option, Boolean.parseBoolean(value));
                 player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }
             else if (option.equalsIgnoreCase("doubletest")) {
-                MedievalRoleplayEngine.getInstance().getConfig().set(option, Double.parseDouble(value));
+                getConfig().set(option, Double.parseDouble(value));
                 player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "Double set!");
             }
             else {
-                MedievalRoleplayEngine.getInstance().getConfig().set(option, value);
+                getConfig().set(option, value);
                 player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "String set!");
             }
 
@@ -138,45 +142,47 @@ public class ConfigManager {
     }
 
     public void saveConfigDefaults() {
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("version", MedievalRoleplayEngine.getInstance().getVersion());
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatRadius", 25);
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatRadius", 2);
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatRadius", 50);
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteRadius", 25);
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("changeNameCooldown", 300);
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("localChatColor", "gray");
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("whisperChatColor", "blue");
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("yellChatColor", "red");
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("emoteColor", "gray");
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("rightClickToViewCard", true);
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatRadius", 25);
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("localOOCChatColor", "gray");
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("positiveAlertColor", "green");
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("neutralAlertColor", "aqua");
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("negativeAlertColor", "red");
-        MedievalRoleplayEngine.getInstance().getConfig().addDefault("chatFeaturesEnabled", true);
-        MedievalRoleplayEngine.getInstance().getConfig().options().copyDefaults(true);
+        getConfig().addDefault("version", MedievalRoleplayEngine.getInstance().getVersion());
+        getConfig().addDefault("localChatRadius", 25);
+        getConfig().addDefault("whisperChatRadius", 2);
+        getConfig().addDefault("yellChatRadius", 50);
+        getConfig().addDefault("emoteRadius", 25);
+        getConfig().addDefault("changeNameCooldown", 300);
+        getConfig().addDefault("localChatColor", "gray");
+        getConfig().addDefault("whisperChatColor", "blue");
+        getConfig().addDefault("yellChatColor", "red");
+        getConfig().addDefault("emoteColor", "gray");
+        getConfig().addDefault("rightClickToViewCard", true);
+        getConfig().addDefault("localOOCChatRadius", 25);
+        getConfig().addDefault("localOOCChatColor", "gray");
+        getConfig().addDefault("positiveAlertColor", "green");
+        getConfig().addDefault("neutralAlertColor", "aqua");
+        getConfig().addDefault("negativeAlertColor", "red");
+        getConfig().addDefault("chatFeaturesEnabled", true);
+        getConfig().addDefault("debugMode", false);
+        getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
 
     public void sendPlayerConfigList(Player player) {
-        player.sendMessage(ColorChecker.getInstance().getColorByName(getString("neutralAlertColor")) + "version: " + MedievalRoleplayEngine.getInstance().getConfig().getString("version")
-                + ", chatFeaturesEnabled: " + MedievalRoleplayEngine.getInstance().getConfig().getBoolean("chatFeaturesEnabled")
-                + ", localChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius")
-                + ", whisperChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius")
-                + ", yellChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius")
-                + ", emoteRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("emoteRadius")
-                + ", changeNameCooldown: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("changeNameCooldown")
-                + ", localChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor")
-                + ", whisperChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("whisperChatColor")
-                + ", yellChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("yellChatColor")
-                + ", emoteColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor")
-                + ", rightClickToViewCard: " + MedievalRoleplayEngine.getInstance().getConfig().getBoolean("rightClickToViewCard")
-                + ", localOOCChatRadius: " + MedievalRoleplayEngine.getInstance().getConfig().getInt("localOOCChatRadius")
-                + ", localOOCChatColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("localOOCChatColor")
-                + ", positiveAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("positiveAlertColor")
-                + ", neutralAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("neutralAlertColor")
-                + ", negativeAlertColor: " + MedievalRoleplayEngine.getInstance().getConfig().getString("negativeAlertColor"));
+        player.sendMessage(ColorChecker.getInstance().getColorByName(getString("neutralAlertColor")) + "version: " + getConfig().getString("version")
+                + ", debugMode: " + getConfig().getBoolean("debugMode")
+                + ", chatFeaturesEnabled: " + getConfig().getBoolean("chatFeaturesEnabled")
+                + ", localChatRadius: " + getConfig().getInt("localChatRadius")
+                + ", whisperChatRadius: " + getConfig().getInt("whisperChatRadius")
+                + ", yellChatRadius: " + getConfig().getInt("yellChatRadius")
+                + ", emoteRadius: " + getConfig().getInt("emoteRadius")
+                + ", changeNameCooldown: " + getConfig().getInt("changeNameCooldown")
+                + ", localChatColor: " + getConfig().getString("localChatColor")
+                + ", whisperChatColor: " + getConfig().getString("whisperChatColor")
+                + ", yellChatColor: " + getConfig().getString("yellChatColor")
+                + ", emoteColor: " + getConfig().getString("emoteColor")
+                + ", rightClickToViewCard: " + getConfig().getBoolean("rightClickToViewCard")
+                + ", localOOCChatRadius: " + getConfig().getInt("localOOCChatRadius")
+                + ", localOOCChatColor: " + getConfig().getString("localOOCChatColor")
+                + ", positiveAlertColor: " + getConfig().getString("positiveAlertColor")
+                + ", neutralAlertColor: " + getConfig().getString("neutralAlertColor")
+                + ", negativeAlertColor: " + getConfig().getString("negativeAlertColor"));
     }
 
     public boolean hasBeenAltered() {
