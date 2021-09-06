@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.managers;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.CharacterCard;
 
@@ -12,8 +13,6 @@ import java.util.Scanner;
 public class StorageManager {
 
     private static StorageManager instance;
-
-    private final boolean debug = false;
 
     private StorageManager() {
 
@@ -34,16 +33,16 @@ public class StorageManager {
             }
             File saveFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
             if (saveFile.createNewFile()) {
-                if (debug) { System.out.println("Save file for character card filenames created."); }
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Save file for character card filenames created."); }
             } else {
-                if (debug) { System.out.println("Save file for character card filenames already exists. Overwriting."); }
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Save file for character card filenames already exists. Overwriting."); }
             }
 
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
             for (CharacterCard card : PersistentData.getInstance().getCards()) {
-//                System.out.println("[DEBUG] Saving card with UUID: " + card.getPlayerUUID());
+//                System.out.println("[MedievalRoleplayEngine.getInstance().isDebugEnabled()] Saving card with UUID: " + card.getPlayerUUID());
                 if (card.getPlayerUUID() != null) {
                     saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
                 }
@@ -52,7 +51,7 @@ public class StorageManager {
             saveWriter.close();
 
         } catch (IOException e) {
-            if (debug) { System.out.println("An error occurred while saving character card filenames."); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred while saving character card filenames."); }
         }
     }
 
@@ -66,7 +65,7 @@ public class StorageManager {
 
     public void loadCards() {
         try {
-            if (debug) { System.out.println("Attempting to load character cards..."); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
             Scanner loadReader = new Scanner(loadFile);
 
@@ -92,15 +91,15 @@ public class StorageManager {
             }
 
             loadReader.close();
-            if (debug) { System.out.println("Character cards successfully loaded."); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Character cards successfully loaded."); }
         } catch (FileNotFoundException e) {
-            if (debug) { System.out.println("Error loading the character cards!"); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
         }
     }
 
     public void legacyLoadCards() {
         try {
-            if (debug) { System.out.println("Attempting to load character cards..."); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
             File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
             Scanner loadReader = new Scanner(loadFile);
 
@@ -116,9 +115,9 @@ public class StorageManager {
 
             loadReader.close();
 
-            if (debug) { System.out.println("Character cards successfully loaded."); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Character cards successfully loaded."); }
         } catch (FileNotFoundException e) {
-            if (debug) { System.out.println("Error loading the character cards!"); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
         }
     }
 
