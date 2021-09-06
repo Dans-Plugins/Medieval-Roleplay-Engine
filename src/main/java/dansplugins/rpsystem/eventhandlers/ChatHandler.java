@@ -42,6 +42,11 @@ public class ChatHandler implements Listener {
             ChatColor localChatColor = ColorChecker.getInstance().getColorByName(localChatColorString);
             String characterName = PersistentData.getInstance().getCard(event.getPlayer().getUniqueId()).getName();
 
+            if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
+                event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden local chat. Type '/rp show' to talk in local chat.");
+                return;
+            }
+
             // prepare message to send
             String messageToSend;
             if (!event.getMessage().contains("*")) {
@@ -71,8 +76,14 @@ public class ChatHandler implements Listener {
             return;
         }
 
-        boolean legacyChatMode = false;
-        if (!legacyChatMode) {
+        if (!ConfigManager.getInstance().getBoolean("legacyChat")) {
+
+            if (EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
+                event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden global chat. Type '/ooc show' to talk in global chat.");
+                event.setCancelled(true);
+                return;
+            }
+
             // global chat
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to send global message to " + onlinePlayer.getName()); }

@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,15 +21,19 @@ public class GlobalChatCommand {
             return false;
         }
 
-        if (args.length != 0) {
-            if (args[0].equalsIgnoreCase("hide")) {
-                addToPlayersWhoHaveHiddenGlobalChat(player);
-                return true;
+        if (!ConfigManager.getInstance().getBoolean("legacyChat")) {
+
+            if (args.length != 0) {
+                if (args[0].equalsIgnoreCase("hide")) {
+                    addToPlayersWhoHaveHiddenGlobalChat(player);
+                    return true;
+                }
+                if (args[0].equalsIgnoreCase("show")) {
+                    removeFromPlayersWhoHaveHiddenGlobalChat(player);
+                    return true;
+                }
             }
-            if (args[0].equalsIgnoreCase("show")) {
-                removeFromPlayersWhoHaveHiddenGlobalChat(player);
-                return true;
-            }
+
         }
 
         // remove player from local chat
