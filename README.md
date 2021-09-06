@@ -13,7 +13,7 @@ Medieval Roleplay Engine is a minecraft plugin for players to use to roleplay mo
 ## Usage
 - [User Guide](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Guide)
 - [List of Commands](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Commands)
-- [FAQ](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/FAQ) (coming soon)
+- [FAQ](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/FAQ)
 
 ## Support
 You can find the support discord server [here](https://discord.gg/xXtuAQ2).
