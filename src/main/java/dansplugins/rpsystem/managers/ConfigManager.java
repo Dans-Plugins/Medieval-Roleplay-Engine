@@ -84,6 +84,9 @@ public class ConfigManager {
         if (!getConfig().isBoolean("debugMode")) {
             getConfig().addDefault("debugMode", false);
         }
+        if (!getConfig().isBoolean("legacyChat")) {
+            getConfig().addDefault("legacyChat", false);
+        }
 
         deleteOldConfigOptionsIfPresent();
 
@@ -118,7 +121,8 @@ public class ConfigManager {
             }
             else if (option.equalsIgnoreCase("rightClickToViewCard")
                     || option.equalsIgnoreCase("chatFeaturesEnabled")
-                    || option.equalsIgnoreCase("debugMode")) {
+                    || option.equalsIgnoreCase("debugMode")
+                    || option.equalsIgnoreCase("legacyChat")) {
                 getConfig().set(option, Boolean.parseBoolean(value));
                 player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }
@@ -160,6 +164,7 @@ public class ConfigManager {
         getConfig().addDefault("negativeAlertColor", "red");
         getConfig().addDefault("chatFeaturesEnabled", true);
         getConfig().addDefault("debugMode", false);
+        getConfig().addDefault("legacyChat", false);
         getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
@@ -168,6 +173,7 @@ public class ConfigManager {
         player.sendMessage(ColorChecker.getInstance().getColorByName(getString("neutralAlertColor")) + "version: " + getConfig().getString("version")
                 + ", debugMode: " + getConfig().getBoolean("debugMode")
                 + ", chatFeaturesEnabled: " + getConfig().getBoolean("chatFeaturesEnabled")
+                + ", legacyChat: " + getConfig().getBoolean("legacyChat")
                 + ", localChatRadius: " + getConfig().getInt("localChatRadius")
                 + ", whisperChatRadius: " + getConfig().getInt("whisperChatRadius")
                 + ", yellChatRadius: " + getConfig().getInt("yellChatRadius")
