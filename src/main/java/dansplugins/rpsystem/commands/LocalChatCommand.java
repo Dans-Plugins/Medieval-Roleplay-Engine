@@ -52,10 +52,10 @@ public class LocalChatCommand {
         }
         else {
             if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent() && MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(player)) {
-
+                player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You're already now in local chat, but you won't send messages to local chat until you leave faction chat.");
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You're already now in local chat, but you won't send messages to local chat until you leave faction chat.");
+                player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You're already now in local chat.");
             }
         }
     }
