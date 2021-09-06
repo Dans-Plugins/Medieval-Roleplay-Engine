@@ -1,14 +1,11 @@
 package dansplugins.rpsystem.eventhandlers;
 
-import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.utils.ColorChecker;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

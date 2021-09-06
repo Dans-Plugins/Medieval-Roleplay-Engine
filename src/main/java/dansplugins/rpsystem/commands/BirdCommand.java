@@ -1,6 +1,5 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;

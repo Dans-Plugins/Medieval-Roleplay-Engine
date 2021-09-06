@@ -1,7 +1,7 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

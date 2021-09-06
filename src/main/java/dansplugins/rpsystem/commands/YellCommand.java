@@ -1,12 +1,10 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

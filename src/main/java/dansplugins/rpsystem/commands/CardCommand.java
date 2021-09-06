@@ -1,8 +1,7 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.StorageManager;
+import dansplugins.rpsystem.managers.StorageManager;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.utils.ArgumentParser;

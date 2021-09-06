@@ -5,9 +5,7 @@ import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
 import com.bernardomg.tabletop.dice.interpreter.DiceRoller;
 import com.bernardomg.tabletop.dice.parser.DefaultDiceParser;
 import com.bernardomg.tabletop.dice.parser.DiceParser;
-import dansplugins.rpsystem.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

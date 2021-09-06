@@ -1,7 +1,6 @@
 package dansplugins.rpsystem.eventhandlers;
 
-import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
-import dansplugins.rpsystem.ConfigManager;
+import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
