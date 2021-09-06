@@ -1,14 +1,12 @@
 package dansplugins.rpsystem.eventhandlers;
 
-import dansplugins.factionsystem.MedievalFactions;
 import dansplugins.factionsystem.externalapi.MF_Faction;
-import dansplugins.factionsystem.objects.Faction;
-import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,9 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class ChatHandler implements Listener {
 
@@ -42,7 +37,7 @@ public class ChatHandler implements Listener {
             ChatColor localChatColor = ColorChecker.getInstance().getColorByName(localChatColorString);
             String characterName = PersistentData.getInstance().getCard(event.getPlayer().getUniqueId()).getName();
 
-            if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
+            if (EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(event.getPlayer().getUniqueId())) {
                 event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden local chat. Type '/rp show' to talk in local chat.");
                 event.setCancelled(true);
                 return;
