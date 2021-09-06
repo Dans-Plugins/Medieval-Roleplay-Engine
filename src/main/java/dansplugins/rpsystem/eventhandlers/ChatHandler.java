@@ -44,6 +44,7 @@ public class ChatHandler implements Listener {
 
             if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
                 event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden local chat. Type '/rp show' to talk in local chat.");
+                event.setCancelled(true);
                 return;
             }
 
