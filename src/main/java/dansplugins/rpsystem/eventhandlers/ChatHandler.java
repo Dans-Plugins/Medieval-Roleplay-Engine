@@ -1,5 +1,8 @@
 package dansplugins.rpsystem.eventhandlers;
 
+import dansplugins.factionsystem.MedievalFactions;
+import dansplugins.factionsystem.externalapi.MF_Faction;
+import dansplugins.factionsystem.objects.Faction;
 import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
@@ -7,14 +10,17 @@ import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.utils.ColorChecker;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public class AsyncPlayerChatEventHandler implements Listener {
+import java.util.ArrayList;
+import java.util.UUID;
 
-    private boolean debug = false;
+public class ChatHandler implements Listener {
 
     @EventHandler()
     public void handle(AsyncPlayerChatEvent event) {
@@ -65,20 +71,46 @@ public class AsyncPlayerChatEventHandler implements Listener {
             return;
         }
 
-        // global chat
-        /*
-        ArrayList<UUID> playersWhoHaveLeftGlobalChat = EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat();
-        if (playersWhoHaveLeftGlobalChat.size() != 0) {
+        boolean legacyChatMode = false;
+        if (!legacyChatMode) {
+            // global chat
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if (!playersWhoHaveLeftGlobalChat.contains(onlinePlayer.getUniqueId())) {
-                    event.setFormat(event.getFormat());
-                    onlinePlayer.sendMessage(event.getMessage()); // TODO: fix this
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to send global message to " + onlinePlayer.getName()); }
+                if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(onlinePlayer.getUniqueId())) {
+                    if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message: '" + event.getMessage() + "'"); }
+
+                    // we are good to send the message
+
+                    if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()
+                            && MedievalFactionsIntegrator.getInstance().getAPI().isPrefixesFeatureEnabled()
+                            && MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer()) != null) {
+
+                        MF_Faction playersFaction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer());
+
+                        // add prefix
+                        String prefix = playersFaction.getPrefix();
+                        String prefixColor = (String) playersFaction.getFlag("prefixColor");
+
+                        event.setFormat(MedievalFactionsIntegrator.getInstance().getAPI().getPrefixColor() + "" + "[" + prefix + "]" + "" + ChatColor.WHITE + "" + " <%s> %s");
+
+                    }
+                    else {
+
+                        // regular format
+                        event.setFormat(ChatColor.WHITE + "" + " <%s> %s");
+
+                    }
+
+                    // send message
+                    onlinePlayer.sendMessage(ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + event.getMessage());
+
+                }
+                else {
+                    if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Player has hidden global chat!"); }
                 }
             }
             event.setCancelled(true);
-            return;
         }
-        */
 
     }
 
@@ -90,7 +122,7 @@ public class AsyncPlayerChatEventHandler implements Listener {
         if (stringToRemove != null) {
             toReturn = string.replace("*" + stringToRemove + "*", "");
 
-            if (debug) { System.out.println("String after removal: " + toReturn); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("String after removal: " + toReturn); }
 
             return toReturn;
         }
@@ -107,7 +139,7 @@ public class AsyncPlayerChatEventHandler implements Listener {
         for (int i = 0; i < string.length(); i++) {
             if (string.charAt(i) == '*') {
                 firstAsterickIndex = i;
-                if (debug) { System.out.println("First asterick index: " + i); }
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("First asterick index: " + i); }
                 break;
             }
         }
@@ -116,13 +148,13 @@ public class AsyncPlayerChatEventHandler implements Listener {
         for (int i = firstAsterickIndex + 1; i < string.length(); i++) {
             if (string.charAt(i) == '*') {
                 secondAsterickIndex = i;
-                if (debug) { System.out.println("Second asterick index: " + i); }
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Second asterick index: " + i); }
                 break;
             }
         }
 
         if (firstAsterickIndex != -1 && secondAsterickIndex != -1) {
-            if (debug) { System.out.println("String contained between astericks: " + toReturn); }
+            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("String contained between astericks: " + toReturn); }
             return string.substring(firstAsterickIndex + 1, secondAsterickIndex);
         }
         else {

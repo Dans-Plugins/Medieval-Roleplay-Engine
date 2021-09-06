@@ -20,7 +20,6 @@ public class GlobalChatCommand {
             return false;
         }
 
-        /*
         if (args.length != 0) {
             if (args[0].equalsIgnoreCase("hide")) {
                 addToPlayersWhoHaveHiddenGlobalChat(player);
@@ -31,7 +30,6 @@ public class GlobalChatCommand {
                 return true;
             }
         }
-        */
 
         // remove player from local chat
         removePlayerFromLocalChat(player);
