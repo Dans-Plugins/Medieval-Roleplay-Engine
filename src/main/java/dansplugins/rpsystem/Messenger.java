@@ -119,7 +119,7 @@ public class Messenger {
                 player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: " + faction.getName());
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: none");
+                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: N/A");
             }
             player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Power: " + power);
         }
