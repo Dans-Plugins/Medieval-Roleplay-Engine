@@ -1,13 +1,13 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.managers.StorageManager;
+import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.managers.StorageManager;
 import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.UUIDChecker;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,13 +26,7 @@ public class CardCommand {
                 for (CharacterCard card : cards) {
                     if (card.getPlayerUUID() != null) {
                         if (card.getPlayerUUID().equals(player.getUniqueId())) {
-                            player.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Name: " + card.getName());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Race: " + card.getRace());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Subculture: " + card.getSubculture());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Age: " + card.getAge());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Gender: " + card.getGender());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Religion: " + card.getReligion());
+                            Messenger.getInstance().sendCardInfoToPlayer(card, player);
                             return;
                         }
                     }
@@ -257,13 +251,7 @@ public class CardCommand {
                 for (CharacterCard card : cards) {
                     if (args.length > 0) {
                         if (card.getPlayerUUID().equals(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]))) {
-                            sender.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
-                            sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Name: " + card.getName());
-                            sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Race: " + card.getRace());
-                            sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Subculture: " + card.getSubculture());
-                            sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Age: " + card.getAge());
-                            sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Gender: " + card.getGender());
-                            sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Religion: " + card.getReligion());
+                            Messenger.getInstance().sendCardInfoToPlayer(card, player);
                             return;
                         }
                     }

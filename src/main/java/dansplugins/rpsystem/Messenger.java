@@ -1,6 +1,11 @@
 package dansplugins.rpsystem;
 
+import dansplugins.factionsystem.externalapi.MF_Faction;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.objects.CharacterCard;
+import dansplugins.rpsystem.utils.ColorChecker;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -97,5 +102,26 @@ public class Messenger {
             }
         }
         return numPlayersWhoHeard;
+    }
+
+    public void sendCardInfoToPlayer(CharacterCard card, Player player) {
+        player.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
+        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Name: " + card.getName());
+        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Race: " + card.getRace());
+        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Subculture: " + card.getSubculture());
+        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Age: " + card.getAge());
+        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Gender: " + card.getGender());
+        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Religion: " + card.getReligion());
+        if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()) {
+            MF_Faction faction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(card.getPlayerUUID());
+            int power = MedievalFactionsIntegrator.getInstance().getAPI().getPower(card.getPlayerUUID());
+            if (faction != null) {
+                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: " + faction.getName());
+            }
+            else {
+                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: N/A");
+            }
+            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Power: " + power);
+        }
     }
 }
