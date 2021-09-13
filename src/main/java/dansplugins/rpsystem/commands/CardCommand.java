@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.managers.StorageManager;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.objects.CharacterCard;
@@ -26,13 +27,7 @@ public class CardCommand {
                 for (CharacterCard card : cards) {
                     if (card.getPlayerUUID() != null) {
                         if (card.getPlayerUUID().equals(player.getUniqueId())) {
-                            player.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Name: " + card.getName());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Race: " + card.getRace());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Subculture: " + card.getSubculture());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Age: " + card.getAge());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Gender: " + card.getGender());
-                            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Religion: " + card.getReligion());
+                            Messenger.getInstance().sendCardInfoToPlayer(card, player);
                             return;
                         }
                     }
