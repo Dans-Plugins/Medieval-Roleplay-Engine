@@ -254,6 +254,7 @@ public class CardCommand {
                 UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]);
                 if (targetUUID == null) {
                     player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player wasn't found.");
+                    return;
                 }
 
                 // get card
