@@ -25,14 +25,8 @@ public class CardCommand {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.show") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                for (CharacterCard card : PersistentData.getInstance().getCards()) {
-                    if (card.getPlayerUUID() != null) {
-                        if (card.getPlayerUUID().equals(player.getUniqueId())) {
-                            Messenger.getInstance().sendCardInfoToPlayer(card, player);
-                            return;
-                        }
-                    }
-                }
+                CharacterCard card = CardLookupService.getInstance().lookup(player.getUniqueId());
+                Messenger.getInstance().sendCardInfoToPlayer(card, player);
             }
             else {
                 player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.card.show'");
