@@ -250,8 +250,13 @@ public class CardCommand {
 
             if (player.hasPermission("rp.card.lookup") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
 
+                if (args.length < 1) {
+                    player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /card lookup (playerName)");
+                    return;
+                }
+
                 // get UUID
-                UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]);
+                UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[1]);
                 if (targetUUID == null) {
                     player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player wasn't found.");
                     return;
