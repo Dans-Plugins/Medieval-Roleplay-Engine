@@ -3,8 +3,10 @@ package dansplugins.rpsystem.commands;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.managers.StorageManager;
 import dansplugins.rpsystem.objects.CharacterCard;
+import dansplugins.rpsystem.services.CardLookupService;
 import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.UUIDChecker;
@@ -12,19 +14,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
 public class CardCommand {
 
-    public void showCard(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void showCard(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.show") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                for (CharacterCard card : cards) {
+                for (CharacterCard card : PersistentData.getInstance().getCards()) {
                     if (card.getPlayerUUID() != null) {
                         if (card.getPlayerUUID().equals(player.getUniqueId())) {
                             Messenger.getInstance().sendCardInfoToPlayer(card, player);
@@ -63,7 +64,7 @@ public class CardCommand {
 
     }
 
-    public void changeName(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeName(CommandSender sender, String[] args) {
 
         int changeNameCooldown = MedievalRoleplayEngine.getInstance().getConfig().getInt("changeNameCooldown");
 
@@ -71,7 +72,7 @@ public class CardCommand {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.name") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                for (CharacterCard card : cards) {
+                for (CharacterCard card : PersistentData.getInstance().getCards()) {
 
                         if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
@@ -113,12 +114,12 @@ public class CardCommand {
         }
     }
 
-    public void changeRace(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeRace(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.race") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                for (CharacterCard card : cards) {
+                for (CharacterCard card : PersistentData.getInstance().getCards()) {
 
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
@@ -139,12 +140,12 @@ public class CardCommand {
         }
     }
 
-    public void changeSubculture(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeSubculture(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.subculture") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                for (CharacterCard card : cards) {
+                for (CharacterCard card : PersistentData.getInstance().getCards()) {
 
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
@@ -165,12 +166,12 @@ public class CardCommand {
         }
     }
 
-    public void changeReligion(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeReligion(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.religion") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                for (CharacterCard card : cards) {
+                for (CharacterCard card : PersistentData.getInstance().getCards()) {
 
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
@@ -191,12 +192,12 @@ public class CardCommand {
         }
     }
 
-    public void changeAge(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeAge(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.age") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                for (CharacterCard card : cards) {
+                for (CharacterCard card : PersistentData.getInstance().getCards()) {
 
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
@@ -217,12 +218,12 @@ public class CardCommand {
         }
     }
 
-    public void changeGender(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void changeGender(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.gender") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                for (CharacterCard card : cards) {
+                for (CharacterCard card : PersistentData.getInstance().getCards()) {
 
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
@@ -243,7 +244,7 @@ public class CardCommand {
         }
     }
 
-    public void showPlayerInfo(CommandSender sender, String[] args, ArrayList<CharacterCard> cards) {
+    public void showPlayerInfo(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
 
             Player player = (Player) sender;
@@ -262,16 +263,14 @@ public class CardCommand {
                     return;
                 }
 
-                // get card
-                for (CharacterCard card : cards) {
-                    if (card.getPlayerUUID().equals(targetUUID)) {
-                        Messenger.getInstance().sendCardInfoToPlayer(card, player);
-                        return;
-                    }
+                CharacterCard card = CardLookupService.getInstance().lookup(targetUUID);
+
+                if (card == null) {
+                    player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player doesn't have a card.");
+                    return;
                 }
 
-                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player doesn't have a card.");
-
+                Messenger.getInstance().sendCardInfoToPlayer(card, player);
             }
             else {
                 player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.card.show.others'");
