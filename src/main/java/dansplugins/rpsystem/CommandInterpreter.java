@@ -35,7 +35,8 @@ public class CommandInterpreter {
             if (args.length == 0) {
                 command.showCard(sender, args, PersistentData.getInstance().getCards());
                 return true;
-            } else {
+            }
+            else {
 
                 if (args[0].equalsIgnoreCase("help")) {
                     command.showHelpMessage(sender);
