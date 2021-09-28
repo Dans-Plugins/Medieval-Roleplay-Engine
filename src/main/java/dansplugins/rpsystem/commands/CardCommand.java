@@ -250,7 +250,7 @@ public class CardCommand {
 
             if (player.hasPermission("rp.card.lookup") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
 
-                if (args.length < 1) {
+                if (args.length < 2) {
                     player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /card lookup (playerName)");
                     return;
                 }
