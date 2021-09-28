@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -248,16 +249,22 @@ public class CardCommand {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
+
+                // get UUID
+                UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]);
+                if (targetUUID == null) {
+                    player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player wasn't found.");
+                }
+
+                // get card
                 for (CharacterCard card : cards) {
-                    if (args.length > 0) {
-                        if (card.getPlayerUUID().equals(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]))) {
-                            Messenger.getInstance().sendCardInfoToPlayer(card, player);
-                            return;
-                        }
+                    if (card.getPlayerUUID().equals(targetUUID)) {
+                        Messenger.getInstance().sendCardInfoToPlayer(card, player);
+                        return;
                     }
                 }
 
-                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player wasn't found!");
+                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player doesn't have a card.");
 
             }
             else {
