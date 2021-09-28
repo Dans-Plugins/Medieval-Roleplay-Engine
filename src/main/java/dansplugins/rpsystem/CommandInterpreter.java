@@ -1,7 +1,6 @@
 package dansplugins.rpsystem;
 
 import dansplugins.rpsystem.commands.*;
-import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
@@ -34,7 +33,7 @@ public class CommandInterpreter {
         if (label.equalsIgnoreCase("card")) {
             CardCommand command = new CardCommand();
             if (args.length == 0) {
-                command.showCard(sender, args, PersistentData.getInstance().getCards());
+                command.showCard(sender, args);
                 return true;
             }
             else {
@@ -44,31 +43,31 @@ public class CommandInterpreter {
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("lookup")) {
-                    command.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
+                    command.showPlayerInfo(sender, args);
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("name")) {
-                    command.changeName(sender, args, PersistentData.getInstance().getCards());
+                    command.changeName(sender, args);
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("race")) {
-                    command.changeRace(sender, args, PersistentData.getInstance().getCards());
+                    command.changeRace(sender, args);
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("subculture")) {
-                    command.changeSubculture(sender, args, PersistentData.getInstance().getCards());
+                    command.changeSubculture(sender, args);
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("religion")) {
-                    command.changeReligion(sender, args, PersistentData.getInstance().getCards());
+                    command.changeReligion(sender, args);
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("age")) {
-                    command.changeAge(sender, args, PersistentData.getInstance().getCards());
+                    command.changeAge(sender, args);
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("gender")) {
-                    command.changeGender(sender, args, PersistentData.getInstance().getCards());
+                    command.changeGender(sender, args);
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("forcesave")) {
