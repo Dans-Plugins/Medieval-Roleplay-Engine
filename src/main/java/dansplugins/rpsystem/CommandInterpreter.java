@@ -3,6 +3,7 @@ package dansplugins.rpsystem;
 import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.managers.ConfigManager;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 
 public class CommandInterpreter {
@@ -42,42 +43,42 @@ public class CommandInterpreter {
                     command.showHelpMessage(sender);
                     return true;
                 }
-
-                if (args[0].equalsIgnoreCase("name")) {
+                else if (args[0].equalsIgnoreCase("lookup")) {
+                    command.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
+                    return true;
+                }
+                else if (args[0].equalsIgnoreCase("name")) {
                     command.changeName(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("race")) {
+                else if (args[0].equalsIgnoreCase("race")) {
                     command.changeRace(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("subculture")) {
+                else if (args[0].equalsIgnoreCase("subculture")) {
                     command.changeSubculture(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("religion")) {
+                else if (args[0].equalsIgnoreCase("religion")) {
                     command.changeReligion(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("age")) {
+                else if (args[0].equalsIgnoreCase("age")) {
                     command.changeAge(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
-                if (args[0].equalsIgnoreCase("gender")) {
+                else if (args[0].equalsIgnoreCase("gender")) {
                     command.changeGender(sender, args, PersistentData.getInstance().getCards());
                     return true;
                 }
-
-                if (args[0].equalsIgnoreCase("forcesave")) {
+                else if (args[0].equalsIgnoreCase("forcesave")) {
                     return command.forceSave(sender);
                 }
-
-                if (args[0].equalsIgnoreCase("forceload")) {
+                else if (args[0].equalsIgnoreCase("forceload")) {
                     return command.forceLoad(sender);
                 }
 
-                command.showPlayerInfo(sender, args, PersistentData.getInstance().getCards());
-                return true;
+                sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sub-commands: help, lookup, name, race, subculture, religion, age, gender, forcesave, forceload");
             }
         }
 

@@ -28,7 +28,7 @@ permissions:
     default: true
   rp.card.show:
     default: true
-  rp.card.show.others:
+  rp.card.lookup:
     default: true
   rp.card.help:
     default: true

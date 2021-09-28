@@ -48,7 +48,7 @@ public class CardCommand {
             if (player.hasPermission("rp.card.help") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                 sender.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getNeutralAlertColor() + " == " + "Character Card Commands" + " == ");
                 sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/card - View your character card.");
-                sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/card (player) - View the character card of a specific player.");
+                sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/card lookup (player) - View the character card of a specific player.");
                 sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/card name (name) - Change your character's name.");
                 sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/card race (race) - Change your character's race.");
                 sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/card subculture (subculture) - Change your character's subculture.");
@@ -248,7 +248,7 @@ public class CardCommand {
 
             Player player = (Player) sender;
 
-            if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
+            if (player.hasPermission("rp.card.lookup") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
 
                 // get UUID
                 UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]);
