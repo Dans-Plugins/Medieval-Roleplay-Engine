@@ -61,7 +61,7 @@ public class BirdCommand {
             getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
                 @Override
                 public void run() {
-                    targetPlayer.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:");
+                    targetPlayer.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "A bird lands nearby and drops a message at your feet! It was sent by " + player.getName() + ". It reads:\n");
                     targetPlayer.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "" + ChatColor.ITALIC + "'" + message + "'");
                     player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "Your bird has reached " + targetPlayer.getName() + "!");
                     EphemeralData.getInstance().getPlayersWithBusyBirds().remove(player.getUniqueId());
@@ -82,7 +82,7 @@ public class BirdCommand {
         if (MailboxesIntegrator.getInstance().isMailboxesPresent()) {
             UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(targetName);
             if (targetUUID != null) {
-                String messageToSend = "While you were offline, a bird dropped off a message for you. It reads: '" + message + "'";
+                String messageToSend = "While you were offline, a bird dropped off a message for you. It was sent by " + sender.getName() + ". It reads:\n\n'" + message + "'";
 
                 boolean success = MailboxesIntegrator.getInstance().getAPI().sendPluginMessageToPlayer(MedievalRoleplayEngine.getInstance().getName(), targetUUID, messageToSend);
                 if (success) {
