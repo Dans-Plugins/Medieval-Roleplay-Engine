@@ -83,9 +83,16 @@ public class BirdCommand {
             UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(targetName);
             if (targetUUID != null) {
                 String messageToSend = "While you were offline, a bird dropped off a message for you. It reads: '" + message + "'";
-                MailboxesIntegrator.getInstance().getAPI().sendPluginMessageToPlayer(MedievalRoleplayEngine.getInstance().getName(), targetUUID, messageToSend);
-                sender.sendMessage(ChatColor.GREEN + "The bird flies off with your message. Since this player is offline, this message will go to their mailbox.");
-                return true;
+
+                boolean success = MailboxesIntegrator.getInstance().getAPI().sendPluginMessageToPlayer(MedievalRoleplayEngine.getInstance().getName(), targetUUID, messageToSend);
+                if (success) {
+                    sender.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "The bird flies off with your message. Since this player is offline, this message will go to their mailbox.");
+                    return true;
+                }
+                else {
+                    sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Your bird wasn't able to find this player's mailbox.");
+                    return false;
+                }
             }
         }
         return false;
