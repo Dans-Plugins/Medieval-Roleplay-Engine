@@ -50,9 +50,9 @@
     <dependency>
       <groupId>dansplugins</groupId>
       <artifactId>Medieval-Factions</artifactId>
-      <version>v4.2.2-alpha-4</version>
+      <version>v4.3</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/Medieval-Factions-v4.2.2-alpha-4.jar</systemPath>
+      <systemPath>${project.basedir}/src/main/resources/Medieval-Factions-v4.3.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>dansplugins</groupId>
