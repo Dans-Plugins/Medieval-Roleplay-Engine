@@ -1,6 +1,6 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.MedievalFactionsIntegrator;
+import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;

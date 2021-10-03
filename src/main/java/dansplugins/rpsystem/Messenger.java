@@ -2,6 +2,7 @@ package dansplugins.rpsystem;
 
 import dansplugins.factionsystem.externalapi.MF_Faction;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.objects.CharacterCard;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.Bukkit;

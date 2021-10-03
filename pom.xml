@@ -54,6 +54,13 @@
       <scope>system</scope>
       <systemPath>${project.basedir}/src/main/resources/Medieval-Factions-v4.2.2-alpha-4.jar</systemPath>
     </dependency>
+    <dependency>
+      <groupId>dansplugins</groupId>
+      <artifactId>Mailboxes</artifactId>
+      <version>v1.1-alpha-1</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/Mailboxes-v1.1-alpha-1.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>

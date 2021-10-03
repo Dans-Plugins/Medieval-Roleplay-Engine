@@ -3,11 +3,15 @@ package dansplugins.rpsystem.commands;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.integrators.MailboxesIntegrator;
 import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.UUIDChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -33,14 +37,25 @@ public class BirdCommand {
                 return;
             }
 
+            String message = ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 1);
+
             Player targetPlayer = getServer().getPlayer(args[0]);
 
             if (targetPlayer == null) {
+                if (MailboxesIntegrator.getInstance().isMailboxesPresent()) {
+                    UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[0]);
+                    if (targetUUID != null) {
+                        MailboxesIntegrator.getInstance().getAPI().sendPluginMessageToPlayer(MedievalRoleplayEngine.getInstance().getName(), targetUUID, message);
+                        player.sendMessage(ChatColor.GREEN + "The bird flies off with your message. Since this player is offline, this message will go to their mailbox.");
+                        return;
+                    }
+
+                }
                 player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player isn't online!");
                 return;
             }
 
-            String message = ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 1);
+
 
             if (!(player.getLocation().getWorld().getName().equalsIgnoreCase(targetPlayer.getLocation().getWorld().getName()))) {
                 player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You can't send a bird to a player in another world.");

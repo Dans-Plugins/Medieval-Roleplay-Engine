@@ -1,6 +1,7 @@
-package dansplugins.rpsystem;
+package dansplugins.rpsystem.integrators;
 
 import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
+import dansplugins.rpsystem.MedievalRoleplayEngine;
 import org.bukkit.Bukkit;
 
 public class MedievalFactionsIntegrator {
