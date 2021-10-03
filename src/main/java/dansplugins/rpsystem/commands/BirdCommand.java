@@ -49,8 +49,6 @@ public class BirdCommand {
                 return;
             }
 
-
-
             if (!(player.getLocation().getWorld().getName().equalsIgnoreCase(targetPlayer.getLocation().getWorld().getName()))) {
                 player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You can't send a bird to a player in another world.");
                 return;
