@@ -1,8 +1,8 @@
 name: MedievalRoleplayEngine
-version: "1.10-beta-1"
+version: 1.10-beta-2
 author: DanTheTechMan
 main: dansplugins.rpsystem.MedievalRoleplayEngine
-api-version: "1.13"
+api-version: 1.13
 softdepend: [PlaceholderAPI, MedievalFactions, Mailboxes]
 
 commands:
