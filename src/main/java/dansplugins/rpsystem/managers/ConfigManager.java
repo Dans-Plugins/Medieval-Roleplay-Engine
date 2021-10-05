@@ -88,6 +88,10 @@ public class ConfigManager {
             getConfig().addDefault("legacyChat", false);
         }
 
+        if (!getConfig().isBoolean("preventSelfBirding")) {
+            getConfig().addDefault("preventSelfBirding", true);
+        }
+
         deleteOldConfigOptionsIfPresent();
 
         getConfig().options().copyDefaults(true);
@@ -122,7 +126,8 @@ public class ConfigManager {
             else if (option.equalsIgnoreCase("rightClickToViewCard")
                     || option.equalsIgnoreCase("chatFeaturesEnabled")
                     || option.equalsIgnoreCase("debugMode")
-                    || option.equalsIgnoreCase("legacyChat")) {
+                    || option.equalsIgnoreCase("legacyChat")
+                    || option.equalsIgnoreCase("preventSelfBirding")) {
                 getConfig().set(option, Boolean.parseBoolean(value));
                 player.sendMessage(ColorChecker.getInstance().getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }
@@ -165,6 +170,7 @@ public class ConfigManager {
         getConfig().addDefault("chatFeaturesEnabled", true);
         getConfig().addDefault("debugMode", false);
         getConfig().addDefault("legacyChat", false);
+        getConfig().addDefault("preventSelfBirding", true);
         getConfig().options().copyDefaults(true);
         MedievalRoleplayEngine.getInstance().saveConfig();
     }
@@ -188,7 +194,8 @@ public class ConfigManager {
                 + ", localOOCChatColor: " + getConfig().getString("localOOCChatColor")
                 + ", positiveAlertColor: " + getConfig().getString("positiveAlertColor")
                 + ", neutralAlertColor: " + getConfig().getString("neutralAlertColor")
-                + ", negativeAlertColor: " + getConfig().getString("negativeAlertColor"));
+                + ", negativeAlertColor: " + getConfig().getString("negativeAlertColor")
+                + ", preventSelfBirding: " + getConfig().getString("preventSelfBirding"));
     }
 
     public boolean hasBeenAltered() {

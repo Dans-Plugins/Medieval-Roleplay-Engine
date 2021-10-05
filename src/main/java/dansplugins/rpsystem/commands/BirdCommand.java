@@ -4,6 +4,7 @@ import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.integrators.MailboxesIntegrator;
+import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.UUIDChecker;
@@ -38,6 +39,11 @@ public class BirdCommand {
             }
 
             String message = ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 1);
+
+            if (ConfigManager.getInstance().getBoolean("preventSelfBirding") && args[0].equalsIgnoreCase(player.getName())) {
+                player.sendMessage(ChatColor.RED + "You can't send a bird to yourself.");
+                return;
+            }
 
             Player targetPlayer = getServer().getPlayer(args[0]);
 
