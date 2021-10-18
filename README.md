@@ -32,7 +32,7 @@ Please fill out a bug report [here](https://github.com/dmccoystephenson/Medieval
 ## Authors and acknowledgement
 Name | Main Contributions
 ------------ | -------------
-DanTheTechMan | Creator
+Daniel Stephenson | Creator
 UndeadZeratul | Created a potential replacement for the /roll command
 Caibinus | Implemented PlaceholderAPI integration
 
