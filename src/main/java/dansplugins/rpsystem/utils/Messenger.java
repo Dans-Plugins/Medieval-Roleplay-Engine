@@ -1,10 +1,9 @@
-package dansplugins.rpsystem;
+package dansplugins.rpsystem.utils;
 
 import dansplugins.factionsystem.externalapi.MF_Faction;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.objects.deprecated.CharacterCard;
-import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

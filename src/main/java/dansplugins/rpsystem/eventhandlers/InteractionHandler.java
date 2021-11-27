@@ -1,7 +1,7 @@
 package dansplugins.rpsystem.eventhandlers;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.Messenger;
+import dansplugins.rpsystem.utils.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.deprecated.CharacterCard;
