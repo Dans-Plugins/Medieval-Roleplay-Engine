@@ -27,6 +27,8 @@ public class DefaultCommand extends AbstractCommand {
         commandSender.sendMessage(ChatColor.AQUA + "MedievalRoleplayEngine " + MedievalRoleplayEngine.getInstance().getVersion());
         commandSender.sendMessage(ChatColor.AQUA + "Developed by: Daniel Stephenson");
         commandSender.sendMessage(ChatColor.AQUA + "Wiki: https://github.com/dmccoystephenson/MedievalRoleplayEngine/wiki");
+        commandSender.sendMessage("---");
+        commandSender.sendMessage(ChatColor.AQUA + "Tip: You can view a list of helpful commands by typing /rp help");
         return true;
     }
 
