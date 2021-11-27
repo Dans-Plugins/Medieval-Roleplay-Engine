@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.commands;
+package dansplugins.rpsystem.commands.iceboxed;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
@@ -279,8 +279,7 @@ public class OldCardCommand {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.forcesave") || player.hasPermission("rp.admin")) {
-                StorageManager.getInstance().saveCardFileNames();
-                StorageManager.getInstance().saveCards();
+                StorageManager.getInstance().save();
                 return true;
             }
             else {
@@ -297,7 +296,7 @@ public class OldCardCommand {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.forceload") || player.hasPermission("rp.admin")) {
-                StorageManager.getInstance().loadCards();
+                StorageManager.getInstance().load();
                 return true;
             }
             else {

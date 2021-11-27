@@ -25,7 +25,19 @@ public class StorageManager {
         return instance;
     }
 
-    public void saveCardFileNames() {
+    public void save() {
+        StorageManager.getInstance().saveCardFileNames();
+        StorageManager.getInstance().saveCards();
+        if (ConfigManager.getInstance().hasBeenAltered()) {
+            MedievalRoleplayEngine.getInstance().saveConfig();
+        }
+    }
+
+    public void load() {
+        loadCards();
+    }
+
+    private void saveCardFileNames() {
         try {
             File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
             if (!saveFolder.exists()) {
@@ -55,7 +67,7 @@ public class StorageManager {
         }
     }
 
-    public void saveCards() {
+    private void saveCards() {
         for (CharacterCard card : PersistentData.getInstance().getCards()) {
             if (card.getPlayerUUID() != null) {
                 card.save();
@@ -63,7 +75,7 @@ public class StorageManager {
         }
     }
 
-    public void loadCards() {
+    private void loadCards() {
         try {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
@@ -95,46 +107,6 @@ public class StorageManager {
         } catch (FileNotFoundException e) {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
         }
-    }
-
-    public void legacyLoadCards() {
-        try {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
-            File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
-            Scanner loadReader = new Scanner(loadFile);
-
-            // actual loading
-            while (loadReader.hasNextLine()) {
-                String nextName = loadReader.nextLine();
-                CharacterCard temp = new CharacterCard();
-                temp.legacyLoad(nextName + ".txt");
-
-                PersistentData.getInstance().getCards().add(temp);
-
-            }
-
-            loadReader.close();
-
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Character cards successfully loaded."); }
-        } catch (FileNotFoundException e) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
-        }
-    }
-
-    // Recursive file delete from https://www.baeldung.com/java-delete-directory
-    public boolean deleteLegacyFiles(File directoryToBeDeleted) {
-        File[] allContents = directoryToBeDeleted.listFiles();
-        if (allContents != null) {
-            for (File file : allContents) {
-                deleteLegacyFiles(file);
-            }
-        }
-        return directoryToBeDeleted.delete();
-    }
-
-    public boolean oldSaveFolderPresent() {
-        File saveFolder = new File("./plugins/medieval-roleplay-engine/");
-        return saveFolder.exists();
     }
 
 }

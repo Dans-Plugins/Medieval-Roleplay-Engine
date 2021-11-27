@@ -5,7 +5,6 @@ import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.eventhandlers.ChatHandler;
 import dansplugins.rpsystem.eventhandlers.InteractionHandler;
 import dansplugins.rpsystem.eventhandlers.JoinHandler;
-import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.managers.StorageManager;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -44,15 +43,7 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
         initializeCommandService();
         getPonderAPI().setDebug(false);
 
-        if (StorageManager.getInstance().oldSaveFolderPresent()) {
-            StorageManager.getInstance().legacyLoadCards();
-            StorageManager.getInstance().deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
-            StorageManager.getInstance().saveCardFileNames();
-            StorageManager.getInstance().saveCards();
-        }
-        else {
-            StorageManager.getInstance().loadCards();
-        }
+        StorageManager.getInstance().load();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderAPI().register();
@@ -63,11 +54,7 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
 
     @Override
     public void onDisable() {
-        StorageManager.getInstance().saveCardFileNames();
-        StorageManager.getInstance().saveCards();
-        if (ConfigManager.getInstance().hasBeenAltered()) {
-            saveConfig();
-        }
+        StorageManager.getInstance().save();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
