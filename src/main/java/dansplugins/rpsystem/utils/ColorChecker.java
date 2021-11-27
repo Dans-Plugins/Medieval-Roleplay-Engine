@@ -1,6 +1,6 @@
 package dansplugins.rpsystem.utils;
 
-import dansplugins.rpsystem.managers.ConfigManager;
+import dansplugins.rpsystem.MedievalRoleplayEngine;
 import org.bukkit.ChatColor;
 
 public class ColorChecker {
@@ -73,15 +73,15 @@ public class ColorChecker {
     }
 
     public ChatColor getPositiveAlertColor() {
-        return getColorByName(ConfigManager.getInstance().getString("positiveAlertColor"));
+        return getColorByName(MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getString("positiveAlertColor"));
     }
 
     public ChatColor getNeutralAlertColor() {
-        return getColorByName(ConfigManager.getInstance().getString("neutralAlertColor"));
+        return getColorByName(MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getString("neutralAlertColor"));
     }
 
     public ChatColor getNegativeAlertColor() {
-        return getColorByName(ConfigManager.getInstance().getString("negativeAlertColor"));
+        return getColorByName(MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getString("negativeAlertColor"));
     }
 
 }
