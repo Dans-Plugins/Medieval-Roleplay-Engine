@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
+@Deprecated
 public class CharacterCard {
     private UUID playerUUID = null;
     private String name = "defaultName";
