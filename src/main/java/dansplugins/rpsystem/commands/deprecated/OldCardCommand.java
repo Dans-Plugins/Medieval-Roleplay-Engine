@@ -1,11 +1,11 @@
-package dansplugins.rpsystem.commands.iceboxed;
+package dansplugins.rpsystem.commands.deprecated;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.managers.StorageManager;
-import dansplugins.rpsystem.objects.old.CharacterCard;
+import dansplugins.rpsystem.objects.deprecated.CharacterCard;
 import dansplugins.rpsystem.services.CardLookupService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;

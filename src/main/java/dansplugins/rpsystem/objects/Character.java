@@ -2,6 +2,7 @@ package dansplugins.rpsystem.objects;
 
 import preponderous.ponder.modifiers.Savable;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -12,14 +13,17 @@ import java.util.UUID;
 public class Character implements Savable {
     private UUID playerUUID;
     private HashMap<String, String> information = new HashMap<>();
+    private LocalDateTime date;
 
-    public Character() {
+    public Character(UUID playerUUID) {
+        setPlayerUUID(playerUUID);
         information.put("name", "defaultName");
         information.put("race", "defaultRace");
         information.put("subculture", "defaultSubculture");
         information.put("age", "defaultAge");
         information.put("gender", "defaultGender");
         information.put("religion", "defaultReligion");
+        date = LocalDateTime.now();
     }
 
     public UUID getPlayerUUID() {
@@ -31,11 +35,14 @@ public class Character implements Savable {
     }
 
     public String getInfo(String key) {
-        // TODO: implement
-        return null;
+        return information.get(key);
     }
     public void setInfo(String key, String value) {
-        // TODO: implement
+        information.put(key, value);
+    }
+
+    public LocalDateTime getDate() {
+        return date;
     }
 
     @Override

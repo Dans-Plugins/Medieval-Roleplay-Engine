@@ -2,7 +2,7 @@ package dansplugins.rpsystem.managers;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.objects.old.CharacterCard;
+import dansplugins.rpsystem.objects.deprecated.CharacterCard;
 
 import java.io.File;
 import java.io.FileNotFoundException;

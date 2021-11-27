@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.objects.old;
+package dansplugins.rpsystem.objects.deprecated;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 

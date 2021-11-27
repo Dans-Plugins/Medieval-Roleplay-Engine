@@ -1,7 +1,7 @@
 package dansplugins.rpsystem.services;
 
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.objects.old.CharacterCard;
+import dansplugins.rpsystem.objects.deprecated.CharacterCard;
 import dansplugins.rpsystem.utils.Logger;
 
 import java.util.HashSet;
