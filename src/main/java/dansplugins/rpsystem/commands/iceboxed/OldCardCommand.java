@@ -7,9 +7,7 @@ import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.managers.StorageManager;
 import dansplugins.rpsystem.objects.old.CharacterCard;
 import dansplugins.rpsystem.services.CardLookupService;
-import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
-import dansplugins.rpsystem.utils.UUIDChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,6 +16,7 @@ import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
+@Deprecated
 public class OldCardCommand {
 
     public void showCard(CommandSender sender, String[] args) {
@@ -73,7 +72,7 @@ public class OldCardCommand {
                         if (!EphemeralData.getInstance().getPlayersOnNameChangeCooldown().contains(player.getUniqueId())) {
 
                             if (args.length > 1) {
-                                card.setName(ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 1));
+                                // card.setName(MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().createStringFromFirstArgOnwards(args, 1));
                                 player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "Name set! Type /card to see changes.");
 
                                 if (changeNameCooldown != 0) {
@@ -251,7 +250,7 @@ public class OldCardCommand {
                 }
 
                 // get UUID
-                UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(args[1]);
+                UUID targetUUID = MedievalRoleplayEngine.getInstance().getToolbox().getUUIDChecker().findUUIDBasedOnPlayerName(args[1]);
                 if (targetUUID == null) {
                     player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player wasn't found.");
                     return;
