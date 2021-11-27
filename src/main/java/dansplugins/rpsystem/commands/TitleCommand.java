@@ -7,10 +7,32 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import preponderous.ponder.misc.AbstractCommand;
 
-public class TitleCommand {
+import java.util.ArrayList;
+import java.util.Collections;
 
-    public void titleBook(CommandSender sender, String[] args) {
+public class TitleCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("title"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.title"));
+
+    @Override
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    @Override
+    public ArrayList<String> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public boolean execute(CommandSender commandSender) {
+        // TODO: implement
+        return false;
+    }
+
+    public boolean execute(CommandSender sender, String[] args) {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
@@ -52,6 +74,6 @@ public class TitleCommand {
                 player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.title'");
             }
         }
-
+        return true;
     }
 }

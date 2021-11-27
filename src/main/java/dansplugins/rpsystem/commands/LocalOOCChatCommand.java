@@ -8,29 +8,46 @@ import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import preponderous.ponder.misc.AbstractCommand;
 
-public class LocalOOCChatCommand {
+import java.util.ArrayList;
+import java.util.Collections;
 
-    public void sendLocalOOCMessage(CommandSender sender, String[] args) {
+public class LocalOOCChatCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("lo"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.lo"));
+
+    @Override
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    @Override
+    public ArrayList<String> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public boolean execute(CommandSender commandSender) {
+        // TODO: implement
+        return false;
+    }
+
+    public boolean execute(CommandSender sender, String[] args) {
 
         int localOOCChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localOOCChatRadius");
         String localOOCChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("localOOCChatColor");
 
         // player check
         if (!(sender instanceof Player)) {
-            return;
+            return false;
         }
 
         Player player = (Player) sender;
 
-        if (!(player.hasPermission("rp.localOOC") || player.hasPermission("rp.default"))) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
-            return;
-        }
-
         if (args.length == 0) {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /lo (message)");
-            return;
+            return false;
         }
         
         if (args[0].equalsIgnoreCase("hide")) {
@@ -43,6 +60,7 @@ public class LocalOOCChatCommand {
         String message = ColorChecker.getInstance().getColorByName(localOOCChatColor) + "" + String.format("<%s> (( %s ))", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
 
         Messenger.getInstance().sendOOCMessageToPlayersWithinDistance(player, message, localOOCChatRadius);
+        return true;
     }
 
     private void addToPlayersWhoHaveHiddenLocalOOCChat(Player player) {

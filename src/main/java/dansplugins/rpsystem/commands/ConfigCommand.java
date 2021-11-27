@@ -4,10 +4,32 @@ import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import preponderous.ponder.misc.AbstractCommand;
 
-public class ConfigCommand {
+import java.util.ArrayList;
+import java.util.Collections;
 
-    public boolean handleConfigAccess(CommandSender sender, String[] args) {
+public class ConfigCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("config"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.config"));
+
+    @Override
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    @Override
+    public ArrayList<String> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public boolean execute(CommandSender commandSender) {
+        // TODO: implement
+        return false;
+    }
+
+    public boolean execute(CommandSender sender, String[] args) {
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can use this command.");

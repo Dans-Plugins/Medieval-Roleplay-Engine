@@ -7,36 +7,51 @@ import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import preponderous.ponder.misc.AbstractCommand;
 
-public class YellCommand {
+import java.util.ArrayList;
+import java.util.Collections;
 
-    public void sendLoudMessage(CommandSender sender, String[] args) {
+public class YellCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("lo"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.lo"));
+
+    @Override
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    @Override
+    public ArrayList<String> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public boolean execute(CommandSender commandSender) {
+        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /yell (message)");
+        return false;
+    }
+
+    public boolean execute(CommandSender sender, String[] args) {
 
         int yellChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius");
-        String yellChatColor =MedievalRoleplayEngine.getInstance().getConfig().getString("yellChatColor");
+        String yellChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("yellChatColor");
 
         // player check
         if (!(sender instanceof Player)) {
-            return;
+            return false;
         }
 
         Player player = (Player) sender;
 
-        if (player.hasPermission("rp.yell") || player.hasPermission("rp.default")) {
-
-            if (args.length > 0) {
-                String message = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
-
-                Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, yellChatRadius);
-            }
-            else {
-                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /yell (message)");
-            }
-
+        if (args.length == 0) {
+            return execute(sender);
         }
-        else {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
-        }
+
+        String message = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
+
+        Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, yellChatRadius);
+        return true;
 
     }
 

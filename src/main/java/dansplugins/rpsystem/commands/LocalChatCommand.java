@@ -5,21 +5,38 @@ import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import preponderous.ponder.misc.AbstractCommand;
 
-public class LocalChatCommand {
+import java.util.ArrayList;
+import java.util.Collections;
 
-    public boolean startChattingInLocalChat(CommandSender sender, String[] args) {
+public class LocalChatCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("local"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.local"));
+
+    @Override
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    @Override
+    public ArrayList<String> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public boolean execute(CommandSender commandSender) {
+        // TODO: implement
+        return false;
+    }
+
+    public boolean execute(CommandSender sender, String[] args) {
 
         if (!(sender instanceof Player)) {
             return false;
         }
 
         Player player = (Player) sender;
-
-        if (!(player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default"))) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
-            return false;
-        }
 
         if (args.length != 0) {
             if (args[0].equalsIgnoreCase("hide")) {

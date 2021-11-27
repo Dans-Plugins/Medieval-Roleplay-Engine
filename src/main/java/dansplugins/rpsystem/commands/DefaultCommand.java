@@ -6,9 +6,9 @@ import preponderous.ponder.misc.AbstractCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CardCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("card"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.card"));
+public class DefaultCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("default"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.default"));
 
     @Override
     public ArrayList<String> getNames() {
@@ -28,7 +28,6 @@ public class CardCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
-        // TODO: implement
-        return false;
+        return execute(commandSender);
     }
 }

@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.commands;
+package dansplugins.rpsystem.commands.iceboxed;
 
 import com.bernardomg.tabletop.dice.history.RollHistory;
 import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;

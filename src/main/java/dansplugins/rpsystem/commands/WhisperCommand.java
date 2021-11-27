@@ -7,39 +7,54 @@ import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import preponderous.ponder.misc.AbstractCommand;
 
-public class WhisperCommand {
+import java.util.ArrayList;
+import java.util.Collections;
 
-    public void sendQuietMessage(CommandSender sender, String[] args) {
+public class WhisperCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("whisper"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.whisper"));
+
+    @Override
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    @Override
+    public ArrayList<String> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public boolean execute(CommandSender commandSender) {
+        // TODO: implement
+        return false;
+    }
+
+    public boolean execute(CommandSender sender, String[] args) {
 
         int whisperChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius");
         String whisperChatColor =MedievalRoleplayEngine.getInstance().getConfig().getString("whisperChatColor");
 
         // player check
         if (!(sender instanceof Player)) {
-            return;
+            return false;
         }
 
         Player player = (Player) sender;
 
-        if (player.hasPermission("rp.whisper") || player.hasPermission("rp.default")) {
+        if (args.length > 0) {
+            String message = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
 
-            if (args.length > 0) {
-                String message = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
+            int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
 
-                int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
-
-                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
-            }
-            else {
-                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /whisper (message)");
-            }
-
+            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
         }
         else {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.whisper'");
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /whisper (message)");
         }
-
+        return true;
     }
 
 }
