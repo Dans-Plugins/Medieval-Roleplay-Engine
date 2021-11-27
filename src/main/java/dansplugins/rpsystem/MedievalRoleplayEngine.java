@@ -13,6 +13,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import preponderous.ponder.AbstractPonderPlugin;
+import preponderous.ponder.misc.PonderAPI_Integrator;
 import preponderous.ponder.misc.specification.ICommand;
 
 import java.io.File;
@@ -21,10 +22,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class MedievalRoleplayEngine extends AbstractPonderPlugin {
-
     private static MedievalRoleplayEngine instance;
-
-    // version
     private String version = "v2.0-alpha-1";
 
     public static MedievalRoleplayEngine getInstance() {
@@ -35,17 +33,16 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
     public void onEnable() {
         instance = this;
 
-        // create/load config
-        if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
-            ConfigManager.getInstance().saveConfigDefaults();
-        }
-        else {
-            // pre load compatibility checks
-            if (isVersionMismatched()) {
-                ConfigManager.getInstance().handleVersionMismatch();
-            }
-            reloadConfig();
-        }
+        int pluginId = 8996;
+        Metrics metrics = new Metrics(this, pluginId);
+
+        ponderAPI_integrator = new PonderAPI_Integrator(this);
+        toolbox = getPonderAPI().getToolbox();
+        initializeConfigService();
+        initializeConfigFile();
+        registerEventHandlers();
+        initializeCommandService();
+        getPonderAPI().setDebug(false);
 
         if (StorageManager.getInstance().oldSaveFolderPresent()) {
             StorageManager.getInstance().legacyLoadCards();
@@ -57,16 +54,10 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
             StorageManager.getInstance().loadCards();
         }
 
-        EventRegistry.getInstance().registerEvents();
-
-        int pluginId = 8996;
-
-        Metrics metrics = new Metrics(this, pluginId);
-
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderAPI().register();
         } else {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
+            if (isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
         }
     }
 
@@ -109,12 +100,31 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
 
     private void initializeConfigService() {
         HashMap<String, Object> configOptions = new HashMap<>();
+        configOptions.put("version", getVersion());
         configOptions.put("debugMode", false);
+        configOptions.put("localChatRadius", 25);
+        configOptions.put("whisperChatRadius", 2);
+        configOptions.put("yellChatRadius", 50);
+        configOptions.put("emoteRadius", 25);
+        configOptions.put("changeNameCooldown", 300);
+        configOptions.put("localChatColor", "gray");
+        configOptions.put("whisperChatColor", "blue");
+        configOptions.put("yellChatColor", "red");
+        configOptions.put("emoteColor", "gray");
+        configOptions.put("rightClickToViewCard", true);
+        configOptions.put("localOOCChatRadius", 25);
+        configOptions.put("localOOCChatColor", "gray");
+        configOptions.put("positiveAlertColor", "green");
+        configOptions.put("neutralAlertColor", "aqua");
+        configOptions.put("negativeAlertColor", "red");
+        configOptions.put("chatFeaturesEnabled", true);
+        configOptions.put("legacyChat", false);
+        configOptions.put("preventSelfBirding", true);
         getPonderAPI().getConfigService().initialize(configOptions);
     }
 
     private void initializeConfigFile() {
-        if (!(new File("./plugins/ModAssist/config.yml").exists())) {
+        if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
             getPonderAPI().getConfigService().saveMissingConfigDefaultsIfNotPresent();
         }
         else {
@@ -143,5 +153,4 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
         ));
         getPonderAPI().getCommandService().initialize(commands, "That command wasn't found.");
     }
-
 }

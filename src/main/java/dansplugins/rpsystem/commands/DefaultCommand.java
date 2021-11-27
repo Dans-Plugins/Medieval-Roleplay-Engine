@@ -1,5 +1,7 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import preponderous.ponder.misc.AbstractCommand;
 
@@ -22,8 +24,10 @@ public class DefaultCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        // TODO: implement
-        return false;
+        commandSender.sendMessage(ChatColor.AQUA + "MedievalRoleplayEngine " + MedievalRoleplayEngine.getInstance().getVersion());
+        commandSender.sendMessage(ChatColor.AQUA + "Developed by: Daniel Stephenson");
+        commandSender.sendMessage(ChatColor.AQUA + "Wiki: https://github.com/dmccoystephenson/MedievalRoleplayEngine/wiki");
+        return true;
     }
 
     @Override
