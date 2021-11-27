@@ -5,23 +5,16 @@ import org.bukkit.command.CommandSender;
 import preponderous.ponder.misc.AbstractCommand;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-/**
- * This class will allow players to set various fields in their cards.
- */
-public class SetCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("set"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.set"));
-
+public class StatsCommand extends AbstractCommand {
     @Override
     public ArrayList<String> getNames() {
-        return names;
+        return super.getNames();
     }
 
     @Override
     public ArrayList<String> getPermissions() {
-        return permissions;
+        return super.getPermissions();
     }
 
     @Override
