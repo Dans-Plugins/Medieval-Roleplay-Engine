@@ -1,7 +1,7 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.EphemeralData;
-import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -38,7 +38,7 @@ public class GlobalChatCommand extends AbstractCommand {
 
         Player player = (Player) sender;
 
-        if (!ConfigManager.getInstance().getBoolean("legacyChat")) {
+        if (!MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("legacyChat")) {
 
             if (args.length != 0) {
                 if (args[0].equalsIgnoreCase("hide")) {

@@ -1,7 +1,6 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import preponderous.ponder.misc.AbstractCommand;
@@ -31,7 +30,7 @@ public class HelpCommand extends AbstractCommand {
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp roll or /dice - Roll a dice.");
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp title - Rename an unwritten book.");
 
-        if (ConfigManager.getInstance().getBoolean("chatFeaturesEnabled")) {
+        if (MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("chatFeaturesEnabled")) {
             sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp local - Enter local (RP) chat.");
             sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp global - Enter global (OOC) chat.");
             sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp emote or /me - Send an emote to nearby players.");

@@ -2,7 +2,7 @@ package dansplugins.rpsystem.managers;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.objects.CharacterCard;
+import dansplugins.rpsystem.objects.old.CharacterCard;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +28,7 @@ public class StorageManager {
     public void save() {
         StorageManager.getInstance().saveCardFileNames();
         StorageManager.getInstance().saveCards();
-        if (ConfigManager.getInstance().hasBeenAltered()) {
+        if (MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().hasBeenAltered()) {
             MedievalRoleplayEngine.getInstance().saveConfig();
         }
     }

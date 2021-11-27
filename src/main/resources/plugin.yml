@@ -6,22 +6,10 @@ api-version: 1.13
 softdepend: [PlaceholderAPI, MedievalFactions, Mailboxes]
 
 commands:
-  card:
-  bird:
-  local:
+  medievalroleplayengine:
+  mre:
+  roleplay:
   rp:
-  global:
-  ooc:
-  emote:
-  me:
-  roll:
-  dice:
-  title:
-  yell:
-  whisper:
-  rphelp:
-  rpconfig:
-  lo:
 
 permissions:
   rp.bird:
@@ -69,6 +57,10 @@ permissions:
   rp.help:
     default: true
   rp.localOOC:
+    default: true
+  rp.set:
+    default: true
+  rp.character:
     default: true
   rp.card.forcesave:
     default: op

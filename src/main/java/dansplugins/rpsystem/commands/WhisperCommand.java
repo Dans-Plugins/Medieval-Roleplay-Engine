@@ -3,7 +3,6 @@ package dansplugins.rpsystem.commands;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,7 +27,7 @@ public class WhisperCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        // TODO: implement
+        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /whisper (message)");
         return false;
     }
 
@@ -37,23 +36,29 @@ public class WhisperCommand extends AbstractCommand {
         int whisperChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius");
         String whisperChatColor =MedievalRoleplayEngine.getInstance().getConfig().getString("whisperChatColor");
 
-        // player check
         if (!(sender instanceof Player)) {
             return false;
         }
-
         Player player = (Player) sender;
 
-        if (args.length > 0) {
-            String message = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
-
-            int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
-
-            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
+        if (args.length == 0) {
+            return execute(sender);
         }
-        else {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /whisper (message)");
+
+        ArrayList<String> doubleQuoteArgs = MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().getArgumentsInsideDoubleQuotes(args);
+
+        if (doubleQuoteArgs.size() == 0) {
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
+            return false;
         }
+
+        String message = doubleQuoteArgs.get(0);
+
+        String formattedMessage = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), message);
+
+        int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, formattedMessage, whisperChatRadius);
+
+        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
         return true;
     }
 

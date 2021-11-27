@@ -5,7 +5,7 @@ import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.managers.StorageManager;
-import dansplugins.rpsystem.objects.CharacterCard;
+import dansplugins.rpsystem.objects.old.CharacterCard;
 import dansplugins.rpsystem.services.CardLookupService;
 import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;

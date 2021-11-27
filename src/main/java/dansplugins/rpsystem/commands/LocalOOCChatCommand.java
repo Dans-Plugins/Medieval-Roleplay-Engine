@@ -4,7 +4,6 @@ import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,25 +28,21 @@ public class LocalOOCChatCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        // TODO: implement
+        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /lo (message)");
         return false;
     }
 
     public boolean execute(CommandSender sender, String[] args) {
-
         int localOOCChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localOOCChatRadius");
         String localOOCChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("localOOCChatColor");
 
-        // player check
         if (!(sender instanceof Player)) {
             return false;
         }
-
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /lo (message)");
-            return false;
+            return execute(sender);
         }
         
         if (args[0].equalsIgnoreCase("hide")) {
@@ -56,10 +51,19 @@ public class LocalOOCChatCommand extends AbstractCommand {
         if (args[0].equalsIgnoreCase("show")) {
             removeFromPlayersWhoHaveHiddenLocalOOCChat(player);
         }
-        
-        String message = ColorChecker.getInstance().getColorByName(localOOCChatColor) + "" + String.format("<%s> (( %s ))", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), ArgumentParser.getInstance().createStringFromArgs(args));
 
-        Messenger.getInstance().sendOOCMessageToPlayersWithinDistance(player, message, localOOCChatRadius);
+        ArrayList<String> doubleQuoteArgs = MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().getArgumentsInsideDoubleQuotes(args);
+
+        if (doubleQuoteArgs.size() == 0) {
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
+            return false;
+        }
+
+        String message = doubleQuoteArgs.get(0);
+        
+        String formatted = ColorChecker.getInstance().getColorByName(localOOCChatColor) + "" + String.format("<%s> (( %s ))", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), message);
+
+        Messenger.getInstance().sendOOCMessageToPlayersWithinDistance(player, formatted, localOOCChatRadius);
         return true;
     }
 

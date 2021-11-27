@@ -1,7 +1,6 @@
-package dansplugins.rpsystem.objects;
+package dansplugins.rpsystem.objects.old;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.utils.UUIDChecker;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -127,43 +126,6 @@ public class CharacterCard {
             // actual loading
             if (loadReader.hasNextLine()) {
                 setPlayerUUID(UUID.fromString(loadReader.nextLine()));
-            }
-            if (loadReader.hasNextLine()) {
-                setName(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setRace(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setSubculture(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setAge(Integer.parseInt(loadReader.nextLine()));
-            }
-            if (loadReader.hasNextLine()) {
-                setGender(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setReligion(loadReader.nextLine());
-            }
-
-            loadReader.close();
-            return true;
-        } catch (FileNotFoundException e) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred loading the file " + filename + "."); }
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean legacyLoad(String filename) {
-        try {
-            File loadFile = new File("./plugins/medieval-roleplay-engine/" + filename);
-            Scanner loadReader = new Scanner(loadFile);
-
-            // actual loading
-            if (loadReader.hasNextLine()) {
-                setPlayerUUID(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(loadReader.nextLine()));
             }
             if (loadReader.hasNextLine()) {
                 setName(loadReader.nextLine());

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This class will allow a player to look up their card as well as the cards of others.
+ * This class will allow players to set various fields in their cards.
  */
-public class CardCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("card"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.card"));
+public class SetCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("set"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.set"));
 
     @Override
     public ArrayList<String> getNames() {

@@ -3,7 +3,6 @@ package dansplugins.rpsystem.commands;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.utils.ArgumentParser;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -38,17 +37,28 @@ public class EmoteCommand extends AbstractCommand {
         int emoteRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("emoteRadius");
         String emoteColor = MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor");
 
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            if (args.length > 0) {
-                String message = ArgumentParser.getInstance().createStringFromFirstArgOnwards(args, 0);
-                String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
-
-                Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
-            }
-
+        if (!(sender instanceof Player)) {
+            return false;
         }
-        return false;
+        Player player = (Player) sender;
+
+        if (args.length == 0) {
+            return execute(sender);
+        }
+
+        ArrayList<String> doubleQuoteArgs = MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().getArgumentsInsideDoubleQuotes(args);
+
+        if (doubleQuoteArgs.size() == 0) {
+            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
+            return false;
+        }
+
+        String message = doubleQuoteArgs.get(0);
+
+        String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
+
+        Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
+        return true;
     }
 
 }

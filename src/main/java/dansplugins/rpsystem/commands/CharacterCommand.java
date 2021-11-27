@@ -4,23 +4,19 @@ import org.bukkit.command.CommandSender;
 import preponderous.ponder.misc.AbstractCommand;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
- * This class will allow a player to look up their card as well as the cards of others.
+ * This command will allow players to manage their characters.
  */
-public class CardCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("card"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.card"));
-
+public class CharacterCommand extends AbstractCommand {
     @Override
     public ArrayList<String> getNames() {
-        return names;
+        return super.getNames();
     }
 
     @Override
     public ArrayList<String> getPermissions() {
-        return permissions;
+        return super.getPermissions();
     }
 
     @Override
