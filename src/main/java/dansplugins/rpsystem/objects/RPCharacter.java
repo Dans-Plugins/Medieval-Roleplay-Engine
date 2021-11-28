@@ -3,6 +3,7 @@ package dansplugins.rpsystem.objects;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import preponderous.ponder.modifiers.Cacheable;
 import preponderous.ponder.modifiers.Savable;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.UUID;
 /**
  * This class is intended to represent a fictional character for roleplay reasons.
  */
-public class RPCharacter implements Savable {
+public class RPCharacter implements Savable, Cacheable {
     private UUID playerUUID;
     private HashMap<String, String> information = new HashMap<>();
     private LocalDateTime date;
@@ -59,5 +60,10 @@ public class RPCharacter implements Savable {
     @Override
     public void load(Map<String, String> map) {
         // TODO: implement
+    }
+
+    @Override
+    public Object getKey() {
+        return playerUUID;
     }
 }
