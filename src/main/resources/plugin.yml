@@ -14,39 +14,15 @@ commands:
 permissions:
   rp.bird:
     default: true
-  rp.card.show:
-    default: true
-  rp.card.lookup:
-    default: true
-  rp.card.help:
-    default: true
-  rp.card.name:
-    default: true
-  rp.card.race:
-    default: true
-  rp.card.subculture:
-    default: true
-  rp.card.religion:
-    default: true
-  rp.card.age:
-    default: true
-  rp.card.gender:
+  rp.card:
     default: true
   rp.local:
     default: true
-  rp.rp:
-    default: true
   rp.global:
-    default: true
-  rp.ooc:
     default: true
   rp.emote:
     default: true
-  rp.me:
-    default: true
   rp.roll:
-    default: true
-  rp.dice:
     default: true
   rp.title:
     default: true
@@ -64,9 +40,5 @@ permissions:
     default: true
   rp.stats:
     default: true
-  rp.card.forcesave:
-    default: op
-  rp.card.forceload:
-    default: op
   rp.config:
     default: op
