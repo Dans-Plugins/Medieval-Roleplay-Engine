@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public class MedievalRoleplayEngine extends AbstractPonderPlugin {
     private static MedievalRoleplayEngine instance;
-    private final String version = "v2.0-alpha-6";
+    private final String version = "v2.0-alpha-7";
     private boolean versionMismatchOccurred;
     private String oldVersion = null;
 
