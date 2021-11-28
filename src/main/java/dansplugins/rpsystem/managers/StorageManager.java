@@ -79,7 +79,10 @@ public class StorageManager {
                 CharacterCard temp = new CharacterCard();
                 temp.load(nextFilename);
                 RPCharacter character = convertCardToCharacter(temp);
-                PersistentData.getInstance().getCharacters().add(character);
+                boolean success = PersistentData.getInstance().getCharacters().add(character);
+                if (!success) {
+                    Logger.getInstance().log("Character card for player " + MedievalRoleplayEngine.getInstance().getToolbox().getUUIDChecker().findPlayerNameBasedOnUUID(character.getPlayerUUID()) + " is already present. Not overwriting.");
+                }
             }
 
             loadReader.close();
