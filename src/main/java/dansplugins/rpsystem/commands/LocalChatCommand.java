@@ -3,6 +3,7 @@ package dansplugins.rpsystem.commands;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.utils.ColorChecker;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import preponderous.ponder.misc.AbstractCommand;
@@ -26,33 +27,32 @@ public class LocalChatCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        // TODO: implement
-        return false;
-    }
-
-    public boolean execute(CommandSender sender, String[] args) {
-
-        if (!(sender instanceof Player)) {
+        if (!(commandSender instanceof Player)) {
             return false;
         }
-
-        Player player = (Player) sender;
-
-        if (args.length != 0) {
-            if (args[0].equalsIgnoreCase("hide")) {
-                addToPlayersWhoHaveHiddenLocalChat(player);
-                return true;
-            }
-            if (args[0].equalsIgnoreCase("show")) {
-                removeFromPlayersWhoHaveHiddenLocalChat(player);
-                return true;
-            }
-        }
+        Player player = (Player) commandSender;
 
         // add player to local chat
         addPlayerToLocalChat(player);
-
         return true;
+    }
+
+    public boolean execute(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            return false;
+        }
+        Player player = (Player) sender;
+        if (args[0].equalsIgnoreCase("hide")) {
+            addToPlayersWhoHaveHiddenLocalChat(player);
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("show")) {
+            removeFromPlayersWhoHaveHiddenLocalChat(player);
+            return true;
+        }
+
+        player.sendMessage(ChatColor.RED + "Usage: /rp local <[ show | hide ]>");
+        return false;
     }
 
     private void addPlayerToLocalChat(Player player) {

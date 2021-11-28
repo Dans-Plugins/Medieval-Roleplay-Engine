@@ -1,5 +1,7 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import preponderous.ponder.misc.AbstractCommand;
@@ -19,15 +21,15 @@ public class StatsCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        // TODO: implement
-        commandSender.sendMessage(ChatColor.RED + "This command isn't implemented yet.");
-        return false;
+        commandSender.sendMessage(ChatColor.AQUA + "=== MRE Stats ===");
+        commandSender.sendMessage(ChatColor.AQUA + "Number of character cards: " + PersistentData.getInstance().getCards().size());
+        commandSender.sendMessage(ChatColor.AQUA + "Players in local chat: " + EphemeralData.getInstance().getPlayersSpeakingInLocalChat().size());
+        commandSender.sendMessage(ChatColor.AQUA + "Players with busy birds: " + EphemeralData.getInstance().getPlayersWithBusyBirds().size());
+        return true;
     }
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
-        // TODO: implement
-        commandSender.sendMessage(ChatColor.RED + "This command isn't implemented yet.");
-        return false;
+        return execute(commandSender);
     }
 }

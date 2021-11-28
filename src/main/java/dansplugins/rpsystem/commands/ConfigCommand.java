@@ -3,7 +3,6 @@ package dansplugins.rpsystem.commands;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import preponderous.ponder.misc.AbstractCommand;
 
 import java.util.ArrayList;
@@ -25,26 +24,14 @@ public class ConfigCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /rp config set (option) (value)");
+        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
         return false;
     }
 
     public boolean execute(CommandSender sender, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Only players can use this command.");
-            return false;
-        }
-
-        Player player = (Player) sender;
-
-        if (args.length < 1) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
-            return false;
-        }
-
         if (args[0].equalsIgnoreCase("show")) {
-            MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().sendConfigList(player);
+            MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().sendConfigList(sender);
             return true;
         }
 
@@ -55,16 +42,17 @@ public class ConfigCommand extends AbstractCommand {
                 String option = args[1];
                 String value = args[2];
 
-                MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().setConfigOption(option, value, player);
+                MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().setConfigOption(option, value, sender);
                 return true;
             }
             else {
-                return execute(sender);
+                sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /rp config set (option) (value)");
+                return false;
             }
 
         }
 
-        player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
+        execute(sender);
 
         return false;
     }

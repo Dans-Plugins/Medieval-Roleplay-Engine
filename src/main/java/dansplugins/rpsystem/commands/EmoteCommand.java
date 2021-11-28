@@ -28,7 +28,7 @@ public class EmoteCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        // TODO: implement
+        commandSender.sendMessage(ChatColor.RED + "Usage: /emote \"message\"");
         return false;
     }
 

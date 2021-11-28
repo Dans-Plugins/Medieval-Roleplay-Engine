@@ -3,6 +3,7 @@ package dansplugins.rpsystem.commands;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.utils.ColorChecker;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import preponderous.ponder.misc.AbstractCommand;
@@ -26,37 +27,39 @@ public class GlobalChatCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        // TODO: implement
-        return false;
+        if (!(commandSender instanceof Player)) {
+            return false;
+        }
+        Player player = (Player) commandSender;
+
+        // remove player from local chat
+        removePlayerFromLocalChat(player);
+        return true;
     }
 
     public boolean execute(CommandSender sender, String[] args) {
-
         if (!(sender instanceof Player)) {
             return false;
         }
-
         Player player = (Player) sender;
 
         if (!MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("legacyChat")) {
 
-            if (args.length != 0) {
-                if (args[0].equalsIgnoreCase("hide")) {
-                    addToPlayersWhoHaveHiddenGlobalChat(player);
-                    return true;
-                }
-                if (args[0].equalsIgnoreCase("show")) {
-                    removeFromPlayersWhoHaveHiddenGlobalChat(player);
-                    return true;
-                }
+            if (args[0].equalsIgnoreCase("hide")) {
+                addToPlayersWhoHaveHiddenGlobalChat(player);
+                return true;
+            }
+            if (args[0].equalsIgnoreCase("show")) {
+                removeFromPlayersWhoHaveHiddenGlobalChat(player);
+                return true;
             }
 
+            player.sendMessage(ChatColor.RED + "Usage: /rp global <[ show | hide ]>");
+            return false;
         }
-
-        // remove player from local chat
-        removePlayerFromLocalChat(player);
-
-        return true;
+        else {
+            return execute(sender);
+        }
     }
 
     private void removePlayerFromLocalChat(Player player) {
