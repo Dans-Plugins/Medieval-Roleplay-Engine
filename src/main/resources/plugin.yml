@@ -62,6 +62,8 @@ permissions:
     default: true
   rp.character:
     default: true
+  rp.stats:
+    default: true
   rp.card.forcesave:
     default: op
   rp.card.forceload:

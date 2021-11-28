@@ -133,11 +133,11 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
 
     private void initializeCommandService() {
         ArrayList<ICommand> commands = new ArrayList<>(Arrays.asList(
-                new BirdCommand(), new CardCommand(), new ConfigCommand(),
-                new EmoteCommand(), new GlobalChatCommand(), new HelpCommand(),
-                new LocalChatCommand(), new LocalOOCChatCommand(), new RollCommand(),
-                new TitleCommand(), new WhisperCommand(), new YellCommand(),
-                new SetCommand(), new CharacterCommand(), new StatsCommand()
+                new BirdCommand(), new CardCommand(), new CharacterCommand(),
+                new ConfigCommand(), new EmoteCommand(), new GlobalChatCommand(),
+                new HelpCommand(), new LocalChatCommand(), new LocalOOCChatCommand(),
+                new RollCommand(), new SetCommand(), new StatsCommand(),
+                new TitleCommand(), new WhisperCommand(), new YellCommand()
         ));
         getPonderAPI().getCommandService().initialize(commands, "That command wasn't found.");
     }
