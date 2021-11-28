@@ -39,14 +39,11 @@ public class StorageManager {
     public void load() {
         Logger.getInstance().log("Version mismatched: " + MedievalRoleplayEngine.getInstance().isVersionMismatched());
         Logger.getInstance().log("Old version: " + MedievalRoleplayEngine.getInstance().getOldVersion());
+        loadCharacters();
         if (MedievalRoleplayEngine.getInstance().isVersionMismatched() && MedievalRoleplayEngine.getInstance().getOldVersion().charAt(1) != '2') {
             // load in character cards using the legacy load method
             legacyLoadCards();
-            Logger.getInstance().log("Loaded legacy files.");
-            return;
         }
-        loadCharacters();
-        Logger.getInstance().log("Loaded files.");
     }
 
     private void saveCharacters() {
@@ -66,6 +63,7 @@ public class StorageManager {
             characters.add(warning);
         }
         PersistentData.getInstance().setCharacters(characters);
+        Logger.getInstance().log("Loaded files.");
     }
 
     @Deprecated
@@ -89,6 +87,7 @@ public class StorageManager {
         } catch (FileNotFoundException e) {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
         }
+        Logger.getInstance().log("Loaded legacy files.");
     }
 
     private RPCharacter convertCardToCharacter(CharacterCard card) {
