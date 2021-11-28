@@ -48,7 +48,7 @@ public class UnsetCommand extends AbstractCommand {
 
         ArrayList<String> doubleQuoteArgs = MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().getArgumentsInsideDoubleQuotes(args);
 
-        if (doubleQuoteArgs.size() < 2) {
+        if (doubleQuoteArgs.size() < 1) {
             player.sendMessage(ChatColor.RED + "Key must be designated within double quotes.");
             return false;
         }
