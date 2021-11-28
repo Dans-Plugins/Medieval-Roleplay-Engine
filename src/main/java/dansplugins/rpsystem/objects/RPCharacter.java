@@ -37,7 +37,12 @@ public class RPCharacter implements Savable, Cacheable {
         return information.get(key);
     }
     public void setInfo(String key, String value) {
-        information.put(key, value);
+        if (getInfo(key) != null) {
+            information.replace(key, value);
+        }
+        else {
+            information.put(key, value);
+        }
     }
 
     public LocalDateTime getDate() {

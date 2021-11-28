@@ -40,7 +40,7 @@ public class CardCommand extends AbstractCommand {
 
         RPCharacter character = CharacterLookupService.getInstance().lookup(player.getUniqueId());
         if (character == null) {
-            commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You don't have a card.");
+            commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You don't have a character");
             return false;
         }
 
