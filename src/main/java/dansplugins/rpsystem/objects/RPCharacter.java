@@ -1,5 +1,8 @@
 package dansplugins.rpsystem.objects;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import preponderous.ponder.modifiers.Savable;
 
 import java.time.LocalDateTime;
@@ -10,12 +13,12 @@ import java.util.UUID;
 /**
  * This class is intended to represent a fictional character for roleplay reasons.
  */
-public class Character implements Savable {
+public class RPCharacter implements Savable {
     private UUID playerUUID;
     private HashMap<String, String> information = new HashMap<>();
     private LocalDateTime date;
 
-    public Character(UUID playerUUID) {
+    public RPCharacter(UUID playerUUID) {
         setPlayerUUID(playerUUID);
         information.put("name", "defaultName");
         information.put("race", "defaultRace");
@@ -43,6 +46,13 @@ public class Character implements Savable {
 
     public LocalDateTime getDate() {
         return date;
+    }
+
+    public void sendCharacterInfo(CommandSender sender) {
+        sender.sendMessage(ChatColor.AQUA + "=== Character Card of " + MedievalRoleplayEngine.getInstance().getToolbox().getUUIDChecker().findPlayerNameBasedOnUUID(playerUUID));
+        for (String key : information.keySet()) {
+            sender.sendMessage(ChatColor.AQUA + "" + key + ": " + information.get((key)));
+        }
     }
 
     @Override

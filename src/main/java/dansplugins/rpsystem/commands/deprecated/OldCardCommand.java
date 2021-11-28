@@ -1,30 +1,15 @@
 package dansplugins.rpsystem.commands.deprecated;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.utils.Messenger;
-import dansplugins.rpsystem.data.EphemeralData;
-import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.managers.StorageManager;
-import dansplugins.rpsystem.objects.deprecated.CharacterCard;
-import dansplugins.rpsystem.services.CardLookupService;
-import dansplugins.rpsystem.utils.ColorChecker;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import java.util.UUID;
-
-import static org.bukkit.Bukkit.getServer;
-
 @Deprecated
 public class OldCardCommand {
 
+    /*
     public void showCard(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
             if (player.hasPermission("rp.card.show") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                CharacterCard card = CardLookupService.getInstance().lookup(player.getUniqueId());
+                CharacterCard card = CharacterLookupService.getInstance().lookup(player.getUniqueId());
                 Messenger.getInstance().sendCardInfoToPlayer(card, player);
             }
             else {
@@ -256,7 +241,7 @@ public class OldCardCommand {
                     return;
                 }
 
-                CharacterCard card = CardLookupService.getInstance().lookup(targetUUID);
+                CharacterCard card = CharacterLookupService.getInstance().lookup(targetUUID);
 
                 if (card == null) {
                     player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "That player doesn't have a card.");
@@ -305,4 +290,5 @@ public class OldCardCommand {
         }
         return false;
     }
+    */
 }

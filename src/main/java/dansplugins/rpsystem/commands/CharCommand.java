@@ -10,7 +10,7 @@ import java.util.Collections;
 /**
  * This command will allow players to manage their characters.
  */
-public class CharacterCommand extends AbstractCommand {
+public class CharCommand extends AbstractCommand {
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("character"));
     private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.character"));
 

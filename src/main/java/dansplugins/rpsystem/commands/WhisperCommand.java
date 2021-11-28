@@ -54,7 +54,7 @@ public class WhisperCommand extends AbstractCommand {
 
         String message = doubleQuoteArgs.get(0);
 
-        String formattedMessage = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), message);
+        String formattedMessage = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCharacter(player.getUniqueId()).getInfo("name"), message);
 
         int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, formattedMessage, whisperChatRadius);
 

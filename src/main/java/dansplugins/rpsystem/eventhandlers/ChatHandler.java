@@ -34,7 +34,7 @@ public class ChatHandler implements Listener {
         if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
             // get color and character name
             ChatColor localChatColor = ColorChecker.getInstance().getColorByName(localChatColorString);
-            String characterName = PersistentData.getInstance().getCard(event.getPlayer().getUniqueId()).getName();
+            String characterName = PersistentData.getInstance().getCharacter(event.getPlayer().getUniqueId()).getInfo("name");
 
             if (EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(event.getPlayer().getUniqueId())) {
                 event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden local chat. Type '/rp show' to talk in local chat.");

@@ -1,16 +1,8 @@
 package dansplugins.rpsystem.objects.deprecated;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.UUID;
-
 @Deprecated
 public class CharacterCard {
+    /*
     private UUID playerUUID = null;
     private String name = "defaultName";
     private String race = "defaultRace";
@@ -155,5 +147,5 @@ public class CharacterCard {
             return false;
         }
     }
-
+    */
 }

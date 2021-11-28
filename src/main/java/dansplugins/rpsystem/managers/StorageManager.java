@@ -2,13 +2,7 @@ package dansplugins.rpsystem.managers;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.objects.deprecated.CharacterCard;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import dansplugins.rpsystem.objects.RPCharacter;
 
 public class StorageManager {
 
@@ -26,18 +20,27 @@ public class StorageManager {
     }
 
     public void save() {
-        StorageManager.getInstance().saveCardFileNames();
-        StorageManager.getInstance().saveCards();
+        saveCharacters();
         if (MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().hasBeenAltered()) {
             MedievalRoleplayEngine.getInstance().saveConfig();
         }
     }
 
     public void load() {
-        loadCards();
+        loadCharacters();
     }
 
+    private void saveCharacters() {
+        // TODO: implement
+    }
+
+    private void loadCharacters() {
+        // TODO: implement
+    }
+
+    @Deprecated
     private void saveCardFileNames() {
+        /*
         try {
             File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
             if (!saveFolder.exists()) {
@@ -53,7 +56,7 @@ public class StorageManager {
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
-            for (CharacterCard card : PersistentData.getInstance().getCards()) {
+            for (RPCharacter card : PersistentData.getInstance().getCards()) {
 //                System.out.println("[MedievalRoleplayEngine.getInstance().isDebugEnabled()] Saving card with UUID: " + card.getPlayerUUID());
                 if (card.getPlayerUUID() != null) {
                     saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
@@ -65,17 +68,21 @@ public class StorageManager {
         } catch (IOException e) {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred while saving character card filenames."); }
         }
+        */
     }
 
+    @Deprecated
     private void saveCards() {
-        for (CharacterCard card : PersistentData.getInstance().getCards()) {
+        for (RPCharacter card : PersistentData.getInstance().getCards()) {
             if (card.getPlayerUUID() != null) {
                 card.save();
             }
         }
     }
 
+    @Deprecated
     private void loadCards() {
+        /*
         try {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
@@ -84,7 +91,7 @@ public class StorageManager {
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextFilename = loadReader.nextLine();
-                CharacterCard temp = new CharacterCard();
+                RPCharacter temp = new CharacterCard();
                 temp.load(nextFilename);
 
                 // existence check
@@ -107,6 +114,7 @@ public class StorageManager {
         } catch (FileNotFoundException e) {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
         }
+        */
     }
 
 }

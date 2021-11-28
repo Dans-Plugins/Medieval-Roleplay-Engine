@@ -1,11 +1,7 @@
 package dansplugins.rpsystem.utils;
 
-import dansplugins.factionsystem.externalapi.MF_Faction;
 import dansplugins.rpsystem.data.EphemeralData;
-import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
-import dansplugins.rpsystem.objects.deprecated.CharacterCard;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import dansplugins.rpsystem.objects.RPCharacter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -104,7 +100,9 @@ public class Messenger {
         return numPlayersWhoHeard;
     }
 
-    public void sendCardInfoToPlayer(CharacterCard card, Player player) {
+    @Deprecated
+    public void sendCardInfoToPlayer(RPCharacter card, Player player) {
+        /*
         player.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
         player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Name: " + card.getName());
         player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Race: " + card.getRace());
@@ -123,5 +121,6 @@ public class Messenger {
             }
             player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Power: " + power);
         }
+        */
     }
 }

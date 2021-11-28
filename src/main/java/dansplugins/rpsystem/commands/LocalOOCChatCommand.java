@@ -61,7 +61,7 @@ public class LocalOOCChatCommand extends AbstractCommand {
 
         String message = doubleQuoteArgs.get(0);
         
-        String formatted = ColorChecker.getInstance().getColorByName(localOOCChatColor) + "" + String.format("<%s> (( %s ))", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), message);
+        String formatted = ColorChecker.getInstance().getColorByName(localOOCChatColor) + "" + String.format("<%s> (( %s ))", PersistentData.getInstance().getCharacter(player.getUniqueId()).getInfo("name"), message);
 
         Messenger.getInstance().sendOOCMessageToPlayersWithinDistance(player, formatted, localOOCChatRadius);
         return true;

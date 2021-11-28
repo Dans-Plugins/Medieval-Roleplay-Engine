@@ -55,7 +55,7 @@ public class EmoteCommand extends AbstractCommand {
 
         String message = doubleQuoteArgs.get(0);
 
-        String characterName = PersistentData.getInstance().getCard(player.getUniqueId()).getName();
+        String characterName = PersistentData.getInstance().getCharacter(player.getUniqueId()).getInfo("name");
 
         Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
         return true;

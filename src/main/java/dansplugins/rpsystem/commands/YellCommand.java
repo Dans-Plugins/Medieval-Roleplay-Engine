@@ -56,7 +56,7 @@ public class YellCommand extends AbstractCommand {
 
         String message = doubleQuoteArgs.get(0);
 
-        String formattedMessage = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", PersistentData.getInstance().getCard(player.getUniqueId()).getName(), message);
+        String formattedMessage = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", PersistentData.getInstance().getCharacter(player.getUniqueId()).getInfo("name"), message);
 
         Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, formattedMessage, yellChatRadius);
         return true;
