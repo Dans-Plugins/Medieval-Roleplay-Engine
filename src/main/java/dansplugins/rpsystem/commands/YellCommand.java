@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class YellCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("lo"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.lo"));
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("yell"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.yell"));
 
     @Override
     public ArrayList<String> getNames() {
