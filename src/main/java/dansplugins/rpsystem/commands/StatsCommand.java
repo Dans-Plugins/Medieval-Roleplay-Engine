@@ -26,7 +26,7 @@ public class StatsCommand extends AbstractCommand {
     @Override
     public boolean execute(CommandSender commandSender) {
         commandSender.sendMessage(ChatColor.AQUA + "=== MRE Stats ===");
-        commandSender.sendMessage(ChatColor.AQUA + "Number of character cards: " + PersistentData.getInstance().getCards().size());
+        commandSender.sendMessage(ChatColor.AQUA + "Number of character cards: " + PersistentData.getInstance().getCharacters().size());
         commandSender.sendMessage(ChatColor.AQUA + "Players in local chat: " + EphemeralData.getInstance().getPlayersSpeakingInLocalChat().size());
         commandSender.sendMessage(ChatColor.AQUA + "Players with busy birds: " + EphemeralData.getInstance().getPlayersWithBusyBirds().size());
         return true;

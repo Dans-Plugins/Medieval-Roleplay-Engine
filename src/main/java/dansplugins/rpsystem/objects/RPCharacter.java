@@ -1,11 +1,15 @@
 package dansplugins.rpsystem.objects;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import preponderous.ponder.modifiers.Cacheable;
 import preponderous.ponder.modifiers.Savable;
 
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +27,10 @@ public class RPCharacter implements Savable, Cacheable {
         setPlayerUUID(playerUUID);
         information.put("name", "defaultName");
         date = LocalDateTime.now();
+    }
+
+    public RPCharacter(Map<String, String> data) {
+        this.load(data);
     }
 
     public UUID getPlayerUUID() {
@@ -58,13 +66,25 @@ public class RPCharacter implements Savable, Cacheable {
 
     @Override
     public Map<String, String> save() {
-        // TODO: implement
-        return null;
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        Map<String, String> saveMap = new HashMap<>();
+        saveMap.put("playerUUID", gson.toJson(playerUUID));
+        saveMap.put("information", gson.toJson(information));
+        saveMap.put("date", gson.toJson(date.toString()));
+
+        return saveMap;
     }
 
     @Override
-    public void load(Map<String, String> map) {
-        // TODO: implement
+    public void load(Map<String, String> data) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        Type stringToStringMapType = new TypeToken<HashMap<String, String>>(){}.getType();
+
+        playerUUID = UUID.fromString(gson.fromJson(data.get("playerUUID"), String.class));
+        information = gson.fromJson(data.get("information"), stringToStringMapType);
+        date = LocalDateTime.parse(gson.fromJson(data.get("date"), String.class));
     }
 
     @Override

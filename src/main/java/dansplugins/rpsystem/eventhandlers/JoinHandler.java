@@ -12,7 +12,7 @@ public class JoinHandler implements Listener {
     public void handle(PlayerJoinEvent event) {
         if (!PersistentData.getInstance().hasCharacter(event.getPlayer().getUniqueId())) {
             RPCharacter newCharacter = new RPCharacter(event.getPlayer().getUniqueId());
-            PersistentData.getInstance().getCards().add(newCharacter);
+            PersistentData.getInstance().getCharacters().add(newCharacter);
         }
     }
 

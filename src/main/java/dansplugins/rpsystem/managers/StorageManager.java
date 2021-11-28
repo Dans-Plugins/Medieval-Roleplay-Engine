@@ -3,10 +3,16 @@ package dansplugins.rpsystem.managers;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
+import preponderous.ponder.misc.JsonWriterReader;
+
+import java.util.*;
 
 public class StorageManager {
 
     private static StorageManager instance;
+    private final static String FILE_PATH = "./plugins/MedievalRoleplayEngine/";
+    private final static String CHARACTERS_FILE_NAME = "characters.json";
+    private JsonWriterReader jsonWriterReader = new JsonWriterReader();
 
     private StorageManager() {
 
@@ -31,11 +37,22 @@ public class StorageManager {
     }
 
     private void saveCharacters() {
-        // TODO: implement
+        List<Map<String, String>> characters = new ArrayList<>();
+        for (RPCharacter character : PersistentData.getInstance().getCharacters()){
+            characters.add(character.save());
+        }
+        jsonWriterReader.writeOutFiles(characters, CHARACTERS_FILE_NAME);
     }
 
     private void loadCharacters() {
-        // TODO: implement
+        PersistentData.getInstance().getCharacters().clear();
+        ArrayList<HashMap<String, String>> data = jsonWriterReader.loadDataFromFilename(FILE_PATH + CHARACTERS_FILE_NAME);
+        HashSet<RPCharacter> characters = new HashSet<>();
+        for (Map<String, String> characterData : data){
+            RPCharacter warning = new RPCharacter(characterData);
+            characters.add(warning);
+        }
+        PersistentData.getInstance().setCharacters(characters);
     }
 
     @Deprecated
@@ -73,7 +90,7 @@ public class StorageManager {
 
     @Deprecated
     private void saveCards() {
-        for (RPCharacter card : PersistentData.getInstance().getCards()) {
+        for (RPCharacter card : PersistentData.getInstance().getCharacters()) {
             if (card.getPlayerUUID() != null) {
                 card.save();
             }
