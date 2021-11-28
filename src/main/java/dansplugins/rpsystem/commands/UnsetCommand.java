@@ -54,6 +54,12 @@ public class UnsetCommand extends AbstractCommand {
         }
 
         String key = doubleQuoteArgs.get(0);
+
+        if (character.getInfo(key) == null) {
+            player.sendMessage(ChatColor.RED + "That field doesn't exist.");
+            return false;
+        }
+
         character.unsetInfo(key);
         player.sendMessage(ChatColor.GREEN + "That field has been unset.");
         return true;
