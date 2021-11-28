@@ -37,6 +37,8 @@ public class StorageManager {
     }
 
     public void load() {
+        Logger.getInstance().log("Version mismatched: " + MedievalRoleplayEngine.getInstance().isVersionMismatched());
+        Logger.getInstance().log("Old version: " + MedievalRoleplayEngine.getInstance().getOldVersion());
         if (MedievalRoleplayEngine.getInstance().isVersionMismatched() && MedievalRoleplayEngine.getInstance().getOldVersion().charAt(1) != '2') {
             // load in character cards using the legacy load method
             legacyLoadCards();
