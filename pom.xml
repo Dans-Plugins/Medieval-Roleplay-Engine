@@ -6,7 +6,7 @@
 
   <groupId>KingdomProgrammers</groupId>
   <artifactId>Medieval-Roleplay-Engine</artifactId>
-  <version>v1.10-beta-2</version>
+  <version>v2.0-alpha-6</version>
   <packaging>jar</packaging>
 
   <name>Medieval Roleplay Engine</name>
@@ -60,6 +60,12 @@
       <version>v1.1-alpha-1</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/src/main/resources/Mailboxes-v1.1-alpha-1.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>preponderous</groupId>
+      <artifactId>ponder</artifactId>
+      <version>v0.8-beta-2</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 

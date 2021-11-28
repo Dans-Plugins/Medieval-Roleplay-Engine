@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.commands;
+package dansplugins.rpsystem.commands.deprecated;
 
 import com.bernardomg.tabletop.dice.history.RollHistory;
 import com.bernardomg.tabletop.dice.interpreter.DiceInterpreter;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+@Deprecated
 public class NewRollCommand {
 
     static final DiceParser parser = new DefaultDiceParser();

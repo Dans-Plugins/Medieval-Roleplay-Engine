@@ -1,56 +1,58 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.managers.ConfigManager;
+import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import preponderous.ponder.misc.AbstractCommand;
 
-public class ConfigCommand {
+import java.util.ArrayList;
+import java.util.Collections;
 
-    public boolean handleConfigAccess(CommandSender sender, String[] args) {
+public class ConfigCommand extends AbstractCommand {
+    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("config"));
+    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.config"));
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Only players can use this command.");
-            return false;
-        }
+    @Override
+    public ArrayList<String> getNames() {
+        return names;
+    }
 
-        Player player = (Player) sender;
+    @Override
+    public ArrayList<String> getPermissions() {
+        return permissions;
+    }
 
-        if (!(player.hasPermission("rp.config") || player.hasPermission("rp.admin"))) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You don't have permission to configure Medieval Roleplay Engine!");
-            return false;
-        }
+    @Override
+    public boolean execute(CommandSender commandSender) {
+        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
+        return false;
+    }
 
-        if (args.length < 1) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
-            return false;
-        }
+    public boolean execute(CommandSender sender, String[] args) {
 
         if (args[0].equalsIgnoreCase("show")) {
-            // no further arguments needed, list config
-            ConfigManager.getInstance().sendPlayerConfigList(player);
+            MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().sendConfigList(sender);
             return true;
         }
 
         if (args[0].equalsIgnoreCase("set")) {
 
-            // two more arguments needed
             if (args.length > 2) {
 
                 String option = args[1];
                 String value = args[2];
 
-                ConfigManager.getInstance().setConfigOption(option, value, player);
+                MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().setConfigOption(option, value, sender);
                 return true;
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /rpconfig set (option) (value)");
+                sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /rp config set (option) (value)");
                 return false;
             }
 
         }
 
-        player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
+        execute(sender);
 
         return false;
     }

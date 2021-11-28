@@ -1,12 +1,11 @@
 package dansplugins.rpsystem.eventhandlers;
 
 import dansplugins.factionsystem.externalapi.MF_Faction;
-import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.Messenger;
+import dansplugins.rpsystem.utils.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.managers.ConfigManager;
+import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,7 +18,7 @@ public class ChatHandler implements Listener {
 
     @EventHandler()
     public void handle(AsyncPlayerChatEvent event) {
-        if (!ConfigManager.getInstance().getBoolean("chatFeaturesEnabled")) {
+        if (!MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("chatFeaturesEnabled")) {
             return;
         }
 
@@ -35,7 +34,7 @@ public class ChatHandler implements Listener {
         if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
             // get color and character name
             ChatColor localChatColor = ColorChecker.getInstance().getColorByName(localChatColorString);
-            String characterName = PersistentData.getInstance().getCard(event.getPlayer().getUniqueId()).getName();
+            String characterName = PersistentData.getInstance().getCharacter(event.getPlayer().getUniqueId()).getInfo("name");
 
             if (EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(event.getPlayer().getUniqueId())) {
                 event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden local chat. Type '/rp show' to talk in local chat.");
@@ -72,7 +71,7 @@ public class ChatHandler implements Listener {
             return;
         }
 
-        if (!ConfigManager.getInstance().getBoolean("legacyChat")) {
+        if (!MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("legacyChat")) {
 
             if (EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
                 event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden global chat. Type '/ooc show' to talk in global chat.");

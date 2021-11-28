@@ -1,22 +1,30 @@
 package dansplugins.rpsystem;
 
 import dansplugins.rpsystem.bstats.Metrics;
-import dansplugins.rpsystem.managers.ConfigManager;
+import dansplugins.rpsystem.commands.*;
+import dansplugins.rpsystem.eventhandlers.ChatHandler;
+import dansplugins.rpsystem.eventhandlers.InteractionHandler;
+import dansplugins.rpsystem.eventhandlers.JoinHandler;
 import dansplugins.rpsystem.managers.StorageManager;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.event.Listener;
+import preponderous.ponder.AbstractPonderPlugin;
+import preponderous.ponder.misc.PonderAPI_Integrator;
+import preponderous.ponder.misc.specification.ICommand;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
-public class MedievalRoleplayEngine extends JavaPlugin {
-
+public class MedievalRoleplayEngine extends AbstractPonderPlugin {
     private static MedievalRoleplayEngine instance;
-
-    // version
-    private String version = "v1.10-beta-2";
+    private final String version = "v2.0-alpha-6";
+    private boolean versionMismatchOccurred;
+    private String oldVersion = null;
 
     public static MedievalRoleplayEngine getInstance() {
         return instance;
@@ -25,66 +33,125 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-
-        // create/load config
-        if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
-            ConfigManager.getInstance().saveConfigDefaults();
-        }
-        else {
-            // pre load compatibility checks
-            if (isVersionMismatched()) {
-                ConfigManager.getInstance().handleVersionMismatch();
-            }
-            reloadConfig();
-        }
-
-        if (StorageManager.getInstance().oldSaveFolderPresent()) {
-            StorageManager.getInstance().legacyLoadCards();
-            StorageManager.getInstance().deleteLegacyFiles(new File("./plugins/medieval-roleplay-engine/"));
-            StorageManager.getInstance().saveCardFileNames();
-            StorageManager.getInstance().saveCards();
-        }
-        else {
-            StorageManager.getInstance().loadCards();
-        }
-
-        EventRegistry.getInstance().registerEvents();
+        setVersionMismatchOccurred();
 
         int pluginId = 8996;
-
         Metrics metrics = new Metrics(this, pluginId);
+
+        ponderAPI_integrator = new PonderAPI_Integrator(this);
+        toolbox = getPonderAPI().getToolbox();
+        initializeConfigService();
+        initializeConfigFile();
+        registerEventHandlers();
+        initializeCommandService();
+        getPonderAPI().setDebug(false);
+
+        StorageManager.getInstance().load();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderAPI().register();
         } else {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
+            if (isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
         }
     }
 
     @Override
     public void onDisable() {
-        StorageManager.getInstance().saveCardFileNames();
-        StorageManager.getInstance().saveCards();
-        if (ConfigManager.getInstance().hasBeenAltered()) {
-            saveConfig();
-        }
+        StorageManager.getInstance().save();
     }
 
-    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        return CommandInterpreter.getInstance().interpretCommand(sender, label, args);
-    }
+        if (args.length == 0) {
+            DefaultCommand defaultCommand = new DefaultCommand();
+            return defaultCommand.execute(sender);
+        }
 
-    public String getVersion() {
-        return version;
+        return getPonderAPI().getCommandService().interpretCommand(sender, label, args);
     }
 
     public boolean isDebugEnabled() {
         return getConfig().getBoolean("debugMode");
     }
 
-    public boolean isVersionMismatched() {
-        return !getConfig().getString("version").equalsIgnoreCase(getVersion());
+    @Override
+    public String getVersion() {
+        return version;
     }
 
+    @Override
+    public boolean isVersionMismatched() {
+        return versionMismatchOccurred;
+    }
+
+    public String getOldVersion() {
+        return oldVersion;
+    }
+
+    private void setVersionMismatchOccurred() {
+        String configVersion = this.getConfig().getString("version");
+        oldVersion = configVersion;
+        if (configVersion == null || this.getVersion() == null) {
+            versionMismatchOccurred = false;
+        } else {
+            versionMismatchOccurred = !configVersion.equalsIgnoreCase(this.getVersion());
+        }
+    }
+
+    private void initializeConfigService() {
+        HashMap<String, Object> configOptions = new HashMap<>();
+        configOptions.put("version", getVersion());
+        configOptions.put("debugMode", false);
+        configOptions.put("localChatRadius", 25);
+        configOptions.put("whisperChatRadius", 2);
+        configOptions.put("yellChatRadius", 50);
+        configOptions.put("emoteRadius", 25);
+        configOptions.put("changeNameCooldown", 300);
+        configOptions.put("localChatColor", "gray");
+        configOptions.put("whisperChatColor", "blue");
+        configOptions.put("yellChatColor", "red");
+        configOptions.put("emoteColor", "gray");
+        configOptions.put("rightClickToViewCard", true);
+        configOptions.put("localOOCChatRadius", 25);
+        configOptions.put("localOOCChatColor", "gray");
+        configOptions.put("positiveAlertColor", "green");
+        configOptions.put("neutralAlertColor", "aqua");
+        configOptions.put("negativeAlertColor", "red");
+        configOptions.put("chatFeaturesEnabled", true);
+        configOptions.put("legacyChat", false);
+        configOptions.put("preventSelfBirding", true);
+        getPonderAPI().getConfigService().initialize(configOptions);
+    }
+
+    private void initializeConfigFile() {
+        if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
+            getPonderAPI().getConfigService().saveMissingConfigDefaultsIfNotPresent();
+        }
+        else {
+            // pre load compatibility checks
+            if (isVersionMismatched()) {
+                getPonderAPI().getConfigService().saveMissingConfigDefaultsIfNotPresent();
+            }
+            reloadConfig();
+        }
+    }
+
+    private void registerEventHandlers() {
+        ArrayList<Listener> listeners = new ArrayList<>();
+        listeners.add(new ChatHandler());
+        listeners.add(new InteractionHandler());
+        listeners.add(new JoinHandler());
+        getToolbox().getEventHandlerRegistry().registerEventHandlers(listeners, this);
+    }
+
+    private void initializeCommandService() {
+        ArrayList<ICommand> commands = new ArrayList<>(Arrays.asList(
+                new BirdCommand(), new CardCommand(), new CharCommand(),
+                new ConfigCommand(), new EmoteCommand(), new ForceCommand(),
+                new GlobalChatCommand(), new HelpCommand(), new LocalChatCommand(),
+                new LocalOOCChatCommand(), new RollCommand(), new SetCommand(),
+                new StatsCommand(), new TitleCommand(), new UnsetCommand(),
+                new WhisperCommand(), new YellCommand()
+        ));
+        getPonderAPI().getCommandService().initialize(commands, "That command wasn't found.");
+    }
 }
