@@ -4,6 +4,7 @@ import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
 import dansplugins.rpsystem.objects.deprecated.CharacterCard;
+import dansplugins.rpsystem.utils.Logger;
 import preponderous.ponder.misc.JsonWriterReader;
 
 import java.io.File;
@@ -39,9 +40,11 @@ public class StorageManager {
         if (MedievalRoleplayEngine.getInstance().isVersionMismatched() && MedievalRoleplayEngine.getInstance().getOldVersion().charAt(1) != '2') {
             // load in character cards using the legacy load method
             legacyLoadCards();
+            Logger.getInstance().log("Loaded legacy files.");
             return;
         }
         loadCharacters();
+        Logger.getInstance().log("Loaded files.");
     }
 
     private void saveCharacters() {
