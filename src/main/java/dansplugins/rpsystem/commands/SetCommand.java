@@ -57,7 +57,7 @@ public class SetCommand extends AbstractCommand {
         }
 
         String key = doubleQuoteArgs.get(0);
-        String value = doubleQuoteArgs.get(0);
+        String value = doubleQuoteArgs.get(1);
 
         character.setInfo(key, value);
         player.sendMessage(ChatColor.GREEN + "Your character has been updated.");
