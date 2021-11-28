@@ -21,11 +21,6 @@ public class RPCharacter implements Savable {
     public RPCharacter(UUID playerUUID) {
         setPlayerUUID(playerUUID);
         information.put("name", "defaultName");
-        information.put("race", "defaultRace");
-        information.put("subculture", "defaultSubculture");
-        information.put("age", "defaultAge");
-        information.put("gender", "defaultGender");
-        information.put("religion", "defaultReligion");
         date = LocalDateTime.now();
     }
 
