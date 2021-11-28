@@ -137,7 +137,8 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
                 new ConfigCommand(), new EmoteCommand(), new GlobalChatCommand(),
                 new HelpCommand(), new LocalChatCommand(), new LocalOOCChatCommand(),
                 new RollCommand(), new SetCommand(), new StatsCommand(),
-                new TitleCommand(), new WhisperCommand(), new YellCommand()
+                new TitleCommand(), new UnsetCommand(), new WhisperCommand(),
+                new YellCommand()
         ));
         getPonderAPI().getCommandService().initialize(commands, "That command wasn't found.");
     }

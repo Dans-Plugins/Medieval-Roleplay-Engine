@@ -40,5 +40,7 @@ permissions:
     default: true
   rp.stats:
     default: true
+  rp.unset:
+    default: true
   rp.config:
     default: op
