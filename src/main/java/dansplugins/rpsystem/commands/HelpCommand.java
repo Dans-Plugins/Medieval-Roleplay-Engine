@@ -26,7 +26,8 @@ public class HelpCommand extends AbstractCommand {
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + " == Medieval Roleplay Engine " + MedievalRoleplayEngine.getInstance().getVersion() + " Commands == ");
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp help - Show a list of useful commands for the plugin.");
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp card <IGN> - View your character card or other players' character cards.");
-        sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp set \"key\" \"value\" - Set fields in your card.");
+        sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp set \"key\" \"value\" - Set fields in your character card.");
+        sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp unset \"key\" - Unset a field in your character card.");
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp bird (IGN) \"message\" - Send a bird to another player.");
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp roll (number) - Roll a dice.");
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp title \"new title\" - Rename an unwritten book.");

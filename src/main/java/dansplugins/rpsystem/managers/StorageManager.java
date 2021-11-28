@@ -33,6 +33,7 @@ public class StorageManager {
     }
 
     public void load() {
+        // TODO: if updating from pre-v2.0, load in character cards using the legacy load method
         loadCharacters();
     }
 
@@ -89,16 +90,7 @@ public class StorageManager {
     }
 
     @Deprecated
-    private void saveCards() {
-        for (RPCharacter card : PersistentData.getInstance().getCharacters()) {
-            if (card.getPlayerUUID() != null) {
-                card.save();
-            }
-        }
-    }
-
-    @Deprecated
-    private void loadCards() {
+    private void legacyLoadCards() {
         /*
         try {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
