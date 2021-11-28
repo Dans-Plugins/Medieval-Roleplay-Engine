@@ -23,6 +23,8 @@ import java.util.HashMap;
 public class MedievalRoleplayEngine extends AbstractPonderPlugin {
     private static MedievalRoleplayEngine instance;
     private final String version = "v2.0-alpha-5";
+    private boolean versionMismatchOccurred;
+    private String oldVersion = null;
 
     public static MedievalRoleplayEngine getInstance() {
         return instance;
@@ -31,6 +33,7 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        setVersionMismatchOccurred();
 
         int pluginId = 8996;
         Metrics metrics = new Metrics(this, pluginId);
@@ -77,11 +80,20 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
 
     @Override
     public boolean isVersionMismatched() {
+        return versionMismatchOccurred;
+    }
+
+    public String getOldVersion() {
+        return oldVersion;
+    }
+
+    private void setVersionMismatchOccurred() {
         String configVersion = this.getConfig().getString("version");
+        oldVersion = configVersion;
         if (configVersion == null || this.getVersion() == null) {
-            return false;
+            versionMismatchOccurred = false;
         } else {
-            return !configVersion.equalsIgnoreCase(this.getVersion());
+            versionMismatchOccurred = !configVersion.equalsIgnoreCase(this.getVersion());
         }
     }
 

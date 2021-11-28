@@ -3,8 +3,11 @@ package dansplugins.rpsystem.managers;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
+import dansplugins.rpsystem.objects.deprecated.CharacterCard;
 import preponderous.ponder.misc.JsonWriterReader;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class StorageManager {
@@ -33,7 +36,11 @@ public class StorageManager {
     }
 
     public void load() {
-        // TODO: if updating from pre-v2.0, load in character cards using the legacy load method
+        if (MedievalRoleplayEngine.getInstance().isVersionMismatched() && MedievalRoleplayEngine.getInstance().getOldVersion().charAt(1) != '2') {
+            // load in character cards using the legacy load method
+            legacyLoadCards();
+            return;
+        }
         loadCharacters();
     }
 
@@ -57,41 +64,7 @@ public class StorageManager {
     }
 
     @Deprecated
-    private void saveCardFileNames() {
-        /*
-        try {
-            File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
-            if (!saveFolder.exists()) {
-                saveFolder.mkdir();
-            }
-            File saveFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
-            if (saveFile.createNewFile()) {
-                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Save file for character card filenames created."); }
-            } else {
-                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Save file for character card filenames already exists. Overwriting."); }
-            }
-
-            FileWriter saveWriter = new FileWriter(saveFile);
-
-            // actual saving takes place here
-            for (RPCharacter card : PersistentData.getInstance().getCards()) {
-//                System.out.println("[MedievalRoleplayEngine.getInstance().isDebugEnabled()] Saving card with UUID: " + card.getPlayerUUID());
-                if (card.getPlayerUUID() != null) {
-                    saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
-                }
-            }
-
-            saveWriter.close();
-
-        } catch (IOException e) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred while saving character card filenames."); }
-        }
-        */
-    }
-
-    @Deprecated
     private void legacyLoadCards() {
-        /*
         try {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
@@ -100,22 +73,10 @@ public class StorageManager {
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextFilename = loadReader.nextLine();
-                RPCharacter temp = new CharacterCard();
+                CharacterCard temp = new CharacterCard();
                 temp.load(nextFilename);
-
-                // existence check
-                int index = -1;
-                for (int i = 0; i < PersistentData.getInstance().getCards().size(); i++) {
-                    if (PersistentData.getInstance().getCards().get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
-                        index = i;
-                    }
-                }
-                if (index != -1) {
-                    PersistentData.getInstance().getCards().remove(index);
-                }
-
-                PersistentData.getInstance().getCards().add(temp);
-
+                RPCharacter character = convertCardToCharacter(temp);
+                PersistentData.getInstance().getCharacters().add(character);
             }
 
             loadReader.close();
@@ -123,7 +84,16 @@ public class StorageManager {
         } catch (FileNotFoundException e) {
             if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
         }
-        */
+    }
+
+    private RPCharacter convertCardToCharacter(CharacterCard card) {
+        RPCharacter toReturn = new RPCharacter(card.getPlayerUUID());
+        toReturn.setInfo("Name", card.getName());
+        toReturn.setInfo("Gender", card.getGender());
+        toReturn.setInfo("Race", card.getRace());
+        toReturn.setInfo("Religion", card.getReligion());
+        toReturn.setInfo("Subculture", card.getSubculture());
+        return toReturn;
     }
 
 }

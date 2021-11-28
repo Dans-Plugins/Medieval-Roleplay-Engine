@@ -1,8 +1,14 @@
 package dansplugins.rpsystem.objects.deprecated;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.UUID;
+
 @Deprecated
 public class CharacterCard {
-    /*
     private UUID playerUUID = null;
     private String name = "defaultName";
     private String race = "defaultRace";
@@ -76,41 +82,6 @@ public class CharacterCard {
         return religion;
     }
 
-    public boolean save() {
-        try {
-            File saveFolder = new File("./plugins/MedievalRoleplayEngine/");
-            if (!saveFolder.exists()) {
-                saveFolder.mkdir();
-            }
-            File saveFile = new File("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
-            if (saveFile.createNewFile()) {
-                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Save file for character card belonging to " + playerUUID + " created."); }
-            } else {
-                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Save file for character card belonging to " + playerUUID + " already exists. Altering."); }
-            }
-
-            FileWriter saveWriter = new FileWriter("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
-
-            // actual saving takes place here
-            saveWriter.write(playerUUID.toString() + "\n");
-            saveWriter.write(name + "\n");
-            saveWriter.write(race + "\n");
-            saveWriter.write(subculture + "\n");
-            saveWriter.write(age + "\n");
-            saveWriter.write(gender + "\n");
-            saveWriter.write(religion + "\n");
-
-            saveWriter.close();
-
-            return true;
-
-        } catch (IOException e) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred saving character card belonging to " + playerUUID); }
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     public boolean load(String filename) {
         try {
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + filename);
@@ -147,5 +118,4 @@ public class CharacterCard {
             return false;
         }
     }
-    */
 }
