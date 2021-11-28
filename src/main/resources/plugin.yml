@@ -44,3 +44,5 @@ permissions:
     default: true
   rp.config:
     default: op
+  rp.force:
+    default: op
