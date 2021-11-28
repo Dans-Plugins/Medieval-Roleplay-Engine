@@ -44,6 +44,7 @@ public class RPCharacter implements Savable, Cacheable {
     public String getInfo(String key) {
         return information.get(key);
     }
+
     public void setInfo(String key, String value) {
         if (getInfo(key) != null) {
             information.replace(key, value);
@@ -51,6 +52,10 @@ public class RPCharacter implements Savable, Cacheable {
         else {
             information.put(key, value);
         }
+    }
+
+    public void unsetInfo(String key) {
+        information.remove(key);
     }
 
     public LocalDateTime getDate() {
