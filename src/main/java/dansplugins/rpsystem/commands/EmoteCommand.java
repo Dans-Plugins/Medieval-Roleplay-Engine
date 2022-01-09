@@ -1,29 +1,25 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.utils.Messenger;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+import preponderous.ponder.misc.ArgumentParser;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
-public class EmoteCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("emote"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.emote"));
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class EmoteCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public EmoteCommand() {
+        super(new ArrayList<>(Arrays.asList("emote")), new ArrayList<>(Arrays.asList("rp.emote")));
     }
 
     @Override
@@ -46,7 +42,8 @@ public class EmoteCommand extends AbstractCommand {
             return execute(sender);
         }
 
-        ArrayList<String> doubleQuoteArgs = MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().getArgumentsInsideDoubleQuotes(args);
+        ArgumentParser argumentParser = new ArgumentParser();
+        ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
         if (doubleQuoteArgs.size() == 0) {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
@@ -60,5 +57,4 @@ public class EmoteCommand extends AbstractCommand {
         Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
         return true;
     }
-
 }

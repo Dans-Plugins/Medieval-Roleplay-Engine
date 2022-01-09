@@ -7,11 +7,13 @@ import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import preponderous.ponder.misc.AbstractCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class LocalOOCChatCommand extends AbstractCommand {
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("lo"));
     private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.lo"));
@@ -86,5 +88,4 @@ public class LocalOOCChatCommand extends AbstractCommand {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Local OOC Chat is already visible!");
         }
     }
-
 }

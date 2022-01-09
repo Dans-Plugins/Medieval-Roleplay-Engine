@@ -1,25 +1,20 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.services.LocalConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
-public class ConfigCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("config"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.config"));
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class ConfigCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public ConfigCommand() {
+        super(new ArrayList<>(Arrays.asList("config")), new ArrayList<>(Arrays.asList("rp.config")));
     }
 
     @Override
@@ -29,32 +24,26 @@ public class ConfigCommand extends AbstractCommand {
     }
 
     public boolean execute(CommandSender sender, String[] args) {
-
         if (args[0].equalsIgnoreCase("show")) {
-            MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().sendConfigList(sender);
+            LocalConfigService.getInstance().sendConfigList(sender);
             return true;
         }
 
         if (args[0].equalsIgnoreCase("set")) {
-
             if (args.length > 2) {
 
                 String option = args[1];
                 String value = args[2];
 
-                MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().setConfigOption(option, value, sender);
+                LocalConfigService.getInstance().setConfigOption(option, value, sender);
                 return true;
             }
             else {
                 sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /rp config set (option) (value)");
                 return false;
             }
-
         }
-
         execute(sender);
-
         return false;
     }
-
 }

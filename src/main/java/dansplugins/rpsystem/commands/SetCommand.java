@@ -2,7 +2,7 @@ package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.objects.RPCharacter;
-import dansplugins.rpsystem.services.CharacterLookupService;
+import dansplugins.rpsystem.services.LocalCharacterLookupService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This class will allow players to set various fields in their cards.
+ * @author Daniel McCoy Stephenson
+ * @brief This class will allow players to set various fields in their cards.
  */
 public class SetCommand extends AbstractCommand {
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("set"));
@@ -43,7 +44,7 @@ public class SetCommand extends AbstractCommand {
         }
         Player player = (Player) commandSender;
 
-        RPCharacter character = CharacterLookupService.getInstance().lookup(player.getUniqueId());
+        RPCharacter character = LocalCharacterLookupService.getInstance().lookup(player.getUniqueId());
         if (character == null) {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You don't have a character.");
             return false;

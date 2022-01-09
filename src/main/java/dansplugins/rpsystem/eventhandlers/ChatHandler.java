@@ -14,6 +14,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class ChatHandler implements Listener {
 
     @EventHandler()
@@ -173,5 +176,4 @@ public class ChatHandler implements Listener {
             return null;
         }
     }
-
 }

@@ -5,22 +5,26 @@ import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.eventhandlers.ChatHandler;
 import dansplugins.rpsystem.eventhandlers.InteractionHandler;
 import dansplugins.rpsystem.eventhandlers.JoinHandler;
-import dansplugins.rpsystem.managers.StorageManager;
+import dansplugins.rpsystem.services.LocalStorageService;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
-import preponderous.ponder.AbstractPonderPlugin;
-import preponderous.ponder.misc.PonderAPI_Integrator;
-import preponderous.ponder.misc.specification.ICommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+import preponderous.ponder.minecraft.abs.PonderPlugin;
+import preponderous.ponder.minecraft.spigot.misc.PonderAPI_Integrator;
+import preponderous.ponder.minecraft.spigot.tools.EventHandlerRegistry;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class MedievalRoleplayEngine extends AbstractPonderPlugin {
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class MedievalRoleplayEngine extends PonderPlugin {
     private static MedievalRoleplayEngine instance;
     private final String version = "v2.0-alpha-10";
     private boolean versionMismatchOccurred;
@@ -33,20 +37,20 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        ponderAPI_integrator = new PonderAPI_Integrator(this);
+
         setVersionMismatchOccurred();
 
         int pluginId = 8996;
         Metrics metrics = new Metrics(this, pluginId);
 
-        ponderAPI_integrator = new PonderAPI_Integrator(this);
-        toolbox = getPonderAPI().getToolbox();
         initializeConfigService();
         initializeConfigFile();
         registerEventHandlers();
         initializeCommandService();
         getPonderAPI().setDebug(false);
 
-        StorageManager.getInstance().load();
+        LocalStorageService.getInstance().load();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderAPI().register();
@@ -57,7 +61,7 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
 
     @Override
     public void onDisable() {
-        StorageManager.getInstance().save();
+        LocalStorageService.getInstance().save();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -73,12 +77,10 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
         return getConfig().getBoolean("debugMode");
     }
 
-    @Override
     public String getVersion() {
         return version;
     }
 
-    @Override
     public boolean isVersionMismatched() {
         return versionMismatchOccurred;
     }
@@ -97,7 +99,7 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
         }
     }
 
-    private void initializeConfigService() {
+    private void initializeConfigService() { // TODO: move these to the local config service class
         HashMap<String, Object> configOptions = new HashMap<>();
         configOptions.put("version", getVersion());
         configOptions.put("debugMode", false);
@@ -140,11 +142,12 @@ public class MedievalRoleplayEngine extends AbstractPonderPlugin {
         listeners.add(new ChatHandler());
         listeners.add(new InteractionHandler());
         listeners.add(new JoinHandler());
-        getToolbox().getEventHandlerRegistry().registerEventHandlers(listeners, this);
+        EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry(getPonderAPI());
+        eventHandlerRegistry.registerEventHandlers(listeners, this);
     }
 
     private void initializeCommandService() {
-        ArrayList<ICommand> commands = new ArrayList<>(Arrays.asList(
+        ArrayList<AbstractPluginCommand> commands = new ArrayList<>(Arrays.asList(
                 new BirdCommand(), new CardCommand(), new CharCommand(),
                 new ConfigCommand(), new EmoteCommand(), new ForceCommand(),
                 new GlobalChatCommand(), new HelpCommand(), new LocalChatCommand(),

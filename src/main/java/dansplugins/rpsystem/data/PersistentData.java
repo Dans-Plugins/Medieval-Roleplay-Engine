@@ -5,8 +5,10 @@ import dansplugins.rpsystem.objects.RPCharacter;
 import java.util.HashSet;
 import java.util.UUID;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class PersistentData {
-
     private static PersistentData instance;
 
     private HashSet<RPCharacter> characters = new HashSet<>();
@@ -47,5 +49,4 @@ public class PersistentData {
         }
         return false;
     }
-
 }

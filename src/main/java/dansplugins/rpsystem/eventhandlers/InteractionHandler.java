@@ -10,6 +10,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class InteractionHandler implements Listener {
 
     @EventHandler()
@@ -44,10 +47,7 @@ public class InteractionHandler implements Listener {
                         }
                     }, seconds * 20);
                 }
-
             }
-
         }
     }
-
 }

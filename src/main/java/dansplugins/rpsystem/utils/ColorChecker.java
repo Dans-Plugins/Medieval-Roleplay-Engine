@@ -3,6 +3,9 @@ package dansplugins.rpsystem.utils;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import org.bukkit.ChatColor;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class ColorChecker {
 
     private static ColorChecker instance;
@@ -83,5 +86,4 @@ public class ColorChecker {
     public ChatColor getNegativeAlertColor() {
         return getColorByName(MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getString("negativeAlertColor"));
     }
-
 }

@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.managers;
+package dansplugins.rpsystem.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,21 +15,23 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class StorageManager {
-
-    private static StorageManager instance;
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class LocalStorageService {
+    private static LocalStorageService instance;
     private final static String FILE_PATH = "./plugins/MedievalRoleplayEngine/";
     private final static String CHARACTERS_FILE_NAME = "characters.json";
     private final Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
     private static Type LIST_MAP_TYPE = (new TypeToken<ArrayList<HashMap<String, String>>>() {}).getType();
 
-    private StorageManager() {
+    private LocalStorageService() {
 
     }
 
-    public static StorageManager getInstance() {
+    public static LocalStorageService getInstance() {
         if (instance == null) {
-            instance = new StorageManager();
+            instance = new LocalStorageService();
         }
         return instance;
     }
@@ -132,5 +134,4 @@ public class StorageManager {
             return new ArrayList();
         }
     }
-
 }

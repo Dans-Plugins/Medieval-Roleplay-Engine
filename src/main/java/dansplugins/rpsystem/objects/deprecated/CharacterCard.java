@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.UUID;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 @Deprecated
 public class CharacterCard {
     private UUID playerUUID = null;

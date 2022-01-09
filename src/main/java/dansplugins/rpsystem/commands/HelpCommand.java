@@ -1,25 +1,21 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.services.LocalConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
-public class HelpCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("help"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.help"));
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class HelpCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public HelpCommand() {
+        super(new ArrayList<>(Arrays.asList("help")), new ArrayList<>(Arrays.asList("rp.help")));
     }
 
     public boolean execute(CommandSender sender) {
@@ -32,7 +28,7 @@ public class HelpCommand extends AbstractCommand {
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp roll (number) - Roll a dice.");
         sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp title \"new title\" - Rename an unwritten book.");
 
-        if (MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("chatFeaturesEnabled")) {
+        if (LocalConfigService.getInstance().getBoolean("chatFeaturesEnabled")) {
             sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp local - Enter local (RP) chat.");
             sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp global - Enter global (OOC) chat.");
             sender.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "/rp emote - Send an emote to nearby players.");
@@ -51,5 +47,4 @@ public class HelpCommand extends AbstractCommand {
     public boolean execute(CommandSender commandSender, String[] strings) {
         return execute(commandSender);
     }
-
 }

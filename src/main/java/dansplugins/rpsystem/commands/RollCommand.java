@@ -10,6 +10,9 @@ import preponderous.ponder.misc.AbstractCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class RollCommand extends AbstractCommand {
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("roll"));
     private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.roll"));
@@ -51,5 +54,4 @@ public class RollCommand extends AbstractCommand {
     private int execute(int max) {
         return (int)(Math.random() * max + 1);
     }
-
 }

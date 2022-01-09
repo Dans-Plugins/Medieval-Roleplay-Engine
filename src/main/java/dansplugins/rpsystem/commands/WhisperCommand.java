@@ -11,6 +11,9 @@ import preponderous.ponder.misc.AbstractCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class WhisperCommand extends AbstractCommand {
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("whisper"));
     private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.whisper"));
@@ -61,5 +64,4 @@ public class WhisperCommand extends AbstractCommand {
         player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
         return true;
     }
-
 }

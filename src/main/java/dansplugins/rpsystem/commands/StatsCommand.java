@@ -9,6 +9,9 @@ import preponderous.ponder.misc.AbstractCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class StatsCommand extends AbstractCommand {
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("stats"));
     private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.stats"));

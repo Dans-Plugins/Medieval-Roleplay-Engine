@@ -16,7 +16,8 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * This class is intended to represent a fictional character for roleplay reasons.
+ * @author Daniel McCoy Stephenson
+ * @brief This class is intended to represent a fictional character for roleplay reasons.
  */
 public class RPCharacter implements Savable, Cacheable {
     private UUID playerUUID;

@@ -11,6 +11,9 @@ import preponderous.ponder.misc.AbstractCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class YellCommand extends AbstractCommand {
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("yell"));
     private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.yell"));
@@ -60,7 +63,5 @@ public class YellCommand extends AbstractCommand {
 
         Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, formattedMessage, yellChatRadius);
         return true;
-
     }
-
 }

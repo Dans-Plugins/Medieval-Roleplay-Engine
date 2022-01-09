@@ -2,7 +2,7 @@ package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.objects.RPCharacter;
-import dansplugins.rpsystem.services.CharacterLookupService;
+import dansplugins.rpsystem.services.LocalCharacterLookupService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -12,6 +12,9 @@ import preponderous.ponder.misc.AbstractCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class UnsetCommand extends AbstractCommand {
     private ArrayList<String> names = new ArrayList<>(Collections.singletonList("unset"));
     private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.unset"));
@@ -40,7 +43,7 @@ public class UnsetCommand extends AbstractCommand {
         }
         Player player = (Player) commandSender;
 
-        RPCharacter character = CharacterLookupService.getInstance().lookup(player.getUniqueId());
+        RPCharacter character = LocalCharacterLookupService.getInstance().lookup(player.getUniqueId());
         if (character == null) {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You don't have a character.");
             return false;
