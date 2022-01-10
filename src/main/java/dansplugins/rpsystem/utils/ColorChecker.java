@@ -1,8 +1,11 @@
 package dansplugins.rpsystem.utils;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.services.LocalConfigService;
 import org.bukkit.ChatColor;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class ColorChecker {
 
     private static ColorChecker instance;
@@ -73,15 +76,14 @@ public class ColorChecker {
     }
 
     public ChatColor getPositiveAlertColor() {
-        return getColorByName(MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getString("positiveAlertColor"));
+        return getColorByName(LocalConfigService.getInstance().getString("positiveAlertColor"));
     }
 
     public ChatColor getNeutralAlertColor() {
-        return getColorByName(MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getString("neutralAlertColor"));
+        return getColorByName(LocalConfigService.getInstance().getString("neutralAlertColor"));
     }
 
     public ChatColor getNegativeAlertColor() {
-        return getColorByName(MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getString("negativeAlertColor"));
+        return getColorByName(LocalConfigService.getInstance().getString("negativeAlertColor"));
     }
-
 }

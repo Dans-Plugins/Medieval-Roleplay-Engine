@@ -7,18 +7,20 @@ import dansplugins.rpsystem.utils.Logger;
 import java.util.HashSet;
 import java.util.UUID;
 
-public class CharacterLookupService { // TODO: replace this class by utilizing Ponder
-
-    private static CharacterLookupService instance;
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class LocalCharacterLookupService { // TODO: replace this class by utilizing Ponder
+    private static LocalCharacterLookupService instance;
     private HashSet<RPCharacter> cache = new HashSet<>();
 
-    private CharacterLookupService() {
+    private LocalCharacterLookupService() {
 
     }
 
-    public static CharacterLookupService getInstance() {
+    public static LocalCharacterLookupService getInstance() {
         if (instance == null) {
-            instance = new CharacterLookupService();
+            instance = new LocalCharacterLookupService();
         }
         return instance;
     }
@@ -53,5 +55,4 @@ public class CharacterLookupService { // TODO: replace this class by utilizing P
         }
         return character;
     }
-
 }

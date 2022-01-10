@@ -7,6 +7,9 @@ import org.bukkit.entity.Player;
 
 import static org.bukkit.Bukkit.getServer;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class Messenger {
 
     private static Messenger instance;

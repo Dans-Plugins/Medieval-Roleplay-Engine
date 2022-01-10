@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.managers;
+package dansplugins.rpsystem.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,34 +9,37 @@ import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
 import dansplugins.rpsystem.objects.deprecated.CharacterCard;
 import dansplugins.rpsystem.utils.Logger;
+import preponderous.ponder.minecraft.spigot.tools.UUIDChecker;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class StorageManager {
-
-    private static StorageManager instance;
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class LocalStorageService {
+    private static LocalStorageService instance;
     private final static String FILE_PATH = "./plugins/MedievalRoleplayEngine/";
     private final static String CHARACTERS_FILE_NAME = "characters.json";
     private final Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
     private static Type LIST_MAP_TYPE = (new TypeToken<ArrayList<HashMap<String, String>>>() {}).getType();
 
-    private StorageManager() {
+    private LocalStorageService() {
 
     }
 
-    public static StorageManager getInstance() {
+    public static LocalStorageService getInstance() {
         if (instance == null) {
-            instance = new StorageManager();
+            instance = new LocalStorageService();
         }
         return instance;
     }
 
     public void save() {
         saveCharacters();
-        if (MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().hasBeenAltered()) {
+        if (LocalConfigService.getInstance().hasBeenAltered()) {
             MedievalRoleplayEngine.getInstance().saveConfig();
         }
     }
@@ -86,7 +89,8 @@ public class StorageManager {
                 RPCharacter character = convertCardToCharacter(temp);
                 boolean success = PersistentData.getInstance().getCharacters().add(character);
                 if (!success) {
-                    Logger.getInstance().log("Character card for player " + MedievalRoleplayEngine.getInstance().getToolbox().getUUIDChecker().findPlayerNameBasedOnUUID(character.getPlayerUUID()) + " is already present. Not overwriting.");
+                    UUIDChecker uuidChecker = new UUIDChecker();
+                    Logger.getInstance().log("Character card for player " + uuidChecker.findPlayerNameBasedOnUUID(character.getPlayerUUID()) + " is already present. Not overwriting.");
                 }
             }
 
@@ -132,5 +136,4 @@ public class StorageManager {
             return new ArrayList();
         }
     }
-
 }

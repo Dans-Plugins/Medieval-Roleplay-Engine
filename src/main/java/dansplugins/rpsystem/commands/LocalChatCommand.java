@@ -6,23 +6,18 @@ import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
-public class LocalChatCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("local"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.local"));
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class LocalChatCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public LocalChatCommand() {
+        super(new ArrayList<>(Arrays.asList("local")), new ArrayList<>(Arrays.asList("rp.local")));
     }
 
     @Override
@@ -94,5 +89,4 @@ public class LocalChatCommand extends AbstractCommand {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Local chat is already visible!");
         }
     }
-
 }

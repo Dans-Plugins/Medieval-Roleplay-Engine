@@ -4,6 +4,9 @@ import dansplugins.mailboxes.externalapi.MailboxesAPI;
 import dansplugins.rpsystem.utils.Logger;
 import org.bukkit.Bukkit;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class MailboxesIntegrator {
 
     private static MailboxesIntegrator instance;
@@ -34,5 +37,4 @@ public class MailboxesIntegrator {
     public MailboxesAPI getAPI() {
         return m_api;
     }
-
 }

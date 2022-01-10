@@ -3,11 +3,11 @@ package dansplugins.rpsystem.objects;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.factionsystem.utils.UUIDChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import preponderous.ponder.modifiers.Cacheable;
-import preponderous.ponder.modifiers.Savable;
+import preponderous.ponder.misc.Cacheable;
+import preponderous.ponder.misc.Savable;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
@@ -16,7 +16,8 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * This class is intended to represent a fictional character for roleplay reasons.
+ * @author Daniel McCoy Stephenson
+ * @brief This class is intended to represent a fictional character for roleplay reasons.
  */
 public class RPCharacter implements Savable, Cacheable {
     private UUID playerUUID;
@@ -63,7 +64,8 @@ public class RPCharacter implements Savable, Cacheable {
     }
 
     public void sendCharacterInfo(CommandSender sender) {
-        sender.sendMessage(ChatColor.AQUA + "=== Character Card of " + MedievalRoleplayEngine.getInstance().getToolbox().getUUIDChecker().findPlayerNameBasedOnUUID(playerUUID));
+        UUIDChecker uuidChecker = new UUIDChecker();
+        sender.sendMessage(ChatColor.AQUA + "=== Character Card of " + uuidChecker.findPlayerNameBasedOnUUID(playerUUID));
         for (String key : information.keySet()) {
             sender.sendMessage(ChatColor.AQUA + "" + key + ": " + information.get((key)));
         }

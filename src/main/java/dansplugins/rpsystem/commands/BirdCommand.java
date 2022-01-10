@@ -1,33 +1,31 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.mailboxes.utils.UUIDChecker;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.utils.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.integrators.MailboxesIntegrator;
+import dansplugins.rpsystem.services.LocalConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+import preponderous.ponder.misc.ArgumentParser;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class BirdCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("bird"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.bird"));
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class BirdCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public BirdCommand() {
+        super(new ArrayList<>(Arrays.asList("bird")), new ArrayList<>(Arrays.asList("rp.bird")));
     }
 
     @Override
@@ -52,7 +50,8 @@ public class BirdCommand extends AbstractCommand {
             return execute(sender);
         }
 
-        ArrayList<String> doubleQuoteArgs = MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().getArgumentsInsideDoubleQuotes(args);
+        ArgumentParser argumentParser = new ArgumentParser();
+        ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
         if (doubleQuoteArgs.size() == 0) {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
@@ -61,7 +60,7 @@ public class BirdCommand extends AbstractCommand {
 
         String message = doubleQuoteArgs.get(0);
 
-        if (MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("preventSelfBirding") && args[0].equalsIgnoreCase(player.getName())) {
+        if (LocalConfigService.getInstance().getBoolean("preventSelfBirding") && args[0].equalsIgnoreCase(player.getName())) {
             player.sendMessage(ChatColor.RED + "You can't send a bird to yourself.");
             return false;
         }
@@ -103,7 +102,8 @@ public class BirdCommand extends AbstractCommand {
 
     boolean attemptToSendMessageToPlayersMailbox(String targetName, Player sender, String message) {
         if (MailboxesIntegrator.getInstance().isMailboxesPresent()) {
-            UUID targetUUID = MedievalRoleplayEngine.getInstance().getToolbox().getUUIDChecker().findUUIDBasedOnPlayerName(targetName);
+            UUIDChecker uuidChecker = new UUIDChecker();
+            UUID targetUUID = uuidChecker.findUUIDBasedOnPlayerName(targetName);
             if (targetUUID != null) {
                 String messageToSend = "While you were offline, a bird dropped off a message for you. It was sent by " + sender.getName() + ". It reads:\n\n'" + message + "'";
 

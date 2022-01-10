@@ -1,29 +1,25 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.utils.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+import preponderous.ponder.misc.ArgumentParser;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
-public class LocalOOCChatCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("lo"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.lo"));
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class LocalOOCChatCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public LocalOOCChatCommand() {
+        super(new ArrayList<>(Arrays.asList("lo")), new ArrayList<>(Arrays.asList("rp.lo")));
     }
 
     @Override
@@ -35,34 +31,27 @@ public class LocalOOCChatCommand extends AbstractCommand {
     public boolean execute(CommandSender sender, String[] args) {
         int localOOCChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localOOCChatRadius");
         String localOOCChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("localOOCChatColor");
-
         if (!(sender instanceof Player)) {
             return false;
         }
         Player player = (Player) sender;
-
         if (args.length == 0) {
             return execute(sender);
         }
-        
         if (args[0].equalsIgnoreCase("hide")) {
             addToPlayersWhoHaveHiddenLocalOOCChat(player);
         }
         if (args[0].equalsIgnoreCase("show")) {
             removeFromPlayersWhoHaveHiddenLocalOOCChat(player);
         }
-
-        ArrayList<String> doubleQuoteArgs = MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().getArgumentsInsideDoubleQuotes(args);
-
+        ArgumentParser argumentParser = new ArgumentParser();
+        ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
         if (doubleQuoteArgs.size() == 0) {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
             return false;
         }
-
         String message = doubleQuoteArgs.get(0);
-        
         String formatted = ColorChecker.getInstance().getColorByName(localOOCChatColor) + "" + String.format("<%s> (( %s ))", PersistentData.getInstance().getCharacter(player.getUniqueId()).getInfo("name"), message);
-
         Messenger.getInstance().sendOOCMessageToPlayersWithinDistance(player, formatted, localOOCChatRadius);
         return true;
     }
@@ -86,5 +75,4 @@ public class LocalOOCChatCommand extends AbstractCommand {
             player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Local OOC Chat is already visible!");
         }
     }
-
 }

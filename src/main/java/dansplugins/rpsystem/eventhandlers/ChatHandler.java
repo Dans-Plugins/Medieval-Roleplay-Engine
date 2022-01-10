@@ -2,11 +2,12 @@ package dansplugins.rpsystem.eventhandlers;
 
 import dansplugins.factionsystem.externalapi.MF_Faction;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.utils.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
+import dansplugins.rpsystem.services.LocalConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,11 +15,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class ChatHandler implements Listener {
 
     @EventHandler()
     public void handle(AsyncPlayerChatEvent event) {
-        if (!MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("chatFeaturesEnabled")) {
+        if (!LocalConfigService.getInstance().getBoolean("chatFeaturesEnabled")) {
             return;
         }
 
@@ -71,7 +75,7 @@ public class ChatHandler implements Listener {
             return;
         }
 
-        if (!MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().getBoolean("legacyChat")) {
+        if (!LocalConfigService.getInstance().getBoolean("legacyChat")) {
 
             if (EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
                 event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden global chat. Type '/ooc show' to talk in global chat.");
@@ -173,5 +177,4 @@ public class ChatHandler implements Listener {
             return null;
         }
     }
-
 }

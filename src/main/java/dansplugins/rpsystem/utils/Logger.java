@@ -2,6 +2,9 @@ package dansplugins.rpsystem.utils;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class Logger {
 
     private static Logger instance;
@@ -22,5 +25,4 @@ public class Logger {
             System.out.println("[MRE] " + message);
         }
     }
-
 }

@@ -4,6 +4,9 @@ import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import org.bukkit.Bukkit;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class MedievalFactionsIntegrator {
 
     private static MedievalFactionsIntegrator instance;
@@ -34,5 +37,4 @@ public class MedievalFactionsIntegrator {
     public MedievalFactionsAPI getAPI() {
         return mf_api;
     }
-
 }

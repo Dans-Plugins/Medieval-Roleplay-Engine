@@ -2,26 +2,19 @@ package dansplugins.rpsystem.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 /**
- * This command will allow players to manage their characters.
+ * @author Daniel McCoy Stephenson
+ * @brief This command will allow players to manage their characters.
  */
-public class CharCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("character"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.character"));
+public class CharCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public CharCommand() {
+        super(new ArrayList<>(Arrays.asList("char")), new ArrayList<>(Arrays.asList("rp.char")));
     }
 
     @Override

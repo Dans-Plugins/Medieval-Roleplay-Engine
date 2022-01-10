@@ -3,8 +3,10 @@ package dansplugins.rpsystem.data;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * @author Daniel McCoy Stephenson
+ */
 public class EphemeralData {
-
     private static EphemeralData instance;
 
     private ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
@@ -53,5 +55,4 @@ public class EphemeralData {
     public ArrayList<UUID> getPlayersWhoHaveHiddenLocalOOCChat() {
         return playersWhoHaveHiddenLocalOOCChat;
     }
-
 }

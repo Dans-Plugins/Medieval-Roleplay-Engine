@@ -4,23 +4,18 @@ import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
-public class StatsCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("stats"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.stats"));
+/**
+ * @author Daniel McCoy Stephenson
+ */
+public class StatsCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public StatsCommand() {
+        super(new ArrayList<>(Arrays.asList("stats")), new ArrayList<>(Arrays.asList("rp.stats")));
     }
 
     @Override
