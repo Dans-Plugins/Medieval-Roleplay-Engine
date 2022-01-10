@@ -1,32 +1,24 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import preponderous.ponder.misc.AbstractCommand;
+import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+import preponderous.ponder.misc.ArgumentParser;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 /**
  * @author Daniel McCoy Stephenson
  */
-public class TitleCommand extends AbstractCommand {
-    private ArrayList<String> names = new ArrayList<>(Collections.singletonList("title"));
-    private ArrayList<String> permissions = new ArrayList<>(Collections.singletonList("rp.title"));
+public class TitleCommand extends AbstractPluginCommand {
 
-    @Override
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    @Override
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public TitleCommand() {
+        super(new ArrayList<>(Arrays.asList("title")), new ArrayList<>(Arrays.asList("rp.title")));
     }
 
     @Override
@@ -47,7 +39,8 @@ public class TitleCommand extends AbstractCommand {
                     return execute(sender);
                 }
 
-                ArrayList<String> doubleQuoteArgs = MedievalRoleplayEngine.getInstance().getToolbox().getArgumentParser().getArgumentsInsideDoubleQuotes(args);
+                ArgumentParser argumentParser = new ArgumentParser();
+                ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
                 if (doubleQuoteArgs.size() == 0) {
                     player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "New title must be designated between double quotes.");

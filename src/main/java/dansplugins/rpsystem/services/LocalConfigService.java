@@ -1,9 +1,9 @@
 package dansplugins.rpsystem.services;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import preponderous.exampleponderplugin.ExamplePonderPlugin;
 
 /**
  * @author Daniel McCoy Stephenson
@@ -11,13 +11,35 @@ import preponderous.exampleponderplugin.ExamplePonderPlugin;
  *     - saveMissingConfigDefaultsIfNotPresent
  *     - setConfigOption()
  *     - sendConfigList()
+ *     
+ *     To Add:
+ *         configOptions.put("version", getVersion());
+ *         configOptions.put("debugMode", false);
+ *         configOptions.put("localChatRadius", 25);
+ *         configOptions.put("whisperChatRadius", 2);
+ *         configOptions.put("yellChatRadius", 50);
+ *         configOptions.put("emoteRadius", 25);
+ *         configOptions.put("changeNameCooldown", 300);
+ *         configOptions.put("localChatColor", "gray");
+ *         configOptions.put("whisperChatColor", "blue");
+ *         configOptions.put("yellChatColor", "red");
+ *         configOptions.put("emoteColor", "gray");
+ *         configOptions.put("rightClickToViewCard", true);
+ *         configOptions.put("localOOCChatRadius", 25);
+ *         configOptions.put("localOOCChatColor", "gray");
+ *         configOptions.put("positiveAlertColor", "green");
+ *         configOptions.put("neutralAlertColor", "aqua");
+ *         configOptions.put("negativeAlertColor", "red");
+ *         configOptions.put("chatFeaturesEnabled", true);
+ *         configOptions.put("legacyChat", false);
+ *         configOptions.put("preventSelfBirding", true);
  */
 public class LocalConfigService {
     private static LocalConfigService instance;
     private boolean altered = false;
 
     private LocalConfigService() {
-
+        
     }
 
     public static LocalConfigService getInstance() {
@@ -30,16 +52,16 @@ public class LocalConfigService {
     public void saveMissingConfigDefaultsIfNotPresent() {
         // set version
         if (!getConfig().isString("version")) {
-            getConfig().addDefault("version", ExamplePonderPlugin.getInstance().getVersion());
+            getConfig().addDefault("version", MedievalRoleplayEngine.getInstance().getVersion());
         } else {
-            getConfig().set("version", ExamplePonderPlugin.getInstance().getVersion());
+            getConfig().set("version", MedievalRoleplayEngine.getInstance().getVersion());
         }
 
         // save config options
         if (!isSet("debugMode")) { getConfig().set("debugMode", false); }
 
         getConfig().options().copyDefaults(true);
-        ExamplePonderPlugin.getInstance().saveConfig();
+        MedievalRoleplayEngine.getInstance().saveConfig();
     }
 
     public void setConfigOption(String option, String value, CommandSender sender) {
@@ -62,7 +84,7 @@ public class LocalConfigService {
             }
 
             // save
-            ExamplePonderPlugin.getInstance().saveConfig();
+            MedievalRoleplayEngine.getInstance().saveConfig();
             altered = true;
         } else {
             sender.sendMessage(ChatColor.RED + "That config option wasn't found.");
@@ -80,7 +102,7 @@ public class LocalConfigService {
     }
 
     public FileConfiguration getConfig() {
-        return ExamplePonderPlugin.getInstance().getConfig();
+        return MedievalRoleplayEngine.getInstance().getConfig();
     }
 
     public boolean isSet(String option) {

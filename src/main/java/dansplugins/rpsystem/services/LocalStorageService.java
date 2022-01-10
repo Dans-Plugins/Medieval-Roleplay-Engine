@@ -9,6 +9,7 @@ import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
 import dansplugins.rpsystem.objects.deprecated.CharacterCard;
 import dansplugins.rpsystem.utils.Logger;
+import preponderous.ponder.minecraft.spigot.tools.UUIDChecker;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -38,7 +39,7 @@ public class LocalStorageService {
 
     public void save() {
         saveCharacters();
-        if (MedievalRoleplayEngine.getInstance().getPonderAPI().getConfigService().hasBeenAltered()) {
+        if (LocalConfigService.getInstance().hasBeenAltered()) {
             MedievalRoleplayEngine.getInstance().saveConfig();
         }
     }
@@ -88,7 +89,8 @@ public class LocalStorageService {
                 RPCharacter character = convertCardToCharacter(temp);
                 boolean success = PersistentData.getInstance().getCharacters().add(character);
                 if (!success) {
-                    Logger.getInstance().log("Character card for player " + MedievalRoleplayEngine.getInstance().getToolbox().getUUIDChecker().findPlayerNameBasedOnUUID(character.getPlayerUUID()) + " is already present. Not overwriting.");
+                    UUIDChecker uuidChecker = new UUIDChecker();
+                    Logger.getInstance().log("Character card for player " + uuidChecker.findPlayerNameBasedOnUUID(character.getPlayerUUID()) + " is already present. Not overwriting.");
                 }
             }
 

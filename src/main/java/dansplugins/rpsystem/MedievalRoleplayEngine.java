@@ -5,8 +5,9 @@ import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.eventhandlers.ChatHandler;
 import dansplugins.rpsystem.eventhandlers.InteractionHandler;
 import dansplugins.rpsystem.eventhandlers.JoinHandler;
-import dansplugins.rpsystem.services.LocalStorageService;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
+import dansplugins.rpsystem.services.LocalConfigService;
+import dansplugins.rpsystem.services.LocalStorageService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,7 +20,6 @@ import preponderous.ponder.minecraft.spigot.tools.EventHandlerRegistry;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * @author Daniel McCoy Stephenson
@@ -44,7 +44,6 @@ public class MedievalRoleplayEngine extends PonderPlugin {
         int pluginId = 8996;
         Metrics metrics = new Metrics(this, pluginId);
 
-        initializeConfigService();
         initializeConfigFile();
         registerEventHandlers();
         initializeCommandService();
@@ -99,39 +98,14 @@ public class MedievalRoleplayEngine extends PonderPlugin {
         }
     }
 
-    private void initializeConfigService() { // TODO: move these to the local config service class
-        HashMap<String, Object> configOptions = new HashMap<>();
-        configOptions.put("version", getVersion());
-        configOptions.put("debugMode", false);
-        configOptions.put("localChatRadius", 25);
-        configOptions.put("whisperChatRadius", 2);
-        configOptions.put("yellChatRadius", 50);
-        configOptions.put("emoteRadius", 25);
-        configOptions.put("changeNameCooldown", 300);
-        configOptions.put("localChatColor", "gray");
-        configOptions.put("whisperChatColor", "blue");
-        configOptions.put("yellChatColor", "red");
-        configOptions.put("emoteColor", "gray");
-        configOptions.put("rightClickToViewCard", true);
-        configOptions.put("localOOCChatRadius", 25);
-        configOptions.put("localOOCChatColor", "gray");
-        configOptions.put("positiveAlertColor", "green");
-        configOptions.put("neutralAlertColor", "aqua");
-        configOptions.put("negativeAlertColor", "red");
-        configOptions.put("chatFeaturesEnabled", true);
-        configOptions.put("legacyChat", false);
-        configOptions.put("preventSelfBirding", true);
-        getPonderAPI().getConfigService().initialize(configOptions);
-    }
-
     private void initializeConfigFile() {
         if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
-            getPonderAPI().getConfigService().saveMissingConfigDefaultsIfNotPresent();
+            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
         }
         else {
             // pre load compatibility checks
             if (isVersionMismatched()) {
-                getPonderAPI().getConfigService().saveMissingConfigDefaultsIfNotPresent();
+                LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
             }
             reloadConfig();
         }
