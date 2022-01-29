@@ -35,6 +35,7 @@ Name | Main Contributions
 Daniel Stephenson | Creator
 UndeadZeratul | Created a potential replacement for the /roll command
 Caibinus | Implemented PlaceholderAPI integration
+Deej | Fixed a null pointer error
 
 ## License
 GPL3
