@@ -35,7 +35,7 @@ public class InteractionHandler implements Listener {
             if (!EphemeralData.getInstance().getPlayersWithRightClickCooldown().contains(player.getUniqueId())) {
                 EphemeralData.getInstance().getPlayersWithRightClickCooldown().add(player.getUniqueId());
 
-                if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
+                if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default") || !player.hasMetadata("NPC")) {
                     Messenger.getInstance().sendCardInfoToPlayer(card, player);
 
                     int seconds = 2;
