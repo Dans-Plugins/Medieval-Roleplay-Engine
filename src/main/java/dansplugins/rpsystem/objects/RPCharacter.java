@@ -1,19 +1,21 @@
 package dansplugins.rpsystem.objects;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import dansplugins.factionsystem.utils.UUIDChecker;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import preponderous.ponder.misc.Cacheable;
-import preponderous.ponder.misc.Savable;
-
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+
+import preponderous.ponder.minecraft.bukkit.tools.UUIDChecker;
+import preponderous.ponder.misc.abs.Cacheable;
+import preponderous.ponder.misc.abs.Savable;
 
 /**
  * @author Daniel McCoy Stephenson

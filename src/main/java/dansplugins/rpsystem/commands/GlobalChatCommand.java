@@ -1,15 +1,16 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.data.EphemeralData;
-import dansplugins.rpsystem.services.LocalConfigService;
-import dansplugins.rpsystem.utils.ColorChecker;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.services.LocalConfigService;
+import dansplugins.rpsystem.utils.ColorChecker;
+import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 
 /**
  * @author Daniel McCoy Stephenson

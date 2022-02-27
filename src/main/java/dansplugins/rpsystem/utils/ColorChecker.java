@@ -1,7 +1,8 @@
 package dansplugins.rpsystem.utils;
 
-import dansplugins.rpsystem.services.LocalConfigService;
 import org.bukkit.ChatColor;
+
+import dansplugins.rpsystem.services.LocalConfigService;
 
 /**
  * @author Daniel McCoy Stephenson

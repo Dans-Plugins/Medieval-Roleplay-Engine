@@ -1,13 +1,14 @@
 package dansplugins.rpsystem.commands;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.bukkit.command.CommandSender;
+
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.services.LocalConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
-import org.bukkit.command.CommandSender;
-import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 
 /**
  * @author Daniel McCoy Stephenson

@@ -1,5 +1,15 @@
 package dansplugins.rpsystem.commands;
 
+import static org.bukkit.Bukkit.getServer;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.UUID;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import dansplugins.mailboxes.utils.UUIDChecker;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.EphemeralData;
@@ -7,17 +17,8 @@ import dansplugins.rpsystem.integrators.MailboxesIntegrator;
 import dansplugins.rpsystem.services.LocalConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.misc.ArgumentParser;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
-
-import static org.bukkit.Bukkit.getServer;
 
 /**
  * @author Daniel McCoy Stephenson

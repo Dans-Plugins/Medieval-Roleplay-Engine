@@ -1,17 +1,18 @@
 package dansplugins.rpsystem.commands;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
+import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.misc.ArgumentParser;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * @author Daniel McCoy Stephenson

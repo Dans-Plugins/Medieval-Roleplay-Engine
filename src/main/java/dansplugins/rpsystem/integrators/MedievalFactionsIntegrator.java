@@ -1,8 +1,9 @@
 package dansplugins.rpsystem.integrators;
 
+import org.bukkit.Bukkit;
+
 import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import org.bukkit.Bukkit;
 
 /**
  * @author Daniel McCoy Stephenson

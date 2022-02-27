@@ -1,17 +1,18 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.objects.RPCharacter;
-import dansplugins.rpsystem.services.LocalCharacterLookupService;
-import dansplugins.rpsystem.utils.ColorChecker;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
-import preponderous.ponder.minecraft.spigot.tools.UUIDChecker;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import dansplugins.fiefs.utils.UUIDChecker;
+import dansplugins.rpsystem.objects.RPCharacter;
+import dansplugins.rpsystem.services.LocalCharacterLookupService;
+import dansplugins.rpsystem.utils.ColorChecker;
+import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 
 /**
  * @author Daniel McCoy Stephenson

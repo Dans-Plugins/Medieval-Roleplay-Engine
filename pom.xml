@@ -16,59 +16,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.spigotmc</groupId>
-      <artifactId>spigot-api</artifactId>
-      <version>1.13.1-R0.1-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.bernardomg.tabletop</groupId>
-      <artifactId>dice</artifactId>
-      <version>2.0.4</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>me.clip</groupId>
-      <artifactId>placeholderapi</artifactId>
-      <version>LATEST</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>3.5.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>dansplugins</groupId>
-      <artifactId>Medieval-Factions</artifactId>
-      <version>v4.3</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/Medieval-Factions-v4.3.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>dansplugins</groupId>
-      <artifactId>Mailboxes</artifactId>
-      <version>v1.1-alpha-1</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/Mailboxes-v1.1-alpha-1.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>preponderous</groupId>
-      <artifactId>ponder</artifactId>
-      <version>v0.13</version>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -118,5 +65,60 @@
       <id>placeholderapi</id>
       <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
     </repository>
+      <repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
   </repositories>
+
+    <dependencies>
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.13.1-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.bernardomg.tabletop</groupId>
+      <artifactId>dice</artifactId>
+      <version>2.0.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>me.clip</groupId>
+      <artifactId>placeholderapi</artifactId>
+      <version>LATEST</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>3.5.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.Dans-Plugins</groupId>
+      <artifactId>Medieval-Factions</artifactId>
+      <version>4.6.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.Dans-Plugins</groupId>
+      <artifactId>Mailboxes</artifactId>
+      <version>1.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.github.Preponderous-Software</groupId>
+        <artifactId>ponder</artifactId>
+        <version>1.0</version>
+        <scope>compile</scope>
+    </dependency>
+  </dependencies>
 </project>
