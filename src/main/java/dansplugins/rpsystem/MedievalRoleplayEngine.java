@@ -1,91 +1,148 @@
 package dansplugins.rpsystem;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.event.Listener;
+
 import dansplugins.rpsystem.bstats.Metrics;
-import dansplugins.rpsystem.commands.*;
+import dansplugins.rpsystem.commands.BirdCommand;
+import dansplugins.rpsystem.commands.CardCommand;
+import dansplugins.rpsystem.commands.CharCommand;
+import dansplugins.rpsystem.commands.ConfigCommand;
+import dansplugins.rpsystem.commands.DefaultCommand;
+import dansplugins.rpsystem.commands.EmoteCommand;
+import dansplugins.rpsystem.commands.ForceCommand;
+import dansplugins.rpsystem.commands.GlobalChatCommand;
+import dansplugins.rpsystem.commands.HelpCommand;
+import dansplugins.rpsystem.commands.LocalChatCommand;
+import dansplugins.rpsystem.commands.LocalOOCChatCommand;
+import dansplugins.rpsystem.commands.RollCommand;
+import dansplugins.rpsystem.commands.SetCommand;
+import dansplugins.rpsystem.commands.StatsCommand;
+import dansplugins.rpsystem.commands.TitleCommand;
+import dansplugins.rpsystem.commands.UnsetCommand;
+import dansplugins.rpsystem.commands.WhisperCommand;
+import dansplugins.rpsystem.commands.YellCommand;
 import dansplugins.rpsystem.eventhandlers.ChatHandler;
 import dansplugins.rpsystem.eventhandlers.InteractionHandler;
 import dansplugins.rpsystem.eventhandlers.JoinHandler;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import dansplugins.rpsystem.services.LocalConfigService;
 import dansplugins.rpsystem.services.LocalStorageService;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.event.Listener;
-import preponderous.ponder.minecraft.abs.AbstractPluginCommand;
-import preponderous.ponder.minecraft.abs.PonderPlugin;
-import preponderous.ponder.minecraft.spigot.misc.PonderAPI_Integrator;
-import preponderous.ponder.minecraft.spigot.tools.EventHandlerRegistry;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
+import preponderous.ponder.minecraft.bukkit.PonderMC;
+import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
+import preponderous.ponder.minecraft.bukkit.abs.PonderBukkitPlugin;
+import preponderous.ponder.minecraft.bukkit.services.CommandService;
+import preponderous.ponder.minecraft.bukkit.tools.EventHandlerRegistry;
 
 /**
  * @author Daniel McCoy Stephenson
  */
-public class MedievalRoleplayEngine extends PonderPlugin {
+public class MedievalRoleplayEngine extends PonderBukkitPlugin {
     private static MedievalRoleplayEngine instance;
-    private final String version = "v2.0-alpha-10";
+    private final String pluginVersion = "v" + getDescription().getVersion();
+    private final CommandService commandService = new CommandService((PonderMC) getPonder());
     private boolean versionMismatchOccurred;
     private String oldVersion = null;
 
+    /**
+     * This can be used to get the instance of the main class that is managed by itself.
+     * @return The managed instance of the main class.
+     */
     public static MedievalRoleplayEngine getInstance() {
         return instance;
     }
 
+    /**
+     * This runs when the server starts.
+     */
     @Override
     public void onEnable() {
         instance = this;
-        ponderAPI_integrator = new PonderAPI_Integrator(this);
-
         setVersionMismatchOccurred();
-
-        int pluginId = 8996;
-        Metrics metrics = new Metrics(this, pluginId);
-
-        initializeConfigFile();
+        handlebStatsIntegration();
+        initializeConfig();
         registerEventHandlers();
         initializeCommandService();
-        getPonderAPI().setDebug(false);
-
         LocalStorageService.getInstance().load();
-
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new PlaceholderAPI().register();
-        } else {
-            if (isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
-        }
+        handlePlaceholderIntegration();
     }
 
+    /**
+     * This runs when the server stops.
+     */
     @Override
     public void onDisable() {
         LocalStorageService.getInstance().save();
     }
 
+    /**
+     * This method handles commands sent to the minecraft server and interprets them if the label matches one of the core commands.
+     * @param sender The sender of the command.
+     * @param cmd The command that was sent. This is unused.
+     * @param label The core command that has been invoked.
+     * @param args Arguments of the core command. Often sub-commands.
+     * @return A boolean indicating whether the execution of the command was successful.
+     */
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
             DefaultCommand defaultCommand = new DefaultCommand();
             return defaultCommand.execute(sender);
         }
 
-        return getPonderAPI().getCommandService().interpretCommand(sender, label, args);
+        return commandService.interpretAndExecuteCommand(sender, label, args);
     }
 
-    public boolean isDebugEnabled() {
-        return getConfig().getBoolean("debugMode");
-    }
-
+    /**
+     * This can be used to get the version of the plugin.
+     * @return A string containing the version preceded by 'v'
+     */
     public String getVersion() {
-        return version;
+        return pluginVersion;
     }
 
+    /**
+     * Checks if the version is mismatched.
+     * @return A boolean indicating if the version is mismatched.
+     */
     public boolean isVersionMismatched() {
-        return versionMismatchOccurred;
+        String configVersion = this.getConfig().getString("version");
+        if (configVersion == null || this.getVersion() == null) {
+            return false;
+        } else {
+            return !configVersion.equalsIgnoreCase(this.getVersion());
+        }
+    }
+
+    /**
+     * Checks if debug is enabled.
+     * @return Whether debug is enabled.
+     */
+    public boolean isDebugEnabled() {
+        return LocalConfigService.getInstance().getBoolean("debugMode");
     }
 
     public String getOldVersion() {
         return oldVersion;
+    }
+
+    private void handlebStatsIntegration() {
+        int pluginId = 8996;
+        new Metrics(this, pluginId);
+    }
+
+    private void handlePlaceholderIntegration() {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PlaceholderAPI().register();
+        } else {
+            if (isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
+        }
     }
 
     private void setVersionMismatchOccurred() {
@@ -98,25 +155,32 @@ public class MedievalRoleplayEngine extends PonderPlugin {
         }
     }
 
-    private void initializeConfigFile() {
-        if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
-            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+    private void initializeConfig() {
+        if (configFileExists()) {
+            performCompatibilityChecks();
         }
         else {
-            // pre load compatibility checks
-            if (isVersionMismatched()) {
-                LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
-            }
-            reloadConfig();
+            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
         }
     }
 
+    private boolean configFileExists() {
+        return new File("./plugins/" + getName() + "/config.yml").exists();
+    }
+
+    private void performCompatibilityChecks() {
+        if (isVersionMismatched()) {
+            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+        }
+        reloadConfig();
+    }
+
     private void registerEventHandlers() {
+        EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry();
         ArrayList<Listener> listeners = new ArrayList<>();
         listeners.add(new ChatHandler());
         listeners.add(new InteractionHandler());
         listeners.add(new JoinHandler());
-        EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry(getPonderAPI());
         eventHandlerRegistry.registerEventHandlers(listeners, this);
     }
 
@@ -129,6 +193,6 @@ public class MedievalRoleplayEngine extends PonderPlugin {
                 new StatsCommand(), new TitleCommand(), new UnsetCommand(),
                 new WhisperCommand(), new YellCommand()
         ));
-        getPonderAPI().getCommandService().initialize(commands, "That command wasn't found.");
+        commandService.initialize(commands, "That command wasn't found.");
     }
 }

@@ -1,9 +1,9 @@
 package dansplugins.rpsystem.data;
 
-import dansplugins.rpsystem.objects.RPCharacter;
-
 import java.util.HashSet;
 import java.util.UUID;
+
+import dansplugins.rpsystem.objects.RPCharacter;
 
 /**
  * @author Daniel McCoy Stephenson

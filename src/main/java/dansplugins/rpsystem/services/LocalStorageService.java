@@ -1,20 +1,32 @@
 package dansplugins.rpsystem.services;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
 import dansplugins.rpsystem.objects.deprecated.CharacterCard;
 import dansplugins.rpsystem.utils.Logger;
-import preponderous.ponder.minecraft.spigot.tools.UUIDChecker;
-
-import java.io.*;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import preponderous.ponder.minecraft.bukkit.tools.UUIDChecker;
 
 /**
  * @author Daniel McCoy Stephenson

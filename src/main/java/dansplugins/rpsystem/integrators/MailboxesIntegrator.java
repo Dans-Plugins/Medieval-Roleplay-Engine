@@ -1,8 +1,9 @@
 package dansplugins.rpsystem.integrators;
 
+import org.bukkit.Bukkit;
+
 import dansplugins.mailboxes.externalapi.MailboxesAPI;
 import dansplugins.rpsystem.utils.Logger;
-import org.bukkit.Bukkit;
 
 /**
  * @author Daniel McCoy Stephenson

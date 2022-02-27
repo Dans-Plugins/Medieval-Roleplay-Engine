@@ -1,14 +1,15 @@
 package dansplugins.rpsystem.eventhandlers;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.objects.RPCharacter;
-import dansplugins.rpsystem.utils.Messenger;
-import dansplugins.rpsystem.data.EphemeralData;
-import dansplugins.rpsystem.data.PersistentData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+
+import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.objects.RPCharacter;
+import dansplugins.rpsystem.utils.Messenger;
 
 /**
  * @author Daniel McCoy Stephenson
