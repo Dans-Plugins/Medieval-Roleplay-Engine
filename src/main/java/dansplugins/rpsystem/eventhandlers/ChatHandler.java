@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.eventhandlers;
 
+import dansplugins.exceptions.MedievalFactionsNotFoundException;
 import dansplugins.factionsystem.externalapi.MF_Faction;
 import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
@@ -8,6 +9,10 @@ import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.managers.ConfigManager;
 import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.Logger;
+
+import java.util.IllegalFormatException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -25,10 +30,14 @@ public class ChatHandler implements Listener {
 
         int localChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius");
 
-        if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()) {
-            if (MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(event.getPlayer())) {
-                return;
+        try {
+            if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()) {
+                if (MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(event.getPlayer())) {
+                    return;
+                }
             }
+        } catch (MedievalFactionsNotFoundException e) {
+            // fail silently
         }
 
         String localChatColorString = MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor");
@@ -88,25 +97,36 @@ public class ChatHandler implements Listener {
 
                     // we are good to send the message
 
-                    if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()
-                            && MedievalFactionsIntegrator.getInstance().getAPI().isPrefixesFeatureEnabled()
-                            && MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer()) != null) {
+                    try {
+                        if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()
+                                && MedievalFactionsIntegrator.getInstance().getAPI().isPrefixesFeatureEnabled()
+                                && MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer()) != null) {
 
-                        if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message with prefix from Medieval Factions"); }
+                            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message with prefix from Medieval Factions"); }
 
-                        MF_Faction playersFaction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer());
+                            MF_Faction playersFaction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer());
 
-                        // prefix format
-                        String prefix = playersFaction.getPrefix();
-                        String prefixColor = (String) playersFaction.getFlag("prefixColor");
-                        event.setFormat(ColorChecker.getInstance().getColorByName(prefixColor) + "" + "[" + prefix + "]" + "" + ChatColor.WHITE + "" + " <%s> %s");
+                            // prefix format
+                            String prefix = playersFaction.getPrefix();
+                            String prefixColor = (String) playersFaction.getFlag("prefixColor");
+                            event.setFormat(ColorChecker.getInstance().getColorByName(prefixColor) + "" + "[" + prefix + "]" + "" + ChatColor.WHITE + "" + " <%s> %s");
 
-                        // send message
-                        onlinePlayer.sendMessage(ColorChecker.getInstance().getColorByName(prefixColor) + "" + "[" + prefix + "] " + ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + ChatColor.WHITE + event.getMessage());
+                            // send message
+                            onlinePlayer.sendMessage(ColorChecker.getInstance().getColorByName(prefixColor) + "" + "[" + prefix + "] " + ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + ChatColor.WHITE + event.getMessage());
 
-                    }
-                    else {
+                        }
+                        else {
 
+                            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message with regular format"); }
+
+                            // regular format
+                            event.setFormat(ChatColor.WHITE + "" + " <%s> %s");
+
+                            // send message
+                            onlinePlayer.sendMessage(ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + event.getMessage());
+
+                        }
+                    } catch (IllegalFormatException | NullPointerException | MedievalFactionsNotFoundException e) {
                         if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message with regular format"); }
 
                         // regular format
@@ -114,7 +134,6 @@ public class ChatHandler implements Listener {
 
                         // send message
                         onlinePlayer.sendMessage(ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + event.getMessage());
-
                     }
 
                 }

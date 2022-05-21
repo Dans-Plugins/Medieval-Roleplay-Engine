@@ -1,5 +1,6 @@
 package dansplugins.rpsystem;
 
+import dansplugins.exceptions.MedievalFactionsNotFoundException;
 import dansplugins.factionsystem.externalapi.MF_Faction;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
@@ -113,16 +114,20 @@ public class Messenger {
         player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Age: " + card.getAge());
         player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Gender: " + card.getGender());
         player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Religion: " + card.getReligion());
-        if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()) {
-            MF_Faction faction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(card.getPlayerUUID());
-            int power = MedievalFactionsIntegrator.getInstance().getAPI().getPower(card.getPlayerUUID());
-            if (faction != null) {
-                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: " + faction.getName());
+        try {
+            if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()) {
+                MF_Faction faction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(card.getPlayerUUID());
+                double power = MedievalFactionsIntegrator.getInstance().getAPI().getPower(card.getPlayerUUID());
+                if (faction != null) {
+                    player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: " + faction.getName());
+                }
+                else {
+                    player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: N/A");
+                }
+                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Power: " + power);
             }
-            else {
-                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: N/A");
-            }
-            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Power: " + power);
+        } catch (MedievalFactionsNotFoundException e) {
+            // fail silently
         }
     }
 }

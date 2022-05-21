@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.integrators;
 
+import dansplugins.exceptions.MedievalFactionsNotFoundException;
 import dansplugins.factionsystem.externalapi.MedievalFactionsAPI;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import org.bukkit.Bukkit;
@@ -10,17 +11,22 @@ public class MedievalFactionsIntegrator {
 
     private MedievalFactionsAPI mf_api = null;
 
-    private MedievalFactionsIntegrator() {
-        if (isMedievalFactionsPresent()) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was found successfully!"); }
-            mf_api = new MedievalFactionsAPI();
+    private MedievalFactionsIntegrator() throws MedievalFactionsNotFoundException {
+        try {
+            if (isMedievalFactionsPresent()) {
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was found successfully!"); }
+                mf_api = new MedievalFactionsAPI();
+            }
+            else {
+                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was not found!"); }
+            }
         }
-        else {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was not found!"); }
+        catch(Exception e) {
+            throw new MedievalFactionsNotFoundException();
         }
     }
 
-    public static MedievalFactionsIntegrator getInstance() {
+    public static MedievalFactionsIntegrator getInstance() throws MedievalFactionsNotFoundException {
         if (instance == null) {
             instance = new MedievalFactionsIntegrator();
         }
@@ -31,7 +37,10 @@ public class MedievalFactionsIntegrator {
         return (Bukkit.getServer().getPluginManager().getPlugin("MedievalFactions") != null);
     }
 
-    public MedievalFactionsAPI getAPI() {
+    public MedievalFactionsAPI getAPI() throws MedievalFactionsNotFoundException {
+        if (mf_api == null) {
+            throw new MedievalFactionsNotFoundException();
+        }
         return mf_api;
     }
 
