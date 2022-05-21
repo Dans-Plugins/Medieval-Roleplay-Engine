@@ -126,7 +126,7 @@ public class Messenger {
                 }
                 player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Power: " + power);
             }
-        } catch (MedievalFactionsNotFoundException e) {
+        } catch (NullPointerException | MedievalFactionsNotFoundException e) {
             // fail silently
         }
     }
