@@ -1,5 +1,5 @@
 name: MedievalRoleplayEngine
-version: "1.10-beta-1"
+version: '${project.version}'
 author: DanTheTechMan
 main: dansplugins.rpsystem.MedievalRoleplayEngine
 api-version: "1.13"

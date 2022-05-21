@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.commands;
 
 import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
+import dansplugins.exceptions.MedievalFactionsNotFoundException;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
@@ -41,18 +42,26 @@ public class LocalChatCommand {
     private void addPlayerToLocalChat(Player player) {
         if (!EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(player.getUniqueId())) {
             EphemeralData.getInstance().getPlayersSpeakingInLocalChat().add(player.getUniqueId());
-            if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent() && MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(player)) {
-                player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You are now in local chat, but you won't send messages to local chat until you leave faction chat.");
-            }
-            else {
+            try {
+                if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent() && MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(player)) {
+                    player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You are now in local chat, but you won't send messages to local chat until you leave faction chat.");
+                }
+                else {
+                    player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You are now talking in local chat.");
+                }
+            } catch (MedievalFactionsNotFoundException e) {
                 player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You are now talking in local chat.");
             }
         }
         else {
-            if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent() && MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(player)) {
-                player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You're already now in local chat, but you won't send messages to local chat until you leave faction chat.");
-            }
-            else {
+            try {
+                if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent() && MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(player)) {
+                    player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You're already now in local chat, but you won't send messages to local chat until you leave faction chat.");
+                }
+                else {
+                    player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You're already now in local chat.");
+                }
+            } catch (MedievalFactionsNotFoundException e) {
                 player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "You're already now in local chat.");
             }
         }
