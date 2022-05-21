@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.commands;
 
+import dansplugins.exceptions.MailboxesNotFoundException;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.Messenger;
 import dansplugins.rpsystem.data.EphemeralData;
@@ -79,21 +80,26 @@ public class BirdCommand {
     }
 
     boolean attemptToSendMessageToPlayersMailbox(String targetName, Player sender, String message) {
-        if (MailboxesIntegrator.getInstance().isMailboxesPresent()) {
-            UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(targetName);
-            if (targetUUID != null) {
-                String messageToSend = "While you were offline, a bird dropped off a message for you. It was sent by " + sender.getName() + ". It reads:\n\n'" + message + "'";
+        try {
+            if (MailboxesIntegrator.getInstance().isMailboxesPresent()) {
+                UUID targetUUID = UUIDChecker.getInstance().findUUIDBasedOnPlayerName(targetName);
+                if (targetUUID != null) {
+                    String messageToSend = "While you were offline, a bird dropped off a message for you. It was sent by " + sender.getName() + ". It reads:\n\n'" + message + "'";
 
-                boolean success = MailboxesIntegrator.getInstance().getAPI().sendPluginMessageToPlayer(MedievalRoleplayEngine.getInstance().getName(), targetUUID, messageToSend);
-                if (success) {
-                    sender.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "The bird flies off with your message. Since this player is offline, this message will go to their mailbox.");
-                    return true;
-                }
-                else {
-                    sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Your bird wasn't able to find this player's mailbox.");
-                    return false;
+                    boolean success = MailboxesIntegrator.getInstance().getAPI().sendPluginMessageToPlayer(MedievalRoleplayEngine.getInstance().getName(), targetUUID, messageToSend);
+                    if (success) {
+                        sender.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "The bird flies off with your message. Since this player is offline, this message will go to their mailbox.");
+                        return true;
+                    }
+                    else {
+                        sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Your bird wasn't able to find this player's mailbox.");
+                        return false;
+                    }
                 }
             }
+        } catch (MailboxesNotFoundException e) {
+            sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Your bird wasn't able to find this player's mailbox.");
+            return false;
         }
         return false;
     }
