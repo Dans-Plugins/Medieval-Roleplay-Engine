@@ -9,20 +9,8 @@ import dansplugins.rpsystem.objects.RPCharacter;
  * @author Daniel McCoy Stephenson
  */
 public class PersistentData {
-    private static PersistentData instance;
 
     private HashSet<RPCharacter> characters = new HashSet<>();
-
-    private PersistentData() {
-
-    }
-
-    public static PersistentData getInstance() {
-        if (instance == null) {
-            instance = new PersistentData();
-        }
-        return instance;
-    }
 
     public HashSet<RPCharacter> getCharacters() {
         return characters;
@@ -33,7 +21,7 @@ public class PersistentData {
     }
 
     public RPCharacter getCharacter(UUID uuid) {
-        for (RPCharacter character : PersistentData.getInstance().getCharacters()) {
+        for (RPCharacter character : getCharacters()) {
             if (character.getPlayerUUID().equals(uuid)) {
                 return character;
             }
@@ -42,7 +30,7 @@ public class PersistentData {
     }
 
     public boolean hasCharacter(UUID uuid) {
-        for (RPCharacter card : PersistentData.getInstance().getCharacters()) {
+        for (RPCharacter card : getCharacters()) {
             if (card.getPlayerUUID().equals(uuid)) {
                 return true;
             }

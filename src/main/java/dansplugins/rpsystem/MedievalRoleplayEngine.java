@@ -4,6 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.integrators.MailboxesIntegrator;
+import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
+import dansplugins.rpsystem.services.CharacterLookupService;
+import dansplugins.rpsystem.services.ConfigService;
+import dansplugins.rpsystem.services.StorageService;
+import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.Logger;
+import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -32,8 +42,6 @@ import dansplugins.rpsystem.eventhandlers.ChatHandler;
 import dansplugins.rpsystem.eventhandlers.InteractionHandler;
 import dansplugins.rpsystem.eventhandlers.JoinHandler;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
-import dansplugins.rpsystem.services.LocalConfigService;
-import dansplugins.rpsystem.services.LocalStorageService;
 import preponderous.ponder.minecraft.bukkit.PonderMC;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.minecraft.bukkit.abs.PonderBukkitPlugin;
@@ -44,32 +52,34 @@ import preponderous.ponder.minecraft.bukkit.tools.EventHandlerRegistry;
  * @author Daniel McCoy Stephenson
  */
 public class MedievalRoleplayEngine extends PonderBukkitPlugin {
-    private static MedievalRoleplayEngine instance;
     private final String pluginVersion = "v" + getDescription().getVersion();
+
     private final CommandService commandService = new CommandService((PonderMC) getPonder());
+    private final ConfigService configService = new ConfigService(this);
+    private final Logger logger = new Logger(this);
+    private final PersistentData persistentData = new PersistentData();
+    private final EphemeralData ephemeralData = new EphemeralData();
+    private final ColorChecker colorChecker = new ColorChecker(configService);
+    private final Messenger messenger = new Messenger(ephemeralData);
+    private final CharacterLookupService characterLookupService = new CharacterLookupService(logger, persistentData);
+    private final StorageService storageService = new StorageService(configService, this, logger, persistentData);
+    private final MailboxesIntegrator mailboxesIntegrator = new MailboxesIntegrator(logger);
+    private final MedievalFactionsIntegrator medievalFactionsIntegrator = new MedievalFactionsIntegrator(this);
+
     private boolean versionMismatchOccurred;
     private String oldVersion = null;
-
-    /**
-     * This can be used to get the instance of the main class that is managed by itself.
-     * @return The managed instance of the main class.
-     */
-    public static MedievalRoleplayEngine getInstance() {
-        return instance;
-    }
 
     /**
      * This runs when the server starts.
      */
     @Override
     public void onEnable() {
-        instance = this;
         setVersionMismatchOccurred();
         handlebStatsIntegration();
         initializeConfig();
         registerEventHandlers();
         initializeCommandService();
-        LocalStorageService.getInstance().load();
+        storageService.load();
         handlePlaceholderIntegration();
     }
 
@@ -78,7 +88,7 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
      */
     @Override
     public void onDisable() {
-        LocalStorageService.getInstance().save();
+        storageService.save();
     }
 
     /**
@@ -92,7 +102,7 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            DefaultCommand defaultCommand = new DefaultCommand();
+            DefaultCommand defaultCommand = new DefaultCommand(this);
             return defaultCommand.execute(sender);
         }
 
@@ -125,7 +135,7 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
      * @return Whether debug is enabled.
      */
     public boolean isDebugEnabled() {
-        return LocalConfigService.getInstance().getBoolean("debugMode");
+        return configService.getBoolean("debugMode");
     }
 
     public String getOldVersion() {
@@ -139,7 +149,7 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
 
     private void handlePlaceholderIntegration() {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new PlaceholderAPI().register();
+            new PlaceholderAPI(this).register();
         } else {
             if (isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
         }
@@ -160,7 +170,7 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
             performCompatibilityChecks();
         }
         else {
-            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+            configService.saveMissingConfigDefaultsIfNotPresent();
         }
     }
 
@@ -170,7 +180,7 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
 
     private void performCompatibilityChecks() {
         if (isVersionMismatched()) {
-            LocalConfigService.getInstance().saveMissingConfigDefaultsIfNotPresent();
+            configService.saveMissingConfigDefaultsIfNotPresent();
         }
         reloadConfig();
     }
@@ -178,20 +188,20 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
     private void registerEventHandlers() {
         EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry();
         ArrayList<Listener> listeners = new ArrayList<>();
-        listeners.add(new ChatHandler());
-        listeners.add(new InteractionHandler());
-        listeners.add(new JoinHandler());
+        listeners.add(new ChatHandler(configService, this, ephemeralData, colorChecker, persistentData, messenger, medievalFactionsIntegrator));
+        listeners.add(new InteractionHandler(persistentData, this, ephemeralData, messenger));
+        listeners.add(new JoinHandler(persistentData));
         eventHandlerRegistry.registerEventHandlers(listeners, this);
     }
 
     private void initializeCommandService() {
         ArrayList<AbstractPluginCommand> commands = new ArrayList<>(Arrays.asList(
-                new BirdCommand(), new CardCommand(), new CharCommand(),
-                new ConfigCommand(), new EmoteCommand(), new ForceCommand(),
-                new GlobalChatCommand(), new HelpCommand(), new LocalChatCommand(),
-                new LocalOOCChatCommand(), new RollCommand(), new SetCommand(),
-                new StatsCommand(), new TitleCommand(), new UnsetCommand(),
-                new WhisperCommand(), new YellCommand()
+                new BirdCommand(colorChecker, ephemeralData, configService, this, messenger, mailboxesIntegrator), new CardCommand(characterLookupService, colorChecker), new CharCommand(),
+                new ConfigCommand(colorChecker, configService), new EmoteCommand(this, colorChecker, persistentData, messenger), new ForceCommand(),
+                new GlobalChatCommand(configService, ephemeralData, colorChecker), new HelpCommand(colorChecker, this, configService), new LocalChatCommand(ephemeralData, colorChecker, medievalFactionsIntegrator),
+                new LocalOOCChatCommand(colorChecker, this, persistentData, messenger, ephemeralData), new RollCommand(messenger, colorChecker), new SetCommand(characterLookupService, colorChecker),
+                new StatsCommand(persistentData, ephemeralData), new TitleCommand(colorChecker), new UnsetCommand(characterLookupService, colorChecker),
+                new WhisperCommand(colorChecker, this, persistentData, messenger), new YellCommand(colorChecker, this, persistentData, messenger)
         ));
         commandService.initialize(commands, "That command wasn't found.");
     }

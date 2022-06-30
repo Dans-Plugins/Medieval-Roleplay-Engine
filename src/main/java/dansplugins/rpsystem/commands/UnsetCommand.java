@@ -2,14 +2,15 @@ package dansplugins.rpsystem.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import dansplugins.rpsystem.objects.RPCharacter;
-import dansplugins.rpsystem.services.LocalCharacterLookupService;
-import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.services.CharacterLookupService;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.misc.ArgumentParser;
 
@@ -17,9 +18,13 @@ import preponderous.ponder.misc.ArgumentParser;
  * @author Daniel McCoy Stephenson
  */
 public class UnsetCommand extends AbstractPluginCommand {
+    private final CharacterLookupService characterLookupService;
+    private final ColorChecker colorChecker;
 
-    public UnsetCommand() {
+    public UnsetCommand(CharacterLookupService characterLookupService, ColorChecker colorChecker) {
         super(new ArrayList<>(Arrays.asList("unset")), new ArrayList<>(Arrays.asList("rp.unset")));
+        this.characterLookupService = characterLookupService;
+        this.colorChecker = colorChecker;
     }
 
     @Override
@@ -36,14 +41,14 @@ public class UnsetCommand extends AbstractPluginCommand {
         }
         Player player = (Player) commandSender;
 
-        RPCharacter character = LocalCharacterLookupService.getInstance().lookup(player.getUniqueId());
+        RPCharacter character = characterLookupService.lookup(player.getUniqueId());
         if (character == null) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You don't have a character.");
+            player.sendMessage(colorChecker.getNegativeAlertColor() + "You don't have a character.");
             return false;
         }
 
         ArgumentParser argumentParser = new ArgumentParser();
-        ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
+        List<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
         if (doubleQuoteArgs.size() < 1) {
             player.sendMessage(ChatColor.RED + "Key must be designated within double quotes.");

@@ -1,27 +1,38 @@
 package dansplugins.rpsystem.eventhandlers;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
-import dansplugins.rpsystem.utils.Messenger;
 
 /**
  * @author Daniel McCoy Stephenson
  */
 public class InteractionHandler implements Listener {
+    private final PersistentData persistentData;
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
+    private final EphemeralData ephemeralData;
+    private final Messenger messenger;
+
+    public InteractionHandler(PersistentData persistentData, MedievalRoleplayEngine medievalRoleplayEngine, EphemeralData ephemeralData, Messenger messenger) {
+        this.persistentData = persistentData;
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
+        this.ephemeralData = ephemeralData;
+        this.messenger = messenger;
+    }
 
     @EventHandler()
     public void handle(PlayerInteractAtEntityEvent event) {
         if (event.getRightClicked() instanceof Player) {
 
             Player target = (Player) event.getRightClicked();
-            RPCharacter card = PersistentData.getInstance().getCharacter(target.getUniqueId());
+            RPCharacter card = persistentData.getCharacter(target.getUniqueId());
 
             Player player = event.getPlayer();
 
@@ -29,21 +40,21 @@ public class InteractionHandler implements Listener {
                 return;
             }
 
-            if (!MedievalRoleplayEngine.getInstance().getConfig().getBoolean("rightClickToViewCard")) {
+            if (!medievalRoleplayEngine.getConfig().getBoolean("rightClickToViewCard")) {
                 return;
             }
 
-            if (!EphemeralData.getInstance().getPlayersWithRightClickCooldown().contains(player.getUniqueId())) {
-                EphemeralData.getInstance().getPlayersWithRightClickCooldown().add(player.getUniqueId());
+            if (!ephemeralData.getPlayersWithRightClickCooldown().contains(player.getUniqueId())) {
+                ephemeralData.getPlayersWithRightClickCooldown().add(player.getUniqueId());
 
                 if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default") || !player.hasMetadata("NPC")) {
-                    Messenger.getInstance().sendCardInfoToPlayer(card, player);
+                    messenger.sendCardInfoToPlayer(card, player);
 
                     int seconds = 2;
-                    MedievalRoleplayEngine.getInstance().getServer().getScheduler().runTaskLater(MedievalRoleplayEngine.getInstance(), new Runnable() {
+                    medievalRoleplayEngine.getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
                         @Override
                         public void run() {
-                            EphemeralData.getInstance().getPlayersWithRightClickCooldown().remove(player.getUniqueId());
+                            ephemeralData.getPlayersWithRightClickCooldown().remove(player.getUniqueId());
 
                         }
                     }, seconds * 20);

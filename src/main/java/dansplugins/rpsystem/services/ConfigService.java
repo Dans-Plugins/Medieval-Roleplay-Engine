@@ -34,34 +34,28 @@ import org.bukkit.configuration.file.FileConfiguration;
  *         configOptions.put("legacyChat", false);
  *         configOptions.put("preventSelfBirding", true);
  */
-public class LocalConfigService {
-    private static LocalConfigService instance;
+public class ConfigService {
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
+
     private boolean altered = false;
 
-    private LocalConfigService() {
-        
-    }
-
-    public static LocalConfigService getInstance() {
-        if (instance == null) {
-            instance = new LocalConfigService();
-        }
-        return instance;
+    public ConfigService(MedievalRoleplayEngine medievalRoleplayEngine) {
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
     }
 
     public void saveMissingConfigDefaultsIfNotPresent() {
         // set version
         if (!getConfig().isString("version")) {
-            getConfig().addDefault("version", MedievalRoleplayEngine.getInstance().getVersion());
+            getConfig().addDefault("version", medievalRoleplayEngine.getVersion());
         } else {
-            getConfig().set("version", MedievalRoleplayEngine.getInstance().getVersion());
+            getConfig().set("version", medievalRoleplayEngine.getVersion());
         }
 
         // save config options
         if (!isSet("debugMode")) { getConfig().set("debugMode", false); }
 
         getConfig().options().copyDefaults(true);
-        MedievalRoleplayEngine.getInstance().saveConfig();
+        medievalRoleplayEngine.saveConfig();
     }
 
     public void setConfigOption(String option, String value, CommandSender sender) {
@@ -84,7 +78,7 @@ public class LocalConfigService {
             }
 
             // save
-            MedievalRoleplayEngine.getInstance().saveConfig();
+            medievalRoleplayEngine.saveConfig();
             altered = true;
         } else {
             sender.sendMessage(ChatColor.RED + "That config option wasn't found.");
@@ -102,7 +96,7 @@ public class LocalConfigService {
     }
 
     public FileConfiguration getConfig() {
-        return MedievalRoleplayEngine.getInstance().getConfig();
+        return medievalRoleplayEngine.getConfig();
     }
 
     public boolean isSet(String option) {

@@ -13,14 +13,16 @@ import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
  * @author Daniel McCoy Stephenson
  */
 public class DefaultCommand extends AbstractPluginCommand {
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
 
-    public DefaultCommand() {
+    public DefaultCommand(MedievalRoleplayEngine medievalRoleplayEngine) {
         super(new ArrayList<>(Arrays.asList("default")), new ArrayList<>(Arrays.asList("rp.default")));
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
     }
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        commandSender.sendMessage(ChatColor.AQUA + "MedievalRoleplayEngine " + MedievalRoleplayEngine.getInstance().getVersion());
+        commandSender.sendMessage(ChatColor.AQUA + "MedievalRoleplayEngine " + medievalRoleplayEngine.getVersion());
         commandSender.sendMessage(ChatColor.AQUA + "Developed by: Daniel Stephenson");
         commandSender.sendMessage(ChatColor.AQUA + "Wiki: https://github.com/dmccoystephenson/MedievalRoleplayEngine/wiki");
         commandSender.sendMessage("---");

@@ -2,15 +2,16 @@ package dansplugins.rpsystem.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.utils.ColorChecker;
-import dansplugins.rpsystem.utils.Messenger;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.misc.ArgumentParser;
 
@@ -18,9 +19,17 @@ import preponderous.ponder.misc.ArgumentParser;
  * @author Daniel McCoy Stephenson
  */
 public class EmoteCommand extends AbstractPluginCommand {
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
+    private final ColorChecker colorChecker;
+    private final PersistentData persistentData;
+    private final Messenger messenger;
 
-    public EmoteCommand() {
+    public EmoteCommand(MedievalRoleplayEngine medievalRoleplayEngine, ColorChecker colorChecker, PersistentData persistentData, Messenger messenger) {
         super(new ArrayList<>(Arrays.asList("emote")), new ArrayList<>(Arrays.asList("rp.emote")));
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
+        this.colorChecker = colorChecker;
+        this.persistentData = persistentData;
+        this.messenger = messenger;
     }
 
     @Override
@@ -31,8 +40,8 @@ public class EmoteCommand extends AbstractPluginCommand {
 
     public boolean execute(CommandSender sender, String[] args) {
 
-        int emoteRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("emoteRadius");
-        String emoteColor = MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor");
+        int emoteRadius = medievalRoleplayEngine.getConfig().getInt("emoteRadius");
+        String emoteColor = medievalRoleplayEngine.getConfig().getString("emoteColor");
 
         if (!(sender instanceof Player)) {
             return false;
@@ -44,18 +53,18 @@ public class EmoteCommand extends AbstractPluginCommand {
         }
 
         ArgumentParser argumentParser = new ArgumentParser();
-        ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
+        List<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
         if (doubleQuoteArgs.size() == 0) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
+            player.sendMessage(colorChecker.getNegativeAlertColor() + "Message must be designated between double quotes.");
             return false;
         }
 
         String message = doubleQuoteArgs.get(0);
 
-        String characterName = PersistentData.getInstance().getCharacter(player.getUniqueId()).getInfo("name");
+        String characterName = persistentData.getCharacter(player.getUniqueId()).getInfo("name");
 
-        Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
+        messenger.sendRPMessageToPlayersWithinDistance(player, colorChecker.getColorByName(emoteColor) + "" + ChatColor.ITALIC + characterName + " " + message, emoteRadius);
         return true;
     }
 }

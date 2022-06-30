@@ -2,6 +2,7 @@ package dansplugins.rpsystem.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -17,14 +18,16 @@ import preponderous.ponder.misc.ArgumentParser;
  * @author Daniel McCoy Stephenson
  */
 public class TitleCommand extends AbstractPluginCommand {
+    private final ColorChecker colorChecker;
 
-    public TitleCommand() {
+    public TitleCommand(ColorChecker colorChecker) {
         super(new ArrayList<>(Arrays.asList("title")), new ArrayList<>(Arrays.asList("rp.title")));
+        this.colorChecker = colorChecker;
     }
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /title (new title)");
+        commandSender.sendMessage(colorChecker.getNegativeAlertColor() + "Usage: /title (new title)");
         return false;
     }
 
@@ -41,10 +44,10 @@ public class TitleCommand extends AbstractPluginCommand {
                 }
 
                 ArgumentParser argumentParser = new ArgumentParser();
-                ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
+                List<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
                 if (doubleQuoteArgs.size() == 0) {
-                    player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "New title must be designated between double quotes.");
+                    player.sendMessage(colorChecker.getNegativeAlertColor() + "New title must be designated between double quotes.");
                     return false;
                 }
 
@@ -60,11 +63,11 @@ public class TitleCommand extends AbstractPluginCommand {
 
                 player.getInventory().setItemInMainHand(book);
 
-                player.sendMessage(ColorChecker.getInstance().getPositiveAlertColor() + "Title added to book!");
+                player.sendMessage(colorChecker.getPositiveAlertColor() + "Title added to book!");
 
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have to be holding a book and quill to use this command!");
+                player.sendMessage(colorChecker.getNegativeAlertColor() + "You have to be holding a book and quill to use this command!");
             }
         }
         return true;

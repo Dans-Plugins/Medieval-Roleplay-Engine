@@ -2,24 +2,16 @@ package dansplugins.rpsystem.utils;
 
 import org.bukkit.ChatColor;
 
-import dansplugins.rpsystem.services.LocalConfigService;
+import dansplugins.rpsystem.services.ConfigService;
 
 /**
  * @author Daniel McCoy Stephenson
  */
 public class ColorChecker {
+    private final ConfigService configService;
 
-    private static ColorChecker instance;
-
-    private ColorChecker() {
-
-    }
-
-    public static ColorChecker getInstance() {
-        if (instance == null) {
-            instance = new ColorChecker();
-        }
-        return instance;
+    public ColorChecker(ConfigService configService) {
+        this.configService = configService;
     }
 
     public ChatColor getColorByName(String color) {
@@ -77,14 +69,14 @@ public class ColorChecker {
     }
 
     public ChatColor getPositiveAlertColor() {
-        return getColorByName(LocalConfigService.getInstance().getString("positiveAlertColor"));
+        return getColorByName(configService.getString("positiveAlertColor"));
     }
 
     public ChatColor getNeutralAlertColor() {
-        return getColorByName(LocalConfigService.getInstance().getString("neutralAlertColor"));
+        return getColorByName(configService.getString("neutralAlertColor"));
     }
 
     public ChatColor getNegativeAlertColor() {
-        return getColorByName(LocalConfigService.getInstance().getString("negativeAlertColor"));
+        return getColorByName(configService.getString("negativeAlertColor"));
     }
 }

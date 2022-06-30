@@ -31,36 +31,36 @@ import preponderous.ponder.minecraft.bukkit.tools.UUIDChecker;
 /**
  * @author Daniel McCoy Stephenson
  */
-public class LocalStorageService {
-    private static LocalStorageService instance;
+public class StorageService {
+    private final ConfigService configService;
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
+    private final Logger logger;
+    private final PersistentData persistentData;
+
     private final static String FILE_PATH = "./plugins/MedievalRoleplayEngine/";
     private final static String CHARACTERS_FILE_NAME = "characters.json";
     private final Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
     private static Type LIST_MAP_TYPE = (new TypeToken<ArrayList<HashMap<String, String>>>() {}).getType();
 
-    private LocalStorageService() {
-
-    }
-
-    public static LocalStorageService getInstance() {
-        if (instance == null) {
-            instance = new LocalStorageService();
-        }
-        return instance;
+    public StorageService(ConfigService configService, MedievalRoleplayEngine medievalRoleplayEngine, Logger logger, PersistentData persistentData) {
+        this.configService = configService;
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
+        this.logger = logger;
+        this.persistentData = persistentData;
     }
 
     public void save() {
         saveCharacters();
-        if (LocalConfigService.getInstance().hasBeenAltered()) {
-            MedievalRoleplayEngine.getInstance().saveConfig();
+        if (configService.hasBeenAltered()) {
+            medievalRoleplayEngine.saveConfig();
         }
     }
 
     public void load() {
-        Logger.getInstance().log("Version mismatched: " + MedievalRoleplayEngine.getInstance().isVersionMismatched());
-        Logger.getInstance().log("Old version: " + MedievalRoleplayEngine.getInstance().getOldVersion());
+        logger.log("Version mismatched: " + medievalRoleplayEngine.isVersionMismatched());
+        logger.log("Old version: " + medievalRoleplayEngine.getOldVersion());
         loadCharacters();
-        if (MedievalRoleplayEngine.getInstance().isVersionMismatched() && MedievalRoleplayEngine.getInstance().getOldVersion().charAt(1) != '2') {
+        if (medievalRoleplayEngine.isVersionMismatched() && medievalRoleplayEngine.getOldVersion().charAt(1) != '2') {
             // load in character cards using the legacy load method
             legacyLoadCards();
         }
@@ -68,50 +68,50 @@ public class LocalStorageService {
 
     private void saveCharacters() {
         List<Map<String, String>> characters = new ArrayList<>();
-        for (RPCharacter character : PersistentData.getInstance().getCharacters()){
+        for (RPCharacter character : persistentData.getCharacters()){
             characters.add(character.save());
         }
         writeOutFiles(characters, CHARACTERS_FILE_NAME);
     }
 
     private void loadCharacters() {
-        PersistentData.getInstance().getCharacters().clear();
+        persistentData.getCharacters().clear();
         ArrayList<HashMap<String, String>> data = loadDataFromFilename(FILE_PATH + CHARACTERS_FILE_NAME);
         HashSet<RPCharacter> characters = new HashSet<>();
         for (Map<String, String> characterData : data){
             RPCharacter warning = new RPCharacter(characterData);
             characters.add(warning);
         }
-        PersistentData.getInstance().setCharacters(characters);
-        Logger.getInstance().log("Loaded files.");
+        persistentData.setCharacters(characters);
+        logger.log("Loaded files.");
     }
 
     @Deprecated
     private void legacyLoadCards() {
         try {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
+            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Attempting to load character cards..."); }
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextFilename = loadReader.nextLine();
-                CharacterCard temp = new CharacterCard();
+                CharacterCard temp = new CharacterCard(medievalRoleplayEngine);
                 temp.load(nextFilename);
                 RPCharacter character = convertCardToCharacter(temp);
-                boolean success = PersistentData.getInstance().getCharacters().add(character);
+                boolean success = persistentData.getCharacters().add(character);
                 if (!success) {
                     UUIDChecker uuidChecker = new UUIDChecker();
-                    Logger.getInstance().log("Character card for player " + uuidChecker.findPlayerNameBasedOnUUID(character.getPlayerUUID()) + " is already present. Not overwriting.");
+                    logger.log("Character card for player " + uuidChecker.findPlayerNameBasedOnUUID(character.getPlayerUUID()) + " is already present. Not overwriting.");
                 }
             }
 
             loadReader.close();
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Character cards successfully loaded."); }
+            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Character cards successfully loaded."); }
         } catch (FileNotFoundException e) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
+            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Error loading the character cards!"); }
         }
-        Logger.getInstance().log("Loaded legacy files.");
+        logger.log("Loaded legacy files.");
     }
 
     private RPCharacter convertCardToCharacter(CharacterCard card) {

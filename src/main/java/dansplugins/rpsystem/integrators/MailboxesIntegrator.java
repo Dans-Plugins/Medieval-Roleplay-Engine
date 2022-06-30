@@ -9,26 +9,19 @@ import dansplugins.rpsystem.utils.Logger;
  * @author Daniel McCoy Stephenson
  */
 public class MailboxesIntegrator {
-
-    private static MailboxesIntegrator instance;
+    private final Logger logger;
 
     private MailboxesAPI m_api = null;
 
-    private MailboxesIntegrator() {
+    public MailboxesIntegrator(Logger logger) {
+        this.logger = logger;
         if (isMailboxesPresent()) {
-            Logger.getInstance().log("Mailboxes was found successfully!");
+            this.logger.log("Mailboxes was found successfully!");
             m_api = new MailboxesAPI();
         }
         else {
-            Logger.getInstance().log("Mailboxes was not found!");
+            this.logger.log("Mailboxes was not found!");
         }
-    }
-
-    public static MailboxesIntegrator getInstance() {
-        if (instance == null) {
-            instance = new MailboxesIntegrator();
-        }
-        return instance;
     }
 
     public boolean isMailboxesPresent() {

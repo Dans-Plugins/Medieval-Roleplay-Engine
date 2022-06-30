@@ -15,15 +15,24 @@ import java.util.regex.Pattern;
 
 @Deprecated
 public class NewRollCommand {
+    private final ColorChecker colorChecker;
 
-    static final DiceParser parser = new DefaultDiceParser();
-    static final DiceInterpreter<RollHistory> roller = new DiceRoller();
+    private final DiceParser parser = new DefaultDiceParser();
+    private final DiceInterpreter<RollHistory> roller = new DiceRoller();
 
-    static final String usageMsg = ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /roll (dice-count)d(side-count)+(modifier)";
-    public static final String invalidSyntaxMsg = ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
-    public static final String noPermMsg = ColorChecker.getInstance().getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
+    private final String usageMsg;
+    private final String invalidSyntaxMsg;
+    private final String noPermMsg;
+            
+    public NewRollCommand(ColorChecker colorChecker) {
+        this.colorChecker = colorChecker;
+        usageMsg = colorChecker.getNegativeAlertColor() + "Usage: /roll (dice-count)d(side-count)+(modifier)";
+        invalidSyntaxMsg = colorChecker.getNegativeAlertColor() + "Sorry! Invalid arguments, must be in standard Dice Notation (2d6+12)";
+        noPermMsg = colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.roll'";
 
-    public static void rollDice(CommandSender sender, String[] args) {
+    }
+
+    public void rollDice(CommandSender sender, String[] args) {
         // player check
         if (!(sender instanceof Player)) {
             return;
@@ -51,8 +60,8 @@ public class NewRollCommand {
         }
     }
 
-    private static String processRolls(RollHistory rolls) {
-        StringBuilder messageBuilder = new StringBuilder(ColorChecker.getInstance().getPositiveAlertColor() + "You rolled a ");
+    private String processRolls(RollHistory rolls) {
+        StringBuilder messageBuilder = new StringBuilder(colorChecker.getPositiveAlertColor() + "You rolled a ");
 
         rolls.getRollResults().forEach(rollResult -> {
 

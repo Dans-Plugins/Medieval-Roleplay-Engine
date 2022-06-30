@@ -6,22 +6,14 @@ import dansplugins.rpsystem.MedievalRoleplayEngine;
  * @author Daniel McCoy Stephenson
  */
 public class Logger {
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
 
-    private static Logger instance;
-
-    private Logger() {
-
-    }
-
-    public static Logger getInstance() {
-        if (instance == null) {
-            instance = new Logger();
-        }
-        return instance;
+    public Logger(MedievalRoleplayEngine medievalRoleplayEngine) {
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
     }
 
     public void log(String message) {
-        if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) {
+        if (medievalRoleplayEngine.isDebugEnabled()) {
             System.out.println("[MRE] " + message);
         }
     }
