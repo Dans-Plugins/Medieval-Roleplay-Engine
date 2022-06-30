@@ -3,30 +3,34 @@ package dansplugins.rpsystem.commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import dansplugins.rpsystem.services.ConfigService;
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.command.CommandSender;
 
-import dansplugins.rpsystem.services.LocalConfigService;
-import dansplugins.rpsystem.utils.ColorChecker;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 
 /**
  * @author Daniel McCoy Stephenson
  */
 public class ConfigCommand extends AbstractPluginCommand {
+    private final ColorChecker colorChecker;
+    private final ConfigService configService;
 
-    public ConfigCommand() {
+    public ConfigCommand(ColorChecker colorChecker, ConfigService configService) {
         super(new ArrayList<>(Arrays.asList("config")), new ArrayList<>(Arrays.asList("rp.config")));
+        this.colorChecker = colorChecker;
+        this.configService = configService;
     }
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Valid subcommands: show, set");
+        commandSender.sendMessage(colorChecker.getNegativeAlertColor() + "Valid subcommands: show, set");
         return false;
     }
 
     public boolean execute(CommandSender sender, String[] args) {
         if (args[0].equalsIgnoreCase("show")) {
-            LocalConfigService.getInstance().sendConfigList(sender);
+            configService.sendConfigList(sender);
             return true;
         }
 
@@ -36,11 +40,11 @@ public class ConfigCommand extends AbstractPluginCommand {
                 String option = args[1];
                 String value = args[2];
 
-                LocalConfigService.getInstance().setConfigOption(option, value, sender);
+                configService.setConfigOption(option, value, sender);
                 return true;
             }
             else {
-                sender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /rp config set (option) (value)");
+                sender.sendMessage(colorChecker.getNegativeAlertColor() + "Usage: /rp config set (option) (value)");
                 return false;
             }
         }

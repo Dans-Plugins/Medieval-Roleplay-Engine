@@ -1,5 +1,10 @@
 package dansplugins.rpsystem.eventhandlers;
 
+import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.utils.ColorChecker;
+import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -8,41 +13,53 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import dansplugins.factionsystem.externalapi.MF_Faction;
-import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.data.EphemeralData;
-import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
-import dansplugins.rpsystem.services.LocalConfigService;
-import dansplugins.rpsystem.utils.ColorChecker;
-import dansplugins.rpsystem.utils.Messenger;
+import dansplugins.rpsystem.services.ConfigService;
 
 /**
  * @author Daniel McCoy Stephenson
  */
 public class ChatHandler implements Listener {
+    private final ConfigService configService;
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
+    private final EphemeralData ephemeralData;
+    private final ColorChecker colorChecker;
+    private final PersistentData persistentData;
+    private final Messenger messenger;
+    private final MedievalFactionsIntegrator medievalFactionsIntegrator;
+
+    public ChatHandler(ConfigService configService, MedievalRoleplayEngine medievalRoleplayEngine, EphemeralData ephemeralData, ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, MedievalFactionsIntegrator medievalFactionsIntegrator) {
+        this.configService = configService;
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
+        this.ephemeralData = ephemeralData;
+        this.colorChecker = colorChecker;
+        this.persistentData = persistentData;
+        this.messenger = messenger;
+        this.medievalFactionsIntegrator = medievalFactionsIntegrator;
+    }
 
     @EventHandler()
     public void handle(AsyncPlayerChatEvent event) {
-        if (!LocalConfigService.getInstance().getBoolean("chatFeaturesEnabled")) {
+        if (!configService.getBoolean("chatFeaturesEnabled")) {
             return;
         }
 
-        int localChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("localChatRadius");
+        int localChatRadius = medievalRoleplayEngine.getConfig().getInt("localChatRadius");
 
-        if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()) {
-            if (MedievalFactionsIntegrator.getInstance().getAPI().isPlayerInFactionChat(event.getPlayer())) {
+        if (medievalFactionsIntegrator.isMedievalFactionsPresent()) {
+            if (medievalFactionsIntegrator.getAPI().isPlayerInFactionChat(event.getPlayer())) {
                 return;
             }
         }
 
-        String localChatColorString = MedievalRoleplayEngine.getInstance().getConfig().getString("localChatColor");
-        if (EphemeralData.getInstance().getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
+        String localChatColorString = medievalRoleplayEngine.getConfig().getString("localChatColor");
+        if (ephemeralData.getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
             // get color and character name
-            ChatColor localChatColor = ColorChecker.getInstance().getColorByName(localChatColorString);
-            String characterName = PersistentData.getInstance().getCharacter(event.getPlayer().getUniqueId()).getInfo("name");
+            ChatColor localChatColor = colorChecker.getColorByName(localChatColorString);
+            String characterName = persistentData.getCharacter(event.getPlayer().getUniqueId()).getInfo("name");
 
-            if (EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(event.getPlayer().getUniqueId())) {
-                event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden local chat. Type '/rp show' to talk in local chat.");
+            if (ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(event.getPlayer().getUniqueId())) {
+                event.getPlayer().sendMessage(colorChecker.getNegativeAlertColor() + "You have hidden local chat. Type '/rp show' to talk in local chat.");
                 event.setCancelled(true);
                 return;
             }
@@ -51,24 +68,24 @@ public class ChatHandler implements Listener {
             String messageToSend;
             if (!event.getMessage().contains("*")) {
                 messageToSend = localChatColor + "" + String.format("%s: \"%s\"", characterName, event.getMessage());
-                Messenger.getInstance().sendRPMessageToPlayersWithinDistance(event.getPlayer(), messageToSend, localChatRadius);
+                messenger.sendRPMessageToPlayersWithinDistance(event.getPlayer(), messageToSend, localChatRadius);
             }
             else {
                 String messageWithoutEmote = removeStringContainedBetweenAstericks(event.getMessage());
 
                 String emoteMessage = getStringContainedBetweenAstericks(event.getMessage());
-                int emoteRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("emoteRadius");
-                String emoteColorString = MedievalRoleplayEngine.getInstance().getConfig().getString("emoteColor");
+                int emoteRadius = medievalRoleplayEngine.getConfig().getInt("emoteRadius");
+                String emoteColorString = medievalRoleplayEngine.getConfig().getString("emoteColor");
 
                 messageWithoutEmote = messageWithoutEmote.trim();
 
                 messageToSend = localChatColor + "" + String.format("%s: \"%s\"", characterName, messageWithoutEmote);
 
                 if (!messageWithoutEmote.equals("")) {
-                    Messenger.getInstance().sendRPMessageToPlayersWithinDistance(event.getPlayer(), messageToSend, localChatRadius);
+                    messenger.sendRPMessageToPlayersWithinDistance(event.getPlayer(), messageToSend, localChatRadius);
                 }
                 if (emoteMessage != null) {
-                    Messenger.getInstance().sendRPMessageToPlayersWithinDistance(event.getPlayer(), ColorChecker.getInstance().getColorByName(emoteColorString) + "" + ChatColor.ITALIC + characterName + " " + emoteMessage, emoteRadius);
+                    messenger.sendRPMessageToPlayersWithinDistance(event.getPlayer(), colorChecker.getColorByName(emoteColorString) + "" + ChatColor.ITALIC + characterName + " " + emoteMessage, emoteRadius);
                 }
             }
 
@@ -76,42 +93,42 @@ public class ChatHandler implements Listener {
             return;
         }
 
-        if (!LocalConfigService.getInstance().getBoolean("legacyChat")) {
+        if (!configService.getBoolean("legacyChat")) {
 
-            if (EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
-                event.getPlayer().sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "You have hidden global chat. Type '/ooc show' to talk in global chat.");
+            if (ephemeralData.getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
+                event.getPlayer().sendMessage(colorChecker.getNegativeAlertColor() + "You have hidden global chat. Type '/ooc show' to talk in global chat.");
                 event.setCancelled(true);
                 return;
             }
 
             // global chat
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Attempting to send global message to " + onlinePlayer.getName()); }
-                if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenGlobalChat().contains(onlinePlayer.getUniqueId())) {
-                    if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message: '" + event.getMessage() + "'"); }
+                if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Attempting to send global message to " + onlinePlayer.getName()); }
+                if (!ephemeralData.getPlayersWhoHaveHiddenGlobalChat().contains(onlinePlayer.getUniqueId())) {
+                    if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Preparing message: '" + event.getMessage() + "'"); }
 
                     // we are good to send the message
 
-                    if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()
-                            && MedievalFactionsIntegrator.getInstance().getAPI().isPrefixesFeatureEnabled()
-                            && MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer()) != null) {
+                    if (medievalFactionsIntegrator.isMedievalFactionsPresent()
+                            && medievalFactionsIntegrator.getAPI().isPrefixesFeatureEnabled()
+                            && medievalFactionsIntegrator.getAPI().getFaction(event.getPlayer()) != null) {
 
-                        if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message with prefix from Medieval Factions"); }
+                        if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Preparing message with prefix from Medieval Factions"); }
 
-                        MF_Faction playersFaction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(event.getPlayer());
+                        MF_Faction playersFaction = medievalFactionsIntegrator.getAPI().getFaction(event.getPlayer());
 
                         // prefix format
                         String prefix = playersFaction.getPrefix();
                         String prefixColor = (String) playersFaction.getFlag("prefixColor");
-                        event.setFormat(ColorChecker.getInstance().getColorByName(prefixColor) + "" + "[" + prefix + "]" + "" + ChatColor.WHITE + "" + " <%s> %s");
+                        event.setFormat(colorChecker.getColorByName(prefixColor) + "" + "[" + prefix + "]" + "" + ChatColor.WHITE + "" + " <%s> %s");
 
                         // send message
-                        onlinePlayer.sendMessage(ColorChecker.getInstance().getColorByName(prefixColor) + "" + "[" + prefix + "] " + ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + ChatColor.WHITE + event.getMessage());
+                        onlinePlayer.sendMessage(colorChecker.getColorByName(prefixColor) + "" + "[" + prefix + "] " + ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + ChatColor.WHITE + event.getMessage());
 
                     }
                     else {
 
-                        if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Preparing message with regular format"); }
+                        if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Preparing message with regular format"); }
 
                         // regular format
                         event.setFormat(ChatColor.WHITE + "" + " <%s> %s");
@@ -123,7 +140,7 @@ public class ChatHandler implements Listener {
 
                 }
                 else {
-                    if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Player has hidden global chat!"); }
+                    if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Player has hidden global chat!"); }
                 }
             }
             event.setCancelled(true);
@@ -139,7 +156,7 @@ public class ChatHandler implements Listener {
         if (stringToRemove != null) {
             toReturn = string.replace("*" + stringToRemove + "*", "");
 
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("String after removal: " + toReturn); }
+            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("String after removal: " + toReturn); }
 
             return toReturn;
         }
@@ -156,7 +173,7 @@ public class ChatHandler implements Listener {
         for (int i = 0; i < string.length(); i++) {
             if (string.charAt(i) == '*') {
                 firstAsterickIndex = i;
-                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("First asterick index: " + i); }
+                if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("First asterick index: " + i); }
                 break;
             }
         }
@@ -165,13 +182,13 @@ public class ChatHandler implements Listener {
         for (int i = firstAsterickIndex + 1; i < string.length(); i++) {
             if (string.charAt(i) == '*') {
                 secondAsterickIndex = i;
-                if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("Second asterick index: " + i); }
+                if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Second asterick index: " + i); }
                 break;
             }
         }
 
         if (firstAsterickIndex != -1 && secondAsterickIndex != -1) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("String contained between astericks: " + toReturn); }
+            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("String contained between astericks: " + toReturn); }
             return string.substring(firstAsterickIndex + 1, secondAsterickIndex);
         }
         else {

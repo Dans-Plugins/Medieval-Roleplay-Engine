@@ -2,14 +2,15 @@ package dansplugins.rpsystem.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import java.util.List;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import dansplugins.rpsystem.utils.ColorChecker;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.misc.ArgumentParser;
 
@@ -17,21 +18,29 @@ import preponderous.ponder.misc.ArgumentParser;
  * @author Daniel McCoy Stephenson
  */
 public class WhisperCommand extends AbstractPluginCommand {
+    private final ColorChecker colorChecker;
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
+    private final PersistentData persistentData;
+    private final Messenger messenger;
 
-    public WhisperCommand() {
+    public WhisperCommand(ColorChecker colorChecker, MedievalRoleplayEngine medievalRoleplayEngine, PersistentData persistentData, Messenger messenger) {
         super(new ArrayList<>(Arrays.asList("whisper")), new ArrayList<>(Arrays.asList("rp.whisper")));
+        this.colorChecker = colorChecker;
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
+        this.persistentData = persistentData;
+        this.messenger = messenger;
     }
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /whisper (message)");
+        commandSender.sendMessage(colorChecker.getNegativeAlertColor() + "Usage: /whisper (message)");
         return false;
     }
 
     public boolean execute(CommandSender sender, String[] args) {
 
-        int whisperChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("whisperChatRadius");
-        String whisperChatColor =MedievalRoleplayEngine.getInstance().getConfig().getString("whisperChatColor");
+        int whisperChatRadius = medievalRoleplayEngine.getConfig().getInt("whisperChatRadius");
+        String whisperChatColor = medievalRoleplayEngine.getConfig().getString("whisperChatColor");
 
         if (!(sender instanceof Player)) {
             return false;
@@ -43,20 +52,20 @@ public class WhisperCommand extends AbstractPluginCommand {
         }
 
         ArgumentParser argumentParser = new ArgumentParser();
-        ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
+        List<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
         if (doubleQuoteArgs.size() == 0) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
+            player.sendMessage(colorChecker.getNegativeAlertColor() + "Message must be designated between double quotes.");
             return false;
         }
 
         String message = doubleQuoteArgs.get(0);
 
-        String formattedMessage = ColorChecker.getInstance().getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", PersistentData.getInstance().getCharacter(player.getUniqueId()).getInfo("name"), message);
+        String formattedMessage = colorChecker.getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", persistentData.getCharacter(player.getUniqueId()).getInfo("name"), message);
 
-        int numPlayersWhoHeard = Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, formattedMessage, whisperChatRadius);
+        int numPlayersWhoHeard = messenger.sendRPMessageToPlayersWithinDistance(player, formattedMessage, whisperChatRadius);
 
-        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
+        player.sendMessage(colorChecker.getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
         return true;
     }
 }

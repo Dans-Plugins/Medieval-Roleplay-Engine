@@ -11,12 +11,17 @@ import dansplugins.rpsystem.objects.RPCharacter;
  * @author Daniel McCoy Stephenson
  */
 public class JoinHandler implements Listener {
+    private final PersistentData persistentData;
+
+    public JoinHandler(PersistentData persistentData) {
+        this.persistentData = persistentData;
+    }
 
     @EventHandler()
     public void handle(PlayerJoinEvent event) {
-        if (!PersistentData.getInstance().hasCharacter(event.getPlayer().getUniqueId())) {
+        if (!persistentData.hasCharacter(event.getPlayer().getUniqueId())) {
             RPCharacter newCharacter = new RPCharacter(event.getPlayer().getUniqueId());
-            PersistentData.getInstance().getCharacters().add(newCharacter);
+            persistentData.getCharacters().add(newCharacter);
         }
     }
 }

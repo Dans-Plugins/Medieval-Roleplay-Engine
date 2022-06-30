@@ -3,11 +3,11 @@ package dansplugins.rpsystem.commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 
@@ -15,9 +15,13 @@ import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
  * @author Daniel McCoy Stephenson
  */
 public class RollCommand extends AbstractPluginCommand {
+    private final Messenger messenger;
+    private final ColorChecker colorChecker;
 
-    public RollCommand() {
+    public RollCommand(Messenger messenger, ColorChecker colorChecker) {
         super(new ArrayList<>(Arrays.asList("roll")), new ArrayList<>(Arrays.asList("rp.roll")));
+        this.messenger = messenger;
+        this.colorChecker = colorChecker;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class RollCommand extends AbstractPluginCommand {
             if (args.length > 0) {
                 try {
                     int max = Integer.parseInt(args[0]);
-                    Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, ColorChecker.getInstance().getNeutralAlertColor() + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + execute(max) + " out of " + max + ".", 25);
+                    messenger.sendRPMessageToPlayersWithinDistance(player, colorChecker.getNeutralAlertColor() + "" + ChatColor.ITALIC + player.getName() + " has rolled a " + execute(max) + " out of " + max + ".", 25);
                 }
                 catch(Exception ignored) {
 

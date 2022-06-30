@@ -10,23 +10,19 @@ import java.util.UUID;
 /**
  * @author Daniel McCoy Stephenson
  */
-public class LocalCharacterLookupService { // TODO: replace this class by utilizing Ponder
-    private static LocalCharacterLookupService instance;
-    private HashSet<RPCharacter> cache = new HashSet<>();
+public class CharacterLookupService { // TODO: replace this class by utilizing Ponder
+    private final Logger logger;
+    private final PersistentData persistentData;
 
-    private LocalCharacterLookupService() {
+    private final HashSet<RPCharacter> cache = new HashSet<>();
 
-    }
-
-    public static LocalCharacterLookupService getInstance() {
-        if (instance == null) {
-            instance = new LocalCharacterLookupService();
-        }
-        return instance;
+    public CharacterLookupService(Logger logger, PersistentData persistentData) {
+        this.logger = logger;
+        this.persistentData = persistentData;
     }
 
     public RPCharacter lookup(UUID playerUUID) {
-        Logger.getInstance().log("Looking up current character for " + playerUUID.toString());
+        logger.log("Looking up current character for " + playerUUID.toString());
         RPCharacter character = checkCache(playerUUID);
         if (character == null) {
             return checkStorage(playerUUID);
@@ -37,7 +33,7 @@ public class LocalCharacterLookupService { // TODO: replace this class by utiliz
     private RPCharacter checkCache(UUID playerUUID) {
         for (RPCharacter character : cache) {
             if (character.getPlayerUUID().equals(playerUUID)) {
-                Logger.getInstance().log("Found in cache!");
+                logger.log("Found in cache!");
                 return character;
             }
         }
@@ -45,13 +41,13 @@ public class LocalCharacterLookupService { // TODO: replace this class by utiliz
     }
 
     private RPCharacter checkStorage(UUID playerUUID) {
-        RPCharacter character = PersistentData.getInstance().getCharacter(playerUUID);
+        RPCharacter character = persistentData.getCharacter(playerUUID);
         if (character != null) {
-            Logger.getInstance().log("Found in storage!");
+            logger.log("Found in storage!");
             cache.add(character);
         }
         else {
-            Logger.getInstance().log("Not found.");
+            logger.log("Not found.");
         }
         return character;
     }

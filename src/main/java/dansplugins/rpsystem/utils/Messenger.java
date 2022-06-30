@@ -12,14 +12,10 @@ import dansplugins.rpsystem.objects.RPCharacter;
  * @author Daniel McCoy Stephenson
  */
 public class Messenger {
+    private final EphemeralData ephemeralData;
 
-    private static Messenger instance;
-
-    public static Messenger getInstance() {
-        if (instance == null) {
-            instance = new Messenger();
-        }
-        return instance;
+    public Messenger(EphemeralData ephemeralData) {
+        this.ephemeralData = ephemeralData;
     }
 
     public int sendRPMessageToPlayersWithinDistance(Player player, String message, int distance) {
@@ -37,7 +33,7 @@ public class Messenger {
                 if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
 
                     // if player has not hidden local chat
-                    if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
+                    if (!ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
                         numPlayersWhoHeard++;
                         potentialPlayer.sendMessage(message);
                     }
@@ -65,7 +61,7 @@ public class Messenger {
                     if (!potentialPlayer.getName().equalsIgnoreCase(player.getName())) {
 
                         // if player has not hidden local chat
-                        if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
+                        if (!ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
                             numPlayersWhoHeard++;
                             potentialPlayer.sendMessage(message);
                         }
@@ -93,7 +89,7 @@ public class Messenger {
                 if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
 
                     // if player has not hidden local OOC chat
-                    if (!EphemeralData.getInstance().getPlayersWhoHaveHiddenLocalOOCChat().contains(potentialPlayer.getUniqueId())) {
+                    if (!ephemeralData.getPlayersWhoHaveHiddenLocalOOCChat().contains(potentialPlayer.getUniqueId())) {
                         numPlayersWhoHeard++;
                         potentialPlayer.sendMessage(message);
                     }
@@ -107,23 +103,23 @@ public class Messenger {
     @Deprecated
     public void sendCardInfoToPlayer(RPCharacter card, Player player) {
         /*
-        player.sendMessage(ChatColor.BOLD + "" + ColorChecker.getInstance().getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
-        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Name: " + card.getName());
-        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Race: " + card.getRace());
-        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Subculture: " + card.getSubculture());
-        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Age: " + card.getAge());
-        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Gender: " + card.getGender());
-        player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Religion: " + card.getReligion());
-        if (MedievalFactionsIntegrator.getInstance().isMedievalFactionsPresent()) {
-            MF_Faction faction = MedievalFactionsIntegrator.getInstance().getAPI().getFaction(card.getPlayerUUID());
-            int power = MedievalFactionsIntegrator.getInstance().getAPI().getPower(card.getPlayerUUID());
+        player.sendMessage(ChatColor.BOLD + "" + colorChecker.getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
+        player.sendMessage(colorChecker.getNeutralAlertColor() + "Name: " + card.getName());
+        player.sendMessage(colorChecker.getNeutralAlertColor() + "Race: " + card.getRace());
+        player.sendMessage(colorChecker.getNeutralAlertColor() + "Subculture: " + card.getSubculture());
+        player.sendMessage(colorChecker.getNeutralAlertColor() + "Age: " + card.getAge());
+        player.sendMessage(colorChecker.getNeutralAlertColor() + "Gender: " + card.getGender());
+        player.sendMessage(colorChecker.getNeutralAlertColor() + "Religion: " + card.getReligion());
+        if (medievalFactionsIntegrator.isMedievalFactionsPresent()) {
+            MF_Faction faction = medievalFactionsIntegrator.getAPI().getFaction(card.getPlayerUUID());
+            int power = medievalFactionsIntegrator.getAPI().getPower(card.getPlayerUUID());
             if (faction != null) {
-                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: " + faction.getName());
+                player.sendMessage(colorChecker.getNeutralAlertColor() + "Faction: " + faction.getName());
             }
             else {
-                player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Faction: N/A");
+                player.sendMessage(colorChecker.getNeutralAlertColor() + "Faction: N/A");
             }
-            player.sendMessage(ColorChecker.getInstance().getNeutralAlertColor() + "Power: " + power);
+            player.sendMessage(colorChecker.getNeutralAlertColor() + "Power: " + power);
         }
         */
     }

@@ -9,26 +9,19 @@ import dansplugins.rpsystem.MedievalRoleplayEngine;
  * @author Daniel McCoy Stephenson
  */
 public class MedievalFactionsIntegrator {
-
-    private static MedievalFactionsIntegrator instance;
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
 
     private MedievalFactionsAPI mf_api = null;
 
-    private MedievalFactionsIntegrator() {
+    public MedievalFactionsIntegrator(MedievalRoleplayEngine medievalRoleplayEngine) {
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
         if (isMedievalFactionsPresent()) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was found successfully!"); }
+            if (this.medievalRoleplayEngine.isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was found successfully!"); }
             mf_api = new MedievalFactionsAPI();
         }
         else {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was not found!"); }
+            if (this.medievalRoleplayEngine.isDebugEnabled()) { System.out.println("[DEBUG] Medieval Factions was not found!"); }
         }
-    }
-
-    public static MedievalFactionsIntegrator getInstance() {
-        if (instance == null) {
-            instance = new MedievalFactionsIntegrator();
-        }
-        return instance;
     }
 
     public boolean isMedievalFactionsPresent() {

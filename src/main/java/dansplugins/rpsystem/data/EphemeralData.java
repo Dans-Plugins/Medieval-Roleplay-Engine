@@ -7,26 +7,13 @@ import java.util.UUID;
  * @author Daniel McCoy Stephenson
  */
 public class EphemeralData {
-    private static EphemeralData instance;
-
-    private ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
-    private ArrayList<UUID> playersSpeakingInLocalChat = new ArrayList<>();
-    private ArrayList<UUID> playersOnNameChangeCooldown = new ArrayList<>();
-    private ArrayList<UUID> playersWithRightClickCooldown = new ArrayList<>();
-    private ArrayList<UUID> playersWhoHaveHiddenGlobalChat = new ArrayList<>();
-    private ArrayList<UUID> playersWhoHaveHiddenLocalChat = new ArrayList<>();
-    private ArrayList<UUID> playersWhoHaveHiddenLocalOOCChat = new ArrayList<>();
-
-    private EphemeralData() {
-
-    }
-
-    public static EphemeralData getInstance() {
-        if (instance == null) {
-            instance = new EphemeralData();
-        }
-        return instance;
-    }
+    private final ArrayList<UUID> playersWithBusyBirds = new ArrayList<>();
+    private final ArrayList<UUID> playersSpeakingInLocalChat = new ArrayList<>();
+    private final ArrayList<UUID> playersOnNameChangeCooldown = new ArrayList<>();
+    private final ArrayList<UUID> playersWithRightClickCooldown = new ArrayList<>();
+    private final ArrayList<UUID> playersWhoHaveHiddenGlobalChat = new ArrayList<>();
+    private final ArrayList<UUID> playersWhoHaveHiddenLocalChat = new ArrayList<>();
+    private final ArrayList<UUID> playersWhoHaveHiddenLocalOOCChat = new ArrayList<>();
 
     public ArrayList<UUID> getPlayersWithBusyBirds() {
         return playersWithBusyBirds;

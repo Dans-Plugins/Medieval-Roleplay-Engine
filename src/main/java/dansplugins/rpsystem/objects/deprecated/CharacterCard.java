@@ -12,6 +12,7 @@ import java.util.UUID;
  */
 @Deprecated
 public class CharacterCard {
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
     private UUID playerUUID = null;
     private String name = "defaultName";
     private String race = "defaultRace";
@@ -20,13 +21,15 @@ public class CharacterCard {
     private String gender = "defaultGender";
     private String religion = "defaultReligion";
 
-    public CharacterCard(UUID uuid) {
+    public CharacterCard(MedievalRoleplayEngine medievalRoleplayEngine, UUID uuid) {
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
         playerUUID = uuid;
     }
 
     // storage constructor
-    public CharacterCard() {
+    public CharacterCard(MedievalRoleplayEngine medievalRoleplayEngine) {
 
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
     }
 
     void setPlayerUUID(UUID newUUID) {
@@ -116,7 +119,7 @@ public class CharacterCard {
             loadReader.close();
             return true;
         } catch (FileNotFoundException e) {
-            if (MedievalRoleplayEngine.getInstance().isDebugEnabled()) { System.out.println("An error occurred loading the file " + filename + "."); }
+            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("An error occurred loading the file " + filename + "."); }
             e.printStackTrace();
             return false;
         }

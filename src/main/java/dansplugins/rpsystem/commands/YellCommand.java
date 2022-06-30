@@ -2,14 +2,15 @@ package dansplugins.rpsystem.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import java.util.List;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import dansplugins.rpsystem.utils.ColorChecker;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.misc.ArgumentParser;
 
@@ -17,21 +18,29 @@ import preponderous.ponder.misc.ArgumentParser;
  * @author Daniel McCoy Stephenson
  */
 public class YellCommand extends AbstractPluginCommand {
+    private final ColorChecker colorChecker;
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
+    private final PersistentData persistentData;
+    private final Messenger messenger;
 
-    public YellCommand() {
+    public YellCommand(ColorChecker colorChecker, MedievalRoleplayEngine medievalRoleplayEngine, PersistentData persistentData, Messenger messenger) {
         super(new ArrayList<>(Arrays.asList("yell")), new ArrayList<>(Arrays.asList("rp.yell")));
+        this.colorChecker = colorChecker;
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
+        this.persistentData = persistentData;
+        this.messenger = messenger;
     }
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        commandSender.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Usage: /yell (message)");
+        commandSender.sendMessage(colorChecker.getNegativeAlertColor() + "Usage: /yell (message)");
         return false;
     }
 
     public boolean execute(CommandSender sender, String[] args) {
 
-        int yellChatRadius = MedievalRoleplayEngine.getInstance().getConfig().getInt("yellChatRadius");
-        String yellChatColor = MedievalRoleplayEngine.getInstance().getConfig().getString("yellChatColor");
+        int yellChatRadius = medievalRoleplayEngine.getConfig().getInt("yellChatRadius");
+        String yellChatColor = medievalRoleplayEngine.getConfig().getString("yellChatColor");
 
         // player check
         if (!(sender instanceof Player)) {
@@ -45,18 +54,18 @@ public class YellCommand extends AbstractPluginCommand {
         }
 
         ArgumentParser argumentParser = new ArgumentParser();
-        ArrayList<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
+        List<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
         if (doubleQuoteArgs.size() == 0) {
-            player.sendMessage(ColorChecker.getInstance().getNegativeAlertColor() + "Message must be designated between double quotes.");
+            player.sendMessage(colorChecker.getNegativeAlertColor() + "Message must be designated between double quotes.");
             return false;
         }
 
         String message = doubleQuoteArgs.get(0);
 
-        String formattedMessage = ColorChecker.getInstance().getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", PersistentData.getInstance().getCharacter(player.getUniqueId()).getInfo("name"), message);
+        String formattedMessage = colorChecker.getColorByName(yellChatColor) + "" + String.format("%s yells: \"%s\"", persistentData.getCharacter(player.getUniqueId()).getInfo("name"), message);
 
-        Messenger.getInstance().sendRPMessageToPlayersWithinDistance(player, formattedMessage, yellChatRadius);
+        messenger.sendRPMessageToPlayersWithinDistance(player, formattedMessage, yellChatRadius);
         return true;
     }
 }
