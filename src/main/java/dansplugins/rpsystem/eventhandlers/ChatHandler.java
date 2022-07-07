@@ -3,6 +3,7 @@ package dansplugins.rpsystem.eventhandlers;
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.services.ConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.Bukkit;
@@ -11,10 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import dansplugins.factionsystem.externalapi.MF_Faction;
-import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
-import dansplugins.rpsystem.services.ConfigService;
 
 /**
  * @author Daniel McCoy Stephenson
@@ -26,16 +23,14 @@ public class ChatHandler implements Listener {
     private final ColorChecker colorChecker;
     private final PersistentData persistentData;
     private final Messenger messenger;
-    private final MedievalFactionsIntegrator medievalFactionsIntegrator;
 
-    public ChatHandler(ConfigService configService, MedievalRoleplayEngine medievalRoleplayEngine, EphemeralData ephemeralData, ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, MedievalFactionsIntegrator medievalFactionsIntegrator) {
+    public ChatHandler(ConfigService configService, MedievalRoleplayEngine medievalRoleplayEngine, EphemeralData ephemeralData, ColorChecker colorChecker, PersistentData persistentData, Messenger messenger) {
         this.configService = configService;
         this.medievalRoleplayEngine = medievalRoleplayEngine;
         this.ephemeralData = ephemeralData;
         this.colorChecker = colorChecker;
         this.persistentData = persistentData;
         this.messenger = messenger;
-        this.medievalFactionsIntegrator = medievalFactionsIntegrator;
     }
 
     @EventHandler()
@@ -45,12 +40,6 @@ public class ChatHandler implements Listener {
         }
 
         int localChatRadius = medievalRoleplayEngine.getConfig().getInt("localChatRadius");
-
-        if (medievalFactionsIntegrator.isMedievalFactionsPresent()) {
-            if (medievalFactionsIntegrator.getAPI().isPlayerInFactionChat(event.getPlayer())) {
-                return;
-            }
-        }
 
         String localChatColorString = medievalRoleplayEngine.getConfig().getString("localChatColor");
         if (ephemeralData.getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
@@ -108,35 +97,13 @@ public class ChatHandler implements Listener {
                     if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Preparing message: '" + event.getMessage() + "'"); }
 
                     // we are good to send the message
+                    if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Preparing message with regular format"); }
 
-                    if (medievalFactionsIntegrator.isMedievalFactionsPresent()
-                            && medievalFactionsIntegrator.getAPI().isPrefixesFeatureEnabled()
-                            && medievalFactionsIntegrator.getAPI().getFaction(event.getPlayer()) != null) {
+                    // regular format
+                    event.setFormat(ChatColor.WHITE + "" + " <%s> %s");
 
-                        if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Preparing message with prefix from Medieval Factions"); }
-
-                        MF_Faction playersFaction = medievalFactionsIntegrator.getAPI().getFaction(event.getPlayer());
-
-                        // prefix format
-                        String prefix = playersFaction.getPrefix();
-                        String prefixColor = (String) playersFaction.getFlag("prefixColor");
-                        event.setFormat(colorChecker.getColorByName(prefixColor) + "" + "[" + prefix + "]" + "" + ChatColor.WHITE + "" + " <%s> %s");
-
-                        // send message
-                        onlinePlayer.sendMessage(colorChecker.getColorByName(prefixColor) + "" + "[" + prefix + "] " + ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + ChatColor.WHITE + event.getMessage());
-
-                    }
-                    else {
-
-                        if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Preparing message with regular format"); }
-
-                        // regular format
-                        event.setFormat(ChatColor.WHITE + "" + " <%s> %s");
-
-                        // send message
-                        onlinePlayer.sendMessage(ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + event.getMessage());
-
-                    }
+                    // send message
+                    onlinePlayer.sendMessage(ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + event.getMessage());
 
                 }
                 else {

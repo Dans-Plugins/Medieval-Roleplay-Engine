@@ -1,16 +1,15 @@
 package dansplugins.rpsystem.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.services.ConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import dansplugins.rpsystem.services.ConfigService;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author Daniel McCoy Stephenson
