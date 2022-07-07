@@ -1,13 +1,13 @@
 package dansplugins.rpsystem;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import dansplugins.rpsystem.bstats.Metrics;
+import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.integrators.MailboxesIntegrator;
-import dansplugins.rpsystem.integrators.MedievalFactionsIntegrator;
+import dansplugins.rpsystem.eventhandlers.ChatHandler;
+import dansplugins.rpsystem.eventhandlers.InteractionHandler;
+import dansplugins.rpsystem.eventhandlers.JoinHandler;
+import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import dansplugins.rpsystem.services.CharacterLookupService;
 import dansplugins.rpsystem.services.ConfigService;
 import dansplugins.rpsystem.services.StorageService;
@@ -18,35 +18,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
-
-import dansplugins.rpsystem.bstats.Metrics;
-import dansplugins.rpsystem.commands.BirdCommand;
-import dansplugins.rpsystem.commands.CardCommand;
-import dansplugins.rpsystem.commands.CharCommand;
-import dansplugins.rpsystem.commands.ConfigCommand;
-import dansplugins.rpsystem.commands.DefaultCommand;
-import dansplugins.rpsystem.commands.EmoteCommand;
-import dansplugins.rpsystem.commands.ForceCommand;
-import dansplugins.rpsystem.commands.GlobalChatCommand;
-import dansplugins.rpsystem.commands.HelpCommand;
-import dansplugins.rpsystem.commands.LocalChatCommand;
-import dansplugins.rpsystem.commands.LocalOOCChatCommand;
-import dansplugins.rpsystem.commands.RollCommand;
-import dansplugins.rpsystem.commands.SetCommand;
-import dansplugins.rpsystem.commands.StatsCommand;
-import dansplugins.rpsystem.commands.TitleCommand;
-import dansplugins.rpsystem.commands.UnsetCommand;
-import dansplugins.rpsystem.commands.WhisperCommand;
-import dansplugins.rpsystem.commands.YellCommand;
-import dansplugins.rpsystem.eventhandlers.ChatHandler;
-import dansplugins.rpsystem.eventhandlers.InteractionHandler;
-import dansplugins.rpsystem.eventhandlers.JoinHandler;
-import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import preponderous.ponder.minecraft.bukkit.PonderMC;
 import preponderous.ponder.minecraft.bukkit.abs.AbstractPluginCommand;
 import preponderous.ponder.minecraft.bukkit.abs.PonderBukkitPlugin;
 import preponderous.ponder.minecraft.bukkit.services.CommandService;
 import preponderous.ponder.minecraft.bukkit.tools.EventHandlerRegistry;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author Daniel McCoy Stephenson
@@ -63,8 +43,6 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
     private final Messenger messenger = new Messenger(ephemeralData);
     private final CharacterLookupService characterLookupService = new CharacterLookupService(logger, persistentData);
     private final StorageService storageService = new StorageService(configService, this, logger, persistentData);
-    private final MailboxesIntegrator mailboxesIntegrator = new MailboxesIntegrator(logger);
-    private final MedievalFactionsIntegrator medievalFactionsIntegrator = new MedievalFactionsIntegrator(this);
 
     private boolean versionMismatchOccurred;
     private String oldVersion = null;
@@ -188,7 +166,7 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
     private void registerEventHandlers() {
         EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry();
         ArrayList<Listener> listeners = new ArrayList<>();
-        listeners.add(new ChatHandler(configService, this, ephemeralData, colorChecker, persistentData, messenger, medievalFactionsIntegrator));
+        listeners.add(new ChatHandler(configService, this, ephemeralData, colorChecker, persistentData, messenger));
         listeners.add(new InteractionHandler(persistentData, this, ephemeralData, messenger));
         listeners.add(new JoinHandler(persistentData));
         eventHandlerRegistry.registerEventHandlers(listeners, this);
@@ -196,9 +174,9 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
 
     private void initializeCommandService() {
         ArrayList<AbstractPluginCommand> commands = new ArrayList<>(Arrays.asList(
-                new BirdCommand(colorChecker, ephemeralData, configService, this, messenger, mailboxesIntegrator), new CardCommand(characterLookupService, colorChecker), new CharCommand(),
+                new BirdCommand(colorChecker, ephemeralData, configService, this, messenger), new CardCommand(characterLookupService, colorChecker), new CharCommand(),
                 new ConfigCommand(colorChecker, configService), new EmoteCommand(this, colorChecker, persistentData, messenger), new ForceCommand(),
-                new GlobalChatCommand(configService, ephemeralData, colorChecker), new HelpCommand(colorChecker, this, configService), new LocalChatCommand(ephemeralData, colorChecker, medievalFactionsIntegrator),
+                new GlobalChatCommand(configService, ephemeralData, colorChecker), new HelpCommand(colorChecker, this, configService), new LocalChatCommand(ephemeralData, colorChecker),
                 new LocalOOCChatCommand(colorChecker, this, persistentData, messenger, ephemeralData), new RollCommand(messenger, colorChecker), new SetCommand(characterLookupService, colorChecker),
                 new StatsCommand(persistentData, ephemeralData), new TitleCommand(colorChecker), new UnsetCommand(characterLookupService, colorChecker),
                 new WhisperCommand(colorChecker, this, persistentData, messenger), new YellCommand(colorChecker, this, persistentData, messenger)

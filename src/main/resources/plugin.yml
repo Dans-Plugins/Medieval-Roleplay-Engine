@@ -3,7 +3,7 @@ version: '${project.version}'
 author: Daniel Stephenson
 main: dansplugins.rpsystem.MedievalRoleplayEngine
 api-version: 1.13
-softdepend: [PlaceholderAPI, MedievalFactions, Mailboxes]
+softdepend: [PlaceholderAPI]
 
 commands:
   medievalroleplayengine:

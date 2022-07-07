@@ -1,12 +1,11 @@
 package dansplugins.rpsystem.utils;
 
-import static org.bukkit.Bukkit.getServer;
-
+import dansplugins.rpsystem.data.EphemeralData;
+import dansplugins.rpsystem.objects.RPCharacter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import dansplugins.rpsystem.data.EphemeralData;
-import dansplugins.rpsystem.objects.RPCharacter;
+import static org.bukkit.Bukkit.getServer;
 
 /**
  * @author Daniel McCoy Stephenson
