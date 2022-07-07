@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Medieval-Roleplay-Engine:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Medieval_Roleplay_Engine_jar</output-path>
-    <root id="archive" name="Medieval-Roleplay-Engine.jar">
-      <element id="module-output" name="Medieval-Roleplay-Engine" />
-      <element id="extracted-dir" path="$USER_HOME$/Downloads/spigot-1.15.2.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>
