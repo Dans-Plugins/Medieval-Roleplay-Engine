@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * @author Daniel McCoy Stephenson
  */
-public class CharacterLookupService { // TODO: replace this class by utilizing Ponder
+public class CharacterLookupService {
     private final Logger logger;
     private final PersistentData persistentData;
 

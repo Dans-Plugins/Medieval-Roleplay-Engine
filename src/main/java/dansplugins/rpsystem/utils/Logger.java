@@ -2,6 +2,8 @@ package dansplugins.rpsystem.utils;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 
+import java.util.logging.Level;
+
 /**
  * @author Daniel McCoy Stephenson
  */
@@ -14,7 +16,7 @@ public class Logger {
 
     public void log(String message) {
         if (medievalRoleplayEngine.isDebugEnabled()) {
-            System.out.println("[MRE] " + message);
+            medievalRoleplayEngine.getLogger().log(Level.INFO, "[MRE] " + message);
         }
     }
 }

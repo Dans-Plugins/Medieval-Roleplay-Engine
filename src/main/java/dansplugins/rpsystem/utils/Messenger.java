@@ -98,28 +98,4 @@ public class Messenger {
         }
         return numPlayersWhoHeard;
     }
-
-    @Deprecated
-    public void sendCardInfoToPlayer(RPCharacter card, Player player) {
-        /*
-        player.sendMessage(ChatColor.BOLD + "" + colorChecker.getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
-        player.sendMessage(colorChecker.getNeutralAlertColor() + "Name: " + card.getName());
-        player.sendMessage(colorChecker.getNeutralAlertColor() + "Race: " + card.getRace());
-        player.sendMessage(colorChecker.getNeutralAlertColor() + "Subculture: " + card.getSubculture());
-        player.sendMessage(colorChecker.getNeutralAlertColor() + "Age: " + card.getAge());
-        player.sendMessage(colorChecker.getNeutralAlertColor() + "Gender: " + card.getGender());
-        player.sendMessage(colorChecker.getNeutralAlertColor() + "Religion: " + card.getReligion());
-        if (medievalFactionsIntegrator.isMedievalFactionsPresent()) {
-            MF_Faction faction = medievalFactionsIntegrator.getAPI().getFaction(card.getPlayerUUID());
-            int power = medievalFactionsIntegrator.getAPI().getPower(card.getPlayerUUID());
-            if (faction != null) {
-                player.sendMessage(colorChecker.getNeutralAlertColor() + "Faction: " + faction.getName());
-            }
-            else {
-                player.sendMessage(colorChecker.getNeutralAlertColor() + "Faction: N/A");
-            }
-            player.sendMessage(colorChecker.getNeutralAlertColor() + "Power: " + power);
-        }
-        */
-    }
 }

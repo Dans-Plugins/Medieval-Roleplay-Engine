@@ -47,7 +47,7 @@ public class InteractionHandler implements Listener {
                 ephemeralData.getPlayersWithRightClickCooldown().add(player.getUniqueId());
 
                 if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default") || !player.hasMetadata("NPC")) {
-                    messenger.sendCardInfoToPlayer(card, player);
+                    card.sendCharacterInfo(player);
 
                     int seconds = 2;
                     medievalRoleplayEngine.getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
