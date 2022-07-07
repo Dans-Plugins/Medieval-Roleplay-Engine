@@ -18,7 +18,7 @@ public class RollCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
 
     public RollCommand(Messenger messenger, ColorChecker colorChecker) {
-        super(new ArrayList<>(Arrays.asList("roll")), new ArrayList<>(Arrays.asList("rp.roll")));
+        super(new ArrayList<>(Arrays.asList("roll")), new ArrayList<>(Arrays.asList("mre.roll")));
         this.messenger = messenger;
         this.colorChecker = colorChecker;
     }

@@ -28,7 +28,7 @@ public class BirdCommand extends AbstractPluginCommand {
     private final Messenger messenger;
 
     public BirdCommand(ColorChecker colorChecker, EphemeralData ephemeralData, ConfigService configService, MedievalRoleplayEngine medievalRoleplayEngine, Messenger messenger) {
-        super(new ArrayList<>(Arrays.asList("bird")), new ArrayList<>(Arrays.asList("rp.bird")));
+        super(new ArrayList<>(Arrays.asList("bird")), new ArrayList<>(Arrays.asList("mre.bird")));
         this.colorChecker = colorChecker;
         this.ephemeralData = ephemeralData;
         this.configService = configService;

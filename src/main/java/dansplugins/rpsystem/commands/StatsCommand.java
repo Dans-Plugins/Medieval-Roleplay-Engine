@@ -17,7 +17,7 @@ public class StatsCommand extends AbstractPluginCommand {
     private final EphemeralData ephemeralData;
 
     public StatsCommand(PersistentData persistentData, EphemeralData ephemeralData) {
-        super(new ArrayList<>(Arrays.asList("stats")), new ArrayList<>(Arrays.asList("rp.stats")));
+        super(new ArrayList<>(Arrays.asList("stats")), new ArrayList<>(Arrays.asList("mre.stats")));
         this.persistentData = persistentData;
         this.ephemeralData = ephemeralData;
     }

@@ -22,7 +22,7 @@ public class CardCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
 
     public CardCommand(CharacterLookupService characterLookupService, ColorChecker colorChecker) {
-        super(new ArrayList<>(Arrays.asList("card")), new ArrayList<>(Arrays.asList("rp.card")));
+        super(new ArrayList<>(Arrays.asList("card")), new ArrayList<>(Arrays.asList("mre.card")));
         this.characterLookupService = characterLookupService;
         this.colorChecker = colorChecker;
     }

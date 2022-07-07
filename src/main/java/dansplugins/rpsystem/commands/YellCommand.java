@@ -23,7 +23,7 @@ public class YellCommand extends AbstractPluginCommand {
     private final ConfigService configService;
 
     public YellCommand(ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, ConfigService configService) {
-        super(new ArrayList<>(Arrays.asList("yell")), new ArrayList<>(Arrays.asList("rp.yell")));
+        super(new ArrayList<>(Arrays.asList("yell")), new ArrayList<>(Arrays.asList("mre.yell")));
         this.colorChecker = colorChecker;
         this.persistentData = persistentData;
         this.messenger = messenger;

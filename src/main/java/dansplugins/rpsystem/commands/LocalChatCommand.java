@@ -18,7 +18,7 @@ public class LocalChatCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
 
     public LocalChatCommand(EphemeralData ephemeralData, ColorChecker colorChecker) {
-        super(new ArrayList<>(Arrays.asList("local")), new ArrayList<>(Arrays.asList("rp.local")));
+        super(new ArrayList<>(Arrays.asList("local")), new ArrayList<>(Arrays.asList("mre.local")));
         this.ephemeralData = ephemeralData;
         this.colorChecker = colorChecker;
     }
@@ -49,7 +49,7 @@ public class LocalChatCommand extends AbstractPluginCommand {
             return true;
         }
 
-        player.sendMessage(ChatColor.RED + "Usage: /rp local <[ show | hide ]>");
+        player.sendMessage(ChatColor.RED + "Usage: /mre local <[ show | hide ]>");
         return false;
     }
 

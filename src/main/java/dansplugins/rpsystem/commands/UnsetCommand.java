@@ -21,14 +21,14 @@ public class UnsetCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
 
     public UnsetCommand(CharacterLookupService characterLookupService, ColorChecker colorChecker) {
-        super(new ArrayList<>(Arrays.asList("unset")), new ArrayList<>(Arrays.asList("rp.unset")));
+        super(new ArrayList<>(Arrays.asList("unset")), new ArrayList<>(Arrays.asList("mre.unset")));
         this.characterLookupService = characterLookupService;
         this.colorChecker = colorChecker;
     }
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        commandSender.sendMessage(ChatColor.RED + "Usage: /rp unset \"key\"");
+        commandSender.sendMessage(ChatColor.RED + "Usage: /mre unset \"key\"");
         return false;
     }
 
