@@ -43,7 +43,6 @@ public class HelpCommand extends AbstractPluginCommand {
             sender.sendMessage(colorChecker.getNeutralAlertColor() + "/rp lo \"message\" - Send an single OOC message to nearby players.");
         }
 
-        sender.sendMessage(colorChecker.getNeutralAlertColor() + "/rp config - View and change config options.");
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/rp stats - View various statistics associated with the plugin.");
         return true;
     }
