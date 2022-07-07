@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.eventhandlers;
+package dansplugins.rpsystem.listeners;
 
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
@@ -9,10 +9,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 /**
  * @author Daniel McCoy Stephenson
  */
-public class JoinHandler implements Listener {
+public class JoinListener implements Listener {
     private final PersistentData persistentData;
 
-    public JoinHandler(PersistentData persistentData) {
+    public JoinListener(PersistentData persistentData) {
         this.persistentData = persistentData;
     }
 

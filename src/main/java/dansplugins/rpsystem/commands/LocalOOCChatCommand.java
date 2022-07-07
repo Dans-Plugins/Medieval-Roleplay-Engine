@@ -1,8 +1,8 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.services.ConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.command.CommandSender;
@@ -19,18 +19,18 @@ import java.util.List;
  */
 public class LocalOOCChatCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
-    private final MedievalRoleplayEngine medievalRoleplayEngine;
     private final PersistentData persistentData;
     private final Messenger messenger;
     private final EphemeralData ephemeralData;
+    private final ConfigService configService;
 
-    public LocalOOCChatCommand(ColorChecker colorChecker, MedievalRoleplayEngine medievalRoleplayEngine, PersistentData persistentData, Messenger messenger, EphemeralData ephemeralData) {
+    public LocalOOCChatCommand(ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, EphemeralData ephemeralData, ConfigService configService) {
         super(new ArrayList<>(Arrays.asList("lo")), new ArrayList<>(Arrays.asList("rp.lo")));
         this.colorChecker = colorChecker;
-        this.medievalRoleplayEngine = medievalRoleplayEngine;
         this.persistentData = persistentData;
         this.messenger = messenger;
         this.ephemeralData = ephemeralData;
+        this.configService = configService;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class LocalOOCChatCommand extends AbstractPluginCommand {
     }
 
     public boolean execute(CommandSender sender, String[] args) {
-        int localOOCChatRadius = medievalRoleplayEngine.getConfig().getInt("localOOCChatRadius");
-        String localOOCChatColor = medievalRoleplayEngine.getConfig().getString("localOOCChatColor");
+        int localOOCChatRadius = configService.getInt("localOOCChatRadius");
+        String localOOCChatColor = configService.getString("localOOCChatColor");
         if (!(sender instanceof Player)) {
             return false;
         }

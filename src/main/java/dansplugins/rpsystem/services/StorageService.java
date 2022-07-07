@@ -37,9 +37,6 @@ public class StorageService {
 
     public void save() {
         saveCharacters();
-        if (configService.hasBeenAltered()) {
-            medievalRoleplayEngine.saveConfig();
-        }
     }
 
     public void load() {

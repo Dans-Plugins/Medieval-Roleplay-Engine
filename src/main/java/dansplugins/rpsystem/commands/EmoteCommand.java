@@ -1,7 +1,7 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.services.ConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.ChatColor;
@@ -18,17 +18,17 @@ import java.util.List;
  * @author Daniel McCoy Stephenson
  */
 public class EmoteCommand extends AbstractPluginCommand {
-    private final MedievalRoleplayEngine medievalRoleplayEngine;
     private final ColorChecker colorChecker;
     private final PersistentData persistentData;
     private final Messenger messenger;
+    private final ConfigService configService;
 
-    public EmoteCommand(MedievalRoleplayEngine medievalRoleplayEngine, ColorChecker colorChecker, PersistentData persistentData, Messenger messenger) {
+    public EmoteCommand(ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, ConfigService configService) {
         super(new ArrayList<>(Arrays.asList("emote")), new ArrayList<>(Arrays.asList("rp.emote")));
-        this.medievalRoleplayEngine = medievalRoleplayEngine;
         this.colorChecker = colorChecker;
         this.persistentData = persistentData;
         this.messenger = messenger;
+        this.configService = configService;
     }
 
     @Override
@@ -39,8 +39,8 @@ public class EmoteCommand extends AbstractPluginCommand {
 
     public boolean execute(CommandSender sender, String[] args) {
 
-        int emoteRadius = medievalRoleplayEngine.getConfig().getInt("emoteRadius");
-        String emoteColor = medievalRoleplayEngine.getConfig().getString("emoteColor");
+        int emoteRadius = configService.getInt("emoteRadius");
+        String emoteColor = configService.getString("emoteColor");
 
         if (!(sender instanceof Player)) {
             return false;

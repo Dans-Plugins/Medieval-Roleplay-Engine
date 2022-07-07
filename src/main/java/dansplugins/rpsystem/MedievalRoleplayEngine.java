@@ -4,9 +4,9 @@ import dansplugins.rpsystem.bstats.Metrics;
 import dansplugins.rpsystem.commands.*;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
-import dansplugins.rpsystem.eventhandlers.ChatHandler;
-import dansplugins.rpsystem.eventhandlers.InteractionHandler;
-import dansplugins.rpsystem.eventhandlers.JoinHandler;
+import dansplugins.rpsystem.listeners.ChatListener;
+import dansplugins.rpsystem.listeners.InteractionListener;
+import dansplugins.rpsystem.listeners.JoinListener;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import dansplugins.rpsystem.services.CharacterLookupService;
 import dansplugins.rpsystem.services.ConfigService;
@@ -54,7 +54,6 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
     public void onEnable() {
         setVersionMismatchOccurred();
         handlebStatsIntegration();
-        initializeConfig();
         registerEventHandlers();
         initializeCommandService();
         storageService.load();
@@ -143,43 +142,27 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
         }
     }
 
-    private void initializeConfig() {
-        if (configFileExists()) {
-            performCompatibilityChecks();
-        }
-        else {
-            configService.saveMissingConfigDefaultsIfNotPresent();
-        }
-    }
-
     private boolean configFileExists() {
         return new File("./plugins/" + getName() + "/config.yml").exists();
-    }
-
-    private void performCompatibilityChecks() {
-        if (isVersionMismatched()) {
-            configService.saveMissingConfigDefaultsIfNotPresent();
-        }
-        reloadConfig();
     }
 
     private void registerEventHandlers() {
         EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry();
         ArrayList<Listener> listeners = new ArrayList<>();
-        listeners.add(new ChatHandler(configService, this, ephemeralData, colorChecker, persistentData, messenger));
-        listeners.add(new InteractionHandler(persistentData, this, ephemeralData, messenger));
-        listeners.add(new JoinHandler(persistentData));
+        listeners.add(new ChatListener(configService, this, ephemeralData, colorChecker, persistentData, messenger));
+        listeners.add(new InteractionListener(persistentData, this, ephemeralData, configService));
+        listeners.add(new JoinListener(persistentData));
         eventHandlerRegistry.registerEventHandlers(listeners, this);
     }
 
     private void initializeCommandService() {
         ArrayList<AbstractPluginCommand> commands = new ArrayList<>(Arrays.asList(
                 new BirdCommand(colorChecker, ephemeralData, configService, this, messenger), new CardCommand(characterLookupService, colorChecker), new CharCommand(),
-                new ConfigCommand(colorChecker, configService), new EmoteCommand(this, colorChecker, persistentData, messenger), new ForceCommand(),
+                new EmoteCommand(colorChecker, persistentData, messenger, configService), new ForceCommand(),
                 new GlobalChatCommand(configService, ephemeralData, colorChecker), new HelpCommand(colorChecker, this, configService), new LocalChatCommand(ephemeralData, colorChecker),
-                new LocalOOCChatCommand(colorChecker, this, persistentData, messenger, ephemeralData), new RollCommand(messenger, colorChecker), new SetCommand(characterLookupService, colorChecker),
+                new LocalOOCChatCommand(colorChecker, persistentData, messenger, ephemeralData, configService), new RollCommand(messenger, colorChecker), new SetCommand(characterLookupService, colorChecker),
                 new StatsCommand(persistentData, ephemeralData), new TitleCommand(colorChecker), new UnsetCommand(characterLookupService, colorChecker),
-                new WhisperCommand(colorChecker, this, persistentData, messenger), new YellCommand(colorChecker, this, persistentData, messenger)
+                new WhisperCommand(colorChecker, persistentData, messenger, configService), new YellCommand(colorChecker, persistentData, messenger, configService)
         ));
         commandService.initialize(commands, "That command wasn't found.");
     }
