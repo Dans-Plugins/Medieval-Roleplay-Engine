@@ -1,7 +1,7 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.services.ConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.command.CommandSender;
@@ -18,16 +18,16 @@ import java.util.List;
  */
 public class WhisperCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
-    private final MedievalRoleplayEngine medievalRoleplayEngine;
     private final PersistentData persistentData;
     private final Messenger messenger;
+    private final ConfigService configService;
 
-    public WhisperCommand(ColorChecker colorChecker, MedievalRoleplayEngine medievalRoleplayEngine, PersistentData persistentData, Messenger messenger) {
+    public WhisperCommand(ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, ConfigService configService) {
         super(new ArrayList<>(Arrays.asList("whisper")), new ArrayList<>(Arrays.asList("rp.whisper")));
         this.colorChecker = colorChecker;
-        this.medievalRoleplayEngine = medievalRoleplayEngine;
         this.persistentData = persistentData;
         this.messenger = messenger;
+        this.configService = configService;
     }
 
     @Override
@@ -38,8 +38,8 @@ public class WhisperCommand extends AbstractPluginCommand {
 
     public boolean execute(CommandSender sender, String[] args) {
 
-        int whisperChatRadius = medievalRoleplayEngine.getConfig().getInt("whisperChatRadius");
-        String whisperChatColor = medievalRoleplayEngine.getConfig().getString("whisperChatColor");
+        int whisperChatRadius = configService.getInt("whisperChatRadius");
+        String whisperChatColor = configService.getString("whisperChatColor");
 
         if (!(sender instanceof Player)) {
             return false;

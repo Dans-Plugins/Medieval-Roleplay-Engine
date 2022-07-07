@@ -1,4 +1,4 @@
-package dansplugins.rpsystem.eventhandlers;
+package dansplugins.rpsystem.listeners;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.EphemeralData;
@@ -16,7 +16,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 /**
  * @author Daniel McCoy Stephenson
  */
-public class ChatHandler implements Listener {
+public class ChatListener implements Listener {
     private final ConfigService configService;
     private final MedievalRoleplayEngine medievalRoleplayEngine;
     private final EphemeralData ephemeralData;
@@ -24,7 +24,7 @@ public class ChatHandler implements Listener {
     private final PersistentData persistentData;
     private final Messenger messenger;
 
-    public ChatHandler(ConfigService configService, MedievalRoleplayEngine medievalRoleplayEngine, EphemeralData ephemeralData, ColorChecker colorChecker, PersistentData persistentData, Messenger messenger) {
+    public ChatListener(ConfigService configService, MedievalRoleplayEngine medievalRoleplayEngine, EphemeralData ephemeralData, ColorChecker colorChecker, PersistentData persistentData, Messenger messenger) {
         this.configService = configService;
         this.medievalRoleplayEngine = medievalRoleplayEngine;
         this.ephemeralData = ephemeralData;
@@ -39,9 +39,9 @@ public class ChatHandler implements Listener {
             return;
         }
 
-        int localChatRadius = medievalRoleplayEngine.getConfig().getInt("localChatRadius");
+        int localChatRadius = configService.getInt("localChatRadius");
 
-        String localChatColorString = medievalRoleplayEngine.getConfig().getString("localChatColor");
+        String localChatColorString = configService.getString("localChatColor");
         if (ephemeralData.getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
             // get color and character name
             ChatColor localChatColor = colorChecker.getColorByName(localChatColorString);
@@ -63,8 +63,8 @@ public class ChatHandler implements Listener {
                 String messageWithoutEmote = removeStringContainedBetweenAstericks(event.getMessage());
 
                 String emoteMessage = getStringContainedBetweenAstericks(event.getMessage());
-                int emoteRadius = medievalRoleplayEngine.getConfig().getInt("emoteRadius");
-                String emoteColorString = medievalRoleplayEngine.getConfig().getString("emoteColor");
+                int emoteRadius = configService.getInt("emoteRadius");
+                String emoteColorString = configService.getString("emoteColor");
 
                 messageWithoutEmote = messageWithoutEmote.trim();
 

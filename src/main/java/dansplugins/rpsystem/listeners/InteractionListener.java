@@ -1,10 +1,10 @@
-package dansplugins.rpsystem.eventhandlers;
+package dansplugins.rpsystem.listeners;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.EphemeralData;
 import dansplugins.rpsystem.data.PersistentData;
 import dansplugins.rpsystem.objects.RPCharacter;
-import dansplugins.rpsystem.utils.Messenger;
+import dansplugins.rpsystem.services.ConfigService;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,17 +13,17 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 /**
  * @author Daniel McCoy Stephenson
  */
-public class InteractionHandler implements Listener {
+public class InteractionListener implements Listener {
     private final PersistentData persistentData;
     private final MedievalRoleplayEngine medievalRoleplayEngine;
     private final EphemeralData ephemeralData;
-    private final Messenger messenger;
+    private final ConfigService configService;
 
-    public InteractionHandler(PersistentData persistentData, MedievalRoleplayEngine medievalRoleplayEngine, EphemeralData ephemeralData, Messenger messenger) {
+    public InteractionListener(PersistentData persistentData, MedievalRoleplayEngine medievalRoleplayEngine, EphemeralData ephemeralData, ConfigService configService) {
         this.persistentData = persistentData;
         this.medievalRoleplayEngine = medievalRoleplayEngine;
         this.ephemeralData = ephemeralData;
-        this.messenger = messenger;
+        this.configService = configService;
     }
 
     @EventHandler()
@@ -39,7 +39,7 @@ public class InteractionHandler implements Listener {
                 return;
             }
 
-            if (!medievalRoleplayEngine.getConfig().getBoolean("rightClickToViewCard")) {
+            if (!configService.getBoolean("rightClickToViewCard")) {
                 return;
             }
 

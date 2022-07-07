@@ -1,7 +1,7 @@
 package dansplugins.rpsystem.commands;
 
-import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.data.PersistentData;
+import dansplugins.rpsystem.services.ConfigService;
 import dansplugins.rpsystem.utils.ColorChecker;
 import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.command.CommandSender;
@@ -18,16 +18,16 @@ import java.util.List;
  */
 public class YellCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
-    private final MedievalRoleplayEngine medievalRoleplayEngine;
     private final PersistentData persistentData;
     private final Messenger messenger;
+    private final ConfigService configService;
 
-    public YellCommand(ColorChecker colorChecker, MedievalRoleplayEngine medievalRoleplayEngine, PersistentData persistentData, Messenger messenger) {
+    public YellCommand(ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, ConfigService configService) {
         super(new ArrayList<>(Arrays.asList("yell")), new ArrayList<>(Arrays.asList("rp.yell")));
         this.colorChecker = colorChecker;
-        this.medievalRoleplayEngine = medievalRoleplayEngine;
         this.persistentData = persistentData;
         this.messenger = messenger;
+        this.configService = configService;
     }
 
     @Override
@@ -38,8 +38,8 @@ public class YellCommand extends AbstractPluginCommand {
 
     public boolean execute(CommandSender sender, String[] args) {
 
-        int yellChatRadius = medievalRoleplayEngine.getConfig().getInt("yellChatRadius");
-        String yellChatColor = medievalRoleplayEngine.getConfig().getString("yellChatColor");
+        int yellChatRadius = configService.getInt("yellChatRadius");
+        String yellChatColor = configService.getString("yellChatColor");
 
         // player check
         if (!(sender instanceof Player)) {
