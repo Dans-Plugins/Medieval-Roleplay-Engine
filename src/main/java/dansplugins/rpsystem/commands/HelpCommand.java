@@ -44,7 +44,6 @@ public class HelpCommand extends AbstractPluginCommand {
         }
 
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/rp config - View and change config options.");
-        sender.sendMessage(colorChecker.getNeutralAlertColor() + "/rp force - Force actions to occur.");
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/rp stats - View various statistics associated with the plugin.");
         return true;
     }

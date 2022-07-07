@@ -157,8 +157,8 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
 
     private void initializeCommandService() {
         ArrayList<AbstractPluginCommand> commands = new ArrayList<>(Arrays.asList(
-                new BirdCommand(colorChecker, ephemeralData, configService, this, messenger), new CardCommand(characterLookupService, colorChecker), new CharCommand(),
-                new EmoteCommand(colorChecker, persistentData, messenger, configService), new ForceCommand(),
+                new BirdCommand(colorChecker, ephemeralData, configService, this, messenger), new CardCommand(characterLookupService, colorChecker),
+                new EmoteCommand(colorChecker, persistentData, messenger, configService),
                 new GlobalChatCommand(configService, ephemeralData, colorChecker), new HelpCommand(colorChecker, this, configService), new LocalChatCommand(ephemeralData, colorChecker),
                 new LocalOOCChatCommand(colorChecker, persistentData, messenger, ephemeralData, configService), new RollCommand(messenger, colorChecker), new SetCommand(characterLookupService, colorChecker),
                 new StatsCommand(persistentData, ephemeralData), new TitleCommand(colorChecker), new UnsetCommand(characterLookupService, colorChecker),
