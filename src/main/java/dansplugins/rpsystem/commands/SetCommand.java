@@ -22,14 +22,14 @@ public class SetCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
 
     public SetCommand(CharacterLookupService characterLookupService, ColorChecker colorChecker) {
-        super(new ArrayList<>(Arrays.asList("set")), new ArrayList<>(Arrays.asList("rp.set")));
+        super(new ArrayList<>(Arrays.asList("set")), new ArrayList<>(Arrays.asList("mre.set")));
         this.characterLookupService = characterLookupService;
         this.colorChecker = colorChecker;
     }
 
     @Override
     public boolean execute(CommandSender commandSender) {
-        commandSender.sendMessage(ChatColor.RED + "Usage: /rp set \"key\" \"value\"");
+        commandSender.sendMessage(ChatColor.RED + "Usage: /mre set \"key\" \"value\"");
         return false;
     }
 

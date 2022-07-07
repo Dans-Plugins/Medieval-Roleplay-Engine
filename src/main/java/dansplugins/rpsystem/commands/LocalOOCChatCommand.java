@@ -25,7 +25,7 @@ public class LocalOOCChatCommand extends AbstractPluginCommand {
     private final ConfigService configService;
 
     public LocalOOCChatCommand(ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, EphemeralData ephemeralData, ConfigService configService) {
-        super(new ArrayList<>(Arrays.asList("lo")), new ArrayList<>(Arrays.asList("rp.lo")));
+        super(new ArrayList<>(Arrays.asList("lo")), new ArrayList<>(Arrays.asList("mre.lo")));
         this.colorChecker = colorChecker;
         this.persistentData = persistentData;
         this.messenger = messenger;

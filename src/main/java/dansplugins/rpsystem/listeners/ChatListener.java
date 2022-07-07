@@ -48,7 +48,7 @@ public class ChatListener implements Listener {
             String characterName = persistentData.getCharacter(event.getPlayer().getUniqueId()).getInfo("name");
 
             if (ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(event.getPlayer().getUniqueId())) {
-                event.getPlayer().sendMessage(colorChecker.getNegativeAlertColor() + "You have hidden local chat. Type '/rp show' to talk in local chat.");
+                event.getPlayer().sendMessage(colorChecker.getNegativeAlertColor() + "You have hidden local chat. Type '/mre show' to talk in local chat.");
                 event.setCancelled(true);
                 return;
             }

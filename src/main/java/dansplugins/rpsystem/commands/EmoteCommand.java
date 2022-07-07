@@ -24,7 +24,7 @@ public class EmoteCommand extends AbstractPluginCommand {
     private final ConfigService configService;
 
     public EmoteCommand(ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, ConfigService configService) {
-        super(new ArrayList<>(Arrays.asList("emote")), new ArrayList<>(Arrays.asList("rp.emote")));
+        super(new ArrayList<>(Arrays.asList("emote")), new ArrayList<>(Arrays.asList("mre.emote")));
         this.colorChecker = colorChecker;
         this.persistentData = persistentData;
         this.messenger = messenger;

@@ -23,7 +23,7 @@ public class WhisperCommand extends AbstractPluginCommand {
     private final ConfigService configService;
 
     public WhisperCommand(ColorChecker colorChecker, PersistentData persistentData, Messenger messenger, ConfigService configService) {
-        super(new ArrayList<>(Arrays.asList("whisper")), new ArrayList<>(Arrays.asList("rp.whisper")));
+        super(new ArrayList<>(Arrays.asList("whisper")), new ArrayList<>(Arrays.asList("mre.whisper")));
         this.colorChecker = colorChecker;
         this.persistentData = persistentData;
         this.messenger = messenger;

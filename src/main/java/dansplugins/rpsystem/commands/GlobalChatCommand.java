@@ -20,7 +20,7 @@ public class GlobalChatCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
 
     public GlobalChatCommand(ConfigService configService, EphemeralData ephemeralData, ColorChecker colorChecker) {
-        super(new ArrayList<>(Arrays.asList("global")), new ArrayList<>(Arrays.asList("rp.global")));
+        super(new ArrayList<>(Arrays.asList("global")), new ArrayList<>(Arrays.asList("mre.global")));
         this.configService = configService;
         this.ephemeralData = ephemeralData;
         this.colorChecker = colorChecker;
@@ -55,7 +55,7 @@ public class GlobalChatCommand extends AbstractPluginCommand {
                 return true;
             }
 
-            player.sendMessage(ChatColor.RED + "Usage: /rp global <[ show | hide ]>");
+            player.sendMessage(ChatColor.RED + "Usage: /mre global <[ show | hide ]>");
             return false;
         }
         else {

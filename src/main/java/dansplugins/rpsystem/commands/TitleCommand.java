@@ -20,7 +20,7 @@ public class TitleCommand extends AbstractPluginCommand {
     private final ColorChecker colorChecker;
 
     public TitleCommand(ColorChecker colorChecker) {
-        super(new ArrayList<>(Arrays.asList("title")), new ArrayList<>(Arrays.asList("rp.title")));
+        super(new ArrayList<>(Arrays.asList("title")), new ArrayList<>(Arrays.asList("mre.title")));
         this.colorChecker = colorChecker;
     }
 

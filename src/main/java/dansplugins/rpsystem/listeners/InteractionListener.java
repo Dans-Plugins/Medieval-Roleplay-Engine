@@ -46,7 +46,7 @@ public class InteractionListener implements Listener {
             if (!ephemeralData.getPlayersWithRightClickCooldown().contains(player.getUniqueId())) {
                 ephemeralData.getPlayersWithRightClickCooldown().add(player.getUniqueId());
 
-                if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default") || !player.hasMetadata("NPC")) {
+                if (player.hasPermission("mre.card.show.others") || player.hasPermission("mre.card.*") || player.hasPermission("mre.default") || !player.hasMetadata("NPC")) {
                     card.sendCharacterInfo(player);
 
                     int seconds = 2;

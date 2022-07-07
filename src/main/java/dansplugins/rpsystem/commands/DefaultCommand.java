@@ -15,7 +15,7 @@ public class DefaultCommand extends AbstractPluginCommand {
     private final MedievalRoleplayEngine medievalRoleplayEngine;
 
     public DefaultCommand(MedievalRoleplayEngine medievalRoleplayEngine) {
-        super(new ArrayList<>(Arrays.asList("default")), new ArrayList<>(Arrays.asList("rp.default")));
+        super(new ArrayList<>(Arrays.asList("default")), new ArrayList<>(Arrays.asList("mre.default")));
         this.medievalRoleplayEngine = medievalRoleplayEngine;
     }
 
@@ -25,7 +25,7 @@ public class DefaultCommand extends AbstractPluginCommand {
         commandSender.sendMessage(ChatColor.AQUA + "Developed by: Daniel Stephenson");
         commandSender.sendMessage(ChatColor.AQUA + "Wiki: https://github.com/dmccoystephenson/MedievalRoleplayEngine/wiki");
         commandSender.sendMessage("---");
-        commandSender.sendMessage(ChatColor.AQUA + "Tip: You can view a list of helpful commands by typing /rp help");
+        commandSender.sendMessage(ChatColor.AQUA + "Tip: You can view a list of helpful commands by typing /mre help");
         return true;
     }
 
