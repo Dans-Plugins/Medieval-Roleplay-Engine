@@ -1,7 +1,6 @@
 package dansplugins.rpsystem.utils;
 
 import dansplugins.rpsystem.data.EphemeralData;
-import dansplugins.rpsystem.objects.RPCharacter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
