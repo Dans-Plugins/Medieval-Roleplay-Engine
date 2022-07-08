@@ -34,7 +34,7 @@ import java.util.Arrays;
 public class MedievalRoleplayEngine extends PonderBukkitPlugin {
     private final String pluginVersion = "v" + getDescription().getVersion();
 
-    private final CommandService commandService = new CommandService((PonderMC) getPonder());
+    private final CommandService commandService = new CommandService(getPonder());
     private final ConfigService configService = new ConfigService(this);
     private final Logger logger = new Logger(this);
     private final PersistentData persistentData = new PersistentData();
@@ -42,17 +42,13 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
     private final ColorChecker colorChecker = new ColorChecker(configService);
     private final Messenger messenger = new Messenger(ephemeralData);
     private final CharacterLookupService characterLookupService = new CharacterLookupService(logger, persistentData);
-    private final StorageService storageService = new StorageService(configService, this, logger, persistentData);
-
-    private boolean versionMismatchOccurred;
-    private String oldVersion = null;
+    private final StorageService storageService = new StorageService(logger, persistentData);
 
     /**
      * This runs when the server starts.
      */
     @Override
     public void onEnable() {
-        setVersionMismatchOccurred();
         handlebStatsIntegration();
         registerEventHandlers();
         initializeCommandService();
@@ -115,10 +111,6 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
         return configService.getBoolean("debugMode");
     }
 
-    public String getOldVersion() {
-        return oldVersion;
-    }
-
     private void handlebStatsIntegration() {
         int pluginId = 8996;
         new Metrics(this, pluginId);
@@ -130,20 +122,6 @@ public class MedievalRoleplayEngine extends PonderBukkitPlugin {
         } else {
             if (isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
         }
-    }
-
-    private void setVersionMismatchOccurred() {
-        String configVersion = this.getConfig().getString("version");
-        oldVersion = configVersion;
-        if (configVersion == null || this.getVersion() == null) {
-            versionMismatchOccurred = false;
-        } else {
-            versionMismatchOccurred = !configVersion.equalsIgnoreCase(this.getVersion());
-        }
-    }
-
-    private boolean configFileExists() {
-        return new File("./plugins/" + getName() + "/config.yml").exists();
     }
 
     private void registerEventHandlers() {

@@ -18,8 +18,6 @@ import java.util.*;
  * @author Daniel McCoy Stephenson
  */
 public class StorageService {
-    private final ConfigService configService;
-    private final MedievalRoleplayEngine medievalRoleplayEngine;
     private final Logger logger;
     private final PersistentData persistentData;
 
@@ -28,9 +26,7 @@ public class StorageService {
     private final Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
     private static final Type LIST_MAP_TYPE = (new TypeToken<ArrayList<HashMap<String, String>>>() {}).getType();
 
-    public StorageService(ConfigService configService, MedievalRoleplayEngine medievalRoleplayEngine, Logger logger, PersistentData persistentData) {
-        this.configService = configService;
-        this.medievalRoleplayEngine = medievalRoleplayEngine;
+    public StorageService(Logger logger, PersistentData persistentData) {
         this.logger = logger;
         this.persistentData = persistentData;
     }
@@ -40,8 +36,6 @@ public class StorageService {
     }
 
     public void load() {
-        logger.log("Version mismatched: " + medievalRoleplayEngine.isVersionMismatched());
-        logger.log("Old version: " + medievalRoleplayEngine.getOldVersion());
         loadCharacters();
     }
 

@@ -98,7 +98,7 @@ public class BirdCommand extends AbstractPluginCommand {
                 ephemeralData.getPlayersWithBusyBirds().remove(player.getUniqueId());
                 messenger.sendRPMessageToPlayersWithinDistanceExcludingTarget(targetPlayer, colorChecker.getNeutralAlertColor() + String.format("A bird lands nearby and drops a message at the feet of %s!", targetPlayer.getName()), 10);
             }
-        }, seconds * 20);
+        }, seconds * 20L);
 
         player.sendMessage(colorChecker.getPositiveAlertColor() + "The bird flies off with your message.");
         ephemeralData.getPlayersWithBusyBirds().add(player.getUniqueId());

@@ -40,7 +40,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
 
     @Deprecated
     @Override
-    public String onPlaceholderRequest(Player player, @NotNull String params) {
+    public String onPlaceholderRequest(Player player, @NotNull String params) { // TODO: reimplement functionality
         /*
 
         params = params.toLowerCase();

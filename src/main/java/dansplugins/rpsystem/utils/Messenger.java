@@ -25,7 +25,7 @@ public class Messenger {
         for (Player potentialPlayer : getServer().getOnlinePlayers()) {
 
             // if in world
-            if (potentialPlayer.getLocation().getWorld().getName() == playerLocation.getWorld().getName()) {
+            if (potentialPlayer.getLocation().getWorld().getName().equalsIgnoreCase(playerLocation.getWorld().getName())) {
 
                 // if within 30 blocks
                 if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
@@ -51,7 +51,7 @@ public class Messenger {
         for (Player potentialPlayer : getServer().getOnlinePlayers()) {
 
             // if in world
-            if (potentialPlayer.getLocation().getWorld().getName() == playerLocation.getWorld().getName()) {
+            if (potentialPlayer.getLocation().getWorld().getName().equalsIgnoreCase(playerLocation.getWorld().getName())) {
 
                 // if within 30 blocks
                 if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
@@ -81,7 +81,7 @@ public class Messenger {
         for (Player potentialPlayer : getServer().getOnlinePlayers()) {
 
             // if in world
-            if (potentialPlayer.getLocation().getWorld().getName() == playerLocation.getWorld().getName()) {
+            if (potentialPlayer.getLocation().getWorld().getName().equalsIgnoreCase(playerLocation.getWorld().getName())) {
 
                 // if within 30 blocks
                 if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
