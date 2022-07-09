@@ -44,7 +44,7 @@ public class GlobalChatCommand extends AbstractPluginCommand {
         }
         Player player = (Player) sender;
 
-        if (!configService.getBoolean("legacyChat")) {
+        if (configService.getBoolean("overrideGlobal")) {
 
             if (args[0].equalsIgnoreCase("hide")) {
                 addToPlayersWhoHaveHiddenGlobalChat(player);

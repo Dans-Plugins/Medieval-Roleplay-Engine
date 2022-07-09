@@ -15,5 +15,6 @@ positiveAlertColor: "green"
 neutralAlertColor: "aqua"
 negativeAlertColor: "red"
 chatFeaturesEnabled: true
-legacyChat: true
+overrideGlobal: false
 preventSelfBirding: false
+birdSpeed: 20

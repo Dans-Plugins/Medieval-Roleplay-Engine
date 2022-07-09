@@ -82,7 +82,7 @@ public class ChatListener implements Listener {
             return;
         }
 
-        if (!configService.getBoolean("legacyChat")) {
+        if (configService.getBoolean("overrideGlobal")) {
 
             if (ephemeralData.getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
                 event.getPlayer().sendMessage(colorChecker.getNegativeAlertColor() + "You have hidden global chat. Type '/ooc show' to talk in global chat.");
