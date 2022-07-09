@@ -36,13 +36,15 @@ permissions:
     default: true
   mre.set:
     default: true
+  mre.set.others:
+    default: op
   mre.character:
     default: true
   mre.stats:
     default: true
   mre.unset:
     default: true
-  mre.config:
+  mre.unset.others:
     default: op
-  mre.force:
+  mre.config:
     default: op

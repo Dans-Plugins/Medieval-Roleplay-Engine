@@ -29,7 +29,13 @@ public class HelpCommand extends AbstractPluginCommand {
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre help - Show a list of useful commands for the plugin.");
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre card <IGN> - View your character card or other players' character cards.");
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre set \"key\" \"value\" - Set fields in your character card.");
+        if (sender.hasPermission("mre.set.others")) {
+            sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre set \"key\" \"ign\" - Set a field in another players' character card.");
+        }
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre unset \"key\" - Unset a field in your character card.");
+        if (sender.hasPermission("mre.unset.others")) {
+            sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre unset \"key\" \"ign\" - Unset a field in another players' character card.");
+        }
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre bird (IGN) \"message\" - Send a bird to another player.");
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre roll (number) - Roll a dice.");
         sender.sendMessage(colorChecker.getNeutralAlertColor() + "/mre title \"new title\" - Rename an unwritten book.");

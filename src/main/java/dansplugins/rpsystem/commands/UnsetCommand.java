@@ -3,6 +3,7 @@ package dansplugins.rpsystem.commands;
 import dansplugins.rpsystem.objects.RPCharacter;
 import dansplugins.rpsystem.services.CharacterLookupService;
 import dansplugins.rpsystem.utils.ColorChecker;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -12,6 +13,9 @@ import preponderous.ponder.misc.ArgumentParser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+
+import static org.bukkit.Bukkit.getServer;
 
 /**
  * @author Daniel McCoy Stephenson
@@ -40,12 +44,6 @@ public class UnsetCommand extends AbstractPluginCommand {
         }
         Player player = (Player) commandSender;
 
-        RPCharacter character = characterLookupService.lookup(player.getUniqueId());
-        if (character == null) {
-            player.sendMessage(colorChecker.getNegativeAlertColor() + "You don't have a character.");
-            return false;
-        }
-
         ArgumentParser argumentParser = new ArgumentParser();
         List<String> doubleQuoteArgs = argumentParser.getArgumentsInsideDoubleQuotes(args);
 
@@ -55,6 +53,32 @@ public class UnsetCommand extends AbstractPluginCommand {
         }
 
         String key = doubleQuoteArgs.get(0);
+
+        RPCharacter character;
+        if (doubleQuoteArgs.size() == 2) {
+            if (!player.hasPermission("mre.unset.others")) {
+                player.sendMessage("You don't have permission to unset fields in other players' character cards.");
+                return false;
+            }
+            String targetName = doubleQuoteArgs.get(1);
+            UUID targetUUID = Bukkit.getOfflinePlayer(targetName).getUniqueId();
+            if (targetUUID == null) {
+                player.sendMessage("That player wasn't found.");
+                return false;
+            }
+            character = characterLookupService.lookup(targetUUID);
+            if (character == null) {
+                player.sendMessage(colorChecker.getNegativeAlertColor() + "That player doesn't have a character.");
+                return false;
+            }
+        }
+        else {
+            character = characterLookupService.lookup(player.getUniqueId());
+            if (character == null) {
+                player.sendMessage(colorChecker.getNegativeAlertColor() + "You don't have a character.");
+                return false;
+            }
+        }
 
         if (character.getInfo(key) == null) {
             player.sendMessage(ChatColor.RED + "That field doesn't exist.");
