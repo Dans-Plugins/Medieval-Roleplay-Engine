@@ -61,39 +61,7 @@ public class ChatListener implements Listener {
             }
 
             event.setCancelled(true);
-            return;
         }
-
-        if (!medievalRoleplayEngine.configService.getBoolean("legacyChat")) {
-
-            if (medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenGlobalChat().contains(event.getPlayer().getUniqueId())) {
-                event.getPlayer().sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "You have hidden global chat. Type '/ooc show' to talk in global chat.");
-                event.setCancelled(true);
-                return;
-            }
-
-            // global chat
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Attempting to send global message to " + onlinePlayer.getName()); }
-                if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenGlobalChat().contains(onlinePlayer.getUniqueId())) {
-                    if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Preparing message: '" + event.getMessage() + "'"); }
-
-                    // we are good to send the message
-
-                    // regular format
-                    event.setFormat(ChatColor.WHITE + "" + " <%s> %s");
-
-                    // send message
-                    onlinePlayer.sendMessage(ChatColor.WHITE + "<" + event.getPlayer().getName() + "> " + event.getMessage());
-
-                }
-                else {
-                    if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Player has hidden global chat!"); }
-                }
-            }
-            event.setCancelled(true);
-        }
-
     }
 
     private String removeStringContainedBetweenAsterisks(String string) {
