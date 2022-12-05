@@ -195,7 +195,14 @@ public class CardCommand {
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
-                            card.setAge(Integer.parseInt(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1)));
+                            int newAge;
+                            try {
+                                newAge = Integer.parseInt(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1));
+                            } catch(NumberFormatException e) {
+                                player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Must be a number.");
+                                return;
+                            }
+                            card.setAge(newAge);
                             player.sendMessage(medievalRoleplayEngine.colorChecker.getPositiveAlertColor() + "Age set! Type /card to see changes.");
                         }
                         else {
