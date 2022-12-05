@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>KingdomProgrammers</groupId>
+  <groupId>dansplugins</groupId>
   <artifactId>Medieval-Roleplay-Engine</artifactId>
   <version>1.11.0-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -24,34 +24,10 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.bernardomg.tabletop</groupId>
-      <artifactId>dice</artifactId>
-      <version>2.0.4</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>me.clip</groupId>
       <artifactId>placeholderapi</artifactId>
       <version>LATEST</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>3.5.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.Dans-Plugins</groupId>
-      <artifactId>Medieval-Factions</artifactId>
-      <version>4.6.4.1</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.github.Dans-Plugins</groupId>

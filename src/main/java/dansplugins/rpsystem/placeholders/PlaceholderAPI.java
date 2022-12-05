@@ -1,27 +1,31 @@
 package dansplugins.rpsystem.placeholders;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.data.PersistentData;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class PlaceholderAPI extends PlaceholderExpansion {
+    private final MedievalRoleplayEngine medievalRoleplayEngine;
+
+    public PlaceholderAPI(MedievalRoleplayEngine medievalRoleplayEngine) {
+        this.medievalRoleplayEngine = medievalRoleplayEngine;
+    }
 
     @Override
     public @NotNull
     String getIdentifier() {
-        return MedievalRoleplayEngine.getInstance().getName();
+        return medievalRoleplayEngine.getName();
     }
 
     @Override
     public @NotNull String getAuthor() {
-        return String.join(", ", MedievalRoleplayEngine.getInstance().getDescription().getAuthors());
+        return String.join(", ", medievalRoleplayEngine.getDescription().getAuthors());
     }
 
     @Override
     public @NotNull String getVersion() {
-        return MedievalRoleplayEngine.getInstance().getVersion();
+        return medievalRoleplayEngine.getVersion();
     }
 
     @Override
@@ -42,22 +46,22 @@ public class PlaceholderAPI extends PlaceholderExpansion {
         if (player == null) return null;
 
         if (params.equalsIgnoreCase("card_name")) {
-            return PersistentData.getInstance().getCard(player.getUniqueId()).getName();
+            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getName();
         }
         if (params.equalsIgnoreCase("card_age")) {
-            return Integer.toString(PersistentData.getInstance().getCard(player.getUniqueId()).getAge());
+            return Integer.toString(medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getAge());
         }
         if (params.equalsIgnoreCase("card_race")) {
-            return PersistentData.getInstance().getCard(player.getUniqueId()).getRace();
+            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getRace();
         }
         if (params.equalsIgnoreCase("card_subculture")) {
-            return PersistentData.getInstance().getCard(player.getUniqueId()).getSubculture();
+            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getSubculture();
         }
         if (params.equalsIgnoreCase("card_gender")) {
-            return PersistentData.getInstance().getCard(player.getUniqueId()).getGender();
+            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getGender();
         }
         if (params.equalsIgnoreCase("card_religion")) {
-            return PersistentData.getInstance().getCard(player.getUniqueId()).getReligion();
+            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getReligion();
         }
 
         return null;
