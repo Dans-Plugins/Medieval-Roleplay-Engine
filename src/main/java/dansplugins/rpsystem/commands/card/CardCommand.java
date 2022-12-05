@@ -2,8 +2,6 @@ package dansplugins.rpsystem.commands.card;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.cards.CharacterCard;
-import dansplugins.rpsystem.storage.StorageService;
-import dansplugins.rpsystem.utils.UUIDChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

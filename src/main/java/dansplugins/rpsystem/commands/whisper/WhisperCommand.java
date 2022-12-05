@@ -1,8 +1,6 @@
 package dansplugins.rpsystem.commands.whisper;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
-import dansplugins.rpsystem.utils.ColorChecker;
-import dansplugins.rpsystem.utils.Messenger;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
