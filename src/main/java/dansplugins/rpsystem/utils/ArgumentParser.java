@@ -2,19 +2,6 @@ package dansplugins.rpsystem.utils;
 
 public class ArgumentParser {
 
-    private static ArgumentParser instance;
-
-    private ArgumentParser() {
-
-    }
-
-    public static ArgumentParser getInstance() {
-        if (instance == null) {
-            instance = new ArgumentParser();
-        }
-        return instance;
-    }
-
     public String createStringFromFirstArgOnwards(String[] args, int startingArg) {
         StringBuilder name = new StringBuilder();
         for (int i = startingArg; i < args.length; i++) {
