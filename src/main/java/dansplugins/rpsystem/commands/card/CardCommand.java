@@ -117,7 +117,7 @@ public class CardCommand {
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
-                            card.setRace(args[1]);
+                            card.setRace(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1));
                             player.sendMessage(medievalRoleplayEngine.colorChecker.getPositiveAlertColor() + "Race set! Type /card to see changes.");
                         }
                         else {
@@ -143,7 +143,7 @@ public class CardCommand {
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
-                            card.setSubculture(args[1]);
+                            card.setSubculture(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1));
                             player.sendMessage(medievalRoleplayEngine.colorChecker.getPositiveAlertColor() + "Subculture set! Type /card to see changes.");
                         }
                         else {
@@ -169,7 +169,7 @@ public class CardCommand {
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
-                            card.setReligion(args[1]);
+                            card.setReligion(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1));
                             player.sendMessage(medievalRoleplayEngine.colorChecker.getPositiveAlertColor() + "Religion set! Type /card to see changes.");
                         }
                         else {
@@ -195,7 +195,7 @@ public class CardCommand {
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
-                            card.setAge(Integer.parseInt(args[1]));
+                            card.setAge(Integer.parseInt(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1)));
                             player.sendMessage(medievalRoleplayEngine.colorChecker.getPositiveAlertColor() + "Age set! Type /card to see changes.");
                         }
                         else {
@@ -221,7 +221,7 @@ public class CardCommand {
                     if (card.getPlayerUUID().equals(player.getUniqueId())) {
 
                         if (args.length > 1) {
-                            card.setGender(args[1]);
+                            card.setGender(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1));
                             player.sendMessage(medievalRoleplayEngine.colorChecker.getPositiveAlertColor() + "Gender set! Type /card to see changes.");
                         }
                         else {
@@ -250,7 +250,7 @@ public class CardCommand {
                 }
 
                 // get UUID
-                UUID targetUUID = medievalRoleplayEngine.uuidChecker.findUUIDBasedOnPlayerName(args[1]);
+                UUID targetUUID = medievalRoleplayEngine.uuidChecker.findUUIDBasedOnPlayerName(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1));
                 if (targetUUID == null) {
                     player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "That player wasn't found.");
                     return;
