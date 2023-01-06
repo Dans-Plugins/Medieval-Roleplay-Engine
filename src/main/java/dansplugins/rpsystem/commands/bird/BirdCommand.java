@@ -49,7 +49,7 @@ public class BirdCommand {
             }
 
             double distance = player.getLocation().distance(targetPlayer.getLocation());
-            int blocksPerSecond = 20;
+            int blocksPerSecond = medievalRoleplayEngine.configService.getInt("birdSpeed");
             int seconds = (int)distance/blocksPerSecond;
 
             getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
