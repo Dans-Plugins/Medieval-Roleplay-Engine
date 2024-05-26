@@ -8,7 +8,7 @@ if [ -z "$(ls -A /testmcserver)" ]; then
     mkdir /testmcserver/plugins
 
     # Install MedievalRoleplayEngine
-    cp /mre-build/target/MedievalRoleplayEngine-*.jar /testmcserver/plugins
+    cp /mre-build/target/Medieval-Roleplay-Engine-*.jar /testmcserver/plugins
 
     # Copy config files
     cp /resources/ops.json /testmcserver
