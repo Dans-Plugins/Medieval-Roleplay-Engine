@@ -7,9 +7,8 @@ if [ -z "$(ls -A /testmcserver)" ]; then
     # Create plugins directory
     mkdir /testmcserver/plugins
 
-    # Install Wild Pets
-    cp /wp-build/target/WildPets-*.jar /testmcserver/plugins
-
+    # Install MedievalRoleplayEngine
+    cp /mre-build/target/MedievalRoleplayEngine-*.jar /testmcserver/plugins
 
     # Copy config files
     cp /resources/ops.json /testmcserver
