@@ -2,7 +2,7 @@
 
 # [Choice] Debian OS version (use bullseye on local arm64/Apple Silicon): buster, bullseye
 ARG VARIANT="bullseye"
-FROM mcr.microsoft.com/vscode/devcontainers/java:0-8-${VARIANT}
+FROM maven:3.8-eclipse-temurin-21-alpine
 
 # [Option] Install Maven
 ARG INSTALL_MAVEN="true"
