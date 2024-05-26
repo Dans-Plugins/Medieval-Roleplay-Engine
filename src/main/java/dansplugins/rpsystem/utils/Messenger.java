@@ -36,6 +36,7 @@ public class Messenger {
                     if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
                         numPlayersWhoHeard++;
                         potentialPlayer.sendMessage(message);
+                        logMessageToConsole("RP", player.getDisplayName(), message);
                     }
 
                 }
@@ -64,6 +65,7 @@ public class Messenger {
                         if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
                             numPlayersWhoHeard++;
                             potentialPlayer.sendMessage(message);
+                            logMessageToConsole("RP", player.getDisplayName(), message);
                         }
 
                     }
@@ -92,6 +94,7 @@ public class Messenger {
                     if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalOOCChat().contains(potentialPlayer.getUniqueId())) {
                         numPlayersWhoHeard++;
                         potentialPlayer.sendMessage(message);
+                        logMessageToConsole("OOC", player.getDisplayName(), message);
                     }
 
                 }
@@ -108,5 +111,9 @@ public class Messenger {
         player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Age: " + card.getAge());
         player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Gender: " + card.getGender());
         player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Religion: " + card.getReligion());
+    }
+
+    private void logMessageToConsole(String chat, String playerName, String message) {
+        medievalRoleplayEngine.getLogger().info("[" + chat + "] " + playerName + ": " + message);
     }
 }
