@@ -36,12 +36,16 @@ public class Messenger {
                     if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
                         numPlayersWhoHeard++;
                         potentialPlayer.sendMessage(message);
-                        logMessageToConsole("RP", player.getDisplayName(), message);
                     }
 
                 }
             }
         }
+
+        if (medievalRoleplayEngine.configService.getBoolean("logChat")) {
+            logMessageToConsole("RP", player.getDisplayName(), message);
+        }
+
         return numPlayersWhoHeard;
     }
 
@@ -65,7 +69,7 @@ public class Messenger {
                         if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
                             numPlayersWhoHeard++;
                             potentialPlayer.sendMessage(message);
-                            logMessageToConsole("RP", player.getDisplayName(), message);
+
                         }
 
                     }
@@ -73,6 +77,11 @@ public class Messenger {
                 }
             }
         }
+
+        if (medievalRoleplayEngine.configService.getBoolean("logChat")) {
+            logMessageToConsole("RP", player.getDisplayName(), message);
+        }
+
         return numPlayersWhoHeard;
     }
 
@@ -94,12 +103,16 @@ public class Messenger {
                     if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalOOCChat().contains(potentialPlayer.getUniqueId())) {
                         numPlayersWhoHeard++;
                         potentialPlayer.sendMessage(message);
-                        logMessageToConsole("OOC", player.getDisplayName(), message);
                     }
 
                 }
             }
         }
+
+        if (medievalRoleplayEngine.configService.getBoolean("logChat")) {
+            logMessageToConsole("OOC", player.getDisplayName(), message);
+        }
+
         return numPlayersWhoHeard;
     }
 
@@ -113,6 +126,12 @@ public class Messenger {
         player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Religion: " + card.getReligion());
     }
 
+    /**
+     * Log a message to the console to allow moderators to see what is being said in chat
+     * @param chat the type of chat (RP, OOC, etc.)
+     * @param playerName the name of the player who sent the message
+     * @param message the message that was sent
+     */
     private void logMessageToConsole(String chat, String playerName, String message) {
         medievalRoleplayEngine.getLogger().info("[" + chat + "] " + playerName + ": " + message);
     }
