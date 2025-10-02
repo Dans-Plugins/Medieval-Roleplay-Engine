@@ -80,6 +80,9 @@ public class ConfigService {
         if (!getConfig().isBoolean("logChat")) {
             getConfig().addDefault("logChat", false);
         }
+        if (!getConfig().isBoolean("rpNamesEnabledByDefault")) {
+            getConfig().addDefault("rpNamesEnabledByDefault", true);
+        }
         
         deleteOldConfigOptionsIfPresent();
 
@@ -116,7 +119,8 @@ public class ConfigService {
             else if (option.equalsIgnoreCase("rightClickToViewCard")
                     || option.equalsIgnoreCase("chatFeaturesEnabled")
                     || option.equalsIgnoreCase("debugMode")
-                    || option.equalsIgnoreCase("logChat")) {
+                    || option.equalsIgnoreCase("logChat")
+                    || option.equalsIgnoreCase("rpNamesEnabledByDefault")) {
                 getConfig().set(option, Boolean.parseBoolean(value));
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }
@@ -160,6 +164,7 @@ public class ConfigService {
         getConfig().addDefault("debugMode", false);
         getConfig().addDefault("birdSpeed", 20);
         getConfig().addDefault("logChat", true);
+        getConfig().addDefault("rpNamesEnabledByDefault", true);
         getConfig().options().copyDefaults(true);
         medievalRoleplayEngine.saveConfig();
     }
@@ -184,7 +189,8 @@ public class ConfigService {
                 + ", neutralAlertColor: " + getConfig().getString("neutralAlertColor")
                 + ", negativeAlertColor: " + getConfig().getString("negativeAlertColor")
                 + ", birdSpeed: " + getConfig().getString("birdSpeed")
-                + ", logChat:" + getConfig().getBoolean("logChat"));
+                + ", logChat:" + getConfig().getBoolean("logChat")
+                + ", rpNamesEnabledByDefault: " + getConfig().getBoolean("rpNamesEnabledByDefault"));
     }
 
     public boolean hasBeenAltered() {

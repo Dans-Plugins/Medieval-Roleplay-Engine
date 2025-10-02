@@ -11,6 +11,7 @@ public class EphemeralData {
     private final ArrayList<UUID> playersWhoHaveHiddenGlobalChat = new ArrayList<>();
     private final ArrayList<UUID> playersWhoHaveHiddenLocalChat = new ArrayList<>();
     private final ArrayList<UUID> playersWhoHaveHiddenLocalOOCChat = new ArrayList<>();
+    private final ArrayList<UUID> playersWithRPNamesEnabled = new ArrayList<>();
 
     public ArrayList<UUID> getPlayersWithBusyBirds() {
         return playersWithBusyBirds;
@@ -38,6 +39,10 @@ public class EphemeralData {
 
     public ArrayList<UUID> getPlayersWhoHaveHiddenLocalOOCChat() {
         return playersWhoHaveHiddenLocalOOCChat;
+    }
+
+    public ArrayList<UUID> getPlayersWithRPNamesEnabled() {
+        return playersWithRPNamesEnabled;
     }
 
 }

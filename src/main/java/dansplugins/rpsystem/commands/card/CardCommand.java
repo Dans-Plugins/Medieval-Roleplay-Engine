@@ -2,6 +2,7 @@ package dansplugins.rpsystem.commands.card;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
 import dansplugins.rpsystem.cards.CharacterCard;
+import dansplugins.rpsystem.commands.rpnames.RPNamesCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -72,6 +73,10 @@ public class CardCommand {
                                 if (args.length > 1) {
                                     card.setName(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1));
                                     player.sendMessage(medievalRoleplayEngine.colorChecker.getPositiveAlertColor() + "Name set! Type /card to see changes.");
+
+                                    // Update player display name if rpnames is enabled
+                                    RPNamesCommand rpNamesCommand = new RPNamesCommand(medievalRoleplayEngine);
+                                    rpNamesCommand.updatePlayerDisplayName(player);
 
                                     if (changeNameCooldown != 0) {
                                         // cooldown

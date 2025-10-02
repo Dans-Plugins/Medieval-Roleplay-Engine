@@ -21,6 +21,7 @@ commands:
   whisper:
   rphelp:
   rpconfig:
+  rpnames:
   lo:
 
 permissions:
@@ -67,6 +68,8 @@ permissions:
   rp.whisper:
     default: true
   rp.help:
+    default: true
+  rp.rpnames:
     default: true
   rp.localOOC:
     default: true

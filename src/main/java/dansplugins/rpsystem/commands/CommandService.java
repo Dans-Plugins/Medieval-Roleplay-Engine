@@ -10,6 +10,7 @@ import dansplugins.rpsystem.commands.help.HelpCommand;
 import dansplugins.rpsystem.commands.local.LocalChatCommand;
 import dansplugins.rpsystem.commands.localooc.LocalOOCChatCommand;
 import dansplugins.rpsystem.commands.roll.RollCommand;
+import dansplugins.rpsystem.commands.rpnames.RPNamesCommand;
 import dansplugins.rpsystem.commands.title.TitleCommand;
 import dansplugins.rpsystem.commands.whisper.WhisperCommand;
 import dansplugins.rpsystem.commands.yell.YellCommand;
@@ -104,6 +105,11 @@ public class CommandService {
             ConfigCommand command = new ConfigCommand(medievalRoleplayEngine);
             command.handleConfigAccess(sender, args);
             return true;
+        }
+
+        if (label.equalsIgnoreCase("rpnames")) {
+            RPNamesCommand command = new RPNamesCommand(medievalRoleplayEngine);
+            return command.toggleRPNames(sender, args);
         }
 
         if (medievalRoleplayEngine.configService.getBoolean("chatFeaturesEnabled")) {
