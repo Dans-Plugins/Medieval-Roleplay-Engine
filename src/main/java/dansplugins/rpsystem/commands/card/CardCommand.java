@@ -42,11 +42,27 @@ public class CardCommand {
                 sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card - View your character card.");
                 sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card lookup (player) - View the character card of a specific player.");
                 sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card name (name) - Change your character's name.");
-                sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card race (race) - Change your character's race.");
-                sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card subculture (subculture) - Change your character's subculture.");
-                sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card age (age) - Change your character's age.");
-                sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card gender (gender) - Change your character's gender.");
-                sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card religion (religion) - Change your character's religion.");
+                
+                if (medievalRoleplayEngine.configService.getBoolean("cardShowRace")) {
+                    sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card race (race) - Change your character's race.");
+                }
+                
+                if (medievalRoleplayEngine.configService.getBoolean("cardShowSubculture")) {
+                    String subcultureLabel = medievalRoleplayEngine.configService.getString("cardLabelSubculture").toLowerCase();
+                    sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card subculture (" + subcultureLabel + ") - Change your character's " + subcultureLabel + ".");
+                }
+                
+                if (medievalRoleplayEngine.configService.getBoolean("cardShowAge")) {
+                    sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card age (age) - Change your character's age.");
+                }
+                
+                if (medievalRoleplayEngine.configService.getBoolean("cardShowGender")) {
+                    sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card gender (gender) - Change your character's gender.");
+                }
+                
+                if (medievalRoleplayEngine.configService.getBoolean("cardShowReligion")) {
+                    sender.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card religion (religion) - Change your character's religion.");
+                }
             }
             else {
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.card.help'");

@@ -119,11 +119,31 @@ public class Messenger {
     public void sendCardInfoToPlayer(CharacterCard card, Player player) {
         player.sendMessage(ChatColor.BOLD + "" + medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "\n----------\n" + "Character Card of " + Bukkit.getOfflinePlayer(card.getPlayerUUID()).getName() + "\n----------\n");
         player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Name: " + card.getName());
-        player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Race: " + card.getRace());
-        player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Subculture: " + card.getSubculture());
-        player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Age: " + card.getAge());
-        player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Gender: " + card.getGender());
-        player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Religion: " + card.getReligion());
+        
+        if (medievalRoleplayEngine.configService.getBoolean("cardShowRace")) {
+            String raceLabel = medievalRoleplayEngine.configService.getString("cardLabelRace");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + raceLabel + ": " + card.getRace());
+        }
+        
+        if (medievalRoleplayEngine.configService.getBoolean("cardShowSubculture")) {
+            String subcultureLabel = medievalRoleplayEngine.configService.getString("cardLabelSubculture");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + subcultureLabel + ": " + card.getSubculture());
+        }
+        
+        if (medievalRoleplayEngine.configService.getBoolean("cardShowAge")) {
+            String ageLabel = medievalRoleplayEngine.configService.getString("cardLabelAge");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + ageLabel + ": " + card.getAge());
+        }
+        
+        if (medievalRoleplayEngine.configService.getBoolean("cardShowGender")) {
+            String genderLabel = medievalRoleplayEngine.configService.getString("cardLabelGender");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + genderLabel + ": " + card.getGender());
+        }
+        
+        if (medievalRoleplayEngine.configService.getBoolean("cardShowReligion")) {
+            String religionLabel = medievalRoleplayEngine.configService.getString("cardLabelReligion");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + religionLabel + ": " + card.getReligion());
+        }
     }
 
     /**

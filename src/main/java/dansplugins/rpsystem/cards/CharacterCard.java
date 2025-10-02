@@ -23,6 +23,13 @@ public class CharacterCard {
     public CharacterCard(MedievalRoleplayEngine medievalRoleplayEngine, UUID uuid) {
         this.medievalRoleplayEngine = medievalRoleplayEngine;
         playerUUID = uuid;
+        
+        // Set defaults from config
+        race = medievalRoleplayEngine.configService.getString("cardDefaultRace");
+        subculture = medievalRoleplayEngine.configService.getString("cardDefaultSubculture");
+        religion = medievalRoleplayEngine.configService.getString("cardDefaultReligion");
+        gender = medievalRoleplayEngine.configService.getString("cardDefaultGender");
+        age = medievalRoleplayEngine.configService.getInt("cardDefaultAge");
     }
 
     // storage constructor

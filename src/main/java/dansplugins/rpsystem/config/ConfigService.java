@@ -80,6 +80,51 @@ public class ConfigService {
         if (!getConfig().isBoolean("logChat")) {
             getConfig().addDefault("logChat", false);
         }
+        if (!getConfig().isBoolean("cardShowRace")) {
+            getConfig().addDefault("cardShowRace", true);
+        }
+        if (!getConfig().isBoolean("cardShowSubculture")) {
+            getConfig().addDefault("cardShowSubculture", true);
+        }
+        if (!getConfig().isBoolean("cardShowReligion")) {
+            getConfig().addDefault("cardShowReligion", true);
+        }
+        if (!getConfig().isBoolean("cardShowAge")) {
+            getConfig().addDefault("cardShowAge", true);
+        }
+        if (!getConfig().isBoolean("cardShowGender")) {
+            getConfig().addDefault("cardShowGender", true);
+        }
+        if (!getConfig().isString("cardLabelRace")) {
+            getConfig().addDefault("cardLabelRace", "Race");
+        }
+        if (!getConfig().isString("cardLabelSubculture")) {
+            getConfig().addDefault("cardLabelSubculture", "Subculture");
+        }
+        if (!getConfig().isString("cardLabelReligion")) {
+            getConfig().addDefault("cardLabelReligion", "Religion");
+        }
+        if (!getConfig().isString("cardLabelAge")) {
+            getConfig().addDefault("cardLabelAge", "Age");
+        }
+        if (!getConfig().isString("cardLabelGender")) {
+            getConfig().addDefault("cardLabelGender", "Gender");
+        }
+        if (!getConfig().isString("cardDefaultRace")) {
+            getConfig().addDefault("cardDefaultRace", "Human");
+        }
+        if (!getConfig().isString("cardDefaultSubculture")) {
+            getConfig().addDefault("cardDefaultSubculture", "None");
+        }
+        if (!getConfig().isString("cardDefaultReligion")) {
+            getConfig().addDefault("cardDefaultReligion", "None");
+        }
+        if (!getConfig().isString("cardDefaultGender")) {
+            getConfig().addDefault("cardDefaultGender", "Unspecified");
+        }
+        if (!getConfig().isInt("cardDefaultAge")) {
+            getConfig().addDefault("cardDefaultAge", 0);
+        }
         
         deleteOldConfigOptionsIfPresent();
 
@@ -109,14 +154,20 @@ public class ConfigService {
                     || option.equalsIgnoreCase("changeNameCooldown")
                     || option.equalsIgnoreCase("emoteRadius")
                     || option.equalsIgnoreCase("localOOCChatRadius")
-                    || option.equalsIgnoreCase("birdSpeed")) {
+                    || option.equalsIgnoreCase("birdSpeed")
+                    || option.equalsIgnoreCase("cardDefaultAge")) {
                 getConfig().set(option, Integer.parseInt(value));
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "Integer set!");
             }
             else if (option.equalsIgnoreCase("rightClickToViewCard")
                     || option.equalsIgnoreCase("chatFeaturesEnabled")
                     || option.equalsIgnoreCase("debugMode")
-                    || option.equalsIgnoreCase("logChat")) {
+                    || option.equalsIgnoreCase("logChat")
+                    || option.equalsIgnoreCase("cardShowRace")
+                    || option.equalsIgnoreCase("cardShowSubculture")
+                    || option.equalsIgnoreCase("cardShowReligion")
+                    || option.equalsIgnoreCase("cardShowAge")
+                    || option.equalsIgnoreCase("cardShowGender")) {
                 getConfig().set(option, Boolean.parseBoolean(value));
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }
@@ -160,6 +211,21 @@ public class ConfigService {
         getConfig().addDefault("debugMode", false);
         getConfig().addDefault("birdSpeed", 20);
         getConfig().addDefault("logChat", true);
+        getConfig().addDefault("cardShowRace", true);
+        getConfig().addDefault("cardShowSubculture", true);
+        getConfig().addDefault("cardShowReligion", true);
+        getConfig().addDefault("cardShowAge", true);
+        getConfig().addDefault("cardShowGender", true);
+        getConfig().addDefault("cardLabelRace", "Race");
+        getConfig().addDefault("cardLabelSubculture", "Subculture");
+        getConfig().addDefault("cardLabelReligion", "Religion");
+        getConfig().addDefault("cardLabelAge", "Age");
+        getConfig().addDefault("cardLabelGender", "Gender");
+        getConfig().addDefault("cardDefaultRace", "Human");
+        getConfig().addDefault("cardDefaultSubculture", "None");
+        getConfig().addDefault("cardDefaultReligion", "None");
+        getConfig().addDefault("cardDefaultGender", "Unspecified");
+        getConfig().addDefault("cardDefaultAge", 0);
         getConfig().options().copyDefaults(true);
         medievalRoleplayEngine.saveConfig();
     }
