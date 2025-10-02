@@ -39,6 +39,7 @@ public class HelpCommand {
             }
 
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/rpconfig - View and change config options.");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/rpnames - Toggle between character names and usernames above player heads.");
 
         }
         else {
