@@ -1,0 +1,48 @@
+# Example Configuration for Character Cards
+# This shows how to customize character cards for a human-only server without religion emphasis
+
+# Character Card Field Visibility
+# Set to false to hide a field from character cards
+cardShowRace: false          # Hidden - everyone is human
+cardShowSubculture: true     # Visible - keeping this
+cardShowReligion: false      # Hidden - no religion emphasis
+cardShowAge: true            # Visible
+cardShowGender: true         # Visible
+
+# Character Card Field Labels
+# Customize what each field is called
+cardLabelRace: "Race"
+cardLabelSubculture: "Class"     # Changed from "Subculture" to "Class"
+cardLabelReligion: "Religion"
+cardLabelAge: "Age"
+cardLabelGender: "Gender"
+
+# Character Card Default Values
+# These are used when a new character card is created
+cardDefaultRace: "Human"
+cardDefaultSubculture: "Peasant"
+cardDefaultReligion: "None"
+cardDefaultGender: "Unspecified"
+cardDefaultAge: 20
+
+# Other existing configuration options...
+version: 1.13.0
+localChatRadius: 25
+whisperChatRadius: 2
+yellChatRadius: 50
+emoteRadius: 25
+changeNameCooldown: 300
+localChatColor: gray
+whisperChatColor: blue
+yellChatColor: red
+emoteColor: yellow
+rightClickToViewCard: true
+localOOCChatRadius: 25
+localOOCChatColor: gray
+positiveAlertColor: green
+neutralAlertColor: aqua
+negativeAlertColor: red
+chatFeaturesEnabled: true
+debugMode: false
+birdSpeed: 20
+logChat: false
