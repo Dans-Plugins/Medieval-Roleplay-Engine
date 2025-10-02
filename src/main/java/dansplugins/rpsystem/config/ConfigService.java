@@ -251,6 +251,7 @@ public class ConfigService {
                 + ", negativeAlertColor: " + getConfig().getString("negativeAlertColor")
                 + ", birdSpeed: " + getConfig().getString("birdSpeed")
                 + ", logChat:" + getConfig().getBoolean("logChat"));
+        player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("neutralAlertColor")) + "Note: Character card customization options (cardShow*, cardLabel*, cardDefault*) are also available. Check the config file for details.");
     }
 
     public boolean hasBeenAltered() {
