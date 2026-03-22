@@ -22,7 +22,7 @@ Thank you for your interest in contributing to Medieval Roleplay Engine! This gu
 2. Fork the repository by clicking **Fork** at the top right of the repo page.
 3. Clone your fork: `git clone https://github.com/<your-username>/Medieval-Roleplay-Engine.git`
 4. Open the project in your IDE.
-5. Build the plugin: `./mvnw package`
+5. Build the plugin: `mvn package`
    If you encounter errors, please open an issue.
 
 ## Identifying What to Work On
@@ -49,12 +49,7 @@ Issues are grouped into [milestones](https://github.com/Dans-Plugins/Medieval-Ro
 
 ## Testing
 
-Run the unit tests with:
-
-Linux: `./mvnw clean test`  
-Windows: `.\mvnw.cmd clean test`
-
-For manual testing, start a local Spigot server:
+This project does not yet have an automated unit test suite. For manual testing, start a local Spigot server:
 
 ```
 docker compose up

@@ -26,7 +26,7 @@ Your character card holds your roleplay identity:
 ```
 /card name <name>         – Set your character's name
 /card race <race>         – Set your character's race
-/card subculture <sub>    – Set your character's subculture
+/card subculture <subculture> – Set your character's subculture
 /card age <age>           – Set your character's age
 /card gender <gender>     – Set your character's gender
 /card religion <religion> – Set your character's religion

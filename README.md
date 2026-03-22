@@ -27,8 +27,8 @@ Medieval Roleplay Engine is a Minecraft plugin for players to use to roleplay mo
 
 ### Wiki & Additional Resources
 
-- [Wiki Guide](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Guide)
-- [FAQ](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/FAQ)
+- [Wiki Guide](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/wiki/Guide)
+- [FAQ](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/wiki/FAQ)
 
 ## Support
 
@@ -43,25 +43,11 @@ Please fill out a bug report [here](https://github.com/Dans-Plugins/Medieval-Rol
 ## Contributing
 
 - [CONTRIBUTING.md](CONTRIBUTING.md)
-- [Notes for Developers](https://github.com/dmccoystephenson/Medieval-Roleplay-Engine/wiki/Developer-Notes)
+- [Notes for Developers](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/wiki/Developer-Notes)
 
 ## Testing
 
-### Unit Tests
-
-Linux:
-
-```
-./mvnw clean test
-```
-
-Windows:
-
-```
-.\mvnw.cmd clean test
-```
-
-If you see `BUILD SUCCESS`, the tests have passed.
+This project does not yet have an automated unit test suite. For manual testing, use the Docker-based development server described below.
 
 ## Development
 

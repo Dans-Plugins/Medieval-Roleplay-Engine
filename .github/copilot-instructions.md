@@ -9,7 +9,6 @@ making any changes.
 - Language: Java
 - Build tool: Maven
 - Target platform: Spigot / Paper (Minecraft 1.13+)
-- Test framework: JUnit
 
 ## Project Structure
 
@@ -22,7 +21,6 @@ making any changes.
   - `placeholders/` – PlaceholderAPI expansion
   - `utils/` – Utility classes
 - `src/main/resources/` – `plugin.yml` and `config.yml`
-- `src/test/java/` – Unit tests
 
 ## Coding Conventions
 

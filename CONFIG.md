@@ -127,13 +127,13 @@ yellChatColor: dark_red
 ## emoteColor
 
 **Type:** string  
-**Default:** `yellow`  
+**Default:** `gray`  
 **Description:** The color used for emote actions.
 
 **Example:**
 
 ```yaml
-emoteColor: gold
+emoteColor: yellow
 ```
 
 ---
@@ -254,7 +254,7 @@ debugMode: true
 
 **Type:** integer  
 **Default:** `20`  
-**Description:** The speed at which birds travel when delivering messages via `/bird`. Higher values mean faster delivery (in server ticks per movement step).
+**Description:** The speed (in blocks per second) at which birds travel when delivering messages via `/bird`. Higher values mean faster delivery, since delivery delay is calculated as `distance / birdSpeed`.
 
 **Example:**
 
@@ -267,7 +267,7 @@ birdSpeed: 10
 ## logChat
 
 **Type:** boolean  
-**Default:** `false`  
+**Default:** `true`  
 **Description:** When `true`, all roleplay chat messages are logged to the server console.
 
 **Example:**
