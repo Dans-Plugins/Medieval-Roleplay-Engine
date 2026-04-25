@@ -23,8 +23,8 @@ public class RollCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.roll") || player.hasPermission("rp.dice") || player.hasPermission("rp.default"))) {
-            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need one of the following permissions: 'rp.roll', 'rp.dice'");
-            return false;
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need one of the following permissions: 'rp.roll', 'rp.dice', 'rp.default'");
+            return true;
         }
 
         int max = DEFAULT_DIE_SIZE;
@@ -33,11 +33,11 @@ public class RollCommand {
                 max = Integer.parseInt(args[0]);
                 if (max < 1) {
                     player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Please provide a positive number to roll.");
-                    return false;
+                    return true;
                 }
             } catch (NumberFormatException e) {
-                player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "'" + args[0] + "' is not a valid number. Usage: /roll [max]");
-                return false;
+                player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "'" + args[0] + "' is not a valid number.");
+                return true;
             }
         }
 
