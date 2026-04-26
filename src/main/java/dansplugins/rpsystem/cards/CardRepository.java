@@ -12,7 +12,7 @@ public class CardRepository {
 
     public CharacterCard getCard(UUID uuid) {
         for (CharacterCard card : getCards()) {
-            if (card.getPlayerUUID().equals(uuid)) {
+            if (uuid != null && uuid.equals(card.getPlayerUUID())) {
                 return card;
             }
         }
@@ -21,7 +21,7 @@ public class CardRepository {
 
     public boolean hasCard(UUID uuid) {
         for (CharacterCard card : getCards()) {
-            if (card.getPlayerUUID().equals(uuid)) {
+            if (uuid != null && uuid.equals(card.getPlayerUUID())) {
                 return true;
             }
         }

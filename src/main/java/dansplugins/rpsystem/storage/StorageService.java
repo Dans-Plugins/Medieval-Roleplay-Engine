@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class StorageService {
@@ -63,9 +64,14 @@ public class StorageService {
                 CharacterCard temp = new CharacterCard(medievalRoleplayEngine);
                 temp.load(nextFilename);
 
+                if (temp.getPlayerUUID() == null) {
+                    if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Skipping card with null UUID from file: " + nextFilename); }
+                    continue;
+                }
+
                 int existingIndex = -1;
                 for (int i = 0; i < medievalRoleplayEngine.cardRepository.getCards().size(); i++) {
-                    if (medievalRoleplayEngine.cardRepository.getCards().get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
+                    if (Objects.equals(medievalRoleplayEngine.cardRepository.getCards().get(i).getPlayerUUID(), temp.getPlayerUUID())) {
                         existingIndex = i;
                     }
                 }

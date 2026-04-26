@@ -68,7 +68,7 @@ public class Messenger {
             if (nearbyLocation.distance(senderLocation) >= distance) {
                 continue;
             }
-            if (excludeSender && nearby.getName().equalsIgnoreCase(sender.getName())) {
+            if (excludeSender && nearby.getUniqueId().equals(sender.getUniqueId())) {
                 continue;
             }
             if (hiddenChatCheck.test(nearby.getUniqueId())) {

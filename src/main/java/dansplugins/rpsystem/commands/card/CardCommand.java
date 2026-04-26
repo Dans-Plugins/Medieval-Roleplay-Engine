@@ -25,6 +25,10 @@ public class CardCommand {
 
         if (player.hasPermission("rp.card.show") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
             CharacterCard card = medievalRoleplayEngine.cardLookupService.lookup(player.getUniqueId());
+            if (card == null) {
+                player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "You do not have a character card to view.");
+                return;
+            }
             medievalRoleplayEngine.messenger.sendCardInfoToPlayer(card, player);
         }
         else {
@@ -155,7 +159,7 @@ public class CardCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.card.lookup") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default"))) {
-            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.card.show.others'");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.card.lookup'");
             return;
         }
 
