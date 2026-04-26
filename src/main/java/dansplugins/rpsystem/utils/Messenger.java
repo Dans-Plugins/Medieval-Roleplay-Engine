@@ -53,12 +53,19 @@ public class Messenger {
     private int deliverMessageToNearbyPlayers(Player sender, String message, int distance,
                                                boolean excludeSender, Predicate<UUID> hiddenChatCheck) {
         Location senderLocation = sender.getLocation();
+        if (senderLocation.getWorld() == null) {
+            return 0;
+        }
         int recipientCount = 0;
         for (Player nearby : getServer().getOnlinePlayers()) {
-            if (!nearby.getLocation().getWorld().getName().equals(senderLocation.getWorld().getName())) {
+            Location nearbyLocation = nearby.getLocation();
+            if (nearbyLocation.getWorld() == null) {
                 continue;
             }
-            if (nearby.getLocation().distance(senderLocation) >= distance) {
+            if (!nearbyLocation.getWorld().getName().equals(senderLocation.getWorld().getName())) {
+                continue;
+            }
+            if (nearbyLocation.distance(senderLocation) >= distance) {
                 continue;
             }
             if (excludeSender && nearby.getName().equalsIgnoreCase(sender.getName())) {
