@@ -7,7 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.Objects;
+import java.util.UUID;
+import java.util.function.Predicate;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -18,102 +19,25 @@ public class Messenger {
         this.medievalRoleplayEngine = medievalRoleplayEngine;
     }
 
-    public int sendRPMessageToPlayersWithinDistance(Player player, String message, int distance) {
-        Location playerLocation = player.getLocation();
-
-        int numPlayersWhoHeard = 0;
-
-        // for every online player
-        for (Player potentialPlayer : getServer().getOnlinePlayers()) {
-
-            // if in world
-            if (Objects.equals(potentialPlayer.getLocation().getWorld().getName(), playerLocation.getWorld().getName())) {
-
-                // if within 30 blocks
-                if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
-
-                    // if player has not hidden local chat
-                    if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
-                        numPlayersWhoHeard++;
-                        potentialPlayer.sendMessage(message);
-                    }
-
-                }
-            }
-        }
-
-        if (medievalRoleplayEngine.configService.getBoolean("logChat")) {
-            logMessageToConsole("RP", player.getDisplayName(), message);
-        }
-
-        return numPlayersWhoHeard;
+    public int sendRPMessageToPlayersWithinDistance(Player sender, String message, int distance) {
+        int recipientCount = deliverMessageToNearbyPlayers(sender, message, distance, false,
+                uuid -> medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(uuid));
+        logChatIfEnabled("RP", sender.getDisplayName(), message);
+        return recipientCount;
     }
 
-    public int sendRPMessageToPlayersWithinDistanceExcludingTarget(Player player, String message, int distance) {
-        Location playerLocation = player.getLocation();
-
-        int numPlayersWhoHeard = 0;
-
-        // for every online player
-        for (Player potentialPlayer : getServer().getOnlinePlayers()) {
-
-            // if in world
-            if (potentialPlayer.getLocation().getWorld().getName() == playerLocation.getWorld().getName()) {
-
-                // if within 30 blocks
-                if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
-
-                    if (!potentialPlayer.getName().equalsIgnoreCase(player.getName())) {
-
-                        // if player has not hidden local chat
-                        if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(potentialPlayer.getUniqueId())) {
-                            numPlayersWhoHeard++;
-                            potentialPlayer.sendMessage(message);
-
-                        }
-
-                    }
-
-                }
-            }
-        }
-
-        if (medievalRoleplayEngine.configService.getBoolean("logChat")) {
-            logMessageToConsole("RP", player.getDisplayName(), message);
-        }
-
-        return numPlayersWhoHeard;
+    public int sendRPMessageToPlayersWithinDistanceExcludingTarget(Player sender, String message, int distance) {
+        int recipientCount = deliverMessageToNearbyPlayers(sender, message, distance, true,
+                uuid -> medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(uuid));
+        logChatIfEnabled("RP", sender.getDisplayName(), message);
+        return recipientCount;
     }
 
-    public int sendOOCMessageToPlayersWithinDistance(Player player, String message, int distance) {
-        Location playerLocation = player.getLocation();
-
-        int numPlayersWhoHeard = 0;
-
-        // for every online player
-        for (Player potentialPlayer : getServer().getOnlinePlayers()) {
-
-            // if in world
-            if (potentialPlayer.getLocation().getWorld().getName() == playerLocation.getWorld().getName()) {
-
-                // if within 30 blocks
-                if (potentialPlayer.getLocation().distance(playerLocation) < distance) {
-
-                    // if player has not hidden local OOC chat
-                    if (!medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalOOCChat().contains(potentialPlayer.getUniqueId())) {
-                        numPlayersWhoHeard++;
-                        potentialPlayer.sendMessage(message);
-                    }
-
-                }
-            }
-        }
-
-        if (medievalRoleplayEngine.configService.getBoolean("logChat")) {
-            logMessageToConsole("OOC", player.getDisplayName(), message);
-        }
-
-        return numPlayersWhoHeard;
+    public int sendOOCMessageToPlayersWithinDistance(Player sender, String message, int distance) {
+        int recipientCount = deliverMessageToNearbyPlayers(sender, message, distance, false,
+                uuid -> medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalOOCChat().contains(uuid));
+        logChatIfEnabled("OOC", sender.getDisplayName(), message);
+        return recipientCount;
     }
 
     public void sendCardInfoToPlayer(CharacterCard card, Player player) {
@@ -126,13 +50,38 @@ public class Messenger {
         player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "Religion: " + card.getReligion());
     }
 
+    private int deliverMessageToNearbyPlayers(Player sender, String message, int distance,
+                                               boolean excludeSender, Predicate<UUID> hiddenChatCheck) {
+        Location senderLocation = sender.getLocation();
+        int recipientCount = 0;
+        for (Player nearby : getServer().getOnlinePlayers()) {
+            if (!nearby.getLocation().getWorld().getName().equals(senderLocation.getWorld().getName())) {
+                continue;
+            }
+            if (nearby.getLocation().distance(senderLocation) >= distance) {
+                continue;
+            }
+            if (excludeSender && nearby.getName().equalsIgnoreCase(sender.getName())) {
+                continue;
+            }
+            if (hiddenChatCheck.test(nearby.getUniqueId())) {
+                continue;
+            }
+            recipientCount++;
+            nearby.sendMessage(message);
+        }
+        return recipientCount;
+    }
+
     /**
-     * Log a message to the console to allow moderators to see what is being said in chat
-     * @param chat the type of chat (RP, OOC, etc.)
+     * Log a message to the console to allow moderators to see what is being said in chat.
+     * @param chatType the type of chat (RP, OOC, etc.)
      * @param playerName the name of the player who sent the message
      * @param message the message that was sent
      */
-    private void logMessageToConsole(String chat, String playerName, String message) {
-        medievalRoleplayEngine.getLogger().info("[" + chat + "] " + playerName + ": " + message);
+    private void logChatIfEnabled(String chatType, String playerName, String message) {
+        if (medievalRoleplayEngine.configService.getBoolean("logChat")) {
+            medievalRoleplayEngine.getLogger().info("[" + chatType + "] " + playerName + ": " + message);
+        }
     }
 }

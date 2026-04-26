@@ -22,6 +22,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 
 public class MedievalRoleplayEngine extends JavaPlugin {
+    private static final int BSTATS_PLUGIN_ID = 8996;
+
     private final String pluginVersion = "v" + getDescription().getVersion();
 
     public final CardLookupService cardLookupService = new CardLookupServiceImpl(this);
@@ -38,12 +40,10 @@ public class MedievalRoleplayEngine extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // create/load config
         if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
             configService.saveConfigDefaults();
         }
         else {
-            // pre load compatibility checks
             if (isVersionMismatched()) {
                 configService.handleVersionMismatch();
             }
@@ -62,8 +62,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
 
         registerListeners();
 
-        int pluginId = 8996;
-        new Metrics(this, pluginId);
+        new Metrics(this, BSTATS_PLUGIN_ID);
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlaceholderAPI(this).register();

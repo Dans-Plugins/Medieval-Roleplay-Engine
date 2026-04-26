@@ -24,14 +24,12 @@ public class CommandService {
 
     public boolean interpretCommand(CommandSender sender, String label, String[] args) {
 
-        // help command
         if (label.equalsIgnoreCase("rphelp")) {
             HelpCommand command = new HelpCommand(medievalRoleplayEngine);
             command.showListOfCommands(sender);
             return true;
         }
 
-        // card command
         if (label.equalsIgnoreCase("card")) {
             CardCommand command = new CardCommand(medievalRoleplayEngine);
             if (args.length == 0) {

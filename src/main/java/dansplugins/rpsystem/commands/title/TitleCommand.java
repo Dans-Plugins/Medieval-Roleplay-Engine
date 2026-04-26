@@ -19,13 +19,10 @@ public class TitleCommand {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            // check permission
             if (player.hasPermission("rp.title") || player.hasPermission("rp.default")) {
 
-                // check if they're holding a book
                 if (player.getInventory().getItemInMainHand().getType() == Material.WRITABLE_BOOK) {
 
-                    // args check
                     if (args.length > 0) {
 
                         String newTitle = medievalRoleplayEngine.argumentParser.createStringFromArgs(args);

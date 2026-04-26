@@ -14,7 +14,6 @@ public class ConfigService {
     }
 
     public void handleVersionMismatch() {
-        // set version
         if (!getConfig().isString("version")) {
             getConfig().addDefault("version", medievalRoleplayEngine.getVersion());
         }
@@ -22,7 +21,6 @@ public class ConfigService {
             getConfig().set("version", medievalRoleplayEngine.getVersion());
         }
 
-        // add defaults if they don't exist
         if (!getConfig().isInt("localChatRadius")) {
             getConfig().addDefault("localChatRadius", 25);
         }
@@ -62,7 +60,7 @@ public class ConfigService {
         if (!getConfig().isString("positiveAlertColor")) {
             getConfig().addDefault("positiveAlertColor", "green");
         }
-        if (!getConfig().isString("neurtalAlertColor")) {
+        if (!getConfig().isString("neutralAlertColor")) {
             getConfig().addDefault("neutralAlertColor", "aqua");
         }
         if (!getConfig().isString("negativeAlertColor")) {
@@ -129,7 +127,6 @@ public class ConfigService {
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "String set!");
             }
 
-            // save
             medievalRoleplayEngine.saveConfig();
             altered = true;
         }
