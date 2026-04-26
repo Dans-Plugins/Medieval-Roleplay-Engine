@@ -15,7 +15,11 @@ commands:
   emote:
   me:
   roll:
+    description: Roll a die. Defaults to a d20 if no max is specified.
+    usage: /roll [max]
   dice:
+    description: Roll a die. Defaults to a d20 if no max is specified.
+    usage: /dice [max]
   title:
   yell:
   whisper:
