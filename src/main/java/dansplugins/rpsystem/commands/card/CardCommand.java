@@ -87,7 +87,7 @@ public class CardCommand {
         card.setName(medievalRoleplayEngine.argumentParser.createStringFromFirstArgOnwards(args, 1));
         player.sendMessage(medievalRoleplayEngine.colorChecker.getPositiveAlertColor() + "Name set! Type /card to see changes.");
 
-        int changeNameCooldown = medievalRoleplayEngine.getConfig().getInt("changeNameCooldown");
+        int changeNameCooldown = medievalRoleplayEngine.configService.getInt("changeNameCooldown");
         if (changeNameCooldown != 0) {
             medievalRoleplayEngine.ephemeralData.getPlayersOnNameChangeCooldown().add(player.getUniqueId());
             getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {

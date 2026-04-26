@@ -60,6 +60,10 @@ public class ConfigService {
         if (!getConfig().isString("positiveAlertColor")) {
             getConfig().addDefault("positiveAlertColor", "green");
         }
+        if (!getConfig().isString("neutralAlertColor") && getConfig().isString("neurtalAlertColor")) {
+            getConfig().set("neutralAlertColor", getConfig().getString("neurtalAlertColor"));
+            getConfig().set("neurtalAlertColor", null);
+        }
         if (!getConfig().isString("neutralAlertColor")) {
             getConfig().addDefault("neutralAlertColor", "aqua");
         }
