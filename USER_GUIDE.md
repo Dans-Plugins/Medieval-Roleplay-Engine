@@ -51,7 +51,14 @@ Use `/bird <player> <message>` to send a private in-character message to another
 
 ### Rolling Dice
 
-Use `/roll <max>` or `/dice <max>` to roll a random number from 1 to `<max>`. The result is shown to nearby players.
+Use `/roll <notation>` or `/dice <notation>` to roll dice using standard dice notation. The result is shown to nearby players.
+
+Supported formats:
+- `/roll 20` — roll a single d20 (legacy)
+- `/roll d20` — roll a single d20
+- `/roll 2d6` — roll two d6s and sum the results
+- `/roll 1d20+5` — roll a d20 and add a modifier of +5
+- `/roll 3d8-2` — roll three d8s and subtract 2
 
 ## Permissions
 

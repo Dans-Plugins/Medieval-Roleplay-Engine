@@ -126,12 +126,18 @@
 
 ## Dice Commands
 
-### /roll \<max\> | /dice \<max\>
+### /roll \<notation\> | /dice \<notation\>
 
-**Description:** Roll a random number from 1 to `<max>`. The result is broadcast to nearby players.  
+**Description:** Roll dice using standard dice notation. The result is broadcast to nearby players.  
 **Permission:** `rp.roll` or `rp.dice`  
-**Usage:** `/roll <max>` or `/dice <max>`  
-**Example:** `/roll 20`
+**Usage:** `/roll <notation>` or `/dice <notation>`  
+**Notation:** `[N]d<M>[+|-K]` where `N` = number of dice (default 1), `M` = die size, `K` = modifier  
+**Examples:**
+- `/roll 20` — roll a single d20 (legacy form)
+- `/roll d20` — roll a single d20
+- `/roll 2d6` — roll two d6s and sum them
+- `/roll 1d20+5` — roll a d20 and add 5
+- `/roll 3d8-2` — roll three d8s and subtract 2
 
 ---
 
