@@ -14,6 +14,7 @@ public class RollCommand {
     private static final int DEFAULT_NUM_DICE = 1;
     private static final int MAX_DICE = 100;
     private static final int MAX_DIE_SIZE = 10000;
+    private static final int MAX_MODIFIER = 10000;
 
     // Matches optional count 'd' sides optional modifier, e.g. "2d6+3", "d20", "1d8-2", "20"
     private static final Pattern DICE_NOTATION = Pattern.compile(
@@ -54,22 +55,27 @@ public class RollCommand {
                 return true;
             }
 
-            if (m.group(1) != null) {
-                // NdM form
-                numDice = Integer.parseInt(m.group(1));
-                dieSize = Integer.parseInt(m.group(2));
-            } else if (m.group(3) != null) {
-                // dM form (implicit 1 die)
-                numDice = 1;
-                dieSize = Integer.parseInt(m.group(3));
-            } else {
-                // plain number — treat as die size (legacy behaviour)
-                numDice = 1;
-                dieSize = Integer.parseInt(m.group(4));
-            }
+            try {
+                if (m.group(1) != null) {
+                    // NdM form
+                    numDice = Integer.parseInt(m.group(1));
+                    dieSize = Integer.parseInt(m.group(2));
+                } else if (m.group(3) != null) {
+                    // dM form (implicit 1 die)
+                    numDice = 1;
+                    dieSize = Integer.parseInt(m.group(3));
+                } else {
+                    // plain number — treat as die size (legacy behaviour)
+                    numDice = 1;
+                    dieSize = Integer.parseInt(m.group(4));
+                }
 
-            if (m.group(5) != null) {
-                modifier = Integer.parseInt(m.group(5));
+                if (m.group(5) != null) {
+                    modifier = Integer.parseInt(m.group(5));
+                }
+            } catch (NumberFormatException e) {
+                player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "'" + input + "' contains a value that is too large. Maximum: " + MAX_DICE + " dice, d" + MAX_DIE_SIZE + ", modifier ±" + MAX_MODIFIER + ".");
+                return true;
             }
 
             if (numDice < 1 || dieSize < 1) {
@@ -79,6 +85,11 @@ public class RollCommand {
 
             if (numDice > MAX_DICE || dieSize > MAX_DIE_SIZE) {
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Maximum allowed: " + MAX_DICE + " dice with up to a d" + MAX_DIE_SIZE + ".");
+                return true;
+            }
+
+            if (modifier < -MAX_MODIFIER || modifier > MAX_MODIFIER) {
+                player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Modifier must be between -" + MAX_MODIFIER + " and +" + MAX_MODIFIER + ".");
                 return true;
             }
 
