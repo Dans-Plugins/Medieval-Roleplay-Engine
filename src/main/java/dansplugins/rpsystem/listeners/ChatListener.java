@@ -23,7 +23,6 @@ public class ChatListener implements Listener {
 
         String localChatColorString = medievalRoleplayEngine.getConfig().getString("localChatColor");
         if (medievalRoleplayEngine.ephemeralData.getPlayersSpeakingInLocalChat().contains(event.getPlayer().getUniqueId())) {
-            // get color and character name
             ChatColor localChatColor = medievalRoleplayEngine.colorChecker.getColorByName(localChatColorString);
             String characterName = medievalRoleplayEngine.cardRepository.getCard(event.getPlayer().getUniqueId()).getName();
 
@@ -33,7 +32,6 @@ public class ChatListener implements Listener {
                 return;
             }
 
-            // prepare message to send
             String messageToSend;
             if (!event.getMessage().contains("*")) {
                 messageToSend = localChatColor + "" + String.format("%s: \"%s\"", characterName, event.getMessage());
@@ -42,7 +40,7 @@ public class ChatListener implements Listener {
             else {
                 String messageWithoutEmote = removeStringContainedBetweenAsterisks(event.getMessage());
 
-                String emoteMessage = getStringContainedBetweenAstericks(event.getMessage());
+                String emoteMessage = getStringContainedBetweenAsterisks(event.getMessage());
                 int emoteRadius = medievalRoleplayEngine.getConfig().getInt("emoteRadius");
                 String emoteColorString = medievalRoleplayEngine.getConfig().getString("emoteColor");
 
@@ -63,16 +61,12 @@ public class ChatListener implements Listener {
     }
 
     private String removeStringContainedBetweenAsterisks(String string) {
-        String toReturn = "";
-
-        String stringToRemove = getStringContainedBetweenAstericks(string);
+        String stringToRemove = getStringContainedBetweenAsterisks(string);
 
         if (stringToRemove != null) {
-            toReturn = string.replace("*" + stringToRemove + "*", "");
-
-            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("String after removal: " + toReturn); }
-
-            return toReturn;
+            String result = string.replace("*" + stringToRemove + "*", "");
+            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("String after removal: " + result); }
+            return result;
         }
         else {
             return string;
@@ -80,30 +74,29 @@ public class ChatListener implements Listener {
 
     }
 
-    private String getStringContainedBetweenAstericks(String string) {
-        String toReturn = "";
-
-        int firstAsterickIndex = -1;
+    private String getStringContainedBetweenAsterisks(String string) {
+        int firstAsteriskIndex = -1;
         for (int i = 0; i < string.length(); i++) {
             if (string.charAt(i) == '*') {
-                firstAsterickIndex = i;
-                if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("First asterick index: " + i); }
+                firstAsteriskIndex = i;
+                if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("First asterisk index: " + i); }
                 break;
             }
         }
 
-        int secondAsterickIndex = -1;
-        for (int i = firstAsterickIndex + 1; i < string.length(); i++) {
+        int secondAsteriskIndex = -1;
+        for (int i = firstAsteriskIndex + 1; i < string.length(); i++) {
             if (string.charAt(i) == '*') {
-                secondAsterickIndex = i;
-                if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Second asterick index: " + i); }
+                secondAsteriskIndex = i;
+                if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Second asterisk index: " + i); }
                 break;
             }
         }
 
-        if (firstAsterickIndex != -1 && secondAsterickIndex != -1) {
-            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("String contained between astericks: " + toReturn); }
-            return string.substring(firstAsterickIndex + 1, secondAsterickIndex);
+        if (firstAsteriskIndex != -1 && secondAsteriskIndex != -1) {
+            String contained = string.substring(firstAsteriskIndex + 1, secondAsteriskIndex);
+            if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("String contained between asterisks: " + contained); }
+            return contained;
         }
         else {
             return null;

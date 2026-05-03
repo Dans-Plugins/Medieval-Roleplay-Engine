@@ -16,7 +16,6 @@ public class YellCommand {
         int yellChatRadius = medievalRoleplayEngine.getConfig().getInt("yellChatRadius");
         String yellChatColor = medievalRoleplayEngine.getConfig().getString("yellChatColor");
 
-        // player check
         if (!(sender instanceof Player)) {
             return;
         }

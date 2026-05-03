@@ -25,7 +25,6 @@ public class CharacterCard {
         playerUUID = uuid;
     }
 
-    // storage constructor
     public CharacterCard(MedievalRoleplayEngine medievalRoleplayEngine) {
         this.medievalRoleplayEngine = medievalRoleplayEngine;
     }
@@ -38,8 +37,8 @@ public class CharacterCard {
         return playerUUID;
     }
 
-    public void setName(String newUUID) {
-        name = newUUID;
+    public void setName(String newName) {
+        name = newName;
     }
 
     public String getName() {
@@ -101,7 +100,6 @@ public class CharacterCard {
 
             FileWriter saveWriter = new FileWriter("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
 
-            // actual saving takes place here
             saveWriter.write(playerUUID.toString() + "\n");
             saveWriter.write(name + "\n");
             saveWriter.write(race + "\n");
@@ -126,7 +124,6 @@ public class CharacterCard {
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + filename);
             Scanner loadReader = new Scanner(loadFile);
 
-            // actual loading
             if (loadReader.hasNextLine()) {
                 setPlayerUUID(UUID.fromString(loadReader.nextLine()));
             }
@@ -163,7 +160,6 @@ public class CharacterCard {
             File loadFile = new File("./plugins/medieval-roleplay-engine/" + filename);
             Scanner loadReader = new Scanner(loadFile);
 
-            // actual loading
             if (loadReader.hasNextLine()) {
                 setPlayerUUID(medievalRoleplayEngine.uuidChecker.findUUIDBasedOnPlayerName(loadReader.nextLine()));
             }

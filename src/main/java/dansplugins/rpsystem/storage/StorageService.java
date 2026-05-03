@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class StorageService {
@@ -31,9 +32,7 @@ public class StorageService {
 
             FileWriter saveWriter = new FileWriter(saveFile);
 
-            // actual saving takes place here
             for (CharacterCard card : medievalRoleplayEngine.cardRepository.getCards()) {
-//                System.out.println("[medievalRoleplayEngine.isDebugEnabled()] Saving card with UUID: " + card.getPlayerUUID());
                 if (card.getPlayerUUID() != null) {
                     saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
                 }
@@ -60,21 +59,24 @@ public class StorageService {
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + "cards.txt");
             Scanner loadReader = new Scanner(loadFile);
 
-            // actual loading
             while (loadReader.hasNextLine()) {
                 String nextFilename = loadReader.nextLine();
                 CharacterCard temp = new CharacterCard(medievalRoleplayEngine);
                 temp.load(nextFilename);
 
-                // existence check
-                int index = -1;
+                if (temp.getPlayerUUID() == null) {
+                    if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Skipping card with null UUID from file: " + nextFilename); }
+                    continue;
+                }
+
+                int existingIndex = -1;
                 for (int i = 0; i < medievalRoleplayEngine.cardRepository.getCards().size(); i++) {
-                    if (medievalRoleplayEngine.cardRepository.getCards().get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
-                        index = i;
+                    if (Objects.equals(medievalRoleplayEngine.cardRepository.getCards().get(i).getPlayerUUID(), temp.getPlayerUUID())) {
+                        existingIndex = i;
                     }
                 }
-                if (index != -1) {
-                    medievalRoleplayEngine.cardRepository.getCards().remove(index);
+                if (existingIndex != -1) {
+                    medievalRoleplayEngine.cardRepository.getCards().remove(existingIndex);
                 }
 
                 medievalRoleplayEngine.cardRepository.getCards().add(temp);
@@ -94,7 +96,6 @@ public class StorageService {
             File loadFile = new File("./plugins/medieval-roleplay-engine/" + "card-player-names.txt");
             Scanner loadReader = new Scanner(loadFile);
 
-            // actual loading
             while (loadReader.hasNextLine()) {
                 String nextName = loadReader.nextLine();
                 CharacterCard temp = new CharacterCard(medievalRoleplayEngine);

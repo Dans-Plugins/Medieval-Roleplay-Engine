@@ -31,14 +31,12 @@ public class ConfigCommand {
         }
 
         if (args[0].equalsIgnoreCase("show")) {
-            // no further arguments needed, list config
             medievalRoleplayEngine.configService.sendPlayerConfigList(player);
             return true;
         }
 
         if (args[0].equalsIgnoreCase("set")) {
 
-            // two more arguments needed
             if (args.length > 2) {
 
                 String option = args[1];

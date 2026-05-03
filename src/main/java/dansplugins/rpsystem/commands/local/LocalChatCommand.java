@@ -35,7 +35,6 @@ public class LocalChatCommand {
             }
         }
 
-        // add player to local chat
         addPlayerToLocalChat(player);
 
         return true;

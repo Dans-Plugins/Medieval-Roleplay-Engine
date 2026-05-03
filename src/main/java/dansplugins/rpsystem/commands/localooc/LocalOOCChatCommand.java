@@ -24,7 +24,7 @@ public class LocalOOCChatCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.localOOC") || player.hasPermission("rp.default"))) {
-            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.yell'");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.localOOC'");
             return;
         }
 

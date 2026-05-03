@@ -16,7 +16,6 @@ public class WhisperCommand {
         int whisperChatRadius = medievalRoleplayEngine.getConfig().getInt("whisperChatRadius");
         String whisperChatColor = medievalRoleplayEngine.getConfig().getString("whisperChatColor");
 
-        // player check
         if (!(sender instanceof Player)) {
             return;
         }

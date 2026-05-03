@@ -15,7 +15,6 @@ public class BirdCommand {
     }
 
     public void sendBird(CommandSender sender, String[] args) {
-        // player check
         if (!(sender instanceof Player)) {
             return;
         }
@@ -28,7 +27,6 @@ public class BirdCommand {
                 return;
             }
 
-            // zero args check
             if (args.length < 2) {
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Usage: /bird (player-name) (message)");
                 return;

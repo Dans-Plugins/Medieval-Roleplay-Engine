@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 public class InteractionListener implements Listener {
+    private static final int RIGHT_CLICK_COOLDOWN_TICKS = 40;
+
     private final MedievalRoleplayEngine medievalRoleplayEngine;
 
     public InteractionListener(MedievalRoleplayEngine medievalRoleplayEngine) {
@@ -37,14 +39,13 @@ public class InteractionListener implements Listener {
                 if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
                     medievalRoleplayEngine.messenger.sendCardInfoToPlayer(card, player);
 
-                    int seconds = 2;
                     medievalRoleplayEngine.getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
                         @Override
                         public void run() {
                             medievalRoleplayEngine.ephemeralData.getPlayersWithRightClickCooldown().remove(player.getUniqueId());
 
                         }
-                    }, seconds * 20);
+                    }, RIGHT_CLICK_COOLDOWN_TICKS);
                 }
 
             }
