@@ -109,7 +109,8 @@ public class RollCommand {
                 + player.getName() + " rolled " + notation + ": "
                 + rollsDisplay + modDisplay + " = " + total;
 
-        medievalRoleplayEngine.messenger.sendRPMessageToPlayersWithinDistance(player, message, 25);
+        player.sendMessage(message);
+        medievalRoleplayEngine.messenger.sendRPMessageToPlayersWithinDistanceExcludingTarget(player, message, 25);
         return true;
     }
 
