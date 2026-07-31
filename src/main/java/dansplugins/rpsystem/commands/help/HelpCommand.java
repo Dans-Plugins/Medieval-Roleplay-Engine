@@ -26,7 +26,7 @@ public class HelpCommand {
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/rphelp - Show a list of useful commands for the plugin.");
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/card help - Show a list of commands useful for managing character cards.");
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/bird - Send a bird to another player.");
-            player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/roll or /dice - Roll a dice.");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/roll or /dice - Roll dice using standard notation (e.g. 2d6, 1d20+5, 3d8-1).");
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/title - Rename an unwritten book.");
 
             if (medievalRoleplayEngine.configService.getBoolean("chatFeaturesEnabled")) {
