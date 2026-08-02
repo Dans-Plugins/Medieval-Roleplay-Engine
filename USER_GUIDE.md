@@ -62,7 +62,7 @@ Supported formats:
 
 ### Using Placeholders
 
-If [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) is installed, Medieval Roleplay Engine registers an expansion with the identifier `medievalroleplayengine`, exposing character card data to any plugin that supports placeholders (e.g. TAB, essentials-style scoreboards, chat formatters). Placeholders resolve for the player they're evaluated for and return an empty result if that player has no character card yet.
+If [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) is installed, Medieval Roleplay Engine registers an expansion with the identifier `medievalroleplayengine`, exposing character card data to any plugin that supports placeholders (e.g. TAB, essentials-style scoreboards, chat formatters). Placeholders resolve for the player they're evaluated for; every player is assigned a character card automatically on join, so these placeholders are populated for any currently online player.
 
 | Placeholder | Description |
 |---|---|
