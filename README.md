@@ -13,7 +13,7 @@ Medieval Roleplay Engine is a Minecraft plugin for players to use to roleplay mo
 
 ### Optional Integrations
 
-- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) – enables placeholder support for character card data.
+- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) – enables placeholder support for character card data (see [Using Placeholders](USER_GUIDE.md#using-placeholders)).
 - [Medieval Factions](https://github.com/Dans-Plugins/Medieval-Factions) – companion plugin for faction-based roleplay.
 - [Mailboxes](https://github.com/Dans-Plugins/Mailboxes) – companion plugin used by the bird (mail) system.
 

@@ -60,6 +60,27 @@ Supported formats:
 - `/roll 1d20+5` — roll a d20 and add a modifier of +5
 - `/roll 3d8-2` — roll three d8s and subtract 2
 
+### Using Placeholders
+
+If [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) is installed, Medieval Roleplay Engine registers an expansion with the identifier `medievalroleplayengine`, exposing character card data to any plugin that supports placeholders (e.g. TAB, essentials-style scoreboards, chat formatters). Placeholders resolve for the player they're evaluated for and return an empty result if that player has no character card yet.
+
+| Placeholder | Description |
+|---|---|
+| `%medievalroleplayengine_card_name%` | The player's character name |
+| `%medievalroleplayengine_card_age%` | The player's character age |
+| `%medievalroleplayengine_card_race%` | The player's character race |
+| `%medievalroleplayengine_card_subculture%` | The player's character subculture |
+| `%medievalroleplayengine_card_gender%` | The player's character gender |
+| `%medievalroleplayengine_card_religion%` | The player's character religion |
+
+**Example (TAB plugin `config.yml`):**
+
+```yaml
+tablist-name-formatting:
+  enabled: true
+  name-format: "%medievalroleplayengine_card_name%"
+```
+
 ## Permissions
 
 | Permission | Default | Description |
