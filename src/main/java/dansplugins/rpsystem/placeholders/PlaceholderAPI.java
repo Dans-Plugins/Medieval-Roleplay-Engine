@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.placeholders;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.cards.CharacterCard;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -45,23 +46,26 @@ public class PlaceholderAPI extends PlaceholderExpansion {
 
         if (player == null) return null;
 
+        CharacterCard card = medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId());
+        if (card == null) return null;
+
         if (params.equalsIgnoreCase("card_name")) {
-            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getName();
+            return card.getName();
         }
         if (params.equalsIgnoreCase("card_age")) {
-            return Integer.toString(medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getAge());
+            return Integer.toString(card.getAge());
         }
         if (params.equalsIgnoreCase("card_race")) {
-            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getRace();
+            return card.getRace();
         }
         if (params.equalsIgnoreCase("card_subculture")) {
-            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getSubculture();
+            return card.getSubculture();
         }
         if (params.equalsIgnoreCase("card_gender")) {
-            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getGender();
+            return card.getGender();
         }
         if (params.equalsIgnoreCase("card_religion")) {
-            return medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getReligion();
+            return card.getReligion();
         }
 
         return null;
