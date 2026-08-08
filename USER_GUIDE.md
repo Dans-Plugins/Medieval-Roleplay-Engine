@@ -46,7 +46,7 @@ Medieval Roleplay Engine splits its chat commands into two kinds.
 
 - **`/local`** (or `/rp`) – Switches you into local roleplay chat. From then on, anything you type in normal chat is delivered as roleplay chat to players within `localChatRadius` blocks, styled as `CharacterName: "your message"`, and does not reach server chat.
 - **`/global`** (or `/ooc`) – Switches you back out of local roleplay chat, so that what you type goes to ordinary server chat again.
-- **`/local hide`** and **`/local show`** – Hide or re-show incoming local roleplay chat. While hidden you cannot talk in local chat either.
+- **`/local hide`** and **`/local show`** – Hide or re-show incoming roleplay chat. Hiding withholds everything on the roleplay channel — whispers, yells, emotes, dice results and bird landing notices as well as local chat — and you cannot talk in local chat while hidden.
 
 **One-off message commands** send a single message and leave your channel unchanged:
 

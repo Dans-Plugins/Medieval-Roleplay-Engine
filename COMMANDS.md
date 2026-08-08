@@ -94,7 +94,7 @@
 
 ### /local hide | /local show
 
-**Description:** Hide or re-show incoming local roleplay chat. While hidden, you neither receive local chat nor are able to talk in it; attempting to talk prompts you to run `/rp show`.  
+**Description:** Hide or re-show incoming roleplay chat. Hiding suppresses everything delivered on the roleplay channel, not just local chat: whispers, yells, emotes, dice results and bird landing notices are all withheld while hidden. You also cannot talk in local chat while hidden; attempting to do so prompts you to run `/rp show`.  
 **Permission:** `rp.local` or `rp.rp`  
 **Usage:** `/local hide` or `/local show`  
 **Example:** `/rp hide`
@@ -191,9 +191,10 @@
 
 ### /rphelp
 
-**Description:** Display the list of available commands.  
-**Permission:** `rp.help` is registered by the plugin, but the command currently checks for `rp.rphelp` instead, which makes it operator-only in practice — see [issue #321](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/321).  
-**Usage:** `/rphelp`
+**Description:** Display the list of available commands. The list omits the chat commands while `chatFeaturesEnabled` is `false`.  
+**Permission:** `rp.help`  
+**Usage:** `/rphelp`  
+**Known issue:** the command actually checks for `rp.rphelp`, a node the plugin never registers, which makes it operator-only in practice no matter how `rp.help` is granted — see [issue #321](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/321).
 
 ---
 

@@ -272,7 +272,7 @@ birdSpeed: 10
 
 **Type:** boolean  
 **Default:** `true`  
-**Description:** When `true`, every message the plugin delivers is logged to the server console, tagged `[RP]` for roleplay chat (local chat, whisper, yell, emote, dice results, bird notifications) or `[OOC]` for local out-of-character chat.
+**Description:** When `true`, messages the plugin broadcasts to nearby players are logged to the server console, tagged `[RP]` for roleplay chat (local chat, whisper, yell, emote, dice results, bird landing notices) or `[OOC]` for local out-of-character chat. Messages sent privately to a single player — card views, bird contents and command feedback — are not logged.
 
 **Example:**
 

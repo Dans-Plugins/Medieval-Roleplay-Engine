@@ -57,7 +57,7 @@ A Docker-based test server is available for development.
 
 #### Setup
 
-1. Build the plugin: `mvn package` (this project has no Maven wrapper; Maven and a JDK 8 toolchain are required)
+1. Build the plugin: `mvn package` (this project has no Maven wrapper, so Maven must be installed; the build targets Java 8, which is also what CI uses)
 2. Start the test server: `./up.sh`
 
 #### Stopping the Test Server
