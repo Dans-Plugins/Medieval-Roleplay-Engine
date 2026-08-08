@@ -2,6 +2,10 @@
 
 All options are set in the `plugins/MedievalRoleplayEngine/config.yml` file. Options are listed in the order they appear in the default configuration.
 
+Options can also be inspected and changed in-game by an operator with `/rpconfig show` and `/rpconfig set <option> <value>`; changes made that way are written straight back to `config.yml`.
+
+The defaults below are those written when the plugin creates `config.yml` for the first time. Note that `emoteColor` and `logChat` are currently backfilled with different values on servers that upgrade from an older version — see [issue #323](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/323).
+
 ---
 
 ## version
@@ -16,7 +20,7 @@ All options are set in the `plugins/MedievalRoleplayEngine/config.yml` file. Opt
 
 **Type:** integer  
 **Default:** `25`  
-**Description:** The radius in blocks within which players can see local roleplay chat (`/local`, `/rp`).
+**Description:** The radius in blocks within which players can see local roleplay chat — that is, normal chat typed by a player who has switched into local chat with `/local` or `/rp`.
 
 **Example:**
 
@@ -58,7 +62,7 @@ yellChatRadius: 75
 
 **Type:** integer  
 **Default:** `25`  
-**Description:** The radius in blocks within which players can see emote actions (`/emote`, `/me`).
+**Description:** The radius in blocks within which players can see emote actions, whether sent with `/emote` / `/me` or written inline between asterisks while in local chat.
 
 **Example:**
 
@@ -142,7 +146,7 @@ emoteColor: yellow
 
 **Type:** boolean  
 **Default:** `true`  
-**Description:** When `true`, players can right-click another player to view their character card.
+**Description:** When `true`, players can right-click another player to view their character card, subject to a two-second cooldown per viewer. Note that the permission check on this feature currently restricts it to operators — see [issue #322](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/322).
 
 **Example:**
 
@@ -226,7 +230,7 @@ negativeAlertColor: dark_red
 
 **Type:** boolean  
 **Default:** `true`  
-**Description:** When `false`, all chat-related features (local, global, whisper, yell, emote) are disabled.
+**Description:** When `false`, all chat-related commands (`/local`, `/rp`, `/global`, `/ooc`, `/whisper`, `/yell`, `/emote`, `/me`, `/lo`) stop responding, and normal chat is no longer rerouted into local roleplay chat. Card, bird, dice, title, help and config commands are unaffected.
 
 **Example:**
 
@@ -268,7 +272,7 @@ birdSpeed: 10
 
 **Type:** boolean  
 **Default:** `true`  
-**Description:** When `true`, all roleplay chat messages are logged to the server console.
+**Description:** When `true`, messages the plugin broadcasts to nearby players are logged to the server console, tagged `[RP]` for roleplay chat (local chat, whisper, yell, emote, dice results, bird landing notices) or `[OOC]` for local out-of-character chat. Messages sent privately to a single player — card views, bird contents and command feedback — are not logged.
 
 **Example:**
 
