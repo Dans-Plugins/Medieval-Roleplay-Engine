@@ -13,7 +13,7 @@
 After installing the plugin and restarting your server:
 
 1. Join the server as a player.
-2. Run `/card` to view your character card. Your character name defaults to your Minecraft username.
+2. Run `/card` to view your character card. A card is created automatically the first time you join, with placeholder values: the name is `defaultName`, race `defaultRace`, subculture `defaultSubculture`, gender `defaultGender`, religion `defaultReligion`, and age `0`.
 3. Use `/card name <name>` to set your character's name.
 4. Use `/rphelp` to see a list of all available commands.
 
@@ -84,7 +84,7 @@ Supported formats:
 
 ### Using Placeholders
 
-If [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) is installed, Medieval Roleplay Engine registers an expansion with the identifier `medievalroleplayengine`, exposing character card data to any plugin that supports placeholders (e.g. TAB, essentials-style scoreboards, chat formatters). Placeholders resolve for the player they're evaluated for; every player is assigned a character card automatically on join, so these placeholders are populated for any currently online player.
+If [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) is installed, Medieval Roleplay Engine registers an expansion with the identifier `medievalroleplayengine`, exposing character card data to any plugin that supports placeholders (e.g. TAB, essentials-style scoreboards, chat formatters). Placeholders resolve for the player they're evaluated for; every player is assigned a character card automatically on join, so these placeholders are populated for any currently online player. Until a field has been set with `/card`, the placeholder resolves to that field's placeholder value (for example `defaultName`).
 
 | Placeholder | Description |
 |---|---|
