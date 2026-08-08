@@ -9,6 +9,13 @@
 **Usage:** `/card`  
 **Example:** `/card`
 
+### /card help
+
+**Description:** Show the list of character card sub-commands.  
+**Permission:** `rp.card.help`  
+**Usage:** `/card help`  
+**Example:** `/card help`
+
 ### /card lookup \<player\>
 
 **Description:** View the character card of another player.  
@@ -58,58 +65,75 @@
 **Usage:** `/card religion <religion>`  
 **Example:** `/card religion Northism`
 
-### /card forcesave \<player\>
+### /card forcesave
 
-**Description:** Force-save a player's character card (admin only).  
+**Description:** Force-save every character card to disk (admin only). This command takes no arguments; all cards are written, not a single player's.  
 **Permission:** `rp.card.forcesave`  
-**Usage:** `/card forcesave <player>`  
-**Example:** `/card forcesave Steve`
+**Usage:** `/card forcesave`  
+**Example:** `/card forcesave`
 
-### /card forceload \<player\>
+### /card forceload
 
-**Description:** Force-load a player's character card from storage (admin only).  
+**Description:** Force-load every character card from storage (admin only). This command takes no arguments; all cards are re-read, not a single player's.  
 **Permission:** `rp.card.forceload`  
-**Usage:** `/card forceload <player>`  
-**Example:** `/card forceload Steve`
+**Usage:** `/card forceload`  
+**Example:** `/card forceload`
 
 ---
 
 ## Chat Commands
 
-### /local \[message\] | /rp \[message\]
+`/local` and `/global` are channel switches, not message commands: they change where your *normal* chat goes. `/whisper`, `/yell` and `/lo` are one-off message commands and do not change your channel. Every command in this section is only available while `chatFeaturesEnabled` is `true`.
 
-**Description:** Send a message in local roleplay chat, visible to players within `localChatRadius` blocks. Running without a message toggles local chat mode. Use `/local hide` to hide incoming local chat.  
+### /local | /rp
+
+**Description:** Switch your normal chat into local roleplay chat. Once switched, anything you type in normal chat is delivered as roleplay chat to players within `localChatRadius` blocks instead of going to server chat. Any message text passed to the command itself is ignored — the command only switches channels. Use `/global` or `/ooc` to switch back.  
 **Permission:** `rp.local` or `rp.rp`  
-**Usage:** `/local <message>` or `/rp <message>`  
-**Example:** `/local Good morrow, traveller!`
+**Usage:** `/local` or `/rp`  
+**Example:** `/local`
 
-### /global \[message\] | /ooc \[message\]
+### /local hide | /local show
 
-**Description:** Send a message in global out-of-character chat, visible to all players.  
+**Description:** Hide or re-show incoming local roleplay chat. While hidden, you neither receive local chat nor are able to talk in it; attempting to talk prompts you to run `/rp show`.  
+**Permission:** `rp.local` or `rp.rp`  
+**Usage:** `/local hide` or `/local show`  
+**Example:** `/rp hide`
+
+### /global | /ooc
+
+**Description:** Switch your normal chat back out of local roleplay chat, so that what you type goes to ordinary server chat again. Any message text passed to the command itself is ignored — the command only switches channels.  
 **Permission:** `rp.global` or `rp.ooc`  
-**Usage:** `/global <message>` or `/ooc <message>`  
-**Example:** `/global Anyone up for a dungeon run?`
+**Usage:** `/global` or `/ooc`  
+**Example:** `/ooc`
 
 ### /whisper \<message\>
 
-**Description:** Send a whispered message visible only to players within `whisperChatRadius` blocks.  
+**Description:** Send a single whispered message visible only to players within `whisperChatRadius` blocks. The sender is told how many players heard it.  
 **Permission:** `rp.whisper`  
 **Usage:** `/whisper <message>`  
 **Example:** `/whisper Meet me at the tavern tonight.`
 
 ### /yell \<message\>
 
-**Description:** Send a yelled message visible to players within `yellChatRadius` blocks.  
+**Description:** Send a single yelled message visible to players within `yellChatRadius` blocks.  
 **Permission:** `rp.yell`  
 **Usage:** `/yell <message>`  
 **Example:** `/yell Guards! Intruder!`
 
 ### /lo \<message\>
 
-**Description:** Send an out-of-character message in local range.  
+**Description:** Send a single out-of-character message to players within `localOOCChatRadius` blocks.  
 **Permission:** `rp.localOOC`  
 **Usage:** `/lo <message>`  
 **Example:** `/lo brb one sec`
+
+### /lo hide | /lo show
+
+**Description:** Hide or re-show incoming local out-of-character chat.  
+**Permission:** `rp.localOOC`  
+**Usage:** `/lo hide` or `/lo show`  
+**Example:** `/lo hide`  
+**Known issue:** these sub-commands currently also broadcast the word `hide` or `show` as a local OOC message to nearby players — see [issue #324](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/324).
 
 ---
 
@@ -128,7 +152,7 @@
 
 ### /roll \<notation\> | /dice \<notation\>
 
-**Description:** Roll dice using standard dice notation. The result is broadcast to nearby players.  
+**Description:** Roll dice using standard dice notation. Running the command with no argument rolls a single d20. The result is broadcast to players within a fixed radius of 25 blocks, which is not affected by `localChatRadius`. Up to 100 dice, a die size up to d10000, and a modifier of ±10000 are accepted.  
 **Permission:** `rp.roll` or `rp.dice`  
 **Usage:** `/roll <notation>` or `/dice <notation>`  
 **Notation:** `[N]d<M>[+|-K]` where `N` = number of dice (default 1), `M` = die size, `K` = modifier  
@@ -145,7 +169,7 @@
 
 ### /bird \<player\> \<message\>
 
-**Description:** Send a bird (in-character mail) to another player. Requires the Mailboxes companion plugin.  
+**Description:** Send a bird carrying an in-character message to another player. Both players must be online and in the same world. The bird takes `distance / birdSpeed` seconds to arrive, and only one bird per sender may be in flight at a time.  
 **Permission:** `rp.bird`  
 **Usage:** `/bird <player> <message>`  
 **Example:** `/bird Steve I shall arrive at dawn.`
@@ -154,12 +178,12 @@
 
 ## Title Commands
 
-### /title \<message\>
+### /title \<title\>
 
-**Description:** Display a title message on screen.  
+**Description:** Rename the book and quill held in your main hand. Nothing is displayed on screen; the title is applied as the item's display name. An error is shown if a book and quill is not being held.  
 **Permission:** `rp.title`  
-**Usage:** `/title <message>`  
-**Example:** `/title The battle begins!`
+**Usage:** `/title <title>`  
+**Example:** `/title The Chronicle of Aldric`
 
 ---
 
@@ -168,16 +192,23 @@
 ### /rphelp
 
 **Description:** Display the list of available commands.  
-**Permission:** `rp.help`  
+**Permission:** `rp.help` is registered by the plugin, but the command currently checks for `rp.rphelp` instead, which makes it operator-only in practice — see [issue #321](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/321).  
 **Usage:** `/rphelp`
 
 ---
 
 ## Admin Commands
 
-### /rpconfig \<option\> \<value\>
+### /rpconfig show
 
-**Description:** View or change plugin configuration options in-game.  
+**Description:** List every configuration option and its current value in chat.  
 **Permission:** `rp.config`  
-**Usage:** `/rpconfig <option> <value>`  
-**Example:** `/rpconfig localChatRadius 30`
+**Usage:** `/rpconfig show`  
+**Example:** `/rpconfig show`
+
+### /rpconfig set \<option\> \<value\>
+
+**Description:** Change a plugin configuration option in-game and save it to `config.yml`. Only options that already exist in the configuration can be set, and `version` cannot be changed.  
+**Permission:** `rp.config`  
+**Usage:** `/rpconfig set <option> <value>`  
+**Example:** `/rpconfig set localChatRadius 30`

@@ -1,7 +1,7 @@
 # Medieval Roleplay Engine
 
 ## Description
-Medieval Roleplay Engine is a Minecraft plugin for players to use to roleplay more effectively. It currently supports Character Cards, Birds, Emotes, Dice, and different types of chats including local, global, whisper, and yell.
+Medieval Roleplay Engine is a Minecraft plugin for players to use to roleplay more effectively. It currently supports Character Cards, Birds, Emotes, Dice, and different types of chats including local, global, whisper, yell, and local out-of-character.
 
 ## Installation
 
@@ -15,7 +15,7 @@ Medieval Roleplay Engine is a Minecraft plugin for players to use to roleplay mo
 
 - [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) – enables placeholder support for character card data (see [Using Placeholders](USER_GUIDE.md#using-placeholders)).
 - [Medieval Factions](https://github.com/Dans-Plugins/Medieval-Factions) – companion plugin for faction-based roleplay.
-- [Mailboxes](https://github.com/Dans-Plugins/Mailboxes) – companion plugin used by the bird (mail) system.
+- [Mailboxes](https://github.com/Dans-Plugins/Mailboxes) – companion plugin, declared as a soft dependency. The bird (mail) system works without it.
 
 ## Usage
 
@@ -57,7 +57,7 @@ A Docker-based test server is available for development.
 
 #### Setup
 
-1. Build the plugin: `./mvnw package`
+1. Build the plugin: `mvn package` (this project has no Maven wrapper; Maven and a JDK 8 toolchain are required)
 2. Start the test server: `./up.sh`
 
 #### Stopping the Test Server

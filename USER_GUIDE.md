@@ -6,7 +6,7 @@
 - The Medieval Roleplay Engine jar placed in your server's `plugins/` folder.
 - *(Optional)* [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) for placeholder support.
 - *(Optional)* [Medieval Factions](https://github.com/Dans-Plugins/Medieval-Factions) for faction integration.
-- *(Optional)* [Mailboxes](https://github.com/Dans-Plugins/Mailboxes) for the bird (mail) system.
+- *(Optional)* [Mailboxes](https://github.com/Dans-Plugins/Mailboxes) — declared as a soft dependency. The bird (mail) system does not require it; birds are delivered by the plugin itself.
 
 ## First Steps
 
@@ -34,24 +34,46 @@ Your character card holds your roleplay identity:
 /card lookup <player>     – View another player's card
 ```
 
+### Viewing a Card by Right-Clicking
+
+While `rightClickToViewCard` is `true`, right-clicking another player shows their character card, subject to a two-second cooldown per viewer. This currently requires operator status — see [issue #322](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/322).
+
 ### Using Roleplay Chat
 
-Medieval Roleplay Engine provides several chat channels:
+Medieval Roleplay Engine splits its chat commands into two kinds.
 
-- **Local chat** (`/local` or `/rp`) – Sends a message visible only to nearby players (within `localChatRadius` blocks).
-- **Global chat** (`/global` or `/ooc`) – Sends a message visible to all players on the server.
-- **Whisper** (`/whisper <message>`) – Sends a message visible only to players within `whisperChatRadius` blocks.
+**Channel switches** change where your *normal* chat goes. They take no message of their own:
+
+- **`/local`** (or `/rp`) – Switches you into local roleplay chat. From then on, anything you type in normal chat is delivered as roleplay chat to players within `localChatRadius` blocks, styled as `CharacterName: "your message"`, and does not reach server chat.
+- **`/global`** (or `/ooc`) – Switches you back out of local roleplay chat, so that what you type goes to ordinary server chat again.
+- **`/local hide`** and **`/local show`** – Hide or re-show incoming local roleplay chat. While hidden you cannot talk in local chat either.
+
+**One-off message commands** send a single message and leave your channel unchanged:
+
+- **Whisper** (`/whisper <message>`) – Sends a message visible only to players within `whisperChatRadius` blocks, and tells you how many players heard it.
 - **Yell** (`/yell <message>`) – Sends a message visible to players within `yellChatRadius` blocks.
 - **Emote** (`/emote <action>` or `/me <action>`) – Performs a roleplay action visible within `emoteRadius` blocks.
-- **Local OOC** (`/lo <message>`) – Out-of-character message in local range.
+- **Local OOC** (`/lo <message>`) – Out-of-character message to players within `localOOCChatRadius` blocks.
+
+All of the above require `chatFeaturesEnabled` to be `true`.
+
+### Emoting Inline While in Local Chat
+
+While you are in local roleplay chat, text wrapped in asterisks is split out of your message and sent as a separate emote:
+
+```
+*draws his sword* Stand back!
+```
+
+is delivered to nearby players as two messages: the spoken remainder (`CharacterName: "Stand back!"`, within `localChatRadius` blocks), then the emote (`CharacterName draws his sword`, within `emoteRadius` blocks). If nothing is left once the asterisks are removed, only the emote is sent. Only the first pair of asterisks in a message is treated this way.
 
 ### Sending a Bird (Mail)
 
-Use `/bird <player> <message>` to send a private in-character message to another player. The bird travels at the configured `birdSpeed` and delivers the message when it arrives.
+Use `/bird <player> <message>` to send a private in-character message to another player. Both of you must be online and in the same world. The bird takes `distance / birdSpeed` seconds to arrive, and you can only have one bird in flight at a time. Players near the recipient are told that a bird landed, but not what it said.
 
 ### Rolling Dice
 
-Use `/roll <notation>` or `/dice <notation>` to roll dice using standard dice notation. The result is shown to nearby players.
+Use `/roll <notation>` or `/dice <notation>` to roll dice using standard dice notation. Running either command with no argument rolls a single d20. The result is shown to you and to players within a fixed radius of 25 blocks.
 
 Supported formats:
 - `/roll 20` — roll a single d20 (legacy)
@@ -83,6 +105,8 @@ tablist-name-formatting:
 
 ## Permissions
 
+The table below lists the nodes registered by the plugin in `plugin.yml`. Every node is checked with its own name, except where noted beneath the table.
+
 | Permission | Default | Description |
 |---|---|---|
 | `rp.bird` | `true` | Send a bird to another player |
@@ -108,6 +132,12 @@ tablist-name-formatting:
 | `rp.whisper` | `true` | Use whisper chat |
 | `rp.help` | `true` | View the help message |
 | `rp.localOOC` | `true` | Use local OOC chat |
-| `rp.card.forcesave` | `op` | Force-save a player's card (admin) |
-| `rp.card.forceload` | `op` | Force-load a player's card (admin) |
-| `rp.config` | `op` | Change plugin configuration in-game |
+| `rp.card.forcesave` | `op` | Force-save all cards to disk (admin) |
+| `rp.card.forceload` | `op` | Force-load all cards from disk (admin) |
+| `rp.config` | `op` | View and change plugin configuration in-game |
+
+### Known Permission Discrepancies
+
+- **`rp.help` is not the node `/rphelp` checks.** `/rphelp` checks for `rp.rphelp`, which the plugin never registers, so the command is operator-only regardless of how `rp.help` is granted — see [issue #321](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/321).
+- **Right-clicking to view a card has no registered node.** It checks for `rp.card.show.others`, `rp.card.*` and `rp.default`, none of which the plugin registers, so it is operator-only — see [issue #322](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/322).
+- **`rp.admin` and `rp.default` are accepted but unregistered.** Several commands accept `rp.admin` (admin commands) or `rp.default` (most player commands) as an alternative to their own node. Neither is registered in `plugin.yml`, so both must be granted explicitly through a permissions plugin to have any effect.
