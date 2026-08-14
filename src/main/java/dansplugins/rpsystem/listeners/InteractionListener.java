@@ -33,20 +33,27 @@ public class InteractionListener implements Listener {
                 return;
             }
 
+            // rp.card.lookup is the node registered in plugin.yml for viewing another player's card;
+            // the previously checked nodes are retained so that servers which already granted them keep working.
+            if (!(player.hasPermission("rp.card.lookup") || player.hasPermission("rp.card.show.others")
+                    || player.hasPermission("rp.card.*") || player.hasPermission("rp.default"))) {
+                return;
+            }
+
+            // the cooldown entry is only added once the interaction is actually served, so that a rejected
+            // player is never left on the cooldown for the remainder of the session
             if (!medievalRoleplayEngine.ephemeralData.getPlayersWithRightClickCooldown().contains(player.getUniqueId())) {
                 medievalRoleplayEngine.ephemeralData.getPlayersWithRightClickCooldown().add(player.getUniqueId());
 
-                if (player.hasPermission("rp.card.show.others") || player.hasPermission("rp.card.*") || player.hasPermission("rp.default")) {
-                    medievalRoleplayEngine.messenger.sendCardInfoToPlayer(card, player);
+                medievalRoleplayEngine.messenger.sendCardInfoToPlayer(card, player);
 
-                    medievalRoleplayEngine.getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
-                        @Override
-                        public void run() {
-                            medievalRoleplayEngine.ephemeralData.getPlayersWithRightClickCooldown().remove(player.getUniqueId());
+                medievalRoleplayEngine.getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {
+                    @Override
+                    public void run() {
+                        medievalRoleplayEngine.ephemeralData.getPlayersWithRightClickCooldown().remove(player.getUniqueId());
 
-                        }
-                    }, RIGHT_CLICK_COOLDOWN_TICKS);
-                }
+                    }
+                }, RIGHT_CLICK_COOLDOWN_TICKS);
 
             }
 

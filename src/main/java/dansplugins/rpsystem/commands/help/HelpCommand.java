@@ -20,7 +20,9 @@ public class HelpCommand {
 
         Player player = (Player) sender;
 
-        if (player.hasPermission("rp.rphelp") || player.hasPermission("rp.default")) {
+        // rp.help is the node registered in plugin.yml; rp.rphelp is kept so that servers which
+        // already granted the historically-checked node are not broken by this change.
+        if (player.hasPermission("rp.help") || player.hasPermission("rp.rphelp") || player.hasPermission("rp.default")) {
 
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + " == Medieval Roleplay Engine " + medievalRoleplayEngine.getVersion() + " Commands == ");
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/rphelp - Show a list of useful commands for the plugin.");
@@ -42,7 +44,7 @@ public class HelpCommand {
 
         }
         else {
-            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.rphelp'");
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.help'");
         }
 
     }

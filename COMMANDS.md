@@ -129,11 +129,10 @@
 
 ### /lo hide | /lo show
 
-**Description:** Hide or re-show incoming local out-of-character chat.  
+**Description:** Hide or re-show incoming local out-of-character chat. Only `hide` or `show` on its own is treated as a sub-command; a longer message that happens to begin with either word, such as `/lo hide the treasure`, is sent as an ordinary local OOC message.  
 **Permission:** `rp.localOOC`  
 **Usage:** `/lo hide` or `/lo show`  
-**Example:** `/lo hide`  
-**Known issue:** these sub-commands currently also broadcast the word `hide` or `show` as a local OOC message to nearby players — see [issue #324](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/324).
+**Example:** `/lo hide`
 
 ---
 
@@ -193,8 +192,7 @@
 
 **Description:** Display the list of available commands. The list omits the chat commands while `chatFeaturesEnabled` is `false`.  
 **Permission:** `rp.help`  
-**Usage:** `/rphelp`  
-**Known issue:** the command actually checks for `rp.rphelp`, a node the plugin never registers, which makes it operator-only in practice no matter how `rp.help` is granted — see [issue #321](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/321).
+**Usage:** `/rphelp`
 
 ---
 

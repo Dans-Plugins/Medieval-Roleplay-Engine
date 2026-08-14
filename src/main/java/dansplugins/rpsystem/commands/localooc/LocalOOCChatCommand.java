@@ -33,11 +33,17 @@ public class LocalOOCChatCommand {
             return;
         }
         
-        if (args[0].equalsIgnoreCase("hide")) {
-            addToPlayersWhoHaveHiddenLocalOOCChat(player);
-        }
-        if (args[0].equalsIgnoreCase("show")) {
-            removeFromPlayersWhoHaveHiddenLocalOOCChat(player);
+        // only a bare "/lo hide" or "/lo show" is the sub-command; unlike /local, this command also takes
+        // a message, so anything further on the line is a message that happens to start with that word
+        if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("hide")) {
+                addToPlayersWhoHaveHiddenLocalOOCChat(player);
+                return;
+            }
+            if (args[0].equalsIgnoreCase("show")) {
+                removeFromPlayersWhoHaveHiddenLocalOOCChat(player);
+                return;
+            }
         }
         
         String message = medievalRoleplayEngine.colorChecker.getColorByName(localOOCChatColor) + "" + String.format("<%s> (( %s ))", medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getName(), medievalRoleplayEngine.argumentParser.createStringFromArgs(args));
