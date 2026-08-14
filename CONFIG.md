@@ -146,7 +146,7 @@ emoteColor: yellow
 
 **Type:** boolean  
 **Default:** `true`  
-**Description:** When `true`, players can right-click another player to view their character card, subject to a two-second cooldown per viewer. Note that the permission check on this feature currently restricts it to operators — see [issue #322](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/322).
+**Description:** When `true`, players can right-click another player to view their character card, subject to a two-second cooldown per viewer. Viewing requires the `rp.card.lookup` permission, which is granted to everyone by default.
 
 **Example:**
 

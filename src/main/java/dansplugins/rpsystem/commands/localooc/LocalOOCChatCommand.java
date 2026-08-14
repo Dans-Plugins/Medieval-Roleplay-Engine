@@ -35,9 +35,11 @@ public class LocalOOCChatCommand {
         
         if (args[0].equalsIgnoreCase("hide")) {
             addToPlayersWhoHaveHiddenLocalOOCChat(player);
+            return;
         }
         if (args[0].equalsIgnoreCase("show")) {
             removeFromPlayersWhoHaveHiddenLocalOOCChat(player);
+            return;
         }
         
         String message = medievalRoleplayEngine.colorChecker.getColorByName(localOOCChatColor) + "" + String.format("<%s> (( %s ))", medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getName(), medievalRoleplayEngine.argumentParser.createStringFromArgs(args));

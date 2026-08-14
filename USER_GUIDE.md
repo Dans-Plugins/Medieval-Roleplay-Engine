@@ -36,7 +36,7 @@ Your character card holds your roleplay identity:
 
 ### Viewing a Card by Right-Clicking
 
-While `rightClickToViewCard` is `true`, right-clicking another player shows their character card, subject to a two-second cooldown per viewer. This currently requires operator status — see [issue #322](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/322).
+While `rightClickToViewCard` is `true`, right-clicking another player shows their character card, subject to a two-second cooldown per viewer. This requires the `rp.card.lookup` permission, which is granted to everyone by default.
 
 ### Using Roleplay Chat
 
@@ -138,6 +138,4 @@ The table below lists the nodes registered by the plugin in `plugin.yml`. Every 
 
 ### Known Permission Discrepancies
 
-- **`rp.help` is not the node `/rphelp` checks.** `/rphelp` checks for `rp.rphelp`, which the plugin never registers, so the command is operator-only regardless of how `rp.help` is granted — see [issue #321](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/321).
-- **Right-clicking to view a card has no registered node.** It checks for `rp.card.show.others`, `rp.card.*` and `rp.default`, none of which the plugin registers, so it is operator-only — see [issue #322](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/322).
 - **`rp.admin` and `rp.default` are accepted but unregistered.** Several commands accept `rp.admin` (admin commands) or `rp.default` (most player commands) as an alternative to their own node. Neither is registered in `plugin.yml`, so both must be granted explicitly through a permissions plugin to have any effect.
