@@ -129,7 +129,7 @@
 
 ### /lo hide | /lo show
 
-**Description:** Hide or re-show incoming local out-of-character chat.  
+**Description:** Hide or re-show incoming local out-of-character chat. Only `hide` or `show` on its own is treated as a sub-command; a longer message that happens to begin with either word, such as `/lo hide the treasure`, is sent as an ordinary local OOC message.  
 **Permission:** `rp.localOOC`  
 **Usage:** `/lo hide` or `/lo show`  
 **Example:** `/lo hide`
