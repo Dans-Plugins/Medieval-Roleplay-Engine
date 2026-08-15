@@ -46,7 +46,7 @@ public class ConfigService {
             getConfig().addDefault("yellChatColor", "red");
         }
         if (!getConfig().isString("emoteColor")) {
-            getConfig().addDefault("emoteColor", "yellow");
+            getConfig().addDefault("emoteColor", "gray");
         }
         if (!getConfig().isBoolean("rightClickToViewCard")) {
             getConfig().addDefault("rightClickToViewCard", true);
@@ -70,7 +70,7 @@ public class ConfigService {
         if (!getConfig().isString("negativeAlertColor")) {
             getConfig().addDefault("negativeAlertColor", "red");
         }
-        if (!getConfig().isString("chatFeaturesEnabled")) {
+        if (!getConfig().isBoolean("chatFeaturesEnabled")) {
             getConfig().addDefault("chatFeaturesEnabled", true);
         }
         if (!getConfig().isBoolean("debugMode")) {
@@ -80,7 +80,7 @@ public class ConfigService {
             getConfig().addDefault("birdSpeed", 20);
         }
         if (!getConfig().isBoolean("logChat")) {
-            getConfig().addDefault("logChat", false);
+            getConfig().addDefault("logChat", true);
         }
         
         deleteOldConfigOptionsIfPresent();

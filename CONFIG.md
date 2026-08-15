@@ -4,7 +4,7 @@ All options are set in the `plugins/MedievalRoleplayEngine/config.yml` file. Opt
 
 Options can also be inspected and changed in-game by an operator with `/rpconfig show` and `/rpconfig set <option> <value>`; changes made that way are written straight back to `config.yml`.
 
-The defaults below are those written when the plugin creates `config.yml` for the first time. Note that `emoteColor` and `logChat` are currently backfilled with different values on servers that upgrade from an older version — see [issue #323](https://github.com/Dans-Plugins/Medieval-Roleplay-Engine/issues/323).
+The defaults below are those written when the plugin creates `config.yml` for the first time. The same values are backfilled for any option that is missing when an existing `config.yml` is carried across a plugin upgrade, so a fresh install and an upgraded server end up with the same defaults.
 
 ---
 
