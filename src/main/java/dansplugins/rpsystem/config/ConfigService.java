@@ -41,11 +41,11 @@ public class ConfigService {
 
     /**
      * Registers the default value of every configuration option.
-     *
+     * <p>
      * This is the single source of truth for the defaults, shared by the fresh-install path
      * ({@link #saveConfigDefaults()}) and the upgrade path ({@link #handleVersionMismatch()}),
      * so a new or retuned option only has to be declared once.
-     *
+     * <p>
      * addDefault() records a default rather than a value, and copyDefaults(true) only writes
      * defaults for options that are not already set, so calling this over an existing config
      * backfills the missing options without disturbing the ones the server operator has set.
