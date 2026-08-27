@@ -24,6 +24,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - A player without permission to view a card by right-clicking is no longer left on the right-click cooldown for the rest of the server session. The cooldown entry was added before the permission check, while the task that clears it was only scheduled after the check passed, so rejected players accumulated in the set without bound.
 - `/lo hide` and `/lo show` no longer broadcast the words `hide` and `show` as local OOC messages to nearby players. Both sub-commands fell through to the broadcast at the end of the command instead of returning after toggling visibility. Only `hide` or `show` on its own is treated as a sub-command, so a message that merely begins with either word — `/lo hide the treasure` — is still sent as an ordinary local OOC message.
 
+### Changed
+
+- The configuration defaults are now declared once in `ConfigService` and shared by the fresh-install and upgrade paths, instead of being written out twice. The two copies had already drifted apart once — the `emoteColor` and `logChat` divergence fixed above — and nothing failed when only one copy was edited. No option's value changes as a result on either path. The one visible difference is that upgrading a `config.yml` now writes the options back in the same fixed order a fresh install uses, rather than an order that depended on which options were already present in the file.
+
 ## [2.0.0-SNAPSHOT-8-8-2026] – 2026-08-08
 
 ### Changed

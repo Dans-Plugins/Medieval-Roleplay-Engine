@@ -14,79 +14,63 @@ public class ConfigService {
     }
 
     public void handleVersionMismatch() {
-        if (!getConfig().isString("version")) {
-            getConfig().addDefault("version", medievalRoleplayEngine.getVersion());
-        }
-        else {
+        // An existing version string is overwritten with the running version rather than merely defaulted.
+        // Where none is present, the default registered by addConfigDefaults() supplies it instead.
+        if (getConfig().isString("version")) {
             getConfig().set("version", medievalRoleplayEngine.getVersion());
         }
 
-        if (!getConfig().isInt("localChatRadius")) {
-            getConfig().addDefault("localChatRadius", 25);
-        }
-        if (!getConfig().isInt("whisperChatRadius")) {
-            getConfig().addDefault("whisperChatRadius", 2);
-        }
-        if (!getConfig().isInt("yellChatRadius")) {
-            getConfig().addDefault("yellChatRadius", 50);
-        }
-        if (!getConfig().isInt("emoteRadius")) {
-            getConfig().addDefault("emoteRadius", 25);
-        }
-        if (!getConfig().isInt("changeNameCooldown")) {
-            getConfig().addDefault("changeNameCooldown", 300);
-        }
-        if (!getConfig().isString("localChatColor")) {
-            getConfig().addDefault("localChatColor", "gray");
-        }
-        if (!getConfig().isString("whisperChatColor")) {
-            getConfig().addDefault("whisperChatColor", "blue");
-        }
-        if (!getConfig().isString("yellChatColor")) {
-            getConfig().addDefault("yellChatColor", "red");
-        }
-        if (!getConfig().isString("emoteColor")) {
-            getConfig().addDefault("emoteColor", "gray");
-        }
-        if (!getConfig().isBoolean("rightClickToViewCard")) {
-            getConfig().addDefault("rightClickToViewCard", true);
-        }
-        if (!getConfig().isInt("localOOCChatRadius")) {
-            getConfig().addDefault("localOOCChatRadius", 25);
-        }
-        if (!getConfig().isString("localOOCChatColor")) {
-            getConfig().addDefault("localOOCChatColor", "gray");
-        }
-        if (!getConfig().isString("positiveAlertColor")) {
-            getConfig().addDefault("positiveAlertColor", "green");
-        }
-        if (!getConfig().isString("neutralAlertColor") && getConfig().isString("neurtalAlertColor")) {
-            getConfig().set("neutralAlertColor", getConfig().getString("neurtalAlertColor"));
-            getConfig().set("neurtalAlertColor", null);
-        }
-        if (!getConfig().isString("neutralAlertColor")) {
-            getConfig().addDefault("neutralAlertColor", "aqua");
-        }
-        if (!getConfig().isString("negativeAlertColor")) {
-            getConfig().addDefault("negativeAlertColor", "red");
-        }
-        if (!getConfig().isBoolean("chatFeaturesEnabled")) {
-            getConfig().addDefault("chatFeaturesEnabled", true);
-        }
-        if (!getConfig().isBoolean("debugMode")) {
-            getConfig().addDefault("debugMode", false);
-        }
-        if (!getConfig().isInt("birdSpeed")) {
-            getConfig().addDefault("birdSpeed", 20);
-        }
-        if (!getConfig().isBoolean("logChat")) {
-            getConfig().addDefault("logChat", true);
-        }
-        
+        // Must run before addConfigDefaults(), because isString() falls back to the defaults section:
+        // once a default is registered for neutralAlertColor, the migration below can never fire.
+        migrateMisspelledNeutralAlertColorOption();
+
+        addConfigDefaults();
+
         deleteOldConfigOptionsIfPresent();
 
         getConfig().options().copyDefaults(true);
         medievalRoleplayEngine.saveConfig();
+    }
+
+    private void migrateMisspelledNeutralAlertColorOption() {
+        if (!getConfig().isString("neutralAlertColor") && getConfig().isString("neurtalAlertColor")) {
+            getConfig().set("neutralAlertColor", getConfig().getString("neurtalAlertColor"));
+            getConfig().set("neurtalAlertColor", null);
+        }
+    }
+
+    /**
+     * Registers the default value of every configuration option.
+     * <p>
+     * This is the single source of truth for the defaults, shared by the fresh-install path
+     * ({@link #saveConfigDefaults()}) and the upgrade path ({@link #handleVersionMismatch()}),
+     * so a new or retuned option only has to be declared once.
+     * <p>
+     * addDefault() records a default rather than a value, and copyDefaults(true) only writes
+     * defaults for options that are not already set, so calling this over an existing config
+     * backfills the missing options without disturbing the ones the server operator has set.
+     */
+    private void addConfigDefaults() {
+        getConfig().addDefault("version", medievalRoleplayEngine.getVersion());
+        getConfig().addDefault("localChatRadius", 25);
+        getConfig().addDefault("whisperChatRadius", 2);
+        getConfig().addDefault("yellChatRadius", 50);
+        getConfig().addDefault("emoteRadius", 25);
+        getConfig().addDefault("changeNameCooldown", 300);
+        getConfig().addDefault("localChatColor", "gray");
+        getConfig().addDefault("whisperChatColor", "blue");
+        getConfig().addDefault("yellChatColor", "red");
+        getConfig().addDefault("emoteColor", "gray");
+        getConfig().addDefault("rightClickToViewCard", true);
+        getConfig().addDefault("localOOCChatRadius", 25);
+        getConfig().addDefault("localOOCChatColor", "gray");
+        getConfig().addDefault("positiveAlertColor", "green");
+        getConfig().addDefault("neutralAlertColor", "aqua");
+        getConfig().addDefault("negativeAlertColor", "red");
+        getConfig().addDefault("chatFeaturesEnabled", true);
+        getConfig().addDefault("debugMode", false);
+        getConfig().addDefault("birdSpeed", 20);
+        getConfig().addDefault("logChat", true);
     }
 
     private void deleteOldConfigOptionsIfPresent() {
@@ -141,26 +125,7 @@ public class ConfigService {
     }
 
     public void saveConfigDefaults() {
-        getConfig().addDefault("version", medievalRoleplayEngine.getVersion());
-        getConfig().addDefault("localChatRadius", 25);
-        getConfig().addDefault("whisperChatRadius", 2);
-        getConfig().addDefault("yellChatRadius", 50);
-        getConfig().addDefault("emoteRadius", 25);
-        getConfig().addDefault("changeNameCooldown", 300);
-        getConfig().addDefault("localChatColor", "gray");
-        getConfig().addDefault("whisperChatColor", "blue");
-        getConfig().addDefault("yellChatColor", "red");
-        getConfig().addDefault("emoteColor", "gray");
-        getConfig().addDefault("rightClickToViewCard", true);
-        getConfig().addDefault("localOOCChatRadius", 25);
-        getConfig().addDefault("localOOCChatColor", "gray");
-        getConfig().addDefault("positiveAlertColor", "green");
-        getConfig().addDefault("neutralAlertColor", "aqua");
-        getConfig().addDefault("negativeAlertColor", "red");
-        getConfig().addDefault("chatFeaturesEnabled", true);
-        getConfig().addDefault("debugMode", false);
-        getConfig().addDefault("birdSpeed", 20);
-        getConfig().addDefault("logChat", true);
+        addConfigDefaults();
         getConfig().options().copyDefaults(true);
         medievalRoleplayEngine.saveConfig();
     }
