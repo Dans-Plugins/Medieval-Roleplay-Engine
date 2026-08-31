@@ -135,7 +135,11 @@ The table below lists the nodes registered by the plugin in `plugin.yml`. Every 
 | `rp.card.forcesave` | `op` | Force-save all cards to disk (admin) |
 | `rp.card.forceload` | `op` | Force-load all cards from disk (admin) |
 | `rp.config` | `op` | View and change plugin configuration in-game |
+| `rp.card.*` | `op` | Parent of the nine `rp.card.<x>` player nodes above; granting it grants all of them |
+
+`rp.card.*` is accepted as an alternative to each of the nine card nodes it parents wherever they are checked, including the right-click card view. It does not cover `rp.card.forcesave` or `rp.card.forceload`, neither of which is gated on it.
 
 ### Known Permission Discrepancies
 
 - **`rp.admin` and `rp.default` are accepted but unregistered.** Several commands accept `rp.admin` (admin commands) or `rp.default` (most player commands) as an alternative to their own node. Neither is registered in `plugin.yml`, so both must be granted explicitly through a permissions plugin to have any effect.
+- **`rp.card.show.others` is accepted but unregistered.** Right-clicking another player to view their card accepts it as an alternative to `rp.card.lookup`. It is not registered in `plugin.yml`, so it must be granted explicitly through a permissions plugin to have any effect. It is retained only so that servers which already granted it keep working; `rp.card.lookup` is the node to grant.

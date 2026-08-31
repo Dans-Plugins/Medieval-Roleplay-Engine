@@ -80,3 +80,18 @@ permissions:
     default: op
   rp.config:
     default: op
+  # Accepted as an alternative to each of the card nodes below wherever they are checked.
+  # rp.card.forcesave and rp.card.forceload are deliberately excluded: neither is gated on
+  # this node in code, so listing them here would grant more than the checks ever consult.
+  rp.card.*:
+    default: op
+    children:
+      rp.card.show: true
+      rp.card.lookup: true
+      rp.card.help: true
+      rp.card.name: true
+      rp.card.race: true
+      rp.card.subculture: true
+      rp.card.religion: true
+      rp.card.age: true
+      rp.card.gender: true
