@@ -12,6 +12,7 @@ import dansplugins.rpsystem.listeners.InteractionListener;
 import dansplugins.rpsystem.listeners.JoinListener;
 import dansplugins.rpsystem.placeholders.PlaceholderAPI;
 import dansplugins.rpsystem.storage.StorageService;
+import dansplugins.rpsystem.trace.TraceClient;
 import dansplugins.rpsystem.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -20,6 +21,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Collections;
 
 public class MedievalRoleplayEngine extends JavaPlugin {
     private static final int BSTATS_PLUGIN_ID = 8996;
@@ -37,6 +39,10 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     public final Messenger messenger = new Messenger(this);
     public final UUIDChecker uuidChecker = new UUIDChecker();
     public final StorageService storageService  = new StorageService(this);
+
+    // A no-op until the config has been read, so a command arriving before
+    // onEnable() finishes has something safe to report to.
+    private TraceClient trace = TraceClient.disabled();
 
     @Override
     public void onEnable() {
@@ -69,10 +75,20 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         } else {
             if (isDebugEnabled()) { System.out.println("Couldn't find PlaceholderAPI, no placeholders will be available."); }
         }
+
+        // usage reporting: one event now, one per command; see config.yml
+        trace = TraceClient.builder(configService.getUsageReportingEndpoint(), getName())
+                .key(configService.getUsageReportingKey())
+                .enabled(configService.isUsageReportingEnabled())
+                .logger(getLogger())
+                .build();
+        trace.report("startup", null, Collections.singletonMap("version", getDescription().getVersion()));
     }
 
     @Override
     public void onDisable() {
+        trace.close();
+
         storageService.saveCardFileNames();
         storageService.saveCards();
         if (configService.hasBeenAltered()) {
@@ -82,6 +98,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        trace.report("command", null, Collections.singletonMap("name", cmd.getName()));
         return commandService.interpretCommand(sender, label, args);
     }
 

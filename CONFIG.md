@@ -8,6 +8,37 @@ The defaults below are those written when the plugin creates `config.yml` for th
 
 ---
 
+## usage-reporting
+
+**Type:** section  
+**Default:**
+
+```yaml
+usage-reporting:
+  enabled: true
+  endpoint: https://trace.danielstephenson.dev
+  key: "2LADE-cE7kH1bYHZ0OUQrzEZOrdhpKBg1GKdw3f1FJ0"
+```
+
+**Description:** When the plugin is enabled, and each time one of its commands is used, a small event is sent to the author's [trace](https://github.com/Stephenson-Software/trace-client-java) server so it is known which plugins are actually in use. An event carries the plugin's name, the event name (`startup` or `command`), and either the plugin version or the command name — nothing about players, the world, or the server. Sending happens off the main thread, never delays a tick, and is dropped silently if the server cannot be reached.
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `usage-reporting.enabled` | `true` | Whether the plugin reports usage events. Set to `false` to turn it off. Also settable in-game with `/rpconfig set usage-reporting.enabled false`; either way the change takes effect on the next restart. |
+| `usage-reporting.endpoint` | `https://trace.danielstephenson.dev` | The trace server events are sent to. |
+| `usage-reporting.key` | the plugin's key | Identifies this plugin to the trace server so reports are attributed to it. Not a secret: it ships in the default config and can only report as MedievalRoleplayEngine. Empty means reporting is off regardless of `enabled`. |
+
+Unlike every other option, this block is not backfilled into an existing `config.yml` on upgrade unless the plugin version has changed; a `config.yml` that lacks it still resolves the values above from the defaults bundled in the jar, so reporting is active on upgraded servers too until `enabled` is set to `false`.
+
+**Example:**
+
+```yaml
+usage-reporting:
+  enabled: false
+```
+
+---
+
 ## version
 
 **Type:** string  

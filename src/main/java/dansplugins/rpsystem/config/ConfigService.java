@@ -6,6 +6,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class ConfigService {
+    private static final String USAGE_REPORTING_ENABLED_KEY = "usage-reporting.enabled";
+    private static final String USAGE_REPORTING_ENDPOINT_KEY = "usage-reporting.endpoint";
+    private static final String USAGE_REPORTING_KEY_KEY = "usage-reporting.key";
+    private static final String DEFAULT_USAGE_REPORTING_ENDPOINT = "https://trace.danielstephenson.dev";
+
     private final MedievalRoleplayEngine medievalRoleplayEngine;
     private boolean altered = false;
 
@@ -102,7 +107,8 @@ public class ConfigService {
             else if (option.equalsIgnoreCase("rightClickToViewCard")
                     || option.equalsIgnoreCase("chatFeaturesEnabled")
                     || option.equalsIgnoreCase("debugMode")
-                    || option.equalsIgnoreCase("logChat")) {
+                    || option.equalsIgnoreCase("logChat")
+                    || option.equalsIgnoreCase(USAGE_REPORTING_ENABLED_KEY)) {
                 getConfig().set(option, Boolean.parseBoolean(value));
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }
@@ -150,7 +156,8 @@ public class ConfigService {
                 + ", neutralAlertColor: " + getConfig().getString("neutralAlertColor")
                 + ", negativeAlertColor: " + getConfig().getString("negativeAlertColor")
                 + ", birdSpeed: " + getConfig().getString("birdSpeed")
-                + ", logChat:" + getConfig().getBoolean("logChat"));
+                + ", logChat:" + getConfig().getBoolean("logChat")
+                + ", usage-reporting.enabled: " + isUsageReportingEnabled());
     }
 
     public boolean hasBeenAltered() {
@@ -159,6 +166,32 @@ public class ConfigService {
 
     public FileConfiguration getConfig() {
         return medievalRoleplayEngine.getConfig();
+    }
+
+    // The usage-reporting options are deliberately NOT declared in addConfigDefaults(). Those
+    // defaults are only registered on a fresh install or when the version string changes, and
+    // reloadConfig() discards them again, so a config.yml that predates the block but carries the
+    // current version would never resolve them. They live in the jar's config.yml instead: Bukkit
+    // registers that file as the defaults for config.yml on every load, and the one-argument
+    // getters below fall through to it -- but the two-argument getters (getString(path, def))
+    // return their explicit fallback instead, which for the key would be "" and would turn
+    // reporting off on every existing installation. Verified against YamlConfiguration, not
+    // assumed. (copyDefaults(true) in the two save paths still writes the block into config.yml
+    // for fresh installs and version upgrades, so operators can see and edit it.)
+
+    public boolean isUsageReportingEnabled() {
+        return getConfig().getBoolean(USAGE_REPORTING_ENABLED_KEY);
+    }
+
+    public String getUsageReportingEndpoint() {
+        String endpoint = getConfig().getString(USAGE_REPORTING_ENDPOINT_KEY);
+        return endpoint != null ? endpoint : DEFAULT_USAGE_REPORTING_ENDPOINT;
+    }
+
+    /** Empty when no key is configured or bundled, which the client treats as "off". */
+    public String getUsageReportingKey() {
+        String key = getConfig().getString(USAGE_REPORTING_KEY_KEY);
+        return key != null ? key : "";
     }
 
     public int getInt(String option) {
