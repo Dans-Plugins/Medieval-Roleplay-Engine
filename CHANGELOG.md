@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Usage reporting is now disclosed on every startup: the plugin logs whether reporting is on — and what is sent, where, and how to turn it off — or why it is off. Two new opt-outs win over `usage-reporting.enabled`: `enabled: false` in `plugins/trace/config.yml`, a server-wide switch written by the first trace-reporting plugin to start, and the environment variables `TRACE_USAGE_REPORTING=off` / `DO_NOT_TRACK=1`. A `config.yml` that has no `usage-reporting` block gains one from the bundled defaults on enable, so the switch is visible on disk. `README.md` gained a "Usage reporting" section. Nothing about what is sent changed.
+
 ### Fixed
 
 - `emoteColor` and `logChat` are now backfilled with the same values a fresh install is given. A server upgrading from a version that predates either option was given `emoteColor: yellow` and `logChat: false`, while a fresh install was given `emoteColor: gray` and `logChat: true` — the values `CONFIG.md` documents. Both paths now write the documented values. Servers that already have either option set in `config.yml` are unaffected, since only missing options are backfilled.

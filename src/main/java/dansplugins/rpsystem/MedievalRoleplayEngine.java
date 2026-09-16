@@ -54,6 +54,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
                 configService.handleVersionMismatch();
             }
             reloadConfig();
+            configService.ensureUsageReportingBlockOnDisk();
         }
 
         if (storageService.oldSaveFolderPresent()) {
@@ -80,9 +81,25 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         trace = TraceClient.builder(configService.getUsageReportingEndpoint(), getName())
                 .key(configService.getUsageReportingKey())
                 .enabled(configService.isUsageReportingEnabled())
+                .serverWideConfig(getDataFolder().getParentFile())
                 .logger(getLogger())
                 .build();
+        logUsageReportingState();
         trace.report("startup", null, Collections.singletonMap("version", getDescription().getVersion()));
+    }
+
+    // Said on every startup so an operator can see reporting is on, and why it is off, from
+    // the console alone. The wording is shared by every plugin that reports to trace.
+    private void logUsageReportingState() {
+        if (trace.isEnabled()) {
+            getLogger().info("Usage reporting is on: " + getName() + " sends its name, version and command names to "
+                    + configService.getUsageReportingEndpoint()
+                    + " - nothing about players or the server. Turn it off with usage-reporting.enabled: false"
+                    + " in this plugin's config.yml, or for every plugin with enabled: false in"
+                    + " plugins/trace/config.yml. Details: https://github.com/Stephenson-Software/trace#usage-reporting");
+        } else {
+            getLogger().info("Usage reporting is off (" + trace.disabledReason() + ").");
+        }
     }
 
     @Override
