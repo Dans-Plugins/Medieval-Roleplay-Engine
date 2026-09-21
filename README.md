@@ -47,7 +47,7 @@ Please fill out a bug report [here](https://github.com/Dans-Plugins/Medieval-Rol
 
 ## Testing
 
-This project does not yet have an automated unit test suite. For manual testing, use the Docker-based development server described below.
+Run the automated test suite with `mvn test`. It covers the `plugin.yml` contract — permission nodes, command registration, the `rp.card.*` parent, and the `USER_GUIDE.md` permission table — and runs as part of `mvn package` in CI. See [CONTRIBUTING.md](CONTRIBUTING.md#testing) for what it checks. For manual testing of anything else, use the Docker-based development server described below.
 
 ## Development
 
