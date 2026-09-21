@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- An automated test suite, run by `mvn test` and by the existing `mvn package` step in CI, so a failing test now fails the build. The first tests lock down the `plugin.yml` contract: every permission node checked in code is registered or on an explicit knowingly-unregistered list (`rp.admin`, `rp.default`, `rp.card.show.others`, `rp.rphelp`), every registered node is checked somewhere, every registered command is dispatched by `CommandService` and vice versa, `rp.card.*` parents exactly the nine player card nodes and not `rp.card.forcesave` or `rp.card.forceload`, and the `USER_GUIDE.md` permission table matches what is registered. The `rp.card.*` guarantee is exercised through Bukkit's own `PermissibleBase` against a stub server, which is the check PR #335 could only establish with a throwaway class. This is the check that would have caught #321, #322 and #329 when they were introduced. `USER_GUIDE.md` gained the missing `rp.rphelp` entry under "Known Permission Discrepancies", which the new suite flagged on its first run.
+
 ### Changed
 
 - Usage reporting is now disclosed on every startup: the plugin logs whether reporting is on — and what is sent, where, and how to turn it off — or why it is off. Two new opt-outs win over `usage-reporting.enabled`: `enabled: false` in `plugins/trace/config.yml`, a server-wide switch written by the first trace-reporting plugin to start, and the environment variables `TRACE_USAGE_REPORTING=off` / `DO_NOT_TRACK=1`. A `config.yml` that has no `usage-reporting` block gains one from the bundled defaults on enable, so the switch is visible on disk. `README.md` gained a "Usage reporting" section. Nothing about what is sent changed.
