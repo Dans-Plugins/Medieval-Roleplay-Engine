@@ -49,7 +49,15 @@ Issues are grouped into [milestones](https://github.com/Dans-Plugins/Medieval-Ro
 
 ## Testing
 
-This project does not yet have an automated unit test suite. For manual testing, start a local Spigot server:
+Run the automated test suite with:
+
+```
+mvn test
+```
+
+The suite lives under `src/test/java` and mirrors the `dansplugins.rpsystem` package layout of `src/main/java`. It is JUnit 4, and `mvn package` (which CI runs) executes it, so a failing test fails the build. It currently covers the `plugin.yml` contract: every permission node checked in code is registered (or is on an explicit knowingly-unregistered list), every registered node is checked somewhere, every registered command is dispatched by `CommandService` and vice versa, `rp.card.*` parents exactly the nine player card nodes, and the `USER_GUIDE.md` permission table matches what is registered. Bukkit's own permission classes are exercised against a stub `Server` (`BukkitTestServer`), so no Spigot server is needed.
+
+For manual testing of anything the suite does not cover, start a local Spigot server:
 
 ```
 docker compose up
