@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -43,7 +44,7 @@ public class PluginYmlContractTest {
     private static final Path USER_GUIDE = Paths.get("USER_GUIDE.md");
 
     /** Every {@code "rp.<node>"} string literal in the sources; the plugin consults no other permission prefix. */
-    private static final Pattern PERMISSION_LITERAL = Pattern.compile("\"(rp\\.[A-Za-z.*]+)\"");
+    private static final Pattern PERMISSION_LITERAL = Pattern.compile("\"(rp\\.[A-Za-z0-9_.*-]+)\"");
     /** Every top-level command label {@code CommandService} dispatches on. Sub-commands compare {@code args[0]}, not {@code label}. */
     private static final Pattern DISPATCHED_LABEL = Pattern.compile("label\\.equalsIgnoreCase\\(\"([^\"]+)\"\\)");
     /** A row of the {@code USER_GUIDE.md} permission table: {@code | `node` | `default` | description |}. */
@@ -76,6 +77,7 @@ public class PluginYmlContractTest {
     )));
 
     private static PluginDescriptionFile pluginYml;
+    /** Registered nodes keyed by lower-cased name, since Bukkit resolves permissions case-insensitively. */
     private static Map<String, Permission> registeredPermissions;
     private static Set<String> permissionsCheckedInSource;
 
@@ -86,7 +88,7 @@ public class PluginYmlContractTest {
 
         registeredPermissions = new LinkedHashMap<>();
         for (Permission permission : pluginYml.getPermissions()) {
-            registeredPermissions.put(permission.getName(), permission);
+            registeredPermissions.put(node(permission.getName()), permission);
         }
 
         permissionsCheckedInSource = new TreeSet<>();
@@ -95,10 +97,15 @@ public class PluginYmlContractTest {
             for (Path javaFile : javaFiles) {
                 Matcher matcher = PERMISSION_LITERAL.matcher(read(javaFile));
                 while (matcher.find()) {
-                    permissionsCheckedInSource.add(matcher.group(1));
+                    permissionsCheckedInSource.add(node(matcher.group(1)));
                 }
             }
         }
+    }
+
+    /** The form Bukkit compares permission names in ({@code PermissibleBase} and {@code SimplePluginManager} both lower-case). */
+    private static String node(String name) {
+        return name.toLowerCase(Locale.ENGLISH);
     }
 
     @Test
@@ -149,19 +156,27 @@ public class PluginYmlContractTest {
                 PermissionDefault.OP, wildcard.getDefault());
 
         Map<String, Boolean> children = wildcard.getChildren();
-        assertEquals("Children of " + CARD_WILDCARD, PLAYER_CARD_NODES, new TreeSet<>(children.keySet()));
+        assertEquals("Children of " + CARD_WILDCARD, PLAYER_CARD_NODES, cardWildcardChildren());
         for (Map.Entry<String, Boolean> child : children.entrySet()) {
             assertTrue(child.getKey() + " must be granted, not revoked, by " + CARD_WILDCARD, child.getValue());
         }
-        assertFalse("rp.card.forcesave is not gated on " + CARD_WILDCARD + " in code", children.containsKey("rp.card.forcesave"));
-        assertFalse("rp.card.forceload is not gated on " + CARD_WILDCARD + " in code", children.containsKey("rp.card.forceload"));
+        assertFalse("rp.card.forcesave is not gated on " + CARD_WILDCARD + " in code", cardWildcardChildren().contains("rp.card.forcesave"));
+        assertFalse("rp.card.forceload is not gated on " + CARD_WILDCARD + " in code", cardWildcardChildren().contains("rp.card.forceload"));
     }
 
     @Test
     public void everyChildOfTheCardWildcardIsARegisteredNode() {
-        for (String child : registeredPermissions.get(CARD_WILDCARD).getChildren().keySet()) {
+        for (String child : cardWildcardChildren()) {
             assertTrue(child + " is a child of " + CARD_WILDCARD + " but is not itself registered", registeredPermissions.containsKey(child));
         }
+    }
+
+    private static Set<String> cardWildcardChildren() {
+        Set<String> children = new TreeSet<>();
+        for (String child : registeredPermissions.get(CARD_WILDCARD).getChildren().keySet()) {
+            children.add(node(child));
+        }
+        return children;
     }
 
     @Test
@@ -229,7 +244,7 @@ public class PluginYmlContractTest {
             }
             Matcher row = USER_GUIDE_ROW.matcher(line);
             if (row.find() && !row.group(1).equals("Permission")) {
-                table.put(row.group(1), row.group(2));
+                table.put(node(row.group(1)), row.group(2));
             }
         }
         assertFalse("No permission table rows found under '## Permissions' in " + USER_GUIDE, table.isEmpty());
