@@ -21,6 +21,7 @@ making any changes.
   - `placeholders/` – PlaceholderAPI expansion
   - `utils/` – Utility classes
 - `src/main/resources/` – `plugin.yml` and `config.yml`
+- `src/test/java/dansplugins/rpsystem/` – JUnit 4 tests, mirroring the main package layout; run with `mvn test`
 
 ## Coding Conventions
 
