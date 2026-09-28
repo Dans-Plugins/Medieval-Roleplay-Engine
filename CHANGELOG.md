@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Usage reporting is now disclosed on every startup: the plugin logs whether reporting is on — and what is sent, where, and how to turn it off — or why it is off. Two new opt-outs win over `usage-reporting.enabled`: `enabled: false` in `plugins/trace/config.yml`, a server-wide switch written by the first trace-reporting plugin to start, and the environment variables `TRACE_USAGE_REPORTING=off` / `DO_NOT_TRACK=1`. A `config.yml` that has no `usage-reporting` block gains one from the bundled defaults on enable, so the switch is visible on disk. `README.md` gained a "Usage reporting" section. Nothing about what is sent changed.
+- The vendored trace client is now 0.3.0: `plugins/trace/config.yml` can carry a `tags:` block whose entries are added to every event reported by every plugin on the server (the release gates write `ci: "true"` there so that test-server boots are left out of real-installation figures). Nothing changes for a server without a `tags:` block. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.3.0
 
 ### Fixed
 
