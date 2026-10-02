@@ -3,6 +3,8 @@ package dansplugins.rpsystem.utils;
 import org.bukkit.ChatColor;
 import org.junit.Test;
 
+import java.util.Locale;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -22,7 +24,7 @@ public class ColorCheckerTest {
     @Test
     public void everyColorIsResolvedFromItsLowerCaseName() {
         for (ChatColor color : SUPPORTED_COLORS) {
-            assertEquals(color, colorChecker.getColorByName(color.name().toLowerCase()));
+            assertEquals(color, colorChecker.getColorByName(color.name().toLowerCase(Locale.ENGLISH)));
         }
     }
 
