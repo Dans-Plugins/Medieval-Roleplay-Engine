@@ -17,8 +17,20 @@ This plugin is supported on the Minecraft versions listed in [`minecraft-version
 ### Optional Integrations
 
 - [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) – enables placeholder support for character card data (see [Using Placeholders](USER_GUIDE.md#using-placeholders)).
-- [Medieval Factions](https://github.com/Dans-Plugins/Medieval-Factions) – companion plugin for faction-based roleplay.
-- [Mailboxes](https://github.com/Dans-Plugins/Mailboxes) – companion plugin, declared as a soft dependency. The bird (mail) system works without it.
+
+## Works Well With
+Medieval Roleplay Engine is the centre of the **medieval roleplay** set of Dan's Plugins. These plugins suit the same kind of server and run side by side; none of them is required. Medieval Factions and Mailboxes are declared as soft dependencies in `plugin.yml`, which only makes this plugin load after them: Medieval Roleplay Engine does not call into either one.
+
+- [Medieval Factions](https://github.com/Dans-Plugins/Medieval-Factions) ([SpigotMC](https://www.spigotmc.org/resources/medieval-factions.79941/), `/dpm get medievalfactions`): nation-like factions with land claims, diplomacy and laws. Medieval Factions is the companion factions plugin; its add-ons are listed in its [Expansions](https://github.com/Dans-Plugins/Medieval-Factions#expansions) section.
+- [Mailboxes](https://github.com/Dans-Plugins/Mailboxes) ([SpigotMC](https://www.spigotmc.org/resources/mailboxes.96611/), `/dpm get mailboxes`): persistent mail between players, with item attachments.
+- [Medieval Economy](https://github.com/Dans-Plugins/Medieval-Economy) ([SpigotMC](https://www.spigotmc.org/resources/medieval-economy.81836/), `/dpm get medievaleconomy`): a coinpurse and a physical currency item.
+- [PlayerLore](https://github.com/Dans-Plugins/PlayerLore) ([SpigotMC](https://www.spigotmc.org/resources/playerlore.98602/), `/dpm get playerlore`): players write their own lore onto their items.
+- [Medieval Cookery](https://github.com/Dans-Plugins/Medieval-Cookery) (no SpigotMC page, no stable release yet): cooking recipes for custom foods, defined by the server owner.
+- [Conquest Recipes](https://github.com/Dans-Plugins/Conquest-Recipes) ([SpigotMC](https://www.spigotmc.org/resources/conquest-recipes.83594/), `/dpm get conquestrecipes`): recipes for historical weapons, armour and shields named to match the Conquest resource pack.
+
+For a survival server, the **survival flavour** set goes well alongside: [Food Spoilage](https://github.com/Dans-Plugins/FoodSpoilage), [Wild Pets](https://github.com/Dans-Plugins/Wild-Pets), [SimpleSkills](https://github.com/Dans-Plugins/SimpleSkills).
+
+Every plugin above is listed on [dansplugins.com](https://dansplugins.com). Medieval Roleplay Engine is listed at [dansplugins.com/resources/medieval-roleplay-engine](https://dansplugins.com/resources/medieval-roleplay-engine) and can be installed in game with [Dan's Plugin Manager](https://github.com/Dans-Plugins/Dans-Plugin-Manager): `/dpm get medievalroleplayengine`.
 
 ## Usage
 
