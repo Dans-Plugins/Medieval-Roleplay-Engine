@@ -94,7 +94,7 @@ public class MedievalRoleplayEngine extends JavaPlugin {
         if (trace.isEnabled()) {
             getLogger().info("Usage reporting is on: " + getName() + " sends its name, version and command names to "
                     + configService.getUsageReportingEndpoint()
-                    + " - nothing about players or the server. Turn it off with usage-reporting.enabled: false"
+                    + ", plus a random server ID (server-id in plugins/trace/config.yml) - nothing about players. Turn it off with usage-reporting.enabled: false"
                     + " in this plugin's config.yml, or for every plugin with enabled: false in"
                     + " plugins/trace/config.yml. Details: https://github.com/Stephenson-Software/trace#usage-reporting");
         } else {
