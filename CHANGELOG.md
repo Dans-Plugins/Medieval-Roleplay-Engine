@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- The usage-reporting "Details" link (startup notice, `config.yml` and the docs) now points at https://danielstephenson.dev/usage-reporting, a public page; the previous link led to a private repository and returned 404 for everyone. The vendored trace client is now 0.6.1, which carries the same link in the `plugins/trace/config.yml` header it writes. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.6.1.
+
 ### Added
 
 - An automated test suite, run by `mvn test` and by the existing `mvn package` step in CI, so a failing test now fails the build. The first tests lock down the `plugin.yml` contract: every permission node checked in code is registered or on an explicit knowingly-unregistered list (`rp.admin`, `rp.default`, `rp.card.show.others`, `rp.rphelp`), every registered node is checked somewhere, every registered command is dispatched by `CommandService` and vice versa, `rp.card.*` parents exactly the nine player card nodes and not `rp.card.forcesave` or `rp.card.forceload`, and the `USER_GUIDE.md` permission table matches what is registered. The `rp.card.*` guarantee is exercised through Bukkit's own `PermissibleBase` against a stub server, which is the check PR #335 could only establish with a throwaway class. This is the check that would have caught #321, #322 and #329 when they were introduced. `USER_GUIDE.md` gained the missing `rp.rphelp` entry under "Known Permission Discrepancies", which the new suite flagged on its first run.
