@@ -28,7 +28,7 @@ usage-reporting:
 | `usage-reporting.endpoint` | `https://trace.danielstephenson.dev` | The trace server events are sent to. |
 | `usage-reporting.key` | the plugin's key | Identifies this plugin to the trace server so reports are attributed to it. Not a secret: it ships in the default config and can only report as MedievalRoleplayEngine. Empty means reporting is off regardless of `enabled`. |
 
-Two other switches win over `usage-reporting.enabled`: `enabled: false` in `plugins/trace/config.yml` turns reporting off for every plugin on the server that reports to trace (the file is written by the first such plugin to start), and the environment variables `TRACE_USAGE_REPORTING=off` and `DO_NOT_TRACK=1` turn it off for the whole process. The plugin says on every startup whether reporting is on, and why it is off. Details: https://github.com/Stephenson-Software/trace#usage-reporting.
+Two other switches win over `usage-reporting.enabled`: `enabled: false` in `plugins/trace/config.yml` turns reporting off for every plugin on the server that reports to trace (the file is written by the first such plugin to start), and the environment variables `TRACE_USAGE_REPORTING=off` and `DO_NOT_TRACK=1` turn it off for the whole process. The plugin says on every startup whether reporting is on, and why it is off. Details: https://danielstephenson.dev/usage-reporting.
 
 A `config.yml` that lacks this block gains it from the defaults bundled in the jar on the next enable, so the switch is visible on disk; until then the values above are resolved from the bundled defaults, so reporting is active on upgraded servers too until `enabled` is set to `false`.
 
