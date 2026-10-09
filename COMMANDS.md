@@ -138,6 +138,8 @@
 
 ## Emote Commands
 
+Like the chat commands, the emote commands are only available while `chatFeaturesEnabled` is `true`.
+
 ### /emote \<action\> | /me \<action\>
 
 **Description:** Perform a roleplay action visible to players within `emoteRadius` blocks.  

@@ -20,6 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - The vendored trace client is now 0.4.0, and every usage event now carries the plugin version, `command` events included; before, only `startup` did.
 - The vendored trace client is now 0.3.0: `plugins/trace/config.yml` can carry a `tags:` block whose entries are added to every event reported by every plugin on the server (the release gates write `ci: "true"` there so that test-server boots are left out of real-installation figures). Nothing changes for a server without a `tags:` block. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.3.0
 
+### Fixed
+
+- `COMMANDS.md` now states that `/emote` and `/me` are only available while `chatFeaturesEnabled` is `true`, as `CONFIG.md` and `USER_GUIDE.md` already did; the note previously covered only the chat-command section. The `USER_GUIDE.md` prerequisites now give 1.19.4 as the oldest supported Minecraft version, matching `minecraft-versions.json` and `README.md`, instead of 1.13.
+
 ## [1.15.1] – 2026-09-26
 
 ### Changed

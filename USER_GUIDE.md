@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- A Spigot or Paper Minecraft server (1.13 or later).
+- A Spigot or Paper Minecraft server (1.19.4 or later — see [Supported Minecraft Versions](README.md#supported-minecraft-versions) for the versions each release is tested on).
 - The Medieval Roleplay Engine jar placed in your server's `plugins/` folder.
 - *(Optional)* [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) for placeholder support.
 - *(Optional)* [Medieval Factions](https://github.com/Dans-Plugins/Medieval-Factions) for faction integration.
