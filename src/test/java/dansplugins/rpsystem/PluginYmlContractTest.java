@@ -220,6 +220,17 @@ public class PluginYmlContractTest {
         }
     }
 
+    @Test
+    public void rollAndDiceUsageDescribesDiceNotation() {
+        // Bukkit prints this usage when RollCommand returns false, so it must match the notation RollCommand accepts (#368).
+        for (String label : Arrays.asList("roll", "dice")) {
+            Map<String, Object> command = pluginYml.getCommands().get(label);
+            assertEquals("Usage of /" + label, "/" + label + " [notation]", command.get("usage"));
+            assertFalse("Description of /" + label + " still describes a single max value",
+                    String.valueOf(command.get("description")).contains("max"));
+        }
+    }
+
     private static Set<String> dispatchedLabels() throws IOException {
         Set<String> labels = new TreeSet<>();
         Matcher matcher = DISPATCHED_LABEL.matcher(read(COMMAND_SERVICE));

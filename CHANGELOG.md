@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
+- The `plugin.yml` usage and description for `/roll` and `/dice` now describe dice notation (`/roll [notation]`, e.g. `2d6` or `1d20+5`) instead of `/roll [max]`, matching what the command accepts and what `COMMANDS.md` documents. Bukkit shows this usage when the command is run from the console.
 - `COMMANDS.md` now states that `/emote` and `/me` are only available while `chatFeaturesEnabled` is `true`, as `CONFIG.md` and `USER_GUIDE.md` already did; the note previously covered only the chat-command section. The `USER_GUIDE.md` prerequisites now give 1.19.4 as the oldest supported Minecraft version, matching `minecraft-versions.json` and `README.md`, instead of 1.13.
 
 ## [1.15.1] – 2026-09-26

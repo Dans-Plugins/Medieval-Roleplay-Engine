@@ -15,11 +15,11 @@ commands:
   emote:
   me:
   roll:
-    description: Roll a die. Defaults to a d20 if no max is specified.
-    usage: /roll [max]
+    description: Roll dice using standard notation such as 2d6 or 1d20+5. Defaults to a d20.
+    usage: /roll [notation]
   dice:
-    description: Roll a die. Defaults to a d20 if no max is specified.
-    usage: /dice [max]
+    description: Roll dice using standard notation such as 2d6 or 1d20+5. Defaults to a d20.
+    usage: /dice [notation]
   title:
   yell:
   whisper:
