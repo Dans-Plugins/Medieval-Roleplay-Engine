@@ -1,5 +1,9 @@
 # Medieval Roleplay Engine
 
+![Setting a character name, viewing the character card, rolling 2d6 and sending an emote](docs/images/character-card.png)
+
+*Real in-game output from Medieval Roleplay Engine 1.16.2 on a local throwaway Paper 1.21.11 test server: the commands were typed by a scripted bot client, and the chat it received is drawn as Minecraft-style chat (typed commands appear in the input bars; grey lines say what happened between commands).*
+
 ## Description
 Medieval Roleplay Engine is a Minecraft plugin for players to use to roleplay more effectively. It currently supports Character Cards, Birds, Emotes, Dice, and different types of chats including local, global, whisper, yell, and local out-of-character.
 
