@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- A character card save file with a non-numeric age or a malformed UUID no longer aborts card loading at startup. The bad file is reported on the console (`Skipping malformed character card file ...`) and only that card is skipped; every other card listed in `cards.txt` still loads. The same applies to the age line in the legacy loader (#373).
+- A character card save file with a non-numeric age or a malformed UUID no longer aborts card loading at startup. The bad file is reported on the console (`Skipping malformed character card file ...`) and only that card is skipped; every other card listed in `cards.txt` still loads. A non-numeric age in a legacy (`plugins/medieval-roleplay-engine/`) card file no longer throws either; that card is still migrated, with the fields read before the bad line (#373).
 - The `plugin.yml` usage and description for `/roll` and `/dice` now describe dice notation (`/roll [notation]`, e.g. `2d6` or `1d20+5`) instead of `/roll [max]`, matching what the command accepts and what `COMMANDS.md` documents. Bukkit shows this usage when the command is run from the console.
 - `COMMANDS.md` now states that `/emote` and `/me` are only available while `chatFeaturesEnabled` is `true`, as `CONFIG.md` and `USER_GUIDE.md` already did; the note previously covered only the chat-command section. The `USER_GUIDE.md` prerequisites now give 1.19.4 as the oldest supported Minecraft version, matching `minecraft-versions.json` and `README.md`, instead of 1.13.
 
