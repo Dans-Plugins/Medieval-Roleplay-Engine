@@ -62,7 +62,9 @@ public class StorageService {
             while (loadReader.hasNextLine()) {
                 String nextFilename = loadReader.nextLine();
                 CharacterCard temp = new CharacterCard(medievalRoleplayEngine);
-                temp.load(nextFilename);
+                if (!temp.load(nextFilename)) {
+                    continue;
+                }
 
                 if (temp.getPlayerUUID() == null) {
                     if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Skipping card with null UUID from file: " + nextFilename); }

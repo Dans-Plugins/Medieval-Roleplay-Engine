@@ -124,30 +124,37 @@ public class CharacterCard {
             File loadFile = new File("./plugins/MedievalRoleplayEngine/" + filename);
             Scanner loadReader = new Scanner(loadFile);
 
-            if (loadReader.hasNextLine()) {
-                setPlayerUUID(UUID.fromString(loadReader.nextLine()));
-            }
-            if (loadReader.hasNextLine()) {
-                setName(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setRace(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setSubculture(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setAge(Integer.parseInt(loadReader.nextLine()));
-            }
-            if (loadReader.hasNextLine()) {
-                setGender(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setReligion(loadReader.nextLine());
-            }
+            try {
+                if (loadReader.hasNextLine()) {
+                    setPlayerUUID(UUID.fromString(loadReader.nextLine()));
+                }
+                if (loadReader.hasNextLine()) {
+                    setName(loadReader.nextLine());
+                }
+                if (loadReader.hasNextLine()) {
+                    setRace(loadReader.nextLine());
+                }
+                if (loadReader.hasNextLine()) {
+                    setSubculture(loadReader.nextLine());
+                }
+                if (loadReader.hasNextLine()) {
+                    setAge(Integer.parseInt(loadReader.nextLine()));
+                }
+                if (loadReader.hasNextLine()) {
+                    setGender(loadReader.nextLine());
+                }
+                if (loadReader.hasNextLine()) {
+                    setReligion(loadReader.nextLine());
+                }
 
-            loadReader.close();
-            return true;
+                return true;
+            } catch (IllegalArgumentException e) {
+                // a malformed UUID or non-numeric age line; NumberFormatException is an IllegalArgumentException
+                System.out.println("Skipping malformed character card file " + filename + ": " + e.getMessage());
+                return false;
+            } finally {
+                loadReader.close();
+            }
         } catch (FileNotFoundException e) {
             if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("An error occurred loading the file " + filename + "."); }
             e.printStackTrace();
@@ -160,30 +167,37 @@ public class CharacterCard {
             File loadFile = new File("./plugins/medieval-roleplay-engine/" + filename);
             Scanner loadReader = new Scanner(loadFile);
 
-            if (loadReader.hasNextLine()) {
-                setPlayerUUID(medievalRoleplayEngine.uuidChecker.findUUIDBasedOnPlayerName(loadReader.nextLine()));
-            }
-            if (loadReader.hasNextLine()) {
-                setName(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setRace(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setSubculture(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setAge(Integer.parseInt(loadReader.nextLine()));
-            }
-            if (loadReader.hasNextLine()) {
-                setGender(loadReader.nextLine());
-            }
-            if (loadReader.hasNextLine()) {
-                setReligion(loadReader.nextLine());
-            }
+            try {
+                if (loadReader.hasNextLine()) {
+                    setPlayerUUID(medievalRoleplayEngine.uuidChecker.findUUIDBasedOnPlayerName(loadReader.nextLine()));
+                }
+                if (loadReader.hasNextLine()) {
+                    setName(loadReader.nextLine());
+                }
+                if (loadReader.hasNextLine()) {
+                    setRace(loadReader.nextLine());
+                }
+                if (loadReader.hasNextLine()) {
+                    setSubculture(loadReader.nextLine());
+                }
+                if (loadReader.hasNextLine()) {
+                    setAge(Integer.parseInt(loadReader.nextLine()));
+                }
+                if (loadReader.hasNextLine()) {
+                    setGender(loadReader.nextLine());
+                }
+                if (loadReader.hasNextLine()) {
+                    setReligion(loadReader.nextLine());
+                }
 
-            loadReader.close();
-            return true;
+                return true;
+            } catch (IllegalArgumentException e) {
+                // a non-numeric age line; NumberFormatException is an IllegalArgumentException
+                System.out.println("Skipping malformed character card file " + filename + ": " + e.getMessage());
+                return false;
+            } finally {
+                loadReader.close();
+            }
         } catch (FileNotFoundException e) {
             if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("An error occurred loading the file " + filename + "."); }
             e.printStackTrace();
