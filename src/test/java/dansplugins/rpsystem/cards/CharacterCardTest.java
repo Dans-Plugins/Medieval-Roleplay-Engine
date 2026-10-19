@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -38,7 +39,6 @@ public class CharacterCardTest {
 
     @After
     public void removeSaveFolder() {
-        // Best effort: when load() throws it leaves its Scanner open, which blocks the delete on Windows until exit.
         if (saveFile.exists() && !saveFile.delete()) {
             saveFile.deleteOnExit();
             return;
@@ -147,20 +147,27 @@ public class CharacterCardTest {
         assertEquals("Nature", card.getReligion());
     }
 
-    @Test(expected = NumberFormatException.class)
-    public void loadOfANonNumericAgeThrows() throws IOException {
-        // Only FileNotFoundException is caught, so a hand-edited age escapes load() and StorageService.loadCards.
+    @Test
+    public void loadOfANonNumericAgeFails() throws IOException {
+        // StorageService.loadCards skips a card whose load() returns false, so the cards after it still load.
         writeSaveFile(UUID.randomUUID().toString(), "Aldric", "Elf", "Sylvan", "old", "Male", "Nature");
 
-        new CharacterCard(null).load(saveFile.getName());
+        CharacterCard card = new CharacterCard(null);
+        assertFalse(card.load(saveFile.getName()));
+
+        assertEquals(0, card.getAge());
+        assertEquals("defaultGender", card.getGender());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void loadOfAMalformedUUIDThrows() throws IOException {
-        // As with the age, a malformed UUID line is not caught by load() or StorageService.loadCards.
+    @Test
+    public void loadOfAMalformedUUIDFails() throws IOException {
         writeSaveFile("not-a-uuid", "Aldric");
 
-        new CharacterCard(null).load(saveFile.getName());
+        CharacterCard card = new CharacterCard(null);
+        assertFalse(card.load(saveFile.getName()));
+
+        assertNull(card.getPlayerUUID());
+        assertEquals("defaultName", card.getName());
     }
 
     private void writeSaveFile(String... lines) throws IOException {
