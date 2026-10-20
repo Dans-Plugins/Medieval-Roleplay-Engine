@@ -150,7 +150,13 @@ public class CharacterCard {
                 return true;
             } catch (IllegalArgumentException e) {
                 // a malformed UUID or non-numeric age line; NumberFormatException is an IllegalArgumentException
-                System.out.println("Skipping malformed character card file " + filename + ": " + e.getMessage());
+                loadReader.close(); // release the file so it can be renamed
+                File movedFile = moveAside(loadFile);
+                if (movedFile != null) {
+                    System.out.println("Skipping malformed character card file " + filename + " (moved aside to " + movedFile.getName() + "): " + e.getMessage());
+                } else {
+                    System.out.println("Skipping malformed character card file " + filename + " (could not be moved aside, so it may be overwritten): " + e.getMessage());
+                }
                 return false;
             } finally {
                 loadReader.close();
@@ -160,6 +166,16 @@ public class CharacterCard {
             e.printStackTrace();
             return false;
         }
+    }
+
+    // Renames a malformed save file to <name>.malformed (or <name>.malformed.<n> if that is taken) so that the
+    // default card created when the player next joins cannot overwrite it. Returns the new file, or null on failure.
+    private File moveAside(File file) {
+        File target = new File(file.getPath() + ".malformed");
+        for (int i = 1; target.exists(); i++) {
+            target = new File(file.getPath() + ".malformed." + i);
+        }
+        return file.renameTo(target) ? target : null;
     }
 
     public boolean legacyLoad(String filename) {

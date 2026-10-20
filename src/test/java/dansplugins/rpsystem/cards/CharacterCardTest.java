@@ -7,6 +7,10 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -39,6 +43,14 @@ public class CharacterCardTest {
 
     @After
     public void removeSaveFolder() {
+        File[] movedAside = SAVE_FOLDER.listFiles((dir, name) -> name.startsWith(saveFile.getName() + ".malformed"));
+        if (movedAside != null) {
+            for (File file : movedAside) {
+                if (!file.delete()) {
+                    file.deleteOnExit();
+                }
+            }
+        }
         if (saveFile.exists() && !saveFile.delete()) {
             saveFile.deleteOnExit();
             return;
@@ -160,6 +172,54 @@ public class CharacterCardTest {
     }
 
     @Test
+    public void loadMovesAFileWithANonNumericAgeAsideSoALaterSaveCannotOverwriteIt() throws IOException {
+        // When the player next joins, a default card is saved to <uuid>.txt; the readable fields must survive that.
+        String uuid = UUID.randomUUID().toString();
+        writeSaveFile(uuid, "Aldric", "Elf", "Sylvan", "old", "Male", "Nature");
+
+        assertFalse(new CharacterCard(null).load(saveFile.getName()));
+
+        File movedFile = new File(SAVE_FOLDER, saveFile.getName() + ".malformed");
+        assertFalse(saveFile.exists());
+        assertTrue(movedFile.isFile());
+        assertEquals(Arrays.asList(uuid, "Aldric", "Elf", "Sylvan", "old", "Male", "Nature"), readLines(movedFile));
+    }
+
+    @Test
+    public void loadMovesAFileWithAMalformedUUIDAside() throws IOException {
+        writeSaveFile("not-a-uuid", "Aldric");
+
+        assertFalse(new CharacterCard(null).load(saveFile.getName()));
+
+        File movedFile = new File(SAVE_FOLDER, saveFile.getName() + ".malformed");
+        assertFalse(saveFile.exists());
+        assertEquals(Arrays.asList("not-a-uuid", "Aldric"), readLines(movedFile));
+    }
+
+    @Test
+    public void loadDoesNotOverwriteAFileAlreadyMovedAside() throws IOException {
+        File earlierMovedFile = new File(SAVE_FOLDER, saveFile.getName() + ".malformed");
+        writeFile(earlierMovedFile, "not-a-uuid", "Earlier");
+        writeSaveFile("not-a-uuid", "Later");
+
+        assertFalse(new CharacterCard(null).load(saveFile.getName()));
+
+        assertFalse(saveFile.exists());
+        assertEquals(Arrays.asList("not-a-uuid", "Earlier"), readLines(earlierMovedFile));
+        assertEquals(Arrays.asList("not-a-uuid", "Later"), readLines(new File(SAVE_FOLDER, saveFile.getName() + ".malformed.1")));
+    }
+
+    @Test
+    public void loadOfAWellFormedFileLeavesItInPlace() throws IOException {
+        writeSaveFile(UUID.randomUUID().toString(), "Aldric");
+
+        assertTrue(new CharacterCard(null).load(saveFile.getName()));
+
+        assertTrue(saveFile.isFile());
+        assertFalse(new File(SAVE_FOLDER, saveFile.getName() + ".malformed").exists());
+    }
+
+    @Test
     public void loadOfAMalformedUUIDFails() throws IOException {
         writeSaveFile("not-a-uuid", "Aldric");
 
@@ -171,7 +231,15 @@ public class CharacterCardTest {
     }
 
     private void writeSaveFile(String... lines) throws IOException {
-        FileWriter writer = new FileWriter(saveFile);
+        writeFile(saveFile, lines);
+    }
+
+    private static List<String> readLines(File file) throws IOException {
+        return Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+    }
+
+    private static void writeFile(File file, String... lines) throws IOException {
+        FileWriter writer = new FileWriter(file);
         try {
             for (String line : lines) {
                 writer.write(line + "\n");
