@@ -3,6 +3,7 @@ package dansplugins.rpsystem;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -14,6 +15,10 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -24,21 +29,32 @@ import java.util.logging.Logger;
  *
  * <p>{@link Bukkit#setServer} accepts a single server per JVM, and Surefire runs every test class
  * in one JVM, so installation is idempotent and the plugin manager is shared between tests.</p>
+ *
+ * <p>{@link Server#getOnlinePlayers()} returns whatever was last passed to {@link #setOnlinePlayers}, which is empty
+ * until a test sets it. A test that sets it must clear it again afterwards, since the server is shared.</p>
  */
-final class BukkitTestServer {
+public final class BukkitTestServer {
     private static final String PLUGIN_YML = "plugin.yml";
 
     private static boolean pluginYmlRegistered;
+    private static final List<Player> onlinePlayers = new ArrayList<>();
 
     private BukkitTestServer() {
     }
 
     /** Installs the stub server if it is not already installed and returns its plugin manager. */
-    static synchronized PluginManager install() {
+    public static synchronized PluginManager install() {
         if (Bukkit.getServer() == null) {
             Bukkit.setServer(createServer());
         }
         return Bukkit.getServer().getPluginManager();
+    }
+
+    /** Installs the stub server if needed and makes exactly {@code players} online, in that order. */
+    public static synchronized void setOnlinePlayers(Player... players) {
+        install();
+        onlinePlayers.clear();
+        onlinePlayers.addAll(Arrays.asList(players));
     }
 
     /**
@@ -112,6 +128,8 @@ final class BukkitTestServer {
                                 return "test";
                             case "getPluginManager":
                                 return pluginManager[0];
+                            case "getOnlinePlayers":
+                                return Collections.unmodifiableList(new ArrayList<>(onlinePlayers));
                             case "toString":
                                 return BukkitTestServer.class.getSimpleName();
                             case "hashCode":
