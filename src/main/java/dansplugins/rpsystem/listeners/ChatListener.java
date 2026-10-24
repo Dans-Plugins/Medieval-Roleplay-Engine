@@ -51,7 +51,7 @@ public class ChatListener implements Listener {
                 if (!messageWithoutEmote.equals("")) {
                     medievalRoleplayEngine.messenger.sendRPMessageToPlayersWithinDistance(event.getPlayer(), messageToSend, localChatRadius);
                 }
-                if (emoteMessage != null) {
+                if (emoteMessage != null && !emoteMessage.trim().equals("")) {
                     medievalRoleplayEngine.messenger.sendRPMessageToPlayersWithinDistance(event.getPlayer(), medievalRoleplayEngine.colorChecker.getColorByName(emoteColorString) + "" + ChatColor.ITALIC + characterName + " " + emoteMessage, emoteRadius);
                 }
             }
