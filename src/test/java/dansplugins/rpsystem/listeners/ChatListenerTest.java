@@ -176,12 +176,25 @@ public class ChatListenerTest {
     }
 
     @Test
-    public void anEmptyPairOfAsterisksSendsAnEmoteOfJustTheCharacterName() {
+    public void anEmptyPairOfAsterisksSendsNoEmoteAndOnlyTheSpokenRemainder() {
         chat("** Hello");
 
-        assertEquals(Arrays.asList(
-                speech(CHARACTER + ": \"Hello\""),
-                emote(CHARACTER + " ")), messenger.broadcasts);
+        assertEquals(Collections.singletonList(speech(CHARACTER + ": \"Hello\"")), messenger.broadcasts);
+    }
+
+    @Test
+    public void aPairOfAsterisksAroundOnlySpacesSendsNoEmote() {
+        chat("*   * Hello");
+
+        assertEquals(Collections.singletonList(speech(CHARACTER + ": \"Hello\"")), messenger.broadcasts);
+    }
+
+    @Test
+    public void anEmptyPairOfAsterisksAloneSendsNothingAndIsKeptOutOfServerChat() {
+        AsyncPlayerChatEvent event = chat("**");
+
+        assertEquals(Collections.emptyList(), messenger.broadcasts);
+        assertTrue(event.isCancelled());
     }
 
     private AsyncPlayerChatEvent chat(String message) {

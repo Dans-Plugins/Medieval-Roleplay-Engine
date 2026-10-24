@@ -65,7 +65,7 @@ While you are in local roleplay chat, text wrapped in asterisks is split out of 
 *draws his sword* Stand back!
 ```
 
-is delivered to nearby players as two messages: the spoken remainder (`CharacterName: "Stand back!"`, within `localChatRadius` blocks), then the emote (`CharacterName draws his sword`, within `emoteRadius` blocks). If nothing is left once the asterisks are removed, only the emote is sent. Only the first pair of asterisks in a message is treated this way; later pairs are spoken as typed, unless they repeat the first emote exactly, in which case they are removed too.
+is delivered to nearby players as two messages: the spoken remainder (`CharacterName: "Stand back!"`, within `localChatRadius` blocks), then the emote (`CharacterName draws his sword`, within `emoteRadius` blocks). If nothing is left once the asterisks are removed, only the emote is sent. An empty pair of asterisks (`**`, or asterisks around only spaces) is not sent as an emote. Only the first pair of asterisks in a message is treated this way; later pairs are spoken as typed, unless they repeat the first emote exactly, in which case they are removed too.
 
 ### Sending a Bird (Mail)
 
