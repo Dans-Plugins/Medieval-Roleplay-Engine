@@ -101,7 +101,15 @@ public class ConfigService {
                     || option.equalsIgnoreCase("emoteRadius")
                     || option.equalsIgnoreCase("localOOCChatRadius")
                     || option.equalsIgnoreCase("birdSpeed")) {
-                getConfig().set(option, Integer.parseInt(value));
+                int parsed;
+                try {
+                    parsed = Integer.parseInt(value);
+                }
+                catch (NumberFormatException e) {
+                    player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("negativeAlertColor")) + option + " must be a whole number.");
+                    return;
+                }
+                getConfig().set(option, parsed);
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "Integer set!");
             }
             else if (option.equalsIgnoreCase("rightClickToViewCard")
