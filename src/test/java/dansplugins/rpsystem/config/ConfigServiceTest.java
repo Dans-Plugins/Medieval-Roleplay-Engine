@@ -27,7 +27,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Characterizes {@link ConfigService}: how {@code /rpconfig set} parses and stores a value, how the defaults are
@@ -121,19 +120,28 @@ public class ConfigServiceTest {
     }
 
     @Test
-    public void aNonNumericValueForAnIntegerOptionThrowsAndLeavesTheOptionUnchanged() {
+    public void aNonNumericValueForAnIntegerOptionIsExplainedAndLeavesTheOptionUnchanged() {
+        configService.saveConfigDefaults();
+        long savedAt = configFile.lastModified();
+        String savedContents = YamlConfiguration.loadConfiguration(configFile).saveToString();
+
+        configService.setConfigOption("localChatRadius", "far", player);
+
+        assertEquals(Collections.singletonList(ChatColor.RED + "localChatRadius must be a whole number."), received);
+        assertEquals(25, config.getInt("localChatRadius"));
+        assertEquals(savedAt, configFile.lastModified());
+        assertEquals(savedContents, YamlConfiguration.loadConfiguration(configFile).saveToString());
+        assertFalse(configService.hasBeenAltered());
+    }
+
+    @Test
+    public void aDecimalValueForAnIntegerOptionIsAlsoRejected() {
         configService.saveConfigDefaults();
 
-        try {
-            configService.setConfigOption("localChatRadius", "far", player);
-            fail("Expected a NumberFormatException");
-        } catch (NumberFormatException expected) {
-            // Nothing catches this on the way back to Bukkit, so the player gets no explanation.
-        }
+        configService.setConfigOption("birdSpeed", "2.5", player);
 
-        assertTrue(received.isEmpty());
-        assertEquals(25, config.getInt("localChatRadius"));
-        assertFalse(configService.hasBeenAltered());
+        assertEquals(Collections.singletonList(ChatColor.RED + "birdSpeed must be a whole number."), received);
+        assertEquals(20, config.getInt("birdSpeed"));
     }
 
     @Test

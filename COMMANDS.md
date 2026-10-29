@@ -209,7 +209,7 @@ Like the chat commands, the emote commands are only available while `chatFeature
 
 ### /rpconfig set \<option\> \<value\>
 
-**Description:** Change a plugin configuration option in-game and save it to `config.yml`. Only options that already exist in the configuration can be set, and `version` cannot be changed.  
+**Description:** Change a plugin configuration option in-game and save it to `config.yml`. Only options that already exist in the configuration can be set, and `version` cannot be changed. The radius, cooldown and `birdSpeed` options take a whole number; any other value is rejected with a message and the option is left unchanged.  
 **Permission:** `rp.config`  
 **Usage:** `/rpconfig set <option> <value>`  
 **Example:** `/rpconfig set localChatRadius 30`
