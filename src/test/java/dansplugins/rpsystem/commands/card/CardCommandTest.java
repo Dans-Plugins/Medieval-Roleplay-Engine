@@ -135,10 +135,13 @@ public class CardCommandTest {
                 permissions.clear();
                 permissions.add(node);
                 received.clear();
+                messenger.shown.clear();
 
                 run(subCommand);
 
-                assertFalse(subCommand + " with " + node + ": " + received, received.toString().contains("Sorry!"));
+                String context = subCommand + " with " + node + ": " + received;
+                assertFalse(context, received.toString().contains("Sorry!"));
+                assertFalse(context, received.isEmpty() && messenger.shown.isEmpty());
             }
         }
     }
