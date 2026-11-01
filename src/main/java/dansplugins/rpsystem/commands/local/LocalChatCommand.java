@@ -20,8 +20,8 @@ public class LocalChatCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.local") || player.hasPermission("rp.rp") || player.hasPermission("rp.default"))) {
-            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need one the following permissions: 'rp.local', 'rp.rp'");
-            return false;
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need one of the following permissions: 'rp.local', 'rp.rp'");
+            return true;
         }
 
         if (args.length != 0) {

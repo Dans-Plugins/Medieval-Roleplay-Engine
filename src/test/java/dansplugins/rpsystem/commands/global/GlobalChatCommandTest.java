@@ -82,10 +82,10 @@ public class GlobalChatCommandTest {
     public void withoutPermissionThePlayerIsToldAndStaysInLocalChat() {
         ephemeralData.getPlayersSpeakingInLocalChat().add(PLAYER_UUID);
 
-        assertFalse(globalChatCommand.startChattingInGlobalChat(player, new String[0]));
+        assertTrue(globalChatCommand.startChattingInGlobalChat(player, new String[0]));
 
         assertEquals(Collections.singletonList(PLAYER_UUID), ephemeralData.getPlayersSpeakingInLocalChat());
-        assertEquals(Collections.singletonList(NEGATIVE + "Sorry! In order to use this command, you need one the"
+        assertEquals(Collections.singletonList(NEGATIVE + "Sorry! In order to use this command, you need one of the"
                 + " following permissions: 'rp.global', 'rp.ooc'"), received);
     }
 
