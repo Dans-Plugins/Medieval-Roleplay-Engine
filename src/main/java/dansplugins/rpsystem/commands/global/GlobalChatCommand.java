@@ -20,8 +20,8 @@ public class GlobalChatCommand {
         Player player = (Player) sender;
 
         if (!(player.hasPermission("rp.global") || player.hasPermission("rp.ooc") || player.hasPermission("rp.default"))) {
-            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need one the following permissions: 'rp.global', 'rp.ooc'");
-            return false;
+            player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need one of the following permissions: 'rp.global', 'rp.ooc'");
+            return true;
         }
 
         // remove player from local chat

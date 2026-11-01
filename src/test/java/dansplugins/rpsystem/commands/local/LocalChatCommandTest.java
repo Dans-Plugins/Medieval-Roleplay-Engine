@@ -38,7 +38,7 @@ public class LocalChatCommandTest {
     private static final ChatColor POSITIVE = ChatColor.GREEN;
     private static final ChatColor NEGATIVE = ChatColor.RED;
     private static final UUID PLAYER_UUID = UUID.fromString("00000000-0000-0000-0000-000000000001");
-    private static final String DENIED = NEGATIVE + "Sorry! In order to use this command, you need one the following"
+    private static final String DENIED = NEGATIVE + "Sorry! In order to use this command, you need one of the following"
             + " permissions: 'rp.local', 'rp.rp'";
 
     private final EphemeralData ephemeralData = new EphemeralData();
@@ -83,7 +83,7 @@ public class LocalChatCommandTest {
         for (String[] args : Arrays.asList(new String[0], new String[]{"hide"}, new String[]{"show"})) {
             received.clear();
 
-            assertFalse(localChatCommand.startChattingInLocalChat(player, args));
+            assertTrue(localChatCommand.startChattingInLocalChat(player, args));
 
             assertEquals(Collections.singletonList(DENIED), received);
         }
