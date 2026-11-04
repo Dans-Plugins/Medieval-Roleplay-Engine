@@ -420,8 +420,8 @@ public class CardCommandTest {
     public void forceSaveAndForceLoadAreNotGrantedByTheWildcardOrDefault() {
         permissions.addAll(Arrays.asList("rp.card.*", "rp.default"));
 
-        assertFalse(cardCommand.forceSave(player));
-        assertFalse(cardCommand.forceLoad(player));
+        assertTrue(cardCommand.forceSave(player));
+        assertTrue(cardCommand.forceLoad(player));
 
         assertEquals(Arrays.asList(
                 NEGATIVE + "Sorry! In order to use this command, you need the following permission:"

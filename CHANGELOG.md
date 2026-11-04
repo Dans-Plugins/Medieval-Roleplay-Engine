@@ -37,6 +37,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `/rpconfig set` with a value that is not a whole number for a radius, cooldown or `birdSpeed` option (for example `/rpconfig set localChatRadius far`) now tells the player `localChatRadius must be a whole number.` in the negative alert color and leaves the option unchanged. Before, the command threw, so the player saw the server's generic internal-error message and a stack trace was logged to the console (#384).
 - The `plugin.yml` usage and description for `/roll` and `/dice` now describe dice notation (`/roll [notation]`, e.g. `2d6` or `1d20+5`) instead of `/roll [max]`, matching what the command accepts and what `COMMANDS.md` documents. Bukkit shows this usage when the command is run from the console.
 - `COMMANDS.md` now states that `/emote` and `/me` are only available while `chatFeaturesEnabled` is `true`, as `CONFIG.md` and `USER_GUIDE.md` already did; the note previously covered only the chat-command section. The `USER_GUIDE.md` prerequisites now give 1.19.4 as the oldest supported Minecraft version, matching `minecraft-versions.json` and `README.md`, instead of 1.13.
+- `/local`, `/rp`, `/global` and `/ooc` no longer add a bare usage line after refusing a player, and the refusal now reads "one of the following permissions" (#392).
+- A delivered `/emote` or `/me` no longer adds a bare `/emote` or `/me` line in the sender's chat. The same line is gone after a refused `/emote`, a refused `/card forcesave` or `/card forceload`, and an unknown `/card` sub-command. `/emote` with no action now answers `Usage: /emote (action)`, and the refusal now reads "one of the following permissions".
 
 ## [1.15.1] – 2026-09-26
 
