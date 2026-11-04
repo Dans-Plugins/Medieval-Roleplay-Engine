@@ -78,6 +78,7 @@ public class CommandService {
                 }
 
                 sender.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sub-commands: help, lookup, name, race, subculture, religion, age, gender, forcesave, forceload");
+                return true;
             }
         }
 
