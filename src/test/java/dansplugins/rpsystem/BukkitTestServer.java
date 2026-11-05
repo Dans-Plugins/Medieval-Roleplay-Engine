@@ -32,7 +32,8 @@ import java.util.logging.Logger;
  * in one JVM, so installation is idempotent and the plugin manager is shared between tests.</p>
  *
  * <p>{@link Server#getOnlinePlayers()} returns whatever was last passed to {@link #setOnlinePlayers}, which is empty
- * until a test sets it. A test that sets it must clear it again afterwards, since the server is shared.</p>
+ * until a test sets it. A test that sets it must clear it again afterwards, since the server is shared.
+ * {@link Server#getPlayer(String)} looks a player up in that same list by their full name, regardless of case.</p>
  *
  * <p>{@link Server#getScheduler()} runs nothing: each {@code runTaskLater(Plugin, Runnable, long)} call is recorded
  * and can be read with {@link #scheduledTasks()}, so a test can check the delay and then run the task itself. A test
@@ -161,6 +162,8 @@ public final class BukkitTestServer {
                                 return pluginManager[0];
                             case "getOnlinePlayers":
                                 return Collections.unmodifiableList(new ArrayList<>(onlinePlayers));
+                            case "getPlayer":
+                                return args[0] instanceof String ? onlinePlayerNamed((String) args[0]) : null;
                             case "getScheduler":
                                 return scheduler;
                             case "toString":
@@ -176,6 +179,15 @@ public final class BukkitTestServer {
                 });
         pluginManager[0] = new SimplePluginManager(server, new SimpleCommandMap(server));
         return server;
+    }
+
+    private static synchronized Player onlinePlayerNamed(String name) {
+        for (Player player : onlinePlayers) {
+            if (player.getName().equalsIgnoreCase(name)) {
+                return player;
+            }
+        }
+        return null;
     }
 
     private static BukkitScheduler createScheduler() {

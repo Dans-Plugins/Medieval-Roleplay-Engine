@@ -46,8 +46,15 @@ public class BirdCommand {
                 return;
             }
 
-            double distance = player.getLocation().distance(targetPlayer.getLocation());
             int blocksPerSecond = medievalRoleplayEngine.configService.getInt("birdSpeed");
+
+            // Checked here rather than only in /rpconfig set, because config.yml can be edited by hand.
+            if (blocksPerSecond < 1) {
+                player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Birds can't be sent right now, because the server's birdSpeed setting must be at least 1.");
+                return;
+            }
+
+            double distance = player.getLocation().distance(targetPlayer.getLocation());
             int seconds = (int)distance/blocksPerSecond;
 
             getServer().getScheduler().runTaskLater(medievalRoleplayEngine, new Runnable() {

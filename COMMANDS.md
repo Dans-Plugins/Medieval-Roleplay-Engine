@@ -170,7 +170,7 @@ Like the chat commands, the emote commands are only available while `chatFeature
 
 ### /bird \<player\> \<message\>
 
-**Description:** Send a bird carrying an in-character message to another player. Both players must be online and in the same world. The bird takes `distance / birdSpeed` seconds to arrive, and only one bird per sender may be in flight at a time.  
+**Description:** Send a bird carrying an in-character message to another player. Both players must be online and in the same world. The bird takes `distance / birdSpeed` seconds to arrive, and only one bird per sender may be in flight at a time. If `birdSpeed` is below 1, no bird is sent and the sender is told so.  
 **Permission:** `rp.bird`  
 **Usage:** `/bird <player> <message>`  
 **Example:** `/bird Steve I shall arrive at dawn.`
