@@ -291,7 +291,7 @@ debugMode: true
 
 **Type:** integer  
 **Default:** `20`  
-**Description:** The speed (in blocks per second) at which birds travel when delivering messages via `/bird`. Higher values mean faster delivery, since delivery delay is calculated as `distance / birdSpeed`.
+**Description:** The speed (in blocks per second) at which birds travel when delivering messages via `/bird`. Higher values mean faster delivery, since delivery delay is calculated as `distance / birdSpeed`. The value must be at least `1`; with a lower value, `/bird` tells the sender that birds can't be sent and sends nothing. Neither `/rpconfig set` nor startup rejects such a value.
 
 **Example:**
 

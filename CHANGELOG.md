@@ -6,15 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-### Changed
-
-- The usage-reporting "Details" link (startup notice, `config.yml` and the docs) now points at https://danielstephenson.dev/usage-reporting, a public page; the previous link led to a private repository and returned 404 for everyone. The vendored trace client is now 0.6.1, which carries the same link in the `plugins/trace/config.yml` header it writes. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.6.1.
-- Usage reporting now counts a `command` event only when a player runs the command; console, command-block and plugin-dispatched commands are no longer reported.
-
 ### Added
 
-- An automated test suite, run by `mvn test` and by the existing `mvn package` step in CI, so a failing test now fails the build. The first tests lock down the `plugin.yml` contract: every permission node checked in code is registered or on an explicit knowingly-unregistered list (`rp.admin`, `rp.default`, `rp.card.show.others`, `rp.rphelp`), every registered node is checked somewhere, every registered command is dispatched by `CommandService` and vice versa, `rp.card.*` parents exactly the nine player card nodes and not `rp.card.forcesave` or `rp.card.forceload`, and the `USER_GUIDE.md` permission table matches what is registered. The `rp.card.*` guarantee is exercised through Bukkit's own `PermissibleBase` against a stub server, which is the check PR #335 could only establish with a throwaway class. This is the check that would have caught #321, #322 and #329 when they were introduced. `USER_GUIDE.md` gained the missing `rp.rphelp` entry under "Known Permission Discrepancies", which the new suite flagged on its first run.
-- Unit tests for `ArgumentParser` and `ColorChecker.getColorByName`. They record current behavior without changing it: arguments are joined with single spaces and empty arguments are kept, and color names are matched only in all-lower-case or all-upper-case form (e.g. `dark_red` or `DARK_RED`), with any other name — including `Red` — resolving to white.
 - Unit tests for `CharacterCard` and `CardRepository`. They record current behavior without changing it: a new card's placeholder defaults, how `CharacterCard.load` reads a save file (one value per line; missing lines keep the defaults, extra lines are ignored), and how cards are looked up by player UUID (a `null` UUID never matches). A non-numeric age or a malformed UUID in a save file threw out of `load` when these tests were added; see Fixed below.
 - Unit tests for `/roll` and `/dice`. They record current behavior without changing it: any one of `rp.roll`, `rp.dice` or `rp.default` is accepted; no argument rolls `1d20`; a bare number is a die size and may carry a modifier (`12+1` is `1d12+1`); notation is case-insensitive and shown normalized (`02D06+0` is shown as `2d6`); only the first argument is read; the limits are 100 dice, d10000 and a modifier of ±10000, each with its own error message; a total may go below 1; and the result is shown to the roller and broadcast to other players within 25 blocks.
 - Unit tests for the PlaceholderAPI expansion. They record current behavior without changing it: the expansion registers under the plugin's name from `plugin.yml` (`medievalroleplayengine` in lower case, as `USER_GUIDE.md` documents); `card_name`, `card_age`, `card_race`, `card_subculture`, `card_gender` and `card_religion` each resolve to their own card field, matched regardless of case; an unset field resolves to its default (e.g. `defaultName`, or `0` for age); and an unknown placeholder, a missing player or a player without a card resolves to nothing. Every placeholder listed in the `USER_GUIDE.md` table is also checked to resolve, so a renamed or removed placeholder now fails the build.
@@ -26,8 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- The vendored trace client is now 0.4.0, and every usage event now carries the plugin version, `command` events included; before, only `startup` did.
-- The vendored trace client is now 0.3.0: `plugins/trace/config.yml` can carry a `tags:` block whose entries are added to every event reported by every plugin on the server (the release gates write `ci: "true"` there so that test-server boots are left out of real-installation figures). Nothing changes for a server without a `tags:` block. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.3.0
+- Usage reporting now counts a `command` event only when a player runs the command; console, command-block and plugin-dispatched commands are no longer reported.
+- The vendored trace client is now 0.7.0, which coalesces repeated usage events: the first report of an event is sent at once, identical reports in the next 60 seconds are sent as one event tagged `coalesced` with the count, and `startup` is never held back. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.7.0
 
 ### Fixed
 
@@ -35,10 +28,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - A skipped malformed character card file is now renamed to `<uuid>.txt.malformed` (or `.malformed.1`, `.malformed.2`, ... if that name is taken), and the console message names the new file. Before, the file was left in place, so the default card created when that player next joined was saved over it and the readable fields were lost (#377).
 - An empty pair of asterisks in local chat (for example `** Hello`), or a pair around only spaces, no longer sends an emote consisting of just the character name; only the spoken remainder is sent, and a message of just `**` sends nothing (#381).
 - `/rpconfig set` with a value that is not a whole number for a radius, cooldown or `birdSpeed` option (for example `/rpconfig set localChatRadius far`) now tells the player `localChatRadius must be a whole number.` in the negative alert color and leaves the option unchanged. Before, the command threw, so the player saw the server's generic internal-error message and a stack trace was logged to the console (#384).
-- The `plugin.yml` usage and description for `/roll` and `/dice` now describe dice notation (`/roll [notation]`, e.g. `2d6` or `1d20+5`) instead of `/roll [max]`, matching what the command accepts and what `COMMANDS.md` documents. Bukkit shows this usage when the command is run from the console.
-- `COMMANDS.md` now states that `/emote` and `/me` are only available while `chatFeaturesEnabled` is `true`, as `CONFIG.md` and `USER_GUIDE.md` already did; the note previously covered only the chat-command section. The `USER_GUIDE.md` prerequisites now give 1.19.4 as the oldest supported Minecraft version, matching `minecraft-versions.json` and `README.md`, instead of 1.13.
 - `/local`, `/rp`, `/global` and `/ooc` no longer add a bare usage line after refusing a player, and the refusal now reads "one of the following permissions" (#392).
 - A delivered `/emote` or `/me` no longer adds a bare `/emote` or `/me` line in the sender's chat. The same line is gone after a refused `/emote`, a refused `/card forcesave` or `/card forceload`, and an unknown `/card` sub-command. `/emote` with no action now answers `Usage: /emote (action)`, and the refusal now reads "one of the following permissions".
+- `/bird` no longer throws when `birdSpeed` is 0. With a `birdSpeed` below 1, set by `/rpconfig set` or in `config.yml`, the sender is told `Birds can't be sent right now, because the server's birdSpeed setting must be at least 1.` and no bird is sent. Before, a value of 0 showed the server's generic internal-error message and logged a stack trace, and a negative value scheduled the landing with a negative delay (#395).
+
+## [1.16.2] – 2026-10-17
+
+### Fixed
+
+- The `plugin.yml` usage and description for `/roll` and `/dice` now describe dice notation (`/roll [notation]`, e.g. `2d6` or `1d20+5`) instead of `/roll [max]`, matching what the command accepts and what `COMMANDS.md` documents. Bukkit shows this usage when the command is run from the console.
+- `COMMANDS.md` now states that `/emote` and `/me` are only available while `chatFeaturesEnabled` is `true`, as `CONFIG.md` and `USER_GUIDE.md` already did; the note previously covered only the chat-command section. The `USER_GUIDE.md` prerequisites now give 1.19.4 as the oldest supported Minecraft version, matching `minecraft-versions.json` and `README.md`, instead of 1.13.
+
+## [1.16.1] – 2026-10-06
+
+### Changed
+
+- The usage-reporting "Details" link (startup notice, `config.yml` and the docs) now points at https://danielstephenson.dev/usage-reporting, a public page; the previous link led to a private repository and returned 404 for everyone. The vendored trace client is now 0.6.1, which carries the same link in the `plugins/trace/config.yml` header it writes. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.6.1.
+
+## [1.16.0] – 2026-10-05
+
+### Added
+
+- An automated test suite, run by `mvn test` and by the existing `mvn package` step in CI, so a failing test now fails the build. The first tests lock down the `plugin.yml` contract: every permission node checked in code is registered or on an explicit knowingly-unregistered list (`rp.admin`, `rp.default`, `rp.card.show.others`, `rp.rphelp`), every registered node is checked somewhere, every registered command is dispatched by `CommandService` and vice versa, `rp.card.*` parents exactly the nine player card nodes and not `rp.card.forcesave` or `rp.card.forceload`, and the `USER_GUIDE.md` permission table matches what is registered. The `rp.card.*` guarantee is exercised through Bukkit's own `PermissibleBase` against a stub server, which is the check PR #335 could only establish with a throwaway class. This is the check that would have caught #321, #322 and #329 when they were introduced. `USER_GUIDE.md` gained the missing `rp.rphelp` entry under "Known Permission Discrepancies", which the new suite flagged on its first run.
+- Unit tests for `ArgumentParser` and `ColorChecker.getColorByName`. They record current behavior without changing it: arguments are joined with single spaces and empty arguments are kept, and color names are matched only in all-lower-case or all-upper-case form (e.g. `dark_red` or `DARK_RED`), with any other name — including `Red` — resolving to white.
+- `minecraft-versions.json` declares the supported Minecraft versions, now 1.19.4, 1.21.11, 26.2 and 26.3, and the plugin's Bukkit API use is checked against each of them (#350, #359).
+
+### Changed
+
+- The vendored trace client is now 0.5.0, and every usage event carries a random per-server ID, stored as `server-id` in `plugins/trace/config.yml` and created on first start when reporting is enabled. The ID identifies no player, account or IP address, deleting the line produces a new one, and a server with reporting turned off never generates or writes one. The startup notice and the `config.yml` comment mention the ID (#356, #358).
+- The vendored trace client is now 0.4.0, and every usage event now carries the plugin version, `command` events included; before, only `startup` did.
+- The vendored trace client is now 0.3.0: `plugins/trace/config.yml` can carry a `tags:` block whose entries are added to every event reported by every plugin on the server (the release gates write `ci: "true"` there so that test-server boots are left out of real-installation figures). Nothing changes for a server without a `tags:` block. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.3.0
 
 ## [1.15.1] – 2026-09-26
 
