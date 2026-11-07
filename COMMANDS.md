@@ -108,7 +108,7 @@
 
 ### /whisper \<message\>
 
-**Description:** Send a single whispered message visible only to players within `whisperChatRadius` blocks. The sender is told how many players heard it.  
+**Description:** Send a single whispered message visible only to players within `whisperChatRadius` blocks. The sender is told how many other players heard it; the sender is not counted.  
 **Permission:** `rp.whisper`  
 **Usage:** `/whisper <message>`  
 **Example:** `/whisper Meet me at the tavern tonight.`
