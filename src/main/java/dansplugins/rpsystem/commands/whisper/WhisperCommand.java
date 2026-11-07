@@ -27,9 +27,10 @@ public class WhisperCommand {
             if (args.length > 0) {
                 String message = medievalRoleplayEngine.colorChecker.getColorByName(whisperChatColor) + "" + String.format("%s whispers: \"%s\"", medievalRoleplayEngine.cardRepository.getCard(player.getUniqueId()).getName(), medievalRoleplayEngine.argumentParser.createStringFromArgs(args));
 
-                int numPlayersWhoHeard = medievalRoleplayEngine.messenger.sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
+                int recipientCount = medievalRoleplayEngine.messenger.sendRPMessageToPlayersWithinDistance(player, message, whisperChatRadius);
+                int numPlayersWhoHeard = countOtherRecipients(player, recipientCount);
 
-                player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "" + numPlayersWhoHeard + " players heard your whisper.");
+                player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "" + numPlayersWhoHeard + (numPlayersWhoHeard == 1 ? " player" : " players") + " heard your whisper.");
             }
             else {
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Usage: /whisper (message)");
@@ -40,6 +41,16 @@ public class WhisperCommand {
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNegativeAlertColor() + "Sorry! In order to use this command, you need the following permission: 'rp.whisper'");
         }
 
+    }
+
+    /**
+     * The messenger counts the sender as a recipient unless they have run {@code /local hide}. A count of 0 means the
+     * message reached nobody, the sender included.
+     */
+    private int countOtherRecipients(Player sender, int recipientCount) {
+        boolean senderWasARecipient = recipientCount > 0
+                && !medievalRoleplayEngine.ephemeralData.getPlayersWhoHaveHiddenLocalChat().contains(sender.getUniqueId());
+        return senderWasARecipient ? recipientCount - 1 : recipientCount;
     }
 
 }

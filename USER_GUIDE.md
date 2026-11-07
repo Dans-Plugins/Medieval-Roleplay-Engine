@@ -50,7 +50,7 @@ Medieval Roleplay Engine splits its chat commands into two kinds.
 
 **One-off message commands** send a single message and leave your channel unchanged:
 
-- **Whisper** (`/whisper <message>`) – Sends a message visible only to players within `whisperChatRadius` blocks, and tells you how many players heard it.
+- **Whisper** (`/whisper <message>`) – Sends a message visible only to players within `whisperChatRadius` blocks, and tells you how many other players heard it.
 - **Yell** (`/yell <message>`) – Sends a message visible to players within `yellChatRadius` blocks.
 - **Emote** (`/emote <action>` or `/me <action>`) – Performs a roleplay action visible within `emoteRadius` blocks.
 - **Local OOC** (`/lo <message>`) – Out-of-character message to players within `localOOCChatRadius` blocks.

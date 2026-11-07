@@ -69,23 +69,54 @@ public class WhisperCommandTest {
     }
 
     @Test
-    public void theSenderIsToldTheMessengersRecipientCount() {
+    public void theSenderIsNotCountedAmongThePlayersWhoHeardIt() {
         fixture.permissions.add("rp.whisper");
         fixture.messenger.recipientCount = 3;
 
         whisperCommand.sendQuietMessage(fixture.player, MESSAGE);
 
-        assertEquals(Collections.singletonList(NEUTRAL + "3 players heard your whisper."), fixture.received);
+        assertEquals(Collections.singletonList(NEUTRAL + "2 players heard your whisper."), fixture.received);
     }
 
     @Test
-    public void aCountOfOneIsStillWordedInThePlural() {
+    public void aSenderWithNobodyNearbyIsToldNoPlayersHeardIt() {
         fixture.permissions.add("rp.whisper");
         fixture.messenger.recipientCount = 1;
 
         whisperCommand.sendQuietMessage(fixture.player, MESSAGE);
 
-        assertEquals(Collections.singletonList(NEUTRAL + "1 players heard your whisper."), fixture.received);
+        assertEquals(Collections.singletonList(NEUTRAL + "0 players heard your whisper."), fixture.received);
+    }
+
+    @Test
+    public void oneOtherPlayerIsWordedInTheSingular() {
+        fixture.permissions.add("rp.whisper");
+        fixture.messenger.recipientCount = 2;
+
+        whisperCommand.sendQuietMessage(fixture.player, MESSAGE);
+
+        assertEquals(Collections.singletonList(NEUTRAL + "1 player heard your whisper."), fixture.received);
+    }
+
+    @Test
+    public void aSenderWhoHasHiddenLocalChatIsNotSubtractedBecauseTheyWereNotARecipient() {
+        fixture.permissions.add("rp.whisper");
+        fixture.ephemeralData.getPlayersWhoHaveHiddenLocalChat().add(ChatCommandFixture.PLAYER_UUID);
+        fixture.messenger.recipientCount = 2;
+
+        whisperCommand.sendQuietMessage(fixture.player, MESSAGE);
+
+        assertEquals(Collections.singletonList(NEUTRAL + "2 players heard your whisper."), fixture.received);
+    }
+
+    @Test
+    public void aMessageThatReachedNobodyDoesNotGoBelowZero() {
+        fixture.permissions.add("rp.whisper");
+        fixture.messenger.recipientCount = 0;
+
+        whisperCommand.sendQuietMessage(fixture.player, MESSAGE);
+
+        assertEquals(Collections.singletonList(NEUTRAL + "0 players heard your whisper."), fixture.received);
     }
 
     @Test
