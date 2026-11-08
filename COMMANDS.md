@@ -181,7 +181,7 @@ Like the chat commands, the emote commands are only available while `chatFeature
 
 ### /title \<title\>
 
-**Description:** Rename the book and quill held in your main hand. Nothing is displayed on screen; the title is applied as the item's display name. An error is shown if a book and quill is not being held.  
+**Description:** Rename the book and quill held in your main hand. Every word after `/title` becomes the item's display name, exactly as typed (color codes such as `&6` are not translated), and you are told `Title added to book!`. An error is shown if a book and quill is not being held; a written (signed) book is refused too. With no title, the usage is shown.  
 **Permission:** `rp.title`  
 **Usage:** `/title <title>`  
 **Example:** `/title The Chronicle of Aldric`
