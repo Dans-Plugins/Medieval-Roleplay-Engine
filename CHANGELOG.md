@@ -37,6 +37,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - A delivered `/emote` or `/me` no longer adds a bare `/emote` or `/me` line in the sender's chat. The same line is gone after a refused `/emote`, a refused `/card forcesave` or `/card forceload`, and an unknown `/card` sub-command. `/emote` with no action now answers `Usage: /emote (action)`, and the refusal now reads "one of the following permissions".
 - `/bird` no longer throws when `birdSpeed` is 0. With a `birdSpeed` below 1, set by `/rpconfig set` or in `config.yml`, the sender is told `Birds can't be sent right now, because the server's birdSpeed setting must be at least 1.` and no bird is sent. Before, a value of 0 showed the server's generic internal-error message and logged a stack trace, and a negative value scheduled the landing with a negative delay (#395).
 - `/whisper` no longer counts the sender among the players who heard it, so a player with nobody nearby is told `0 players heard your whisper.` instead of `1 players heard your whisper.` A count of 1 now reads `1 player heard your whisper.` (#400).
+- Two typos in the `/rphelp` list are corrected: the `/yell` line now reads `/yell (message) - Send a single message to far away players.` and the `/lo` line now reads `/lo (message) - Send a single OOC message to nearby players.` (#407).
 
 ## [1.16.2] – 2026-10-17
 

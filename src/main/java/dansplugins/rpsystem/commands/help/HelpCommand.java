@@ -35,9 +35,9 @@ public class HelpCommand {
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/rp - Enter local (RP) chat.");
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/ooc - Enter global (OOC) chat.");
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/emote or /me - Send an emote to nearby players.");
-                player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/yell (message)- Send a single messages to far away players.");
+                player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/yell (message) - Send a single message to far away players.");
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/whisper (message) - Send a single message to very close players.");
-                player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/lo (message) - Send an single OOC message to nearby players.");
+                player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/lo (message) - Send a single OOC message to nearby players.");
             }
 
             player.sendMessage(medievalRoleplayEngine.colorChecker.getNeutralAlertColor() + "/rpconfig - View and change config options.");
