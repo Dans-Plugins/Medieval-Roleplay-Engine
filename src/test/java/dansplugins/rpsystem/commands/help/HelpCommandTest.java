@@ -46,9 +46,9 @@ public class HelpCommandTest {
             NEUTRAL + "/rp - Enter local (RP) chat.",
             NEUTRAL + "/ooc - Enter global (OOC) chat.",
             NEUTRAL + "/emote or /me - Send an emote to nearby players.",
-            NEUTRAL + "/yell (message)- Send a single messages to far away players.",
+            NEUTRAL + "/yell (message) - Send a single message to far away players.",
             NEUTRAL + "/whisper (message) - Send a single message to very close players.",
-            NEUTRAL + "/lo (message) - Send an single OOC message to nearby players.");
+            NEUTRAL + "/lo (message) - Send a single OOC message to nearby players.");
     private static final String CONFIG_LINE = NEUTRAL + "/rpconfig - View and change config options.";
 
     private final Set<String> permissions = new HashSet<>(Collections.singletonList("rp.help"));
