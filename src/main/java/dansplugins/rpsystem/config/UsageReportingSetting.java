@@ -50,6 +50,19 @@ public final class UsageReportingSetting {
         return onDisk.get(ENABLED_KEY);
     }
 
+    /** Whether {@code configFile} exists but cannot be parsed as YAML. */
+    public static boolean isUnparseable(File configFile) {
+        if (configFile == null || !configFile.isFile()) {
+            return false;
+        }
+        try {
+            new YamlConfiguration().load(configFile);
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
     /** Whether {@code configFile} on disk explicitly turns reporting off. */
     public static boolean turnedOffOnDisk(File configFile) {
         Object onDisk = readFromDisk(configFile);

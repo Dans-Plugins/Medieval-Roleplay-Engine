@@ -233,9 +233,19 @@ public class ConfigService {
      * loaded config can be older than the file -- an operator may have set enabled: false by hand
      * while the server was running -- and a plain saveConfig() would write the stale value over
      * theirs. So an opt-out on disk is carried into the loaded config first, unless
-     * /rpconfig set usage-reporting.enabled has changed the switch since.
+     * /rpconfig set usage-reporting.enabled has changed the switch since. A config.yml that cannot
+     * be parsed is never written over.
      */
     void saveConfigKeepingUsageReportingOptOut() {
+        if (UsageReportingSetting.isUnparseable(configFile())) {
+            // Bukkit loaded it as empty: saving would replace every setting, the opt-out included,
+            // with the defaults.
+            java.util.logging.Logger logger = medievalRoleplayEngine.getLogger() != null
+                    ? medievalRoleplayEngine.getLogger() : java.util.logging.Logger.getLogger("MedievalRoleplayEngine");
+            logger.severe("config.yml could not be read, so it was not overwritten."
+                    + " Fix the YAML error in it and restart; until then usage reporting is off.");
+            return;
+        }
         if (!usageReportingSetByCommand) {
             UsageReportingSetting.keepOptOutFromDisk(getConfig(), configFile());
         }

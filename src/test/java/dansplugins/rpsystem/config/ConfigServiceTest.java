@@ -383,6 +383,16 @@ public class ConfigServiceTest {
     }
 
     @Test
+    public void aConfigFileBukkitCannotParseIsNeverOverwritten() throws Exception {
+        String broken = "usage-reporting:\n  enabled: false\n\tlocalChatRadius: [\n";
+        java.nio.file.Files.write(configFile.toPath(), broken.getBytes(StandardCharsets.UTF_8));
+
+        configService.saveConfigDefaults();
+
+        assertEquals(broken, new String(java.nio.file.Files.readAllBytes(configFile.toPath()), StandardCharsets.UTF_8));
+    }
+
+    @Test
     public void aQuotedFalseTurnsUsageReportingOff() throws Exception {
         // getBoolean() would return the bundled default, true, for the string "false".
         config.setDefaults(bundledConfig());
