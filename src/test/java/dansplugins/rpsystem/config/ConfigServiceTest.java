@@ -372,6 +372,17 @@ public class ConfigServiceTest {
     }
 
     @Test
+    public void aConfigFileBukkitCannotParseKeepsUsageReportingOff() throws Exception {
+        // Bukkit loads a config.yml with a YAML error as empty, so the bundled default (true)
+        // would win over the enabled: false the operator wrote in it.
+        config.setDefaults(bundledConfig());
+        java.nio.file.Files.write(configFile.toPath(),
+                "usage-reporting:\n  enabled: false\n\tlocalChatRadius: [\n".getBytes(StandardCharsets.UTF_8));
+
+        assertFalse(configService.isUsageReportingEnabled());
+    }
+
+    @Test
     public void aQuotedFalseTurnsUsageReportingOff() throws Exception {
         // getBoolean() would return the bundled default, true, for the string "false".
         config.setDefaults(bundledConfig());

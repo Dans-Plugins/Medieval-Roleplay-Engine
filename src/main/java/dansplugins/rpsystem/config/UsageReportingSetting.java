@@ -1,5 +1,6 @@
 package dansplugins.rpsystem.config;
 
+import dansplugins.rpsystem.trace.TraceClient;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -19,28 +20,22 @@ public final class UsageReportingSetting {
     }
 
     /**
-     * Whether {@code value} turns reporting on. Only {@code true}, or a string reading
-     * {@code true}, {@code on} or {@code yes}, does. Anything else -- {@code false}, a quoted
-     * {@code "false"}, {@code off}, {@code no}, a number, a typo, or nothing -- turns it off.
-     * (Bukkit's {@code getBoolean} would instead return its default, {@code true}, for a quoted
-     * {@code "false"}.)
+     * Whether {@code value} turns reporting on: {@link TraceClient#allowsReporting(Object)}, which
+     * fails closed. Only {@code true}, or a string reading {@code true}, {@code on}, {@code yes} or
+     * {@code 1}, does. Anything else -- {@code false}, a quoted {@code "false"}, {@code off},
+     * {@code no}, a typo, or nothing -- turns it off. (Bukkit's {@code getBoolean} would instead
+     * return its default, {@code true}, for a quoted {@code "false"}.)
      */
     public static boolean allowsReporting(Object value) {
-        if (value instanceof Boolean) {
-            return (Boolean) value;
-        }
-        if (value instanceof String) {
-            String v = ((String) value).trim().toLowerCase();
-            return v.equals("true") || v.equals("on") || v.equals("yes");
-        }
-        return false;
+        return TraceClient.allowsReporting(value);
     }
 
     /**
      * The value of {@code usage-reporting.enabled} as written in {@code configFile} right now,
      * with no defaults applied, or {@code null} when the file or the key is missing. A file that
      * exists but cannot be parsed reads as {@link Boolean#FALSE}: whatever the operator wrote in it
-     * cannot be known, so it is not overridden.
+     * cannot be known, so it is not overridden. (Bukkit itself loads such a file as empty, which
+     * would fall through to the bundled default, true.)
      */
     public static Object readFromDisk(File configFile) {
         if (configFile == null || !configFile.isFile()) {
