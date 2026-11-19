@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.config;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.trace.TraceClient;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -49,13 +50,14 @@ public class ConfigServiceTest {
 
     private FileConfiguration config;
     private File configFile;
+    private MedievalRoleplayEngine plugin;
     private ConfigService configService;
 
     @Before
     public void setUp() throws Exception {
         config = new YamlConfiguration();
         configFile = new File(temporaryFolder.getRoot(), "config.yml");
-        MedievalRoleplayEngine plugin = pluginWith(config, configFile);
+        plugin = pluginWith(config, configFile);
         configService = new ConfigService(plugin);
     }
 
@@ -176,6 +178,19 @@ public class ConfigServiceTest {
         assertEquals(Collections.singletonList(POSITIVE + "Boolean set!"), received);
         assertEquals(Boolean.FALSE, config.get("usage-reporting.enabled"));
         assertFalse(YamlConfiguration.loadConfiguration(configFile).getBoolean("usage-reporting.enabled", true));
+    }
+
+    @Test
+    public void turningUsageReportingOffInGameStopsItAtOnce() throws Exception {
+        configService.saveConfigDefaults();
+        config.set("usage-reporting.enabled", true);
+        TraceClient running = TraceClient.builder("http://127.0.0.1:9", "MedievalRoleplayEngine", VERSION).key("k").build();
+        assertTrue(running.isEnabled());
+        setField(MedievalRoleplayEngine.class, plugin, "trace", running);
+
+        configService.setConfigOption("usage-reporting.enabled", "false", player);
+
+        assertFalse(plugin.getTrace().isEnabled());
     }
 
     @Test
@@ -334,6 +349,94 @@ public class ConfigServiceTest {
         assertFalse(configFile.exists());
     }
 
+    // Usage reporting: an opt-out must stay an opt-out
+
+    @Test
+    public void anUpgradeKeepsUsageReportingOff() throws Exception {
+        config.setDefaults(bundledConfig());
+        config.set("version", "v1.0.0");
+        config.set("usage-reporting.enabled", false);
+        config.save(configFile);
+
+        configService.handleVersionMismatch();
+
+        assertEquals(Boolean.FALSE, YamlConfiguration.loadConfiguration(configFile).get("usage-reporting.enabled"));
+        assertFalse(configService.isUsageReportingEnabled());
+    }
+
+    @Test
+    public void anOptOutWrittenByHandWhileRunningSurvivesALaterSave() throws Exception {
+        config.setDefaults(bundledConfig());
+        configService.saveConfigDefaults();
+        config.set("usage-reporting.enabled", true);
+        config.save(configFile);
+
+        // The operator edits config.yml while the server runs; the loaded config still says true.
+        YamlConfiguration onDisk = YamlConfiguration.loadConfiguration(configFile);
+        onDisk.set("usage-reporting.enabled", false);
+        onDisk.save(configFile);
+        assertFalse(configService.isUsageReportingEnabled());
+
+        // An unrelated /rpconfig set writes the loaded config back to disk.
+        configService.setConfigOption("yellChatRadius", "75", player);
+
+        YamlConfiguration saved = YamlConfiguration.loadConfiguration(configFile);
+        assertEquals(Boolean.FALSE, saved.get("usage-reporting.enabled"));
+        assertEquals(75, saved.getInt("yellChatRadius"));
+        assertFalse(configService.isUsageReportingEnabled());
+    }
+
+    @Test
+    public void aConfigFileBukkitCannotParseKeepsUsageReportingOff() throws Exception {
+        // Bukkit loads a config.yml with a YAML error as empty, so the bundled default (true)
+        // would win over the enabled: false the operator wrote in it.
+        config.setDefaults(bundledConfig());
+        java.nio.file.Files.write(configFile.toPath(),
+                "usage-reporting:\n  enabled: false\n\tlocalChatRadius: [\n".getBytes(StandardCharsets.UTF_8));
+
+        assertFalse(configService.isUsageReportingEnabled());
+    }
+
+    @Test
+    public void aConfigFileBukkitCannotParseIsNeverOverwritten() throws Exception {
+        String broken = "usage-reporting:\n  enabled: false\n\tlocalChatRadius: [\n";
+        java.nio.file.Files.write(configFile.toPath(), broken.getBytes(StandardCharsets.UTF_8));
+
+        configService.saveConfigDefaults();
+
+        assertEquals(broken, new String(java.nio.file.Files.readAllBytes(configFile.toPath()), StandardCharsets.UTF_8));
+    }
+
+    @Test
+    public void aQuotedFalseTurnsUsageReportingOff() throws Exception {
+        // getBoolean() would return the bundled default, true, for the string "false".
+        config.setDefaults(bundledConfig());
+        config.set("usage-reporting.enabled", "false");
+
+        assertFalse(configService.isUsageReportingEnabled());
+    }
+
+    @Test
+    public void anUnrecognisedValueTurnsUsageReportingOff() throws Exception {
+        config.setDefaults(bundledConfig());
+        config.set("usage-reporting.enabled", "disabled");
+
+        assertFalse(configService.isUsageReportingEnabled());
+    }
+
+    @Test
+    public void theCommandCanTurnUsageReportingBackOnOverAnOptOutOnDisk() throws Exception {
+        config.setDefaults(bundledConfig());
+        configService.saveConfigDefaults();
+        config.set("usage-reporting.enabled", false);
+        config.save(configFile);
+
+        configService.setConfigOption("usage-reporting.enabled", "true", player);
+
+        assertEquals(Boolean.TRUE, YamlConfiguration.loadConfiguration(configFile).get("usage-reporting.enabled"));
+        assertTrue(configService.isUsageReportingEnabled());
+    }
+
     private static YamlConfiguration bundledConfig() throws Exception {
         try (InputStream stream = ConfigServiceTest.class.getClassLoader().getResourceAsStream("config.yml")) {
             return YamlConfiguration.loadConfiguration(new InputStreamReader(stream, StandardCharsets.UTF_8));
@@ -356,6 +459,7 @@ public class ConfigServiceTest {
         setField(MedievalRoleplayEngine.class, plugin, "colorChecker", new ColorChecker(plugin));
         setField(JavaPlugin.class, plugin, "newConfig", config);
         setField(JavaPlugin.class, plugin, "configFile", configFile);
+        setField(JavaPlugin.class, plugin, "dataFolder", configFile.getParentFile());
         return plugin;
     }
 

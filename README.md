@@ -122,7 +122,7 @@ the line to get a new one.
 
 To turn it off:
 
-- `usage-reporting.enabled: false` in this plugin's `config.yml` (or `/rpconfig set usage-reporting.enabled false`; either way it takes effect on the next restart)
+- `usage-reporting.enabled: false` in this plugin's `config.yml` (or `/rpconfig set usage-reporting.enabled false`, which stops reporting at once; an edit to the file takes effect on the next restart)
 - for every plugin on the server that reports to trace: `enabled: false` in `plugins/trace/config.yml` (written by the first such plugin to start)
 - the environment variable `TRACE_USAGE_REPORTING=off` or `DO_NOT_TRACK=1`
 
