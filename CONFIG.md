@@ -24,7 +24,7 @@ usage-reporting:
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `usage-reporting.enabled` | `true` | Whether the plugin reports usage events. Set to `false` to turn it off. Also settable in-game with `/rpconfig set usage-reporting.enabled false`; either way the change takes effect on the next restart. |
+| `usage-reporting.enabled` | `true` | Whether the plugin reports usage events. Set to `false` to turn it off. Only `true`, `on` or `yes` turns it on; any other value, including a quoted `"false"`, turns it off, and the plugin never writes the switch back on once it is off in the file. Also settable in-game with `/rpconfig set usage-reporting.enabled false`; either way the change takes effect on the next restart. |
 | `usage-reporting.endpoint` | `https://trace.danielstephenson.dev` | The trace server events are sent to. |
 | `usage-reporting.key` | the plugin's key | Identifies this plugin to the trace server so reports are attributed to it. Not a secret: it ships in the default config and can only report as MedievalRoleplayEngine. Empty means reporting is off regardless of `enabled`. |
 

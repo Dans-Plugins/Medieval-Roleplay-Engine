@@ -109,9 +109,9 @@ public class MedievalRoleplayEngine extends JavaPlugin {
 
         storageService.saveCardFileNames();
         storageService.saveCards();
-        if (configService.hasBeenAltered()) {
-            saveConfig();
-        }
+        // config.yml is not written here: /rpconfig set already saved each change, and writing the
+        // loaded config again would undo anything edited by hand while the server was running --
+        // including usage-reporting.enabled: false.
     }
 
     @Override

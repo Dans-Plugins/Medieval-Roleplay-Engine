@@ -5,13 +5,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+
 public class ConfigService {
-    private static final String USAGE_REPORTING_ENABLED_KEY = "usage-reporting.enabled";
+    private static final String USAGE_REPORTING_ENABLED_KEY = UsageReportingSetting.ENABLED_KEY;
     private static final String USAGE_REPORTING_ENDPOINT_KEY = "usage-reporting.endpoint";
     private static final String USAGE_REPORTING_KEY_KEY = "usage-reporting.key";
     private static final String DEFAULT_USAGE_REPORTING_ENDPOINT = "https://trace.danielstephenson.dev";
 
     private final MedievalRoleplayEngine medievalRoleplayEngine;
+    // Set when /rpconfig set usage-reporting.enabled was used: that command, and only that one,
+    // may change the switch away from what config.yml on disk says.
+    private boolean usageReportingSetByCommand = false;
     private boolean altered = false;
 
     public ConfigService(MedievalRoleplayEngine medievalRoleplayEngine) {
@@ -34,7 +39,7 @@ public class ConfigService {
         deleteOldConfigOptionsIfPresent();
 
         getConfig().options().copyDefaults(true);
-        medievalRoleplayEngine.saveConfig();
+        saveConfigKeepingUsageReportingOptOut();
     }
 
     private void migrateMisspelledNeutralAlertColorOption() {
@@ -118,6 +123,9 @@ public class ConfigService {
                     || option.equalsIgnoreCase("logChat")
                     || option.equalsIgnoreCase(USAGE_REPORTING_ENABLED_KEY)) {
                 getConfig().set(option, Boolean.parseBoolean(value));
+                if (option.equalsIgnoreCase(USAGE_REPORTING_ENABLED_KEY)) {
+                    usageReportingSetByCommand = true;
+                }
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }
             else if (option.equalsIgnoreCase("doubletest")) {
@@ -129,7 +137,7 @@ public class ConfigService {
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "String set!");
             }
 
-            medievalRoleplayEngine.saveConfig();
+            saveConfigKeepingUsageReportingOptOut();
             altered = true;
         }
         else {
@@ -141,7 +149,7 @@ public class ConfigService {
     public void saveConfigDefaults() {
         addConfigDefaults();
         getConfig().options().copyDefaults(true);
-        medievalRoleplayEngine.saveConfig();
+        saveConfigKeepingUsageReportingOptOut();
     }
 
     public void sendPlayerConfigList(Player player) {
@@ -192,7 +200,7 @@ public class ConfigService {
         for (String key : new String[] {USAGE_REPORTING_ENABLED_KEY, USAGE_REPORTING_ENDPOINT_KEY, USAGE_REPORTING_KEY_KEY}) {
             getConfig().set(key, getConfig().getDefaults().get(key));
         }
-        medievalRoleplayEngine.saveConfig();
+        saveConfigKeepingUsageReportingOptOut();
     }
 
     // The usage-reporting options are deliberately NOT declared in addConfigDefaults(). Those
@@ -207,8 +215,35 @@ public class ConfigService {
     // ensureUsageReportingBlockOnDisk() on every other enable, write the block into config.yml
     // so operators can see and edit it; the fall-through only matters until that has run once.)
 
+    /**
+     * Whether usage reporting is switched on. Fails closed: reporting is on only when both the
+     * loaded config and config.yml as it is on disk right now allow it, and only a value that
+     * clearly means "on" allows it (see {@link UsageReportingSetting#allowsReporting(Object)}).
+     * The one-argument get() falls through to the jar's defaults when config.yml has no block.
+     */
     public boolean isUsageReportingEnabled() {
-        return getConfig().getBoolean(USAGE_REPORTING_ENABLED_KEY);
+        if (!usageReportingSetByCommand && UsageReportingSetting.turnedOffOnDisk(configFile())) {
+            return false;
+        }
+        return UsageReportingSetting.allowsReporting(getConfig().get(USAGE_REPORTING_ENABLED_KEY));
+    }
+
+    /**
+     * Writes the loaded config to config.yml without ever turning usage reporting back on. The
+     * loaded config can be older than the file -- an operator may have set enabled: false by hand
+     * while the server was running -- and a plain saveConfig() would write the stale value over
+     * theirs. So an opt-out on disk is carried into the loaded config first, unless
+     * /rpconfig set usage-reporting.enabled has changed the switch since.
+     */
+    void saveConfigKeepingUsageReportingOptOut() {
+        if (!usageReportingSetByCommand) {
+            UsageReportingSetting.keepOptOutFromDisk(getConfig(), configFile());
+        }
+        medievalRoleplayEngine.saveConfig();
+    }
+
+    private File configFile() {
+        return new File(medievalRoleplayEngine.getDataFolder(), "config.yml");
     }
 
     public String getUsageReportingEndpoint() {

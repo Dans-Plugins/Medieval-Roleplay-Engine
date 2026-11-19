@@ -1,0 +1,74 @@
+package dansplugins.rpsystem.config;
+
+import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
+
+/**
+ * Decides whether the {@code usage-reporting.enabled} setting allows reporting.
+ * <p>
+ * An operator who turns reporting off must find it off, every time. So the decision fails closed:
+ * only a value that clearly means "on" turns reporting on, and the value written in config.yml on
+ * disk is read directly, so a stale copy of the config held in memory can never override it.
+ */
+public final class UsageReportingSetting {
+    public static final String ENABLED_KEY = "usage-reporting.enabled";
+
+    private UsageReportingSetting() {
+    }
+
+    /**
+     * Whether {@code value} turns reporting on. Only {@code true}, or a string reading
+     * {@code true}, {@code on} or {@code yes}, does. Anything else -- {@code false}, a quoted
+     * {@code "false"}, {@code off}, {@code no}, a number, a typo, or nothing -- turns it off.
+     * (Bukkit's {@code getBoolean} would instead return its default, {@code true}, for a quoted
+     * {@code "false"}.)
+     */
+    public static boolean allowsReporting(Object value) {
+        if (value instanceof Boolean) {
+            return (Boolean) value;
+        }
+        if (value instanceof String) {
+            String v = ((String) value).trim().toLowerCase();
+            return v.equals("true") || v.equals("on") || v.equals("yes");
+        }
+        return false;
+    }
+
+    /**
+     * The value of {@code usage-reporting.enabled} as written in {@code configFile} right now,
+     * with no defaults applied, or {@code null} when the file or the key is missing. A file that
+     * exists but cannot be parsed reads as {@link Boolean#FALSE}: whatever the operator wrote in it
+     * cannot be known, so it is not overridden.
+     */
+    public static Object readFromDisk(File configFile) {
+        if (configFile == null || !configFile.isFile()) {
+            return null;
+        }
+        YamlConfiguration onDisk = new YamlConfiguration();
+        try {
+            onDisk.load(configFile);
+        } catch (Exception e) {
+            return Boolean.FALSE;
+        }
+        return onDisk.get(ENABLED_KEY);
+    }
+
+    /** Whether {@code configFile} on disk explicitly turns reporting off. */
+    public static boolean turnedOffOnDisk(File configFile) {
+        Object onDisk = readFromDisk(configFile);
+        return onDisk != null && !allowsReporting(onDisk);
+    }
+
+    /**
+     * Carries an opt-out written in {@code configFile} into {@code loaded}, so that saving
+     * {@code loaded} over the file cannot turn reporting back on. {@code loaded} may be older than
+     * the file: an operator can set {@code enabled: false} by hand while the server is running.
+     */
+    public static void keepOptOutFromDisk(Configuration loaded, File configFile) {
+        if (turnedOffOnDisk(configFile)) {
+            loaded.set(ENABLED_KEY, false);
+        }
+    }
+}
