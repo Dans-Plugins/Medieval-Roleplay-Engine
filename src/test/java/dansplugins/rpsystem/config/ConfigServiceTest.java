@@ -1,6 +1,7 @@
 package dansplugins.rpsystem.config;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.trace.TraceClient;
 import dansplugins.rpsystem.utils.ColorChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -49,13 +50,14 @@ public class ConfigServiceTest {
 
     private FileConfiguration config;
     private File configFile;
+    private MedievalRoleplayEngine plugin;
     private ConfigService configService;
 
     @Before
     public void setUp() throws Exception {
         config = new YamlConfiguration();
         configFile = new File(temporaryFolder.getRoot(), "config.yml");
-        MedievalRoleplayEngine plugin = pluginWith(config, configFile);
+        plugin = pluginWith(config, configFile);
         configService = new ConfigService(plugin);
     }
 
@@ -176,6 +178,19 @@ public class ConfigServiceTest {
         assertEquals(Collections.singletonList(POSITIVE + "Boolean set!"), received);
         assertEquals(Boolean.FALSE, config.get("usage-reporting.enabled"));
         assertFalse(YamlConfiguration.loadConfiguration(configFile).getBoolean("usage-reporting.enabled", true));
+    }
+
+    @Test
+    public void turningUsageReportingOffInGameStopsItAtOnce() throws Exception {
+        configService.saveConfigDefaults();
+        config.set("usage-reporting.enabled", true);
+        TraceClient running = TraceClient.builder("http://127.0.0.1:9", "MedievalRoleplayEngine", VERSION).key("k").build();
+        assertTrue(running.isEnabled());
+        setField(MedievalRoleplayEngine.class, plugin, "trace", running);
+
+        configService.setConfigOption("usage-reporting.enabled", "false", player);
+
+        assertFalse(plugin.getTrace().isEnabled());
     }
 
     @Test

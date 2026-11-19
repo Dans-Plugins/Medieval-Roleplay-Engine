@@ -125,6 +125,9 @@ public class ConfigService {
                 getConfig().set(option, Boolean.parseBoolean(value));
                 if (option.equalsIgnoreCase(USAGE_REPORTING_ENABLED_KEY)) {
                     usageReportingSetByCommand = true;
+                    if (!Boolean.parseBoolean(value)) {
+                        medievalRoleplayEngine.stopUsageReporting();
+                    }
                 }
                 player.sendMessage(medievalRoleplayEngine.colorChecker.getColorByName(getString("positiveAlertColor")) + "Boolean set!");
             }

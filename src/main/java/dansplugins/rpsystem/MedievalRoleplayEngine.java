@@ -45,6 +45,11 @@ public class MedievalRoleplayEngine extends JavaPlugin {
     // onEnable() finishes has something safe to report to.
     private TraceClient trace = TraceClient.disabled();
 
+    /** The client reporting right now; a disabled one when reporting is off. */
+    public TraceClient getTrace() {
+        return trace;
+    }
+
     @Override
     public void onEnable() {
         if (!(new File("./plugins/MedievalRoleplayEngine/config.yml").exists())) {
@@ -100,6 +105,21 @@ public class MedievalRoleplayEngine extends JavaPlugin {
                     + " plugins/trace/config.yml. Details: https://danielstephenson.dev/usage-reporting");
         } else {
             getLogger().info("Usage reporting is off (" + trace.disabledReason() + ").");
+        }
+    }
+
+    /**
+     * Stops usage reporting at once, for an operator who has just turned it off in-game. Turning
+     * it back on still waits for the next restart; turning it off never does.
+     */
+    public void stopUsageReporting() {
+        TraceClient previous = trace;
+        trace = TraceClient.disabled();
+        if (previous != null) {
+            previous.close();
+        }
+        if (getLogger() != null) {
+            getLogger().info("Usage reporting is off (config.yml).");
         }
     }
 
