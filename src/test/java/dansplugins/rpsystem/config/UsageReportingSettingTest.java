@@ -77,6 +77,57 @@ public class UsageReportingSettingTest {
     }
 
     @Test
+    public void anOptOutWrittenUnderANearMissNameIsAnOptOut() throws Exception {
+        String[] nearMisses = {
+                "usage_reporting:\n  enabled: false\n",
+                "usageReporting:\n  enabled: off\n",
+                "Usage-Reporting:\n  enabled: \"false\"\n",
+                "usage-reporting: false\n",
+                "usage_reporting: no\n",
+                "usage-reporting:\n  enable: false\n",
+                "usage-reporting:\n  Enabled: false\n",
+                "usage-reporting:\n  disabled: true\n",
+                "usage-reporting:\n  enabled: true\n  disable: yes\n",
+        };
+        for (String nearMiss : nearMisses) {
+            File file = configFile("version: v1.14.0\n" + nearMiss);
+            assertTrue(nearMiss, UsageReportingSetting.turnedOffOnDisk(file));
+            assertTrue(file.delete());
+        }
+    }
+
+    @Test
+    public void nearMissNamesThatSayOnAreNotAnOptOut() throws Exception {
+        String[] on = {
+                "usage-reporting:\n  enabled: true\n",
+                "usage_reporting:\n  enabled: true\n",
+                "usage-reporting: true\n",
+                "usage-reporting:\n  enabled: true\n  disabled: false\n",
+                "usage-reporting:\n  enabled: true\n  endpoint: https://example.org\n",
+        };
+        for (String config : on) {
+            File file = configFile(config);
+            assertFalse(config, UsageReportingSetting.turnedOffOnDisk(file));
+            assertTrue(file.delete());
+        }
+    }
+
+    @Test
+    public void anUpgradeOverANearMissOptOutWritesTheRealSwitchOff() throws Exception {
+        // What an upgrade did to such a file: copyDefaults(true) adds the bundled block,
+        // enabled: true, beside the operator's usage_reporting block.
+        File file = configFile("version: v1.14.0\nusage_reporting:\n  enabled: false\n");
+        YamlConfiguration loaded = loadLikeBukkit(file);
+        loaded.set("version", "v1.17.2");
+        loaded.options().copyDefaults(true);
+
+        UsageReportingSetting.keepOptOutFromDisk(loaded, file);
+        loaded.save(file);
+
+        assertEquals(Boolean.FALSE, YamlConfiguration.loadConfiguration(file).get(UsageReportingSetting.ENABLED_KEY));
+    }
+
+    @Test
     public void missingBlockIsNotAnOptOut() throws Exception {
         File file = configFile("version: v1.15.0\n");
         assertNull(UsageReportingSetting.readFromDisk(file));
