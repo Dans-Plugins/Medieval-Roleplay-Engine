@@ -148,6 +148,21 @@ public class StorageServiceTest {
     }
 
     @Test
+    public void savingLeavesNoTemporaryFilesInTheSaveFolder() {
+        UUID uuid = UUID.randomUUID();
+        cardRepository.getCards().add(new CharacterCard(plugin, uuid));
+        trackedCardFile(uuid);
+        createdFiles.add(new File(SAVE_FOLDER, uuid + ".txt.tmp"));
+        createdFiles.add(new File(SAVE_FOLDER, "cards.txt.tmp"));
+
+        storageService.saveCardFileNames();
+        storageService.saveCards();
+
+        assertFalse(new File(SAVE_FOLDER, "cards.txt.tmp").exists());
+        assertFalse(new File(SAVE_FOLDER, uuid + ".txt.tmp").exists());
+    }
+
+    @Test
     public void cardsSavedOnDisableAreLoadedBackOnEnable() {
         UUID uuid = UUID.randomUUID();
         CharacterCard card = new CharacterCard(plugin, uuid);
