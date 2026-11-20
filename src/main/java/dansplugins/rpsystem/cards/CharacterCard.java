@@ -1,10 +1,10 @@
 package dansplugins.rpsystem.cards;
 
 import dansplugins.rpsystem.MedievalRoleplayEngine;
+import dansplugins.rpsystem.storage.AtomicFileWriter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
@@ -98,17 +98,13 @@ public class CharacterCard {
                 if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Save file for character card belonging to " + playerUUID + " already exists. Altering."); }
             }
 
-            FileWriter saveWriter = new FileWriter("./plugins/MedievalRoleplayEngine/" + playerUUID + ".txt");
-
-            saveWriter.write(playerUUID.toString() + "\n");
-            saveWriter.write(name + "\n");
-            saveWriter.write(race + "\n");
-            saveWriter.write(subculture + "\n");
-            saveWriter.write(age + "\n");
-            saveWriter.write(gender + "\n");
-            saveWriter.write(religion + "\n");
-
-            saveWriter.close();
+            AtomicFileWriter.write(saveFile, playerUUID.toString() + "\n"
+                    + name + "\n"
+                    + race + "\n"
+                    + subculture + "\n"
+                    + age + "\n"
+                    + gender + "\n"
+                    + religion + "\n");
 
             return true;
 

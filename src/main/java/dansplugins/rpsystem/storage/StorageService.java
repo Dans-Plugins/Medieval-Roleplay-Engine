@@ -5,7 +5,6 @@ import dansplugins.rpsystem.cards.CharacterCard;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -30,15 +29,14 @@ public class StorageService {
                 if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("Save file for character card filenames already exists. Overwriting."); }
             }
 
-            FileWriter saveWriter = new FileWriter(saveFile);
-
+            StringBuilder fileNames = new StringBuilder();
             for (CharacterCard card : medievalRoleplayEngine.cardRepository.getCards()) {
                 if (card.getPlayerUUID() != null) {
-                    saveWriter.write(card.getPlayerUUID().toString() + ".txt" + "\n");
+                    fileNames.append(card.getPlayerUUID().toString()).append(".txt").append("\n");
                 }
             }
 
-            saveWriter.close();
+            AtomicFileWriter.write(saveFile, fileNames.toString());
 
         } catch (IOException e) {
             if (medievalRoleplayEngine.isDebugEnabled()) { System.out.println("An error occurred while saving character card filenames."); }
