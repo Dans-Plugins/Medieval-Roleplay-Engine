@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   dev-release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # Forks have neither the release to publish to nor a reason to publish one.
     if: github.repository == 'Dans-Plugins/Medieval-Roleplay-Engine'
 
